@@ -4,8 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OnlineCourseSystem.DAL.Context;
+using OnlineCourseSystem.Areas.User.Infrastructure.Interfaces;
+using OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql;
+
 
 namespace OnlineCourseSystem
 {
@@ -22,6 +27,9 @@ namespace OnlineCourseSystem
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddDbContext<OnlineCourseSystemContext>(options => options.UseSqlServer(
+                Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<ICourseData, SqlCourseData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +51,7 @@ namespace OnlineCourseSystem
             {
                 routes.MapRoute(
                     name: "areas",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                    template: "{area=User}/{controller=Home}/{action=Index}/{id?}"
                 );
                 routes.MapRoute(
                     name: "default",
