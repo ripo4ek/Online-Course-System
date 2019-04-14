@@ -39,6 +39,8 @@ namespace OnlineCourseSystem.Domain.Model
         /// </summary>
         public string Description { get; set; }
 
+
+
         public virtual ICollection<Section> Sections { get; set; }
 
         public int Order { get; set; }

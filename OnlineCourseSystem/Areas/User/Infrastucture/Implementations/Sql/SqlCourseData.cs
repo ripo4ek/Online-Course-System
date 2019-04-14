@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using OnlineCourseSystem.Areas.User.Infrastructure.Interfaces;
+using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
 using OnlineCourseSystem.DAL.Context;
 using OnlineCourseSystem.Domain;
 using OnlineCourseSystem.Domain.Model;
@@ -23,6 +23,10 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             return _context.Sections.ToList();
         }
 
+        public IEnumerable<Course> GetCourses()
+        {
+            return _context.Courses.ToList();
+        }
         public IEnumerable<Topic> GetTopic()
         {
             return _context.Topics.ToList();
@@ -55,9 +59,38 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             return _context.Directions.ToList();
         }
 
-        public IEnumerable<Course> GetThreeRandomCoursees()
+        public IEnumerable<Course> GetThreeRandomCourses()
         {
             return _context.Courses.Include(c=>c.Author).Take(3).ToList() ;
+        }
+
+        public Course GetCourse(int id)
+        {
+            return _context.Courses.First(c=>c.Id == id);
+        }
+
+        public void AddCourse(Course course)
+        {
+            _context.Add(course);
+            _context.SaveChanges();
+        }
+
+
+        
+        public void UpdateCourse(int id , Course course)
+        {
+            DeleteCourse(id);
+            _context.Courses.Add(course);
+            _context.SaveChanges();
+
+        }
+
+        public void DeleteCourse(int id)
+        {
+            var courseFromDb = _context.Courses.SingleOrDefault(c => c.Id == id);
+            _context.Remove(courseFromDb);
+            _context.SaveChanges();
+
         }
     }
 }

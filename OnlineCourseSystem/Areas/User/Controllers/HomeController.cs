@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using OnlineCourseSystem.Areas.User.Infrastructure.Interfaces;
+using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
 using OnlineCourseSystem.Areas.User.Models;
 using OnlineCourseSystem.Domain;
 
@@ -19,7 +19,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         }
         public IActionResult Index()
         {
-            var courses = _courseData.GetThreeRandomCoursees();
+            var courses = _courseData.GetThreeRandomCourses();
             List<HomeViewModel> viewModel = new List<HomeViewModel>();
 
             foreach (var course in courses)

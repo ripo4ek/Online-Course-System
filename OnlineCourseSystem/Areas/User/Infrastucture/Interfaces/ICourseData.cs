@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using OnlineCourseSystem.Domain;
 using OnlineCourseSystem.Domain.Model;
-using OnlineCourseSystem.Domain.Model.Base;
-using OnlineCourseSystem.Domain.Model.Tasks;
-using Task = OnlineCourseSystem.Domain.Model.Base;
 
-namespace OnlineCourseSystem.Areas.User.Infrastructure.Interfaces
+namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 {
     public interface ICourseData
     {
@@ -17,15 +10,25 @@ namespace OnlineCourseSystem.Areas.User.Infrastructure.Interfaces
 
         IEnumerable<Section> GetSections();
 
+        IEnumerable<Course> GetCourses();
+
         IEnumerable<Course> GetCourse(CourseFilter filter);
 
-        IEnumerable<Course> GetThreeRandomCoursees();
+        Course GetCourse(int id);
+
+        IEnumerable<Course> GetThreeRandomCourses();
 
         //IEnumerable<Task> GetTasks();
 
         IEnumerable<University> GetUniversities();
 
         IEnumerable<Direction> GetDirections();
+
+        void AddCourse(Course course);
+
+        void UpdateCourse(int id , Course course);
+
+        void DeleteCourse(int id);
 
     }
 }
