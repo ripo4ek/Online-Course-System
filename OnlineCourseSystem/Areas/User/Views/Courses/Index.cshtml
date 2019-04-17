@@ -64,39 +64,9 @@
                     </form>
                 </div>
                 <div class="courses_container">
-                    <div class="row courses_row">
-
-                        @foreach (var course in Model)
-                        {
-                            <div class="col-lg-6 course_col">
-                                <div class="course">
-                                    <div class="course_image"><img src="~/images/course_4.jpg" alt=""></div>
-                                    <div class="course_body">
-                                        <h3 class="course_title"><a href="course.html">@course.CourseName</a></h3>
-                                        <div class="course_teacher">@course.CourseAuthor</div>
-                                        <div class="course_text">
-                                            <p>@course.CourseDescription</p>
-                                        </div>
-                                    </div>
-                                    <!-- ДОДЕЛАТЬ РЕЙТИНГИ -->
-                                    <div class="course_footer">
-                                        <div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
-                                            <div class="course_info">
-                                                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                                                <span>20 Student</span>
-                                            </div>
-                                            <div class="course_info">
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <span>5 Ratings</span>
-                                            </div>
-                                            <div class="course_price ml-auto">$130</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                        <div id="scrolList"></div>
-
+                    <div id="scrolList" class="row courses_row">
+                        <!-- Тут курсы-->
+                        <div id="loading"><img src='@Url.Content("~/images/loading_spinner.gif")'></div>
                     </div>
                     <div class="row pagination_row">
                         <div class="col">
@@ -284,8 +254,11 @@
     </div>
 </div>
 
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
     $(function () {
+        $('div#loading').hide();
+
         var page = 0;
         var _inCallback = false;
 
@@ -295,35 +268,61 @@
             if (page > -1 && !_inCallback) {
                 _inCallback = true;
 
+                $('div#loading').show();
+
                 $.ajax({
                     type: 'GET',
-                    url: '/api/Courses/get/' + page,
+                    url: '/get/' + page,
                     success: function (data, textstatus) {
                         if (data.length > 0) {
 
                             var htmlLine = "";
                             $.each(data, function (index, item) {
 
-                                /**/
-                                htmlLine += "<div class=\"col-lg-6 course_col\"> <div class=\"course\"> <div class=\"course_image\"><img src=\"~/images/course_4.jpg\" alt=\"\"></div> <div class=\"course_body\"> <h3 class=\"course_title\"><a href=\"course.html\">item.CourseName</a></h3> <div class=\"course_teacher\">item.CourseAuthor</div> <div class=\"course_text\"> <p>item.CourseDescription</p> </div> </div> <div class=\"course_footer\"> <div class=\"course_footer_content d-flex flex-row align-items-center justify-content-start\"> <div class=\"course_info\"> <i class=\"fa fa-graduation-cap\" aria-hidden=\"true"\"></i> <span>20 Student</span> </div> <div class=\"course_info\"> <i class=\"fa fa-star\" aria-hidden=\"true\"></i> <span>5 Ratings</span> </div> <div class=\"course_price ml-auto\">$130</div> </div> </div> </div> </div>";
-    /**/
-})
-$("#scrolList").append(htmlLine);
-page++;
-}
-else {
-page = -1;
-}
-_inCallback = false;
-}
-});
-}
-}
-$(window).scroll(function () {
-if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                                htmlLine +=
 
-loadItems();
-}
-});
-})
+                        `<div class="col-lg-6 course_col">
+                            <div class="course">
+                                <div class="course_image"><img src="${item.imageUrl}" alt=""></div>
+                                    <div class="course_body">
+                                        <h3 class="course_title"><a href="course.html">${item.description}</a></h3>
+                                        <div class="course_teacher">${item.author}</div>
+                                        <div class="course_text">
+                                            <p>${item.description}</p>
+                                    </div>
+                                </div>
+                                <div class="course_footer">
+                                    <div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
+                                        <div class="course_info">
+                                            <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                            <span>NUM_OF_STUDENTS</span>
+                                        </div>
+                                        <div class="course_info">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <span>RAITING</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                            })
+                            $("#scrolList").append(htmlLine);
+                            page++;
+                        }
+                        else {
+                            page = -1;
+                        }
+                        _inCallback = false;
+                        $("div#loading").hide();
+                    }
+                });
+            }
+        }
+        $(window).scroll(function () {
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+
+                loadItems();
+            }
+        });
+    })
 </script>

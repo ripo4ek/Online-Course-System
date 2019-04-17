@@ -66,6 +66,8 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public Course GetCourse(int id)
         {
+
+           
             return _context.Courses.First(c=>c.Id == id);
         }
 
