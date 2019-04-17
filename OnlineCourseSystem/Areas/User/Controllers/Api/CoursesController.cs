@@ -69,11 +69,25 @@ namespace OnlineCourseSystem.Areas.User.Controllers.Api
 
         }
         [HttpGet("/get/{page}")]
-        public IActionResult GetCoursesForPagination(int page)
+        public IActionResult GetCoursesForInfiniteScroll(int page)
         {
             var itemsToSkip = page * _pageSize;
             var courses = _data.GetCourses().OrderBy(t => t.Id).Skip(itemsToSkip).Take(_pageSize);
             return Ok(courses.Select(c => _mapper.Map<Course, CourseDto>(c)));
+
+        }
+        [HttpGet("/test/{page}")]
+        public IActionResult GetCoursesForPagination(int page)
+        {
+            var container = new ApiContainer();
+            var itemsToSkip = page * _pageSize;
+            var courses = _data.GetCourses().OrderBy(t => t.Id).Skip(itemsToSkip).Take(_pageSize);
+            container.Data = courses.Select(c => _mapper.Map<Course, CourseDto>(c));
+            container.CurrentPage = page;
+            container.TotalRecord = _data.GetCourses().Count();
+            container.PageLimit = _pageSize;
+            container.Fetched = courses.Count();
+            return Ok(container);
 
         }
         [HttpDelete]

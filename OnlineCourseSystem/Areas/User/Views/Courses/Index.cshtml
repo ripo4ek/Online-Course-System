@@ -72,8 +72,8 @@
                         <div class="col">
                             <div class="pagination_container d-flex flex-row align-items-center justify-content-start">
                                 <ul class="pagination_list">
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
+                                    <li id="pag_first" class="active"><a href="#">1</a></li>
+                                    <li id="pag_second><a href="#">2</a></li>
                                     <li><a href="#">3</a></li>
                                     <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
                                 </ul>
@@ -255,6 +255,8 @@
 </div>
 
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="~/js/pagination.min.js"></script>
+
 <script type="text/javascript">
     $(function () {
         $('div#loading').hide();
@@ -281,7 +283,7 @@
 
                                 htmlLine +=
 
-                        `<div class="col-lg-6 course_col">
+                                    `<div class="col-lg-6 course_col">
                             <div class="course">
                                 <div class="course_image"><img src="${item.imageUrl}" alt=""></div>
                                     <div class="course_body">
@@ -318,6 +320,11 @@
                 });
             }
         }
+
+
+        $("#pag").click(function () {
+            alert("Handler for .click() called.");
+        });
         $(window).scroll(function () {
             if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 
