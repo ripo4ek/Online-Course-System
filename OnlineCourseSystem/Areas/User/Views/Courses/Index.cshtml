@@ -72,10 +72,10 @@
                         <div class="col">
                             <div class="pagination_container d-flex flex-row align-items-center justify-content-start">
                                 <ul class="pagination_list">
-                                    <li id="pag_first" class="active"><a href="#">1</a></li>
-                                    <li id="pag_second><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                                    <li class="active" id="btn-pgn"><a class="js-paggination" href="#">1</a></li>
+                                    <li id="btn-pgn><a class="js-paggination" href="#">2</a></li>
+                                    <li id="btn-pgn><a class="js-paggination" href="#">3</a></li>
+                                    <li id="btn-pgn><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
                                 </ul>
                                 <div class="courses_show_container ml-auto clearfix">
                                     <div class="courses_show_text">Showing <span class="courses_showing">1-6</span> of <span class="courses_total">26</span> results:</div>
@@ -256,80 +256,81 @@
 
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="~/js/pagination.min.js"></script>
-
+<!-- Добавить колличество страниц -->
 <script type="text/javascript">
     $(function () {
-        $('div#loading').hide();
 
-        var page = 0;
-        var _inCallback = false;
+        getData();
 
-        loadItems();
+        $('.js-paggination').on("click",
+            function() {
+                let currientPage = this.text;
+                getData(currientPage);
+            });
 
-        function loadItems() {
-            if (page > -1 && !_inCallback) {
-                _inCallback = true;
 
-                $('div#loading').show();
-
-                $.ajax({
-                    type: 'GET',
-                    url: '/get/' + page,
-                    success: function (data, textstatus) {
-                        if (data.length > 0) {
-
-                            var htmlLine = "";
-                            $.each(data, function (index, item) {
-
-                                htmlLine +=
-
-                                    `<div class="col-lg-6 course_col">
-                            <div class="course">
-                                <div class="course_image"><img src="${item.imageUrl}" alt=""></div>
-                                    <div class="course_body">
-                                        <h3 class="course_title"><a href="course.html">${item.description}</a></h3>
-                                        <div class="course_teacher">${item.author}</div>
-                                        <div class="course_text">
-                                            <p>${item.description}</p>
-                                    </div>
-                                </div>
-                                <div class="course_footer">
-                                    <div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
-                                        <div class="course_info">
-                                            <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                                            <span>NUM_OF_STUDENTS</span>
-                                        </div>
-                                        <div class="course_info">
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <span>RAITING</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
-                            })
-                            $("#scrolList").append(htmlLine);
-                            page++;
-                        }
-                        else {
-                            page = -1;
-                        }
-                        _inCallback = false;
-                        $("div#loading").hide();
-                    }
-                });
-            }
+        function changeFocus() {
+            $('#btn-pgn').each(function() {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                }
+            });
+            $('#btn-pgn').each(function() {
+                if ($(this).) {
+                    
+                }
+            });
         }
 
+        function getData(requestPage = 1) {
+            $.ajax({
+                url: "/test/",
+                type: "GET",
+                data: {
+                    requestPage: requestPage
+                },
+                success: function (data) {
 
-        $("#pag").click(function () {
-            alert("Handler for .click() called.");
-        });
-        $(window).scroll(function () {
-            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                    let dataArr = data.data;
 
-                loadItems();
-            }
-        });
-    })
+                    let html = "";
+                    for (let i = 0; i < dataArr.length; i++) {
+                        html +=
+                            `<div class="col-lg-6 course_col">
+								<div class="course">
+									<div class="course_image"><img src="${dataArr[i].imageUrl}" alt=""></div>
+									<div class="course_body">
+										<h3 class="course_title"><a href="course.html">${dataArr[i].imageUrl}</a></h3>
+										<div class="course_teacher">${dataArr[i].author}</div>
+										<div class="course_text">
+											<p>${dataArr[i].description}</p>
+										</div>
+									</div>
+									<div class="course_footer">
+										<div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
+											<div class="course_info">
+												<i class="fa fa-graduation-cap" aria-hidden="true"></i>
+												<span>20 Student</span>
+											</div>
+											<div class="course_info">
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<span>5 Ratings</span>
+											</div>
+											<div class="course_price ml-auto">$130</div>
+										</div>
+									</div>
+								</div>
+							</div>`;
+                    }
+                    $('#scrolList').html(html);
+                    console.log(data);
+                },
+                error: function (jqXHR, textStatus, ErrorThrown) {
+                    console.log(jqXHR, textStatus, ErrorThrown);
+                }
+            });
+        }
+    });
+
+
 </script>

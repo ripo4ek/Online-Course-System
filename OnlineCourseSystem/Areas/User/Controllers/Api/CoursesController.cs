@@ -76,12 +76,15 @@ namespace OnlineCourseSystem.Areas.User.Controllers.Api
             return Ok(courses.Select(c => _mapper.Map<Course, CourseDto>(c)));
 
         }
-        [HttpGet("/test/{page}")]
-        public IActionResult GetCoursesForPagination(int page)
+        [HttpGet("/test/{requestPage?}")]
+        public IActionResult GetCoursesForPagination(int? requestPage)
         {
+            int page = requestPage ?? 0;
             var container = new ApiContainer();
-            var itemsToSkip = page * _pageSize;
+            var itemsToSkip = page == 0? 0:(page -1) * _pageSize;
             var courses = _data.GetCourses().OrderBy(t => t.Id).Skip(itemsToSkip).Take(_pageSize);
+            if (courses.Count() == 0)
+                return NotFound();
             container.Data = courses.Select(c => _mapper.Map<Course, CourseDto>(c));
             container.CurrentPage = page;
             container.TotalRecord = _data.GetCourses().Count();

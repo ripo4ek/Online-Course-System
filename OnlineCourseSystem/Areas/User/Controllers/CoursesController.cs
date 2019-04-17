@@ -21,23 +21,13 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
         public IActionResult Index(int? universityId, int? directionId)
         {
-            var courses = _courseData.GetCourse(new CourseFilter()
-            {
-                UniversityId = universityId,
-                DirectionId = directionId
-            });
-            List<HomeViewModel> courseViewModel = new List<HomeViewModel>();
-            foreach (var course in courses)
-            {
-                courseViewModel.Add(
-                new HomeViewModel()
-                {
-                    CourseDescription = course.Description,
-                    CourseImage = course.ImageUrl,
-                    CourseName = course.Name
-                });
-            }            
-            return View(courseViewModel);
+            //var courses = _courseData.GetCourse(new CourseFilter()
+            //{
+            //    UniversityId = universityId,
+            //    DirectionId = directionId
+            //});
+                 
+            return View();
         }
     }
 }
