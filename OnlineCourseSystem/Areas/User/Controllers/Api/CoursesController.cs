@@ -21,7 +21,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers.Api
     {
         private readonly ICourseData _data;
         private readonly IMapper _mapper;
-        private readonly int _pageSize = 8;
+        private int _pageSize = 2;
 
         public CoursesController(ICourseData data, IMapper mapper)
         {
@@ -76,14 +76,18 @@ namespace OnlineCourseSystem.Areas.User.Controllers.Api
             return Ok(courses.Select(c => _mapper.Map<Course, CourseDto>(c)));
 
         }
-        [HttpGet("/test/{requestPage?}")]
-        public IActionResult GetCoursesForPagination(int? requestPage)
+        [HttpGet("/test/{pageLimit?}/{requestPage?}")]
+        public IActionResult GetCoursesForPagination(int? pageLimit, int? requestPage)
         {
+
             int page = requestPage ?? 0;
+            _pageSize = pageLimit ?? 4;
+
+
             var container = new ApiContainer();
             var itemsToSkip = page == 0? 0:(page -1) * _pageSize;
             var courses = _data.GetCourses().OrderBy(t => t.Id).Skip(itemsToSkip).Take(_pageSize);
-            if (courses.Count() == 0)
+            if (!courses.Any())
                 return NotFound();
             container.Data = courses.Select(c => _mapper.Map<Course, CourseDto>(c));
             container.CurrentPage = page;
