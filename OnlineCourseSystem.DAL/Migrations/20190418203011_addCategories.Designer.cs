@@ -11,9 +11,10 @@ using System;
 namespace OnlineCourseSystem.DAL.Migrations
 {
     [DbContext(typeof(OnlineCourseSystemContext))]
-    partial class OnlineCourseSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20190418203011_addCategories")]
+    partial class addCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

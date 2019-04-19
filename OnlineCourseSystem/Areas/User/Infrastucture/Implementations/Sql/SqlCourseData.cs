@@ -94,5 +94,10 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             _context.SaveChanges();
 
         }
+
+        public IEnumerable<Category> GetCategories()
+        {
+           return _context.Categories;
+        }
     }
 }

@@ -26,8 +26,12 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             //    UniversityId = universityId,
             //    DirectionId = directionId
             //});
-                 
-            return View();
+            var categories = _courseData.GetCategories();
+            var model = new CourseViewModel()
+            {
+                Categories = categories.Select(c=>c.Name)
+            };
+            return View(model);
         }
     }
 }

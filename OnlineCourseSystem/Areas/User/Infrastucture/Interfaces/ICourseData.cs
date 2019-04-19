@@ -11,6 +11,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
         IEnumerable<Section> GetSections();
 
         IEnumerable<Course> GetCourses();
+        IEnumerable<Category> GetCategories();
 
         IEnumerable<Course> GetCourse(CourseFilter filter);
 

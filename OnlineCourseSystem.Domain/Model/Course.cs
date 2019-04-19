@@ -39,16 +39,16 @@ namespace OnlineCourseSystem.Domain.Model
         /// </summary>
         public string Description { get; set; }
 
+        public IEnumerable<CoursesToCategories> Categories { get; set; }
 
-
-        public virtual ICollection<Section> Sections { get; set; }
+        public  ICollection<Section> Sections { get; set; }
 
         public int Order { get; set; }
 
         public  int? DirectionId { get; set; }
 
         [ForeignKey("DirectionId")]
-        public virtual Direction Direction { get; set; }
+        public  Direction Direction { get; set; }
 
     }
 }
