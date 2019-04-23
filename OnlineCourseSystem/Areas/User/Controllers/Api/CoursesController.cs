@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
+using OnlineCourseSystem.Areas.User.Models;
 using OnlineCourseSystem.Areas.User.Models.Dtos;
 using OnlineCourseSystem.Domain;
 using OnlineCourseSystem.Domain.Model;
@@ -36,7 +37,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers.Api
         [HttpGet("{id}")]
         public IActionResult GetCourse(int id)
         {
-            var course = _data.GetCourse(id);
+            var course = _data.GetCourses(id);
             if (course == null)
             {
                 return NotFound();
@@ -62,7 +63,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers.Api
             {
                 return BadRequest();
             }
-            var courseFromDb = _data.GetCourse(id);
+            var courseFromDb = _data.GetCourses(id);
             var courseForSave = _mapper.Map(course, courseFromDb);
             _data.UpdateCourse(id , courseForSave);
             return Ok();
@@ -76,17 +77,22 @@ namespace OnlineCourseSystem.Areas.User.Controllers.Api
             return Ok(courses.Select(c => _mapper.Map<Course, CourseDto>(c)));
 
         }
-        [HttpGet("/test/{pageLimit?}/{requestPage?}")]
-        public IActionResult GetCoursesForPagination(int? pageLimit, int? requestPage)
+        [HttpGet("/test/")]
+        public IActionResult GetCoursesForPagination(PaginationData data)
         {
-
-            int page = requestPage ?? 0;
-            _pageSize = pageLimit ?? 4;
-
+            int page = data.RequestPage ?? 0;
+            _pageSize = data.PageLimit ?? 4;
+            var itemsToSkip = 
+                page == 0 ? 0 : (page - 1) * _pageSize;
 
             var container = new ApiContainer();
-            var itemsToSkip = page == 0? 0:(page -1) * _pageSize;
-            var courses = _data.GetCourses().OrderBy(t => t.Id).Skip(itemsToSkip).Take(_pageSize);
+            
+            var filter = new CourseFilter()
+            {
+                Category = data.Category,
+                UserSearchInput = data.UserSearchInput
+            };
+            var courses = _data.GetCourses(filter).OrderBy(t => t.Id).Skip(itemsToSkip).Take(_pageSize);
             if (!courses.Any())
                 return NotFound();
             container.Data = courses.Select(c => _mapper.Map<Course, CourseDto>(c));

@@ -21,7 +21,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
         public IActionResult Index(int? universityId, int? directionId)
         {
-            //var courses = _courseData.GetCourse(new CourseFilter()
+            //var courses = _courseData.GetCourses(new CourseFilter()
             //{
             //    UniversityId = universityId,
             //    DirectionId = directionId

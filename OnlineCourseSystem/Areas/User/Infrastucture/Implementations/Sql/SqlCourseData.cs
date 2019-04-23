@@ -7,6 +7,7 @@ using OnlineCourseSystem.DAL.Context;
 using OnlineCourseSystem.Domain;
 using OnlineCourseSystem.Domain.Model;
 using OnlineCourseSystem.Domain.Model.Tasks;
+using SQLitePCL;
 
 namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 {
@@ -31,18 +32,25 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         {
             return _context.Topics.ToList();
         }
-
-        public IEnumerable<Course> GetCourse(CourseFilter filter)
+        
+        public IEnumerable<Course> GetCourses(CourseFilter filter)
         {
             var query = _context.Courses.AsQueryable();
-            if (filter.DirectionId.HasValue)
-                query = query.Where(c => c.DirectionId!=0 &&
-                                         c.DirectionId.Equals(filter.DirectionId.Value));
-            if (filter.UniversityId.HasValue)
-                query = query.Where(c => c.UniversityId.Equals(filter.UniversityId.Value));
+            if (filter.Category != null)
+            {
+                
+                var categories = _context.Categories.FirstOrDefault(c => c.Name == filter.Category);
+                var govno = _context.CoursesToCategories.Where(ct => ct.Category == categories);
+                var t = govno.Select(c => c.Course);
+           
+                query = t;
+            }
+                
+            if (filter.UserSearchInput != null)
+                query = query.Where(c => filter.UserSearchInput.Contains(c.Name));
             return query.ToList();
 
-        }
+        } 
         //TODO: Доделать к продакшену
         //public IEnumerable<Task> GetTasks()
         //{
@@ -64,7 +72,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             return _context.Courses.Include(c=>c.Author).Take(3).ToList() ;
         }
 
-        public Course GetCourse(int id)
+        public Course GetCourses(int id)
         {
 
            

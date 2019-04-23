@@ -56,14 +56,14 @@
             <div class="col-lg-8">
                 <div class="courses_search_container">
                     <form action="#" id="courses_search_form" class="courses_search_form d-flex flex-row align-items-center justify-content-start">
-                        <input type="search" class="courses_search_input" placeholder="Search Courses" required="required">
+                        <input type="search" id="user-input" class="courses_search_input" placeholder="Search Courses" required="required">
                         <select id="courses_search_select" class="courses_search_select courses_search_input">                          
-                            @foreach (var categoryName in Model.Categories)
+                            @foreach (var category in Model.Categories)
                             {
-                                <option>@categoryName</option>
+                                <option>@category</option>
                             }
                         </select>
-                        <button action="submit" class="courses_search_button ml-auto">search now</button>
+                        <button id="search-button" action="submit" class="courses_search_button ml-auto">search now</button>
                     </form>
                 </div>
                 <div class="courses_container">
@@ -239,17 +239,21 @@
 <script src="~/js/pagination.js"></script>
 <!-- Добавить колличество страниц -->
 <script type="text/javascript">
+
     $('#example').pagination({
         current: 1,
-        length: 4,
+        length: 2,
         ajax: function (options, refresh, $target) {
             
             $.ajax({
                 url: "/test/",
                 type: "GET",
-                data: {
+                data:{
                     requestPage: options.current,
+                    Category: GetCategory(),
+                    UserSearchInput: GetInput(),
                     pageLimit: options.length
+                        
                 }
             }).done(function (res) {
                 console.log(res.data);
@@ -266,6 +270,17 @@
         }
     });
 
+    //$('#search-button').bind('click', function() {
+    //    Paggination();
+    //});
+
+
+    function GetCategory() {
+         return $("#courses_search_select").val();
+    }
+    function GetInput() {
+        return $("#user-input").val();
+    }
 
     function LengthUserSelect() {
         return $("#courses_show_select").text();

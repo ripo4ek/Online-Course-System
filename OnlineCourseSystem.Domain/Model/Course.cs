@@ -8,7 +8,7 @@ using OnlineCourseSystem.Domain.Model.Tasks;
 namespace OnlineCourseSystem.Domain.Model
 {
     [Table("Courses")]
-    public class Course: NamedEntity, IOrderedEntity
+    public class Course: INamedEntity, IOrderedEntity
     {
         /// <summary>
         /// Ссылка на картинку
@@ -49,6 +49,7 @@ namespace OnlineCourseSystem.Domain.Model
 
         [ForeignKey("DirectionId")]
         public  Direction Direction { get; set; }
-
+        public string Name { get; set; }
+        public int Id { get; set; }
     }
 }
