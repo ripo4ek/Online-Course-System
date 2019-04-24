@@ -24,7 +24,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             return _context.Sections.ToList();
         }
 
-        public IEnumerable<Course> GetCourses()
+        public IEnumerable<Course> GetCourse()
         {
             return _context.Courses.ToList();
         }
@@ -33,7 +33,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             return _context.Topics.ToList();
         }
         
-        public IEnumerable<Course> GetCourses(CourseFilter filter)
+        public IEnumerable<Course> GetCourse(CourseFilter filter)
         {
             var query = _context.Courses.AsQueryable();
             if (filter.Category != null)
@@ -45,9 +45,16 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
            
                 query = t;
             }
-                
+
             if (filter.UserSearchInput != null)
-                query = query.Where(c => filter.UserSearchInput.Contains(c.Name));
+            {
+                var t = filter.UserSearchInput.ToLower();
+                var test = query.ToList();
+                query = query.Where(c => (c.Name.ToLower()).Contains(t));
+                
+                var test2 = query.ToList();
+            }
+                
             return query.ToList();
 
         } 
@@ -72,7 +79,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             return _context.Courses.Include(c=>c.Author).Take(3).ToList() ;
         }
 
-        public Course GetCourses(int id)
+        public Course GetCourse(int id)
         {
 
            

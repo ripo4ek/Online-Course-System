@@ -21,7 +21,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
         public IActionResult Index(int? universityId, int? directionId)
         {
-            //var courses = _courseData.GetCourses(new CourseFilter()
+            //var courses = _courseData.GetCourse(new CourseFilter()
             //{
             //    UniversityId = universityId,
             //    DirectionId = directionId
@@ -32,6 +32,13 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 Categories = categories.Select(c=>c.Name)
             };
             return View(model);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var course = _courseData.GetCourse();
+            return View();
+            
         }
     }
 }

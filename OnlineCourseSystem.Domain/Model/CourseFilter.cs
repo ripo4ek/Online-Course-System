@@ -8,5 +8,7 @@ namespace OnlineCourseSystem.Domain
         public string Category { get; set; }
 
         public string UserSearchInput { get; set; }
+              
+        
     }
 }

@@ -74,8 +74,8 @@
                             <div class="col">
                                 <div class="pagination_container d-flex flex-row align-items-center justify-content-start">
                                     <ul id="example" class="pagination"></ul>
-                                    <div class="courses_show_container ml-auto clearfix">
-                                        <div class="courses_show_text">Showing <span class="courses_showing">1-6</span> of <span class="courses_total">26</span> results:</div>
+                                    <div id="pag-info" class="courses_show_container ml-auto clearfix">
+                                        <div class="courses_show_text">Showing <span id="showing-courses" class="courses_showing">1-6</span> of <span id="courses-total-num" class="courses_total">26</span> results:</div>
                                         <div class="courses_show_content">
                                             <span>Show: </span>
                                             <select id="courses_show_select" class="courses_show_select">
@@ -99,11 +99,10 @@
                         <div class="sidebar_section_title">Categories</div>
                         <div class="sidebar_categories">
                             <ul>
-                                <li><a href="#">Art & Design</a></li>
-                                <li><a href="#">Business</a></li>
-                                <li><a href="#">IT & Software</a></li>
-                                <li><a href="#">Languages</a></li>
-                                <li><a href="#">Programming</a></li>
+                                @foreach (var category in Model.Categories)
+                                {
+                                    <li><a href="#">@category</a></li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -237,46 +236,70 @@
 </div>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="~/js/pagination.js"></script>
+@*<script src="~/js/pagination.min.js"></script>*@
 <!-- Добавить колличество страниц -->
 <script type="text/javascript">
-
-    $('#example').pagination({
+    let container = $('#example');
+    let paginationConf = {
         current: 1,
-        length: 2,
-        ajax: function (options, refresh, $target) {
-            
+        length: 6,
+        ajax: function(options, refresh, $target) {
+
             $.ajax({
                 url: "/test/",
                 type: "GET",
-                data:{
+                data: {
                     requestPage: options.current,
                     Category: GetCategory(),
                     UserSearchInput: GetInput(),
-                    pageLimit: options.length
-                        
+                    pageLimit: $("#courses_show_select").val()
+
                 }
-            }).done(function (res) {
+            }).done(function(res) {
                 console.log(res.data);
                 var html = informationHandler(res.data);
                 console.log(html);
+
                 $("#scrolList").html(html);
+                $("#pag-info").show();
+                $("#showing-courses").empty();
+                $("#showing-courses").html(`1-${res.pageLimit}`);
+                $("#courses-total-num").empty();
+                $("#courses-total-num").html(res.totalRecord);
+
                 refresh({
                     total: res.totalRecord,
                     length: res.pageLimit
                 });
-            }).fail(function (error) {
-
+            }).fail(function() {
+                $("#pag-info").hide();
+                $("#scrolList").html(`<div class="sidebar_section_title">По вашему запросу ничего не найдено</div>`);
             });
         }
+    };
+
+    $('#search-button').bind('click', function() {
+        $("#scrolList").empty();
+        container.pagination(paginationConf);
+    });
+    
+    $(document).ready(function () {
+        container.pagination(paginationConf);
+    });
+    
+    $("#courses_show_select").change(function(){
+        $("#scrolList").empty();
+        container.pagination(paginationConf);
     });
 
-    //$('#search-button').bind('click', function() {
-    //    Paggination();
-    //});
+
+  
+
+
 
 
     function GetCategory() {
-         return $("#courses_search_select").val();
+        return $("#courses_search_select").val();
     }
     function GetInput() {
         return $("#user-input").val();

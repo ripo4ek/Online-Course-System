@@ -10,12 +10,12 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 
         IEnumerable<Section> GetSections();
 
-        IEnumerable<Course> GetCourses();
+        IEnumerable<Course> GetCourse();
         IEnumerable<Category> GetCategories();
 
-        IEnumerable<Course> GetCourses(CourseFilter filter);
+        IEnumerable<Course> GetCourse(CourseFilter filter);
 
-        Course GetCourses(int id);
+        Course GetCourse(int id);
 
         IEnumerable<Course> GetThreeRandomCourses();
 
