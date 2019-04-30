@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OnlineCourseSystem.DAL.Context;
 using OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
+using OnlineCourseSystem.Domain.Model.Users;
 
 
 namespace OnlineCourseSystem
@@ -32,6 +34,10 @@ namespace OnlineCourseSystem
                 Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<ICourseData, SqlCourseData>();
             services.AddAutoMapper();
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<OnlineCourseSystemContext>()
+                .AddDefaultTokenProviders();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

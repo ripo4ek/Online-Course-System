@@ -153,7 +153,7 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.ToTable("VideoTasks");
                 });
 
-            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Topic", b =>
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Theme", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -210,7 +210,7 @@ namespace OnlineCourseSystem.DAL.Migrations
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.QuestionTask", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.Topic")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Theme")
                         .WithMany("QuestionTasks")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -218,7 +218,7 @@ namespace OnlineCourseSystem.DAL.Migrations
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.QuizTask", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.Topic")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Theme")
                         .WithMany("QuizTasks")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -226,13 +226,13 @@ namespace OnlineCourseSystem.DAL.Migrations
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.VideoTask", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.Topic")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Theme")
                         .WithMany("VideoTasks")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Topic", b =>
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Theme", b =>
                 {
                     b.HasOne("OnlineCourseSystem.Domain.Model.Section")
                         .WithMany("Topics")

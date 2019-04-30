@@ -6,16 +6,16 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 {
     public interface ICourseData
     {
-        IEnumerable<Topic> GetTopic();
+        IEnumerable<Theme> GetTopic();
 
         IEnumerable<Section> GetSections();
 
-        IEnumerable<Course> GetCourse();
+        IEnumerable<Course> GetFullCourse();
         IEnumerable<Category> GetCategories();
 
-        IEnumerable<Course> GetCourse(CourseFilter filter);
+        IEnumerable<Course> GetCourses(CourseFilter filter);
 
-        Course GetCourse(int id);
+        Course GetFullCourse(int id);
 
         IEnumerable<Course> GetThreeRandomCourses();
 

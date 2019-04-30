@@ -28,12 +28,10 @@ namespace OnlineCourseSystem.Domain.Model
         [ForeignKey("AuthorId")]
         public virtual Author Author { get; set; }
 
+        public DateTime Duration { get; set; }
 
-        /// <summary>
-        /// Стартовое время
-        /// </summary>
-        public string StartTime { get; set; }
-
+        public string Target { get; set; }
+        public string CurriculumDesctiption { get; set; }
         /// <summary>
         /// Описание курса
         /// </summary>
@@ -43,6 +41,16 @@ namespace OnlineCourseSystem.Domain.Model
 
         public  ICollection<Section> Sections { get; set; }
 
+        public  ICollection<Theme> Topics { get; set; }
+
+        public  ICollection<QuizTask> QuizTasks { get; set; }
+
+        public  ICollection<QuestionTask> QuestionTasks { get; set; }
+
+        public virtual ICollection<TextTask> TextTasks { get; set; }
+        public ICollection<VideoTask> VideoTasks { get; set; }
+
+        public IEnumerable<Requierment> Requirements { get; set; }
         public int Order { get; set; }
 
         public  int? DirectionId { get; set; }

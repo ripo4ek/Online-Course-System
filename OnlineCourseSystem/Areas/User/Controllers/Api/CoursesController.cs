@@ -32,12 +32,12 @@ namespace OnlineCourseSystem.Areas.User.Controllers.Api
         [HttpGet]
         public IActionResult GetCourses()
         {
-            return Ok(_data.GetCourse().Select(c=>_mapper.Map<Course,CourseDto>(c)));
+            return Ok(_data.GetFullCourse().Select(c=>_mapper.Map<Course,CourseDto>(c)));
         }
         [HttpGet("{id}")]
         public IActionResult GetCourse(int id)
         {
-            var course = _data.GetCourse(id);
+            var course = _data.GetFullCourse(id);
             if (course == null)
             {
                 return NotFound();
@@ -63,7 +63,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers.Api
             {
                 return BadRequest();
             }
-            var courseFromDb = _data.GetCourse(id);
+            var courseFromDb = _data.GetFullCourse(id);
             var courseForSave = _mapper.Map(course, courseFromDb);
             _data.UpdateCourse(id , courseForSave);
             return Ok();
@@ -73,7 +73,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers.Api
         public IActionResult GetCoursesForInfiniteScroll(int page)
         {
             var itemsToSkip = page * _pageSize;
-            var courses = _data.GetCourse().OrderBy(t => t.Id).Skip(itemsToSkip).Take(_pageSize);
+            var courses = _data.GetFullCourse().OrderBy(t => t.Id).Skip(itemsToSkip).Take(_pageSize);
             return Ok(courses.Select(c => _mapper.Map<Course, CourseDto>(c)));
 
         }
@@ -93,12 +93,12 @@ namespace OnlineCourseSystem.Areas.User.Controllers.Api
                 Category = data.Category,
                 UserSearchInput = data.UserSearchInput
             };
-            var courses = _data.GetCourse(filter).OrderBy(t => t.Id).Skip(itemsToSkip).Take(_pageSize);
+            var courses = _data.GetCourses(filter).OrderBy(t => t.Id).Skip(itemsToSkip).Take(_pageSize);
             if (!courses.Any())
                 return NotFound();
             container.Data = courses.Select(c => _mapper.Map<Course, CourseDto>(c));
             container.CurrentPage = page;
-            container.TotalRecord = _data.GetCourse(filter).Count();
+            container.TotalRecord = _data.GetCourses(filter).Count();
             container.PageLimit = _pageSize;
             container.Fetched = courses.Count();
             return Ok(container);

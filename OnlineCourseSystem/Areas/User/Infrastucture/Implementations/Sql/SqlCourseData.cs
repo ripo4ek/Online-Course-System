@@ -24,26 +24,23 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             return _context.Sections.ToList();
         }
 
-        public IEnumerable<Course> GetCourse()
+        public IEnumerable<Course> GetFullCourse()
         {
             return _context.Courses.ToList();
         }
-        public IEnumerable<Topic> GetTopic()
+        public IEnumerable<Theme> GetTopic()
         {
             return _context.Topics.ToList();
         }
         
-        public IEnumerable<Course> GetCourse(CourseFilter filter)
+        public IEnumerable<Course> GetCourses(CourseFilter filter)
         {
             var query = _context.Courses.AsQueryable();
             if (filter.Category != null)
             {
-                
-                var categories = _context.Categories.FirstOrDefault(c => c.Name == filter.Category);
-                var govno = _context.CoursesToCategories.Where(ct => ct.Category == categories);
-                var t = govno.Select(c => c.Course);
-           
-                query = t;
+                query = _context.CoursesToCategories
+                    .Where(c => c.Category.Name == filter.Category)
+                    .Select(c => c.Course);
             }
 
             if (filter.UserSearchInput != null)
@@ -79,11 +76,22 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             return _context.Courses.Include(c=>c.Author).Take(3).ToList() ;
         }
 
-        public Course GetCourse(int id)
+        public Course GetFullCourse(int id)
         {
 
            
-            return _context.Courses.First(c=>c.Id == id);
+            return _context.Courses.
+                Include(c => c.Author).
+                Include(c => c.QuestionTasks).
+                Include(c => c.QuizTasks).
+                Include(c => c.Categories).
+                ThenInclude(c => c.Category).
+                Include(c => c.Requirements).
+                Include(c => c.Sections).
+                Include(c => c.TextTasks).
+                Include(c => c.Topics).
+                Include(c => c.VideoTasks).
+                FirstOrDefault(c=>c.Id == id);
         }
 
         public void AddCourse(Course course)

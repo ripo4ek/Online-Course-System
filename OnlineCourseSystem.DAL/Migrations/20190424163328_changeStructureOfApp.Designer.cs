@@ -11,8 +11,8 @@ using System;
 namespace OnlineCourseSystem.DAL.Migrations
 {
     [DbContext(typeof(OnlineCourseSystemContext))]
-    [Migration("20190418203011_addCategories")]
-    partial class addCategories
+    [Migration("20190424163328_changeStructureOfApp")]
+    partial class changeStructureOfApp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,10 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.Property<string>("Name");
 
                     b.Property<int>("Order");
+
+                    b.Property<string>("PhotoUrl");
+
+                    b.Property<string>("Position");
 
                     b.HasKey("Id");
 
@@ -56,9 +60,13 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.Property<int?>("AuthorId");
 
+                    b.Property<string>("CurriculumDesctiption");
+
                     b.Property<string>("Description");
 
                     b.Property<int?>("DirectionId");
+
+                    b.Property<DateTime>("Duration");
 
                     b.Property<string>("ImageUrl");
 
@@ -66,7 +74,7 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.Property<int>("Order");
 
-                    b.Property<string>("StartTime");
+                    b.Property<string>("Target");
 
                     b.Property<int?>("UniversityId");
 
@@ -108,6 +116,24 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.ToTable("Directions");
                 });
 
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Requierment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CourseId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("Requierments");
+                });
+
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Section", b =>
                 {
                     b.Property<int>("Id")
@@ -116,8 +142,6 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.Property<int>("CourseId");
 
                     b.Property<string>("Name");
-
-                    b.Property<int>("Order");
 
                     b.HasKey("Id");
 
@@ -131,13 +155,15 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("CourseId");
+
                     b.Property<string>("Name");
 
                     b.Property<int>("TopicId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TopicId");
+                    b.HasIndex("CourseId");
 
                     b.ToTable("QuestionTasks");
                 });
@@ -147,6 +173,8 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("CourseId");
+
                     b.Property<string>("Name");
 
                     b.Property<string>("Question");
@@ -155,15 +183,17 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TopicId");
+                    b.HasIndex("CourseId");
 
                     b.ToTable("QuizTasks");
                 });
 
-            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.VideoTask", b =>
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.TextTask", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CourseId");
 
                     b.Property<string>("Name");
 
@@ -173,7 +203,27 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TopicId");
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("TextTask");
+                });
+
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.VideoTask", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CourseId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("TopicId");
+
+                    b.Property<string>("VideoUrl");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
 
                     b.ToTable("VideoTasks");
                 });
@@ -183,15 +233,17 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<int?>("CourseId");
 
-                    b.Property<int>("Order");
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
 
                     b.Property<int>("SectionId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SectionId");
+                    b.HasIndex("CourseId");
 
                     b.ToTable("Topics");
                 });
@@ -238,6 +290,13 @@ namespace OnlineCourseSystem.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Requierment", b =>
+                {
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Course")
+                        .WithMany("Requirements")
+                        .HasForeignKey("CourseId");
+                });
+
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Section", b =>
                 {
                     b.HasOne("OnlineCourseSystem.Domain.Model.Course")
@@ -248,34 +307,37 @@ namespace OnlineCourseSystem.DAL.Migrations
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.QuestionTask", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.Theme")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Course")
                         .WithMany("QuestionTasks")
-                        .HasForeignKey("TopicId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CourseId");
                 });
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.QuizTask", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.Theme")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Course")
                         .WithMany("QuizTasks")
-                        .HasForeignKey("TopicId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CourseId");
+                });
+
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.TextTask", b =>
+                {
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Course")
+                        .WithMany("TextTasks")
+                        .HasForeignKey("CourseId");
                 });
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.VideoTask", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.Theme")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Course")
                         .WithMany("VideoTasks")
-                        .HasForeignKey("TopicId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CourseId");
                 });
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Theme", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.Section")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Course")
                         .WithMany("Topics")
-                        .HasForeignKey("SectionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CourseId");
                 });
 #pragma warning restore 612, 618
         }

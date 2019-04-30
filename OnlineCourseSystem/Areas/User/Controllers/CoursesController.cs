@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
 using OnlineCourseSystem.Areas.User.Models;
 using OnlineCourseSystem.Domain;
@@ -21,7 +22,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
         public IActionResult Index(int? universityId, int? directionId)
         {
-            //var courses = _courseData.GetCourse(new CourseFilter()
+            //var courses = _courseData.GetFullCourse(new CourseFilter()
             //{
             //    UniversityId = universityId,
             //    DirectionId = directionId
@@ -34,10 +35,20 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             return View(model);
         }
 
+        
+        //TODO: Пофиксить 2 вызов
         public IActionResult Details(int id)
         {
-            var course = _courseData.GetCourse();
-            return View();
+
+
+            var course = _courseData.GetFullCourse(id);
+
+            if (course == null)
+            {
+                return NotFound();
+            }
+            
+            return View(course);
             
         }
     }

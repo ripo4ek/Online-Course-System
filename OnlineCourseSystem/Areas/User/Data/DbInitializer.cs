@@ -110,7 +110,7 @@ namespace OnlineCourseSystem.Areas.User.Data
                     Description = "C# For Newbee",
                     DirectionId = 1,
                     ImageUrl = "Course1.png",
-                    StartTime = new DateTime(2018,8,12).ToString(),
+                    
                     UniversityId = 1,
                     AuthorId = 1
                     
@@ -123,7 +123,7 @@ namespace OnlineCourseSystem.Areas.User.Data
                     Description = "C# for pepole who's know something",
                     DirectionId = 1,
                     ImageUrl = "Course2.png",
-                    StartTime = new DateTime(2018,9,12).ToString(),
+                    
                     UniversityId = 1,
                     AuthorId = 1
                 },
@@ -135,7 +135,7 @@ namespace OnlineCourseSystem.Areas.User.Data
                     Description = "For Gays",
                     DirectionId = 1,
                     ImageUrl = "Course3.png",
-                    StartTime = new DateTime(2018,9,12).ToString(),
+                    
                     UniversityId = 2,
                     AuthorId = 2
                 },
@@ -161,35 +161,35 @@ namespace OnlineCourseSystem.Areas.User.Data
                 {
                     Id = 1,
                     Name = "Introducing C#",
-                    Order = 0,
+                    
                     CourseId = 1
                 },
                 new Section()
                 {
                     Id = 2,
                     Name = "In the middle of C#",
-                    Order = 1,
+                    
                     CourseId = 1
                 },
                 new Section()
                 {
                     Id = 3,
                     Name = "In the end of C#",
-                    Order = 2,
+                    
                     CourseId = 1
                 },
                 new Section()
                 {
                     Id = 4,
                     Name = "Java Gay's Starter",
-                    Order = 3,
+                   
                     CourseId = 3
                 },
                 new Section()
                 {
                     Id = 5,
                     Name = " C# Essential Start",
-                    Order = 4,
+                   
                     CourseId = 2
                 },
             };
@@ -206,49 +206,49 @@ namespace OnlineCourseSystem.Areas.User.Data
                 trans.Commit();
             }
 
-            var topics = new List<Topic>()
+            var topics = new List<Theme>()
             {
-                new Topic()
+                new Theme()
                 {
                     Id = 1,
                     Name = "Hello, World",
                     SectionId = 1,
-                    Order = 0
+                   
                 },
-                new Topic()
+                new Theme()
                 {
                     Id = 2,
                     Name = "Types of Data C#",
                     SectionId = 1,
-                    Order = 1
+                    
                 },
-                new Topic()
+                new Theme()
                 {
                     Id = 3,
                     Name = "Cycles and logic",
                     SectionId = 1,
-                    Order = 2
+                   
                 },
-                new Topic()
+                new Theme()
                 {
                     Id = 4,
                     Name = "Methods",
                     SectionId = 2,
-                    Order = 3
+                    
                 },
-                new Topic()
+                new Theme()
                 {
                     Id = 5,
                     Name = "OOP",
                     SectionId = 3,
-                    Order = 4
+                   
                 },
-                new Topic()
+                new Theme()
                 {
                     Id = 6,
                     Name = "How to put your dick into the man ass",
                     SectionId = 4,
-                    Order = 5
+                    
                 },
             };
             using (var trans = context.Database.BeginTransaction())
