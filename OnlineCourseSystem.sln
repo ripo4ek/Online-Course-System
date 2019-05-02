@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2037
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineCourseSystem", "OnlineCourseSystem\OnlineCourseSystem.csproj", "{8A3FCEDC-78DE-438C-A5B7-C97CB9F42835}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -11,8 +11,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineCourseSystem.Domain", "OnlineCourseSystem.Domain\OnlineCourseSystem.Domain.csproj", "{6E883D85-8920-44FE-8661-5D826BA599B4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineCourseSystem.DAL", "OnlineCourseSystem.DAL\OnlineCourseSystem.DAL.csproj", "{B7EFBE74-CB19-429F-ACBC-9C828AF507E1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineCourseSystem.UnitTests", "OnlineCourseSystem.UnitTests\OnlineCourseSystem.UnitTests.csproj", "{9F5355B6-55ED-4A0D-BDB0-17F91BE0B3B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,10 +30,6 @@ Global
 		{B7EFBE74-CB19-429F-ACBC-9C828AF507E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7EFBE74-CB19-429F-ACBC-9C828AF507E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7EFBE74-CB19-429F-ACBC-9C828AF507E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F5355B6-55ED-4A0D-BDB0-17F91BE0B3B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F5355B6-55ED-4A0D-BDB0-17F91BE0B3B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F5355B6-55ED-4A0D-BDB0-17F91BE0B3B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F5355B6-55ED-4A0D-BDB0-17F91BE0B3B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

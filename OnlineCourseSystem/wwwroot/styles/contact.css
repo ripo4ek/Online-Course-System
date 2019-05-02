@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
 /******************************
@@ -320,6 +320,7 @@ section
 	background: #f3f3f3;
 	text-align: center;
 }
+
 .login_button a
 {
 	display: block;

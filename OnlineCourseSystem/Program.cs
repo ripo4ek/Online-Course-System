@@ -5,6 +5,12 @@ using Microsoft.Extensions.Logging;
 using OnlineCourseSystem.Areas.User.Data;
 using OnlineCourseSystem.DAL.Context;
 using System;
+using System.Threading;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using OnlineCourseSystem.Areas.User.Models;
+using OnlineCourseSystem.Domain.Model;
 
 namespace OnlineCourseSystem
 {
@@ -18,8 +24,47 @@ namespace OnlineCourseSystem
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<OnlineCourseSystemContext>();
+                    var context = services
+                                    .GetRequiredService<OnlineCourseSystemContext>();
                     DbInitializer.Initialize(context);
+
+                    var roleStore = new RoleStore<IdentityRole>(context);
+                    var roleManager = new RoleManager<IdentityRole>(roleStore,
+                        new IRoleValidator<IdentityRole>[] { },
+                        new UpperInvariantLookupNormalizer(),
+                        new IdentityErrorDescriber(), null);
+
+                    if (!roleManager.RoleExistsAsync(Roles.Administrator).Result)
+                    {
+                        var role = new IdentityRole(Roles.Administrator);
+                        var result = roleManager.CreateAsync(role).Result;
+                    }
+                    if (!roleManager.RoleExistsAsync(Roles.Student).Result)
+                    {
+                        var role = new IdentityRole(Roles.Student);
+                        var result = roleManager.CreateAsync(role).Result;
+                    }
+                    if (!roleManager.RoleExistsAsync(Roles.CourseCreator).Result)
+                    {
+                        var role = new IdentityRole(Roles.CourseCreator);
+                        var result = roleManager.CreateAsync(role).Result;
+                    }
+
+
+                    var userStore = new UserStore<User>(context);
+                    var userManager = new UserManager<User>(userStore, new OptionsManager<IdentityOptions>(new OptionsFactory<IdentityOptions>(new IConfigureOptions<IdentityOptions>[] { },
+                            new IPostConfigureOptions<IdentityOptions>[] { })),
+                        new PasswordHasher<User>(), new IUserValidator<User>[] { }, new IPasswordValidator<User>[] { },
+                        new UpperInvariantLookupNormalizer(), new IdentityErrorDescriber(), null, null);
+                    if (userStore.FindByEmailAsync("admin@mail.com", CancellationToken.None).Result == null)
+                    {
+                        var user = new User() { UserName = "Admin", Email = "admin@mail.com" };
+                        var result = userManager.CreateAsync(user, "admin").Result;
+                        if (result == IdentityResult.Success)
+                        {
+                            var roleResult = userManager.AddToRoleAsync(user, Roles.Administrator).Result;
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -27,6 +72,7 @@ namespace OnlineCourseSystem
                     logger.LogError(ex, "An error occurred while seeding the database.");
                 }
             }
+
             host.Run();
         }
 
@@ -35,4 +81,5 @@ namespace OnlineCourseSystem
                 .UseStartup<Startup>()
                 .Build();
     }
+
 }

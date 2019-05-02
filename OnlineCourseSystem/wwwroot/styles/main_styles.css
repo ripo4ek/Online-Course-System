@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
 /******************************
@@ -320,7 +320,7 @@ section
 }
 .login_button
 {
-	width: 160px;
+	width: 200px;
 	height: 100%;
 	background: #f3f3f3;
 	text-align: center;
@@ -2021,4 +2021,47 @@ section
 .cr_list li a:hover
 {
 	color: #14bdee;
+}
+.login-registration_button {
+    width: 100px;
+    height: 100%;
+    margin-top: 10px;
+    margin-right: 15px;
+    background: #f3f3f3;
+    text-align: center;
+}
+.login-registration_button a {
+    color: inherit;
+}
+.login-button-mobile {
+    text-transform: uppercase;
+    display: inline-block;
+    background: white;
+    box-shadow: none;
+    letter-spacing: 0.1em;
+    color: inherit;
+    font-weight: 600;
+    outline: none;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+.login-button-mobile:hover {
+    color: #14bdee
+}
+.reg-menu {
+    display: flex;
+
+}
+.test-mobile {
+    display: inline-block;
+}
+.test {
+    display: inline-block;
+}
+.palka {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-weight: 800;
+    font-size: 13px;
 }

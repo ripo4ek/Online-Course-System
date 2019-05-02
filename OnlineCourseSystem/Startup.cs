@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OnlineCourseSystem.DAL.Context;
 using OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
-using OnlineCourseSystem.Domain.Model.Users;
+using OnlineCourseSystem.Domain.Model;
 
 
 namespace OnlineCourseSystem
@@ -38,10 +38,36 @@ namespace OnlineCourseSystem
                 .AddEntityFrameworkStores<OnlineCourseSystemContext>()
                 .AddDefaultTokenProviders();
 
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings
+                options.Password.RequiredLength = 6;
+
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings
+                options.User.RequireUniqueEmail = false;
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+               
+               options.Cookie.HttpOnly = true;
+                options.Cookie.Expiration = TimeSpan.FromDays(150);
+                options.LoginPath = "/User/Account/Login"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
+                options.LogoutPath = "/User/Account/Logout"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
+                options.AccessDeniedPath = "/User/Account/AccessDenied"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied
+                options.SlidingExpiration = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+            public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -54,7 +80,7 @@ namespace OnlineCourseSystem
             }
 
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

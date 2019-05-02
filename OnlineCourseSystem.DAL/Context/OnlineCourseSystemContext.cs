@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using OnlineCourseSystem.Domain.Model;
 using OnlineCourseSystem.Domain.Model.Base;
 using OnlineCourseSystem.Domain.Model.Tasks;
-using OnlineCourseSystem.Domain.Model.Users;
 
 
 namespace OnlineCourseSystem.DAL.Context
@@ -35,6 +34,9 @@ namespace OnlineCourseSystem.DAL.Context
         public DbSet<CoursesToCategories> CoursesToCategories { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
+                base.OnModelCreating(modelBuilder);
+
+
             modelBuilder.Entity<CoursesToCategories>()
                 .HasKey(t => new { t.CategoryId, t.CourseId });
 
