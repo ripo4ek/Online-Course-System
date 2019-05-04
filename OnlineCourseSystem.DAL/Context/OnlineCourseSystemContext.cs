@@ -30,8 +30,8 @@ namespace OnlineCourseSystem.DAL.Context
             public DbSet<Category> Categories{ get; set; }
 
             public DbSet<Requierment> Requierments { get; set; }
-
-        public DbSet<CoursesToCategories> CoursesToCategories { get; set; }
+            public DbSet<CoursesToUsers> CoursesToUsers { get; set; }
+            public DbSet<CoursesToCategories> CoursesToCategories { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
                 base.OnModelCreating(modelBuilder);
@@ -49,6 +49,19 @@ namespace OnlineCourseSystem.DAL.Context
                 .HasOne(sc => sc.Category)
                 .WithMany(c => c.Courses)
                 .HasForeignKey(sc => sc.CategoryId);
+
+            modelBuilder.Entity<CoursesToUsers>()
+                .HasKey(t => new { t.UserId, t.CourseId });
+
+            modelBuilder.Entity<CoursesToUsers>()
+                .HasOne(sc => sc.Course)
+                .WithMany(s => s.Users)
+                .HasForeignKey(sc => sc.CourseId);
+
+            modelBuilder.Entity<CoursesToUsers>()
+                .HasOne(sc => sc.User)
+                .WithMany(c => c.Courses)
+                .HasForeignKey(sc => sc.UserId);
         }
 
     }

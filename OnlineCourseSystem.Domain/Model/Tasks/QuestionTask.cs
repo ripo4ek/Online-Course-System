@@ -7,11 +7,12 @@ using OnlineCourseSystem.Domain.Model.Base;
 namespace OnlineCourseSystem.Domain.Model.Tasks
 {
     [Table("QuestionTasks")]
-    public class QuestionTask: NamedEntity
+    public class QuestionTask: NamedEntity, IOrderedEntity
     {
         public int TopicId { get; set; }
 
         public string Question { get; }
+        public int Order { get; set; }
 
         private string _correctAnswer;
 

@@ -68,8 +68,8 @@ namespace WebStore.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterUserViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
-
+             if (!ModelState.IsValid) return View(model);
+          
             var user = new User { UserName = model.UserName, Email = model.Email };   
             var createResult = await _userManager.CreateAsync(user, model.Password);  
             if (createResult.Succeeded)

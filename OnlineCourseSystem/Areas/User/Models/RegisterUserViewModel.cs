@@ -18,7 +18,7 @@ namespace OnlineCourseSystem.Areas.User.Models
         [DataType(DataType.Password), Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
 
-        [Required, MaxLength(256)]
+        [MaxLength(256)]
         public string Email { get; set; }
     }
 

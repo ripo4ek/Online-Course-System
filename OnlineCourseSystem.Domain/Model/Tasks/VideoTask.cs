@@ -7,7 +7,7 @@ using OnlineCourseSystem.Domain.Model.Base;
 namespace OnlineCourseSystem.Domain.Model.Tasks
 {
     [Table("VideoTasks")]
-    public class VideoTask : NamedEntity
+    public class VideoTask : NamedEntity, IOrderedEntity
     {
         /// <summary>
         /// Ссылка на видео
@@ -15,5 +15,6 @@ namespace OnlineCourseSystem.Domain.Model.Tasks
         public string VideoUrl { get; set; }
 
         public int TopicId { get; set; }
+        public int Order { get; set; }
     }
 }

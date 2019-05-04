@@ -24,6 +24,7 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\" />
+    <Folder Include="Areas\User\Pages\" />
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\css\" />

@@ -39,6 +39,7 @@ namespace OnlineCourseSystem.Domain.Model
 
         public IEnumerable<CoursesToCategories> Categories { get; set; }
 
+        public IEnumerable<CoursesToUsers> Users { get; set; }
         public  ICollection<Section> Sections { get; set; }
 
         public  ICollection<Theme> Topics { get; set; }

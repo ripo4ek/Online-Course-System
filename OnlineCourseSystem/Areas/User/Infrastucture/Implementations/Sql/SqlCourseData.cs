@@ -37,17 +37,15 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         {
             var query = _context.Courses.AsQueryable();
             if (filter.Category != null)
-            {
                 query = _context.CoursesToCategories
                     .Where(c => c.Category.Name == filter.Category)
                     .Select(c => c.Course);
-            }
 
             if (filter.UserSearchInput != null)
             {
                 var t = filter.UserSearchInput.ToLower();
                 var test = query.ToList();
-                query = query.Where(c => (c.Name.ToLower()).Contains(t));
+                query = query.Where(c => c.Name.ToLower().Contains(t));
                 
                 var test2 = query.ToList();
             }
@@ -121,6 +119,11 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         public IEnumerable<Category> GetCategories()
         {
            return _context.Categories;
+        }
+
+        public IEnumerable<Theme> GetThemes()
+        {
+            return _context.Topics;
         }
     }
 }

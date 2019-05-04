@@ -1,0 +1,23 @@
+﻿@model System.Collections.Generic.List<OnlineCourseSystem.Areas.User.Models.SectionViewModel>
+
+
+
+@foreach (var sec in Model)
+{
+    if (sec.ChildSections == null || sec.ChildSections.Count == 0)
+    {
+        <li class="pushy-link "><a href="#">@sec.Name</a></li>
+    }
+    else
+    {
+        <li class="pushy-submenu">
+            <button>@sec.Name</button>
+            <ul>
+                @foreach (var childSec in sec.ChildSections)
+                {
+                    <li class="pushy-link zalupa"><a href="#">@childSec.Name</a></li>
+                }
+            </ul>
+        </li>
+    }
+}
