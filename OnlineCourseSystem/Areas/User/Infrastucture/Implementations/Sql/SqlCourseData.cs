@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
+using OnlineCourseSystem.Areas.User.Models;
 using OnlineCourseSystem.DAL.Context;
 using OnlineCourseSystem.Domain;
 using OnlineCourseSystem.Domain.Model;
@@ -54,7 +56,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         } 
         //TODO: Доделать к продакшену
-        //public IEnumerable<Task> GetTasks()
+        //public IEnumerable<Task> GetTasksOfCourse()
         //{
         //    return null;
         //}
@@ -124,6 +126,17 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         public IEnumerable<Theme> GetThemes()
         {
             return _context.Topics;
+        }
+        public IEnumerable<Task> GetTasksOfCourse(TaskFilter filter)
+        {
+            var course = GetFullCourse(filter.CourseId);
+
+            List<Task> tasks = new List<Task>();
+            tasks.AddRange(course.QuestionTasks.Where(t=>t.TopicId == filter.TopicId));
+            tasks.AddRange(course.QuizTasks.Where(t => t.TopicId == filter.TopicId));
+            tasks.AddRange(course.TextTasks.Where(t => t.TopicId == filter.TopicId));
+            tasks.AddRange(course.VideoTasks.Where(t => t.TopicId == filter.TopicId));
+            return tasks;
         }
     }
 }

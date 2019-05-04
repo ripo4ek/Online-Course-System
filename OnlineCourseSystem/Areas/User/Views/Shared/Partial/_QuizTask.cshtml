@@ -1,0 +1,11 @@
+﻿
+@model OnlineCourseSystem.Domain.Model.Tasks.QuizTask
+
+
+<h2>@Model.Name</h2>
+<ul>
+    @foreach (var t in Model.VariantOfAnswers)
+    {
+        <li>@t</li>
+    } 
+</ul>

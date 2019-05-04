@@ -2,14 +2,12 @@
 
 namespace OnlineCourseSystem.Domain.Model.Tasks
 {
-    public class TextTask : NamedEntity,IOrderedEntity
+    public class TextTask : Task
     {
         /// <summary>
         /// Ссылка на видео
         /// </summary>
-        public string VideoUrl { get; set; }
+        public string Data { get; set; }
 
-        public int TopicId { get; set; }
-        public int Order { get; set; }
     }
 }

@@ -10,11 +10,9 @@ namespace OnlineCourseSystem.Domain.Model.Tasks
 #warning Удостовериться что модель на стрингах достаточна 
 
     [Table("QuizTasks")]
-    public class QuizTask:NamedEntity, IOrderedEntity
+    public class QuizTask : Task
     {
         public string Question { get; set; }
-        public int TopicId { get; set; }
-        public int Order { get; set; }
 
         public List<string> VariantOfAnswers = new List<string>();
         public string CorrectAnswer;

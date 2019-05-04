@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
+using OnlineCourseSystem.Areas.User.Models;
+using OnlineCourseSystem.Domain.Model;
+using OnlineCourseSystem.Domain.Model.Base;
+using OnlineCourseSystem.Domain.Model.Tasks;
 
 namespace OnlineCourseSystem.Areas.User.Controllers
 {
@@ -23,7 +27,13 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
         public IActionResult Task(int courseId, int topicId)
         {
-            var course = _data.GetFullCourse(courseId).QuestionTasks;
+            var tasks = _data.GetTasksOfCourse(new TaskFilter()
+            {
+                CourseId = courseId,
+                TopicId = topicId
+            });
+            return View(tasks);
         }
+
     }
 }

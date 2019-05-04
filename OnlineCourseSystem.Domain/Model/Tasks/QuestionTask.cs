@@ -7,14 +7,12 @@ using OnlineCourseSystem.Domain.Model.Base;
 namespace OnlineCourseSystem.Domain.Model.Tasks
 {
     [Table("QuestionTasks")]
-    public class QuestionTask: NamedEntity, IOrderedEntity
+    public class QuestionTask: Task
     {
-        public int TopicId { get; set; }
 
-        public string Question { get; }
-        public int Order { get; set; }
+        public string Question { get; set; }
 
-        private string _correctAnswer;
+        public string CorrectAnswer { get; set; }
 
         //public QuestionTask(string question, string correctAnswer)
         //{
@@ -22,15 +20,6 @@ namespace OnlineCourseSystem.Domain.Model.Tasks
         //    _correctAnswer = correctAnswer;
         //}
 
-        public bool CheckAnswer(string answer)
-        {
-            if (answer == _correctAnswer)
-            {
-                return true;
-            }
-
-            return false;
-        }
 
 
     }

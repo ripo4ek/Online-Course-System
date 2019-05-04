@@ -28,7 +28,7 @@ namespace OnlineCourseSystem.DAL.Context
             public DbSet<QuizTask> QuizTasks { get; set; }
             public DbSet<QuestionTask> QuestionTasks { get; set; }
             public DbSet<Category> Categories{ get; set; }
-
+            public DbSet<TextTask> TextTasks { get; set; }
             public DbSet<Requierment> Requierments { get; set; }
             public DbSet<CoursesToUsers> CoursesToUsers { get; set; }
             public DbSet<CoursesToCategories> CoursesToCategories { get; set; }

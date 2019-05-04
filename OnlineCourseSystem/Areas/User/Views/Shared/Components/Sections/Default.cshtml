@@ -7,6 +7,7 @@
     if (sec.ChildSections == null || sec.ChildSections.Count == 0)
     {
         <li class="pushy-link "><a href="#">@sec.Name</a></li>
+        <input id="sectionId" type="hidden" value="@sec.Id">
     }
     else
     {
@@ -16,6 +17,7 @@
                 @foreach (var childSec in sec.ChildSections)
                 {
                     <li class="pushy-link zalupa"><a href="#">@childSec.Name</a></li>
+                    <input id="topicId" type="hidden" value="@childSec.Id">
                 }
             </ul>
         </li>

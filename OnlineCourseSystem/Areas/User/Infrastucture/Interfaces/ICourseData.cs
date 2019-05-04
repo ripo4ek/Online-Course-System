@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using OnlineCourseSystem.Areas.User.Models;
 using OnlineCourseSystem.Domain;
 using OnlineCourseSystem.Domain.Model;
+using OnlineCourseSystem.Domain.Model.Tasks;
 
 namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 {
@@ -10,6 +12,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 
         IEnumerable<Section> GetSections();
 
+        IEnumerable<Task> GetTasksOfCourse(TaskFilter filter);
         IEnumerable<Course> GetFullCourse();
         IEnumerable<Category> GetCategories();
 
@@ -21,7 +24,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 
         IEnumerable<Course> GetThreeRandomCourses();
 
-        //IEnumerable<Task> GetTasks();
+        //IEnumerable<Task> GetTasksOfCourse();
 
         IEnumerable<University> GetUniversities();
 

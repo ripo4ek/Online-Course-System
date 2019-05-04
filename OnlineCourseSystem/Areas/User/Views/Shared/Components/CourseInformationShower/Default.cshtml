@@ -1,0 +1,31 @@
+﻿@using OnlineCourseSystem.Domain.Model.Tasks
+@model System.Collections.Generic.IEnumerable<OnlineCourseSystem.Domain.Model.Tasks.Task>
+
+
+<nav class="dropdownmenu">
+    <ul>
+        @foreach (var name in Model)
+        {
+            <li><a href="#">@name.Name</a></li>
+        }
+    </ul>
+</nav>
+@foreach (var task in Model)
+{
+    if (task is QuestionTask)
+    {
+        @await Html.PartialAsync("Partial/_QuestionTask", (QuestionTask)task)
+    }
+    if (task is QuizTask)
+    {
+        @await Html.PartialAsync("Partial/_QuizTask", (QuizTask)task)
+    }
+    if (task is TextTask)
+    {
+        @await Html.PartialAsync("Partial/_TextTask", (TextTask)task)
+    }
+    if (task is VideoTask)
+    {
+        @await Html.PartialAsync("Partial/_VideoTask", (VideoTask)task)
+    }
+}
