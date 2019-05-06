@@ -6,26 +6,54 @@
     <ul>
         @foreach (var name in Model)
         {
-            <li><a href="#">@name.Name</a></li>
+            <li class="topic-menu"><a class="searchitem"  data-id="@name.Id" href="javascript:void(0)">@name.Name</a></li>
         }
     </ul>
 </nav>
+
 @foreach (var task in Model)
 {
-    if (task is QuestionTask)
+<div class="task" data-taskId="@task.Id">
+
+
+    @if (task is QuestionTask)
     {
-        @await Html.PartialAsync("Partial/_QuestionTask", (QuestionTask)task)
+        @await Html.PartialAsync("Partial/_QuestionTask", (QuestionTask) task);
     }
-    if (task is QuizTask)
+    @if (task is QuizTask)
     {
-        @await Html.PartialAsync("Partial/_QuizTask", (QuizTask)task)
+        @await Html.PartialAsync("Partial/_QuizTask", (QuizTask) task);
     }
-    if (task is TextTask)
+    @if (task is TextTask)
     {
-        @await Html.PartialAsync("Partial/_TextTask", (TextTask)task)
+        @await Html.PartialAsync("Partial/_TextTask", (TextTask) task);
     }
-    if (task is VideoTask)
+    @if (task is VideoTask)
     {
-        @await Html.PartialAsync("Partial/_VideoTask", (VideoTask)task)
+        @await Html.PartialAsync("Partial/_VideoTask", (VideoTask) task);
     }
+</div>
 }
+
+<script>
+
+
+
+    $(".topic-menu").on("click", function(event){
+        var taskId = $(this).find("a").data("id");
+
+        $(".task").hide();
+        $(".task[data-taskId='"+taskId+"']").show();
+    });
+
+
+ 
+
+
+
+
+
+
+
+    
+</script>

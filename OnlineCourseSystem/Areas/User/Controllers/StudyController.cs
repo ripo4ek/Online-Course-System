@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
 using OnlineCourseSystem.Areas.User.Models;
+using OnlineCourseSystem.Areas.User.ViewComponents;
 using OnlineCourseSystem.Domain.Model;
 using OnlineCourseSystem.Domain.Model.Base;
 using OnlineCourseSystem.Domain.Model.Tasks;
@@ -27,12 +28,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
         public IActionResult Task(int courseId, int topicId)
         {
-            var tasks = _data.GetTasksOfCourse(new TaskFilter()
-            {
-                CourseId = courseId,
-                TopicId = topicId
-            });
-            return View(tasks);
+            return ViewComponent(typeof(CourseInformationShower), new {courseId = courseId, topicId = topicId});
         }
 
     }

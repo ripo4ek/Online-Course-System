@@ -45,8 +45,8 @@
                     <button class="menu-btn">&#9776; Menu</button>
                     <div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
 
-                        <div id="course-content"></div>
-                        @await Component.InvokeAsync("CourseInformationShower", new {courseId =1,  topicId=1})
+                        <div class="content-course" id="course-content"></div>
+                        
                     </div>
                 </div>
             </div>
@@ -58,19 +58,46 @@
 <script src="~/js/pushy.min.js"></script>
 <script src="~/styles/bootstrap4/popper.js"></script>
 <script src="~/styles/bootstrap4/bootstrap.min.js"></script>
-<script src="~/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-<script src="~/plugins/easing/easing.js"></script>
-<script src="~/plugins/parallax-js-master/parallax.min.js"></script>
-<script src="~/plugins/colorbox/jquery.colorbox-min.js"></script>
 <script src="~/js/course.js"></script>
 
 <script>
 
 
+    $('.dropdownmenu > li >a').click(function() {
+        console.log('clicked');
+    });
 
-    function showTextEditor() {
-        // Find the div to put it in
-        var container = $("#text-editor-container");
-        $.get("text-editor", function (data) { container.html(data); });
+
+    $(".topic-menu").on("click", function(event){
+        console.log('clicked');
+    });
+
+    $(document).ready(function() {
+
+        var container = $("#course-content");
+        console.log(container);
+        $.get(`/User/Study/Task/?courseId=@Model.Id&topicId=${$('.content-link').data("id")}`,
+            function (data) { container.html(data); });
+
+        
+
+        
+        
+    });
+
+  
+
+
+
+    $('.content-link').on("click",
+        function() {
+            var topicId = $(this).data("id");
+            courseContent(topicId);
+        });
+
+    function courseContent(topicId) {
+        var container = $("#course-content");
+        $.get(`/User/Study/Task/?courseId=@Model.Id&topicId=${topicId}`, function (data) { container.html(data); });
+        
     }
 </script>
