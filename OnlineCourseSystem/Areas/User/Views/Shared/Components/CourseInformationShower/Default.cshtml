@@ -6,48 +6,48 @@
     <ul>
         @foreach (var name in Model)
         {
-            <li class="topic-menu"><a class="searchitem"  data-id="@name.Id" href="javascript:void(0)">@name.Name</a></li>
+            <li class="topic-menu"><a class="searchitem" data-id="@name.Order" href="javascript:void(0)">@name.Name</a></li>
         }
     </ul>
 </nav>
 
 @foreach (var task in Model)
 {
-<div class="task" data-taskId="@task.Id">
+    <div class="task" data-orderId="@task.Order">
 
 
-    @if (task is QuestionTask)
-    {
-        @await Html.PartialAsync("Partial/_QuestionTask", (QuestionTask) task);
-    }
-    @if (task is QuizTask)
-    {
-        @await Html.PartialAsync("Partial/_QuizTask", (QuizTask) task);
-    }
-    @if (task is TextTask)
-    {
-        @await Html.PartialAsync("Partial/_TextTask", (TextTask) task);
-    }
-    @if (task is VideoTask)
-    {
-        @await Html.PartialAsync("Partial/_VideoTask", (VideoTask) task);
-    }
-</div>
+        @if (task is QuestionTask)
+        {
+            @await Html.PartialAsync("Partial/_QuestionTask", (QuestionTask)task);
+        }
+        @if (task is QuizTask)
+        {
+            @await Html.PartialAsync("Partial/_QuizTask", (QuizTask)task);
+        }
+        @if (task is TextTask)
+        {
+            @await Html.PartialAsync("Partial/_TextTask", (TextTask)task);
+        }
+        @if (task is VideoTask)
+        {
+            @await Html.PartialAsync("Partial/_VideoTask", (VideoTask)task);
+        }
+    </div>
 }
 
 <script>
 
-
-
-    $(".topic-menu").on("click", function(event){
-        var taskId = $(this).find("a").data("id");
-
-        $(".task").hide();
-        $(".task[data-taskId='"+taskId+"']").show();
+    $( document ).ready(function() {
+    $(".task").hide();
     });
 
 
- 
+    $(".topic-menu").on("click", function (event) {
+        var taskId = $(this).find("a").data("id");
+
+        $(".task").hide();
+        $(".task[data-orderId='" + taskId + "']").show();
+    });
 
 
 
@@ -55,5 +55,8 @@
 
 
 
-    
+
+
+
+
 </script>
