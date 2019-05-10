@@ -145,7 +145,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public Domain.Model.User GetUser(string id)
         {
-            return _context.Users.First(c=>c.Id == "1bfab9c2-fe7d-45e2-849c-a1f7ef9b6483");
+            return _context.Users.First(c=>c.Id == "4a88adfb-7e1e-4820-bf97-1e31a6e7f8f9");
         }
 
         public void DeleteUser(string id)
@@ -154,10 +154,32 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             _context.Users.Remove(user);
         }
 
-        public  IEnumerable<Domain.Model.User> GetUserByRole(string role)
+        public  Domain.Model.User GetUserByRole(string role, string id)
         {
-            var rolefromDb = _context.Roles.SingleOrDefault(m => m.Name == "role");
-            var usersInRole = _context.Users.Where(m => m.Roles.Any(r => r.RoleId == role.Id));
+           var users = _context.Users.Include(c => c.Courses)
+               .Include(r => r.UserRoles);
+
+           return users.First(u => u.Id == id && u.UserRoles.First(r => r.Role.Name == role)!=null);
+        }
+
+        public IEnumerable<Domain.Model.User> GetUsersByRole(string role)
+        {
+            var roleFromDb = _context.Roles.First(r => r.Name == role);
+
+            return _context.UserRoles.Where(u => u.Role == roleFromDb).Select(u => u.User);
+        }
+
+        public Domain.Model.User GetAuthorAsUser(string id)
+        {
+            var users = _context.Users.Include(c => c.Courses).ThenInclude(c=>c.Course)
+                .Include(r => r.UserRoles);
+
+            return users.First(u => u.Id == id);
+        }
+
+        public IEnumerable<Course> GetCoursesWithAuthor(CourseFilter filter)
+        {
+            return _context.Courses.Include(c => c.Author);
         }
     }
 }

@@ -10,6 +10,16 @@
     <Compile Remove="Migrations\20190418184922_addedCategories.Designer.cs" />
     <Compile Remove="Migrations\20190418202402_addCategories.cs" />
     <Compile Remove="Migrations\20190418202402_addCategories.Designer.cs" />
+    <Compile Remove="Migrations\20190430172837_identity.cs" />
+    <Compile Remove="Migrations\20190430172837_identity.Designer.cs" />
+    <Compile Remove="Migrations\20190502123312_CoursesToUsers.cs" />
+    <Compile Remove="Migrations\20190502123312_CoursesToUsers.Designer.cs" />
+    <Compile Remove="Migrations\20190504153302_fixCourses.cs" />
+    <Compile Remove="Migrations\20190504153302_fixCourses.Designer.cs" />
+    <Compile Remove="Migrations\20190510100915_possibilityToGetUsersByRole.cs" />
+    <Compile Remove="Migrations\20190510100915_possibilityToGetUsersByRole.Designer.cs" />
+    <Compile Remove="Migrations\20190510101412_Initialize.cs" />
+    <Compile Remove="Migrations\20190510101412_Initialize.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

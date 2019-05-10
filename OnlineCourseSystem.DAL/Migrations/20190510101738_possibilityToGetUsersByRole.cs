@@ -4,10 +4,71 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OnlineCourseSystem.DAL.Migrations
 {
-    public partial class identity : Migration
+    public partial class possibilityToGetUsersByRole : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_TextTask_Courses_CourseId",
+                table: "TextTask");
+
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_TextTask",
+                table: "TextTask");
+
+            migrationBuilder.RenameTable(
+                name: "TextTask",
+                newName: "TextTasks");
+
+            migrationBuilder.RenameColumn(
+                name: "VideoUrl",
+                table: "TextTasks",
+                newName: "Data");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_TextTask_CourseId",
+                table: "TextTasks",
+                newName: "IX_TextTasks_CourseId");
+
+            migrationBuilder.AddColumn<int>(
+                name: "Order",
+                table: "VideoTasks",
+                nullable: false,
+                defaultValue: 0);
+
+            migrationBuilder.AddColumn<int>(
+                name: "Order",
+                table: "QuizTasks",
+                nullable: false,
+                defaultValue: 0);
+
+            migrationBuilder.AddColumn<string>(
+                name: "CorrectAnswer",
+                table: "QuestionTasks",
+                nullable: true);
+
+            migrationBuilder.AddColumn<int>(
+                name: "Order",
+                table: "QuestionTasks",
+                nullable: false,
+                defaultValue: 0);
+
+            migrationBuilder.AddColumn<string>(
+                name: "Question",
+                table: "QuestionTasks",
+                nullable: true);
+
+            migrationBuilder.AddColumn<int>(
+                name: "Order",
+                table: "TextTasks",
+                nullable: false,
+                defaultValue: 0);
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_TextTasks",
+                table: "TextTasks",
+                column: "Id");
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -93,8 +154,8 @@ namespace OnlineCourseSystem.DAL.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(nullable: false),
-                    ProviderKey = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -138,8 +199,8 @@ namespace OnlineCourseSystem.DAL.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
+                    Name = table.Column<string>(maxLength: 128, nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -147,6 +208,30 @@ namespace OnlineCourseSystem.DAL.Migrations
                     table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CoursesToUsers",
+                columns: table => new
+                {
+                    CourseId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CoursesToUsers", x => new { x.UserId, x.CourseId });
+                    table.ForeignKey(
+                        name: "FK_CoursesToUsers_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CoursesToUsers_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -191,10 +276,27 @@ namespace OnlineCourseSystem.DAL.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CoursesToUsers_CourseId",
+                table: "CoursesToUsers",
+                column: "CourseId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_TextTasks_Courses_CourseId",
+                table: "TextTasks",
+                column: "CourseId",
+                principalTable: "Courses",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_TextTasks_Courses_CourseId",
+                table: "TextTasks");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -211,10 +313,68 @@ namespace OnlineCourseSystem.DAL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CoursesToUsers");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_TextTasks",
+                table: "TextTasks");
+
+            migrationBuilder.DropColumn(
+                name: "Order",
+                table: "VideoTasks");
+
+            migrationBuilder.DropColumn(
+                name: "Order",
+                table: "QuizTasks");
+
+            migrationBuilder.DropColumn(
+                name: "CorrectAnswer",
+                table: "QuestionTasks");
+
+            migrationBuilder.DropColumn(
+                name: "Order",
+                table: "QuestionTasks");
+
+            migrationBuilder.DropColumn(
+                name: "Question",
+                table: "QuestionTasks");
+
+            migrationBuilder.DropColumn(
+                name: "Order",
+                table: "TextTasks");
+
+            migrationBuilder.RenameTable(
+                name: "TextTasks",
+                newName: "TextTask");
+
+            migrationBuilder.RenameColumn(
+                name: "Data",
+                table: "TextTask",
+                newName: "VideoUrl");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_TextTasks_CourseId",
+                table: "TextTask",
+                newName: "IX_TextTask_CourseId");
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_TextTask",
+                table: "TextTask",
+                column: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_TextTask_Courses_CourseId",
+                table: "TextTask",
+                column: "CourseId",
+                principalTable: "Courses",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
     }
 }

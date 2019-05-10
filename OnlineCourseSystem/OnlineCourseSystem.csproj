@@ -26,7 +26,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Course\" />
     <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\css\" />
   </ItemGroup>
@@ -38,6 +37,12 @@
 
   <ItemGroup>
     <Content Update="Areas\Admin\Views\Author\Details.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Admin\Views\Author\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Admin\Views\Course\Details.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\Admin\Views\Shared\_LayoutAdmin.cshtml">

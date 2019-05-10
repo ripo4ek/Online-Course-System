@@ -34,7 +34,7 @@ namespace OnlineCourseSystem
                 Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<ICourseData, SqlCourseData>();
             services.AddAutoMapper();
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, Role>(options => options.Stores.MaxLengthForKeys = 128)
                 .AddEntityFrameworkStores<OnlineCourseSystemContext>()
                 .AddDefaultTokenProviders();
 

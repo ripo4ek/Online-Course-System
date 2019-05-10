@@ -1,12 +1,19 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Microsoft.AspNetCore.Identity;
 
 namespace OnlineCourseSystem.Domain.Model
 {
-    public class User : IdentityUser
+    public class Role : IdentityRole
     {
-        public IEnumerable<CoursesToUsers> Courses { get; set; }
+        public Role() : base()
+        {
+        }
+
+        public Role(string roleName) : base(roleName)
+        {
+        }
         public ICollection<ApplicationUserRole> UserRoles { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model  IEnumerable<OnlineCourseSystem.Domain.Model.Course>
+﻿@model  IEnumerable<OnlineCourseSystem.Domain.Model.User>
 @{
     ViewData["Title"] = "Users";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -7,16 +7,16 @@
     <div class="row">
         <table id="customers" class="table table-bordered table-hover">
             <tr>
-                <th>Name</th>
-                <th>Author</th>
+                <th>UserName</th>
+                <th>Confirmed</th>
                 <th>Details</th>
                 <th>Delete</th>
             </tr>
             @foreach (var e in Model)
             {
                 <tr>
-                    <th>@e.Name</th>
-                    <th>@e.Author.Name</th>
+                    <th>@e.UserName</th>
+                    <th>@e.EmailConfirmed?Yes:No</th>
                     <th>Details</th>
                     <th>Delete</th>
                 </tr>
@@ -25,4 +25,3 @@
         </table>
     </div>
 </div>
-
