@@ -1,0 +1,17 @@
+﻿@model  OnlineCourseSystem.Domain.Model.Course
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+    <div class="container-fluid">
+        <div class="row">
+            <h2>@Model.Name (Id:@Model.Id)</h2>
+            <p>@Model.Author.Name</p>
+            <p>@Model.Description</p>
+
+
+
+            <p>Назад</p>
+        </div>
+    </div>
+

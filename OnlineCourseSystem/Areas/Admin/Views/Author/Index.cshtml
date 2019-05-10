@@ -1,0 +1,28 @@
+﻿@model  IEnumerable<OnlineCourseSystem.Domain.Model.Course>
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container-fluid">
+    <div class="row">
+        <table id="customers" class="table table-bordered table-hover">
+            <tr>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Details</th>
+                <th>Delete</th>
+            </tr>
+            @foreach (var e in Model)
+            {
+                <tr>
+                    <th>@e.Name</th>
+                    <th>@e.Author.Name</th>
+                    <th>Details</th>
+                    <th>Delete</th>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+

@@ -12,6 +12,8 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 
         IEnumerable<Section> GetSections();
 
+        IEnumerable<Domain.Model.User> GetUsers();
+        Domain.Model.User GetUser(string id);
         IEnumerable<Task> GetTasksOfCourse(TaskFilter filter);
         IEnumerable<Course> GetFullCourse();
         IEnumerable<Category> GetCategories();
@@ -29,6 +31,8 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
         IEnumerable<University> GetUniversities();
 
         IEnumerable<Direction> GetDirections();
+
+        void DeleteUser(string id);
 
         void AddCourse(Course course);
 
