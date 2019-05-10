@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Routing;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
 using OnlineCourseSystem.Areas.User.Models;
 using OnlineCourseSystem.Domain;
+using OnlineCourseSystem.Domain.Model;
 
 namespace OnlineCourseSystem.Areas.User.Controllers
 {
@@ -34,8 +35,12 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             };
             return View(model);
         }
+        public IActionResult Create()
+        {
+            return View();
+        }
 
-        
+
         //TODO: Пофиксить 2 вызов
         public IActionResult Details(int id)
         {

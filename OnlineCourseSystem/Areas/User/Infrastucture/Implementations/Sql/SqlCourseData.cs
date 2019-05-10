@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
+using OnlineCourseSystem.Areas.User.Models;
 using OnlineCourseSystem.DAL.Context;
 using OnlineCourseSystem.Domain;
 using OnlineCourseSystem.Domain.Model;
@@ -32,7 +34,11 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         {
             return _context.Topics.ToList();
         }
-        
+        public IEnumerable<Domain.Model.User> GetUsers()
+        {
+            return _context.Users;
+        }
+
         public IEnumerable<Course> GetCourses(CourseFilter filter)
         {
             var query = _context.Courses.AsQueryable();
@@ -54,7 +60,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         } 
         //TODO: Доделать к продакшену
-        //public IEnumerable<Task> GetTasks()
+        //public IEnumerable<Task> GetTasksOfCourse()
         //{
         //    return null;
         //}
@@ -124,6 +130,34 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         public IEnumerable<Theme> GetThemes()
         {
             return _context.Topics;
+        }
+        public IEnumerable<Task> GetTasksOfCourse(TaskFilter filter)
+        {
+            var course = GetFullCourse(filter.CourseId);
+
+            List<Task> tasks = new List<Task>();
+            tasks.AddRange(course.QuestionTasks.Where(t=>t.TopicId == filter.TopicId));
+            tasks.AddRange(course.QuizTasks.Where(t => t.TopicId == filter.TopicId));
+            tasks.AddRange(course.TextTasks.Where(t => t.TopicId == filter.TopicId));
+            tasks.AddRange(course.VideoTasks.Where(t => t.TopicId == filter.TopicId));
+            return tasks;
+        }
+
+        public Domain.Model.User GetUser(string id)
+        {
+            return _context.Users.First(c=>c.Id == "1bfab9c2-fe7d-45e2-849c-a1f7ef9b6483");
+        }
+
+        public void DeleteUser(string id)
+        {
+            var user = _context.Users.First(c => c.Id == id);
+            _context.Users.Remove(user);
+        }
+
+        public  IEnumerable<Domain.Model.User> GetUserByRole(string role)
+        {
+            var rolefromDb = _context.Roles.SingleOrDefault(m => m.Name == "role");
+            var usersInRole = _context.Users.Where(m => m.Roles.Any(r => r.RoleId == role.Id));
         }
     }
 }

@@ -6,7 +6,7 @@
 {
     if (sec.ChildSections == null || sec.ChildSections.Count == 0)
     {
-        <li class="pushy-link "><a href="#">@sec.Name</a></li>
+        <li class="pushy-link "><a class="content-link" data-id="@sec.Id" href="javascript:void(0)">@sec.Name</a></li>
     }
     else
     {
@@ -15,7 +15,7 @@
             <ul>
                 @foreach (var childSec in sec.ChildSections)
                 {
-                    <li class="pushy-link zalupa"><a href="#">@childSec.Name</a></li>
+                    <li class="pushy-link zalupa"><a class="content-link" data-id="@childSec.Id" href="javascript:void(0)">@childSec.Name</a></li>
                 }
             </ul>
         </li>

@@ -1,0 +1,197 @@
+
+
+/*New shit here*/
+
+/*Question*/
+.question-wrap {
+    padding: 55px;
+}
+
+.question-title {
+    margin-bottom: 30px;
+}
+
+.question-form {
+    margin-bottom: 90px;
+}
+
+.question-paragraph {
+    width: 60%;
+    margin-bottom: 30px;
+}
+
+.question-area {
+    width: 60%;
+    height: 105px;
+}
+
+.question-button {
+    width: 130px;
+    margin: 0;
+    margin-top: 25px;
+    display: block;
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+/*Quiz*/
+.question-quiz {
+    margin-bottom: 25px;
+}
+
+.form-quiz {
+    line-height: 45px;
+    margin-bottom: 55px;
+}
+
+.quiz-title {
+    font-size: 26px;
+    margin-bottom: 26px;
+}
+
+.quiz-option {
+    margin-bottom: 2px;
+    padding-left: 30px;
+    border-radius: 5px;
+    background-color: rgba(20, 189, 238, .4);
+}
+
+
+/*video*/
+
+.video-wrap {
+    text-align: center;
+}
+
+.video {
+    min-height: 100%;
+}
+
+/*text task*/
+.text-task {
+    margin: auto;
+    text-align: justify;
+    width: 75%;
+    text-indent: 5%;
+}
+
+.question-title {
+    text-indent: 0;
+}
+
+.question-subtitle {
+    margin-bottom: 15px;
+}
+
+
+/*стили для create*/
+.creator-menu {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+}
+
+.creator-menu-title {
+    background-color: #14bdee;
+    color: #FFFFFF;
+    padding-top: 0.75rem;
+    padding-right: 1.25rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1.25rem;
+    border-top: 1px solid transparent;
+    border-radius: 1px;
+}
+
+.drop-menu {
+    flex-basis: 44%;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.input-duration {
+    width: 35px;
+    margin-top: 1px;
+}
+
+.course-info-column {
+    flex-basis: 55%;
+}
+.course-info-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.menu-options {
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+}
+.menu-options>label {
+    flex-basis: 100%;
+}
+.menu-options-categories {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    flex-basis: 100%;
+    vertical-align: middle;
+}
+.menu-options-categories>span {
+    padding-top: 7px;
+}
+.menu-options-category {
+    flex-basis: 47%;
+    }
+.menu-options-full-raw {
+    width: 100%;
+}
+.creator-menu-title-buttons {
+    padding: 0;
+}
+.courses-menu-button {
+    background-color: #14bdee;
+    width: 20%;
+    margin-top: 0;
+    color: white;
+    border: none;
+    height: 45px;
+    box-shadow: 1px;
+}
+.courses-menu-button:hover {
+    cursor: pointer;
+    background-color: #1a9ec4;
+}
+.courses-menu-button:focus {
+    outline: none;
+}
+.course-info-o {
+    margin-top: 0;
+}
+.button-add-var {
+    margin-left: 15px;
+}
+.quiz-add-var {
+    display: flex;
+}
+.delete-var {
+    font-size: 16px;
+    font-weight: 800;
+    color:red;
+}
+.quiz-variants {
+    list-style-type: disc;
+}
+.additional-var {
+    margin-left: 25px;
+    background-color: rgba(226, 8, 8, 0.30);
+    border-radius: 5px;
+    margin-bottom: 1px;
+}
+.wrong-var {
+    background-color: rgba(75, 172, 0, 0.30);
+}

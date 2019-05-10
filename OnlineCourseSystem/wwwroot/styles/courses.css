@@ -761,7 +761,7 @@ section
 .home
 {
 	width: 100%;
-	height: 182px;
+	height: 850px;
 	background: #f2f4f5;
 	border-bottom: solid 1px #edeff0;
 }
@@ -907,10 +907,10 @@ section
 }
 .course_body
 {
-	padding-top: 22px;
 	padding-left: 30px;
 	padding-right: 30px;
 	padding-bottom: 23px;
+    min-height: 200px;
 }
 .course_title
 {
@@ -1702,3 +1702,11 @@ section
 {
     width: 100%
 }
+.content-course {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+

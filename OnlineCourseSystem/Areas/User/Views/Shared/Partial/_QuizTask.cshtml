@@ -1,0 +1,28 @@
+﻿
+@model OnlineCourseSystem.Domain.Model.Tasks.QuizTask
+
+
+<div class="question-wrap">
+    <div>
+        <h2 class="quiz-title">Are CSS property names case-sensitive?</h2>
+    </div>
+    <form class="form-quiz" name="quiz" action="" method="post">
+        <div class="quiz-option">
+            <input type="radio" name="quiz_var" value="Yes" checked="checked" /> Yes<br />
+        </div>
+        <div class="quiz-option">
+            <input type="radio" name="quiz_var" value="No" /> No<br />
+        </div>
+        <div class="quiz-option">
+            <input type="radio" name="quiz_var" value="Skip question" /> Skip question<br />
+        </div>
+        
+        
+        <button class="counter_form_button question-button">Send answer</button>
+    </form>
+
+<div class="nav-buttons">
+    <button class="counter_form_button question-button">Back</button>
+    <button class="counter_form_button question-button">Next</button>
+</div>
+</div>

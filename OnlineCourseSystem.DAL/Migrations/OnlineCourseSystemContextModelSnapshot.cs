@@ -283,9 +283,15 @@ namespace OnlineCourseSystem.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CorrectAnswer");
+
                     b.Property<int?>("CourseId");
 
                     b.Property<string>("Name");
+
+                    b.Property<int>("Order");
+
+                    b.Property<string>("Question");
 
                     b.Property<int>("TopicId");
 
@@ -306,6 +312,8 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int>("Order");
+
                     b.Property<string>("Question");
 
                     b.Property<int>("TopicId");
@@ -325,17 +333,19 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.Property<int?>("CourseId");
 
+                    b.Property<string>("Data");
+
                     b.Property<string>("Name");
 
-                    b.Property<int>("TopicId");
+                    b.Property<int>("Order");
 
-                    b.Property<string>("VideoUrl");
+                    b.Property<int>("TopicId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("TextTask");
+                    b.ToTable("TextTasks");
                 });
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.VideoTask", b =>
@@ -347,6 +357,8 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.Property<int?>("CourseId");
 
                     b.Property<string>("Name");
+
+                    b.Property<int>("Order");
 
                     b.Property<int>("TopicId");
 

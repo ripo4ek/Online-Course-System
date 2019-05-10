@@ -1,0 +1,548 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
+}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
+<link rel="stylesheet" href="~/styles/bootstrap-iconpicker.min.css">
+
+<div class="home">
+    <div class="breadcrumbs_container">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li><!--<a href="index.html">Home</a>--></li>
+                            <li><!--<a href="courses.html">Courses</a>--></li>
+                            <li>Course Details</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Course -->
+<div class="site-overlay"></div>
+<div class="course">
+    <div class="container">
+        <div class="row">
+
+            <!-- Course -->
+            <div class="col-lg-12">
+
+                <div class="course_container">
+                    <div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start course-info-o">
+
+
+                        <div class="creator-menu">
+
+
+                            <div class="card mb-3 course-info-column course-border">
+                                <div class="creator-menu-title creator-menu-title-buttons">
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                </div>
+                                <div class="card-body">
+                                    <form id="frmEdit" class="form-horizontal course-info-content">
+                                        <div class="form-group">
+                                            <label for="text">Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+                                                
+                                            </div>
+                                            <input type="hidden" name="icon" class="item-menu">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="href">Picture</label> <br />
+                                            <input type="file" class="item-menu" id="href" name="href" placeholder="URL">
+                                        </div>
+                                        <div class="form-group menu-options">
+                                            <label for="title">Select category</label>
+                                            <div class=" menu-options-categories">
+                                                <select name="target" id="target" class="form-control item-menu menu-options-category">
+                                                    <option value="_self">Self</option>
+                                                    <option value="_blank">Blank</option>
+                                                    <option value="_top">Top</option>
+                                                </select>
+                                                <span>or</span>
+                                                <input class="form-control item-menu menu-options-category" type="text" name="name" value="" placeholder="Your option" />
+                                            </div>
+
+
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label class="form-group" for="target">Duration</label> <br />
+
+                                            <input class="input-duration" type="text" required> h
+
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Curriculum description</label>
+                                            <textarea class="form-control item-menu" placeholder="Enter curriculum description of your course"></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" id="btnUpdate" class="btn btn-primary" disabled><i class="fas fa-sync-alt"></i> Update</button>
+                                    <button type="button" id="btnAdd" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            <div class="drop-menu card">
+
+                                <div class="creator-menu-title">Menu</div>
+                                <div class="creator-menu-list">
+                                    <ul id="myEditor" class="sortableLists list-group"></ul>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+
+                <div class="course_container">
+                    <div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start course-info-o">
+
+
+                        <div class="creator-menu">
+
+
+                            <div class="card mb-3 course-info-column course-border">
+                                <div class="creator-menu-title creator-menu-title-buttons">
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                </div>
+                                <div class="card-body">
+                                    <form id="frmEdit" class="form-horizontal course-info-content">
+                                        <div class="form-group">
+                                            <label for="text">Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+
+                                            </div>
+                                            <input type="hidden" name="icon" class="item-menu">
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea class="form-control item-menu" placeholder="Enter description of section"></textarea>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" id="btnUpdate" class="btn btn-primary" disabled><i class="fas fa-sync-alt"></i> Update</button>
+                                    <button type="button" id="btnAdd" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+                <div class="course_container">
+                    <div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start course-info-o">
+
+
+                        <div class="creator-menu">
+
+
+                            <div class="card mb-3 course-info-column course-border">
+                                <div class="creator-menu-title creator-menu-title-buttons">
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                </div>
+                                <div class="card-body">
+                                    <form id="frmEdit" class="form-horizontal course-info-content">
+                                        <div class="form-group">
+                                            <label for="text">Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+
+                                            </div>
+                                            <input type="hidden" name="icon" class="item-menu">
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" id="btnUpdate" class="btn btn-primary" disabled><i class="fas fa-sync-alt"></i> Update</button>
+                                    <button type="button" id="btnAdd" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+                <div class="course_container">
+                    <div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start course-info-o">
+
+
+                        <div class="creator-menu">
+
+
+                            <div class="card mb-3 course-info-column course-border">
+                                <div class="creator-menu-title creator-menu-title-buttons">
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                </div>
+                                <div class="card-body">
+
+                                    <form id="frmEdit" class="form-horizontal course-info-content">
+                                        <div class="form-group menu-options">
+                                            <label for="title">Select category</label>
+                                            <div class=" menu-options-categories">
+                                                <select name="target" id="target" class="form-control item-menu menu-options-category">
+                                                    <option value="_self">Self</option>
+                                                    <option value="_blank">Blank</option>
+                                                    <option value="_top">Top</option>
+                                                </select>
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text">Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+
+                                            </div>
+                                            <input type="hidden" name="icon" class="item-menu">
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Question</label>
+                                            <textarea class="form-control item-menu" placeholder="Enter the question"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text">Correct answer</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+
+                                            </div>
+                                            <input type="hidden" name="icon" class="item-menu">
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" id="btnUpdate" class="btn btn-primary" disabled><i class="fas fa-sync-alt"></i> Update</button>
+                                    <button type="button" id="btnAdd" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+                <div class="course_container">
+                    <div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start course-info-o">
+
+
+                        <div class="creator-menu">
+
+
+                            <div class="card mb-3 course-info-column course-border">
+                                <div class="creator-menu-title creator-menu-title-buttons">
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                </div>
+                                <div class="card-body">
+
+                                    <form id="frmEdit" class="form-horizontal course-info-content">
+                                        <div class="form-group menu-options">
+                                            <label for="title">Select category</label>
+                                            <div class=" menu-options-categories">
+                                                <select name="target" id="target" class="form-control item-menu menu-options-category">
+                                                    <option value="_self">Self</option>
+                                                    <option value="_blank">Blank</option>
+                                                    <option value="_top">Top</option>
+                                                </select>
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text">Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+
+                                            </div>
+                                            <input type="hidden" name="icon" class="item-menu">
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Quiz variants</label>
+                                            <ul type="disc" class="quiz-variants">
+                                                <li class="additional-var">Added variant <span class="delete-var">&times;</span></li>
+                                                <li class="additional-var wrong-var">Added variant <span class="delete-var">&times;</span></li>
+                                                <li class="additional-var">Added variant <span class="delete-var">&times;</span></li>
+                                                <li class="additional-var">Added variant <span class="delete-var">&times;</span></li>
+                                            </ul>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text">Add variant</label>
+                                            <div class="quiz-add-var">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+
+                                                </div>
+
+                                                <input type="hidden" name="icon" class="item-menu">
+                                                <button type="button" id="btnAdd" class="btn btn-success button-add-var"><i class="fas fa-plus"></i> Add</button>
+                                            </div>
+
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" id="btnUpdate" class="btn btn-primary" disabled><i class="fas fa-sync-alt"></i> Update</button>
+                                    <button type="button" id="btnAdd" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+                <div class="course_container">
+                    <div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start course-info-o">
+
+
+                        <div class="creator-menu">
+
+
+                            <div class="card mb-3 course-info-column course-border">
+                                <div class="creator-menu-title creator-menu-title-buttons">
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                </div>
+                                <div class="card-body">
+
+                                    <form id="frmEdit" class="form-horizontal course-info-content">
+                                        <div class="form-group menu-options">
+                                            <label for="title">Select category</label>
+                                            <div class=" menu-options-categories">
+                                                <select name="target" id="target" class="form-control item-menu menu-options-category">
+                                                    <option value="_self">Self</option>
+                                                    <option value="_blank">Blank</option>
+                                                    <option value="_top">Top</option>
+                                                </select>
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text">Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+
+                                            </div>
+                                            <input type="hidden" name="icon" class="item-menu">
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="href">Video</label> <br />
+                                            <input type="file" class="item-menu" id="href" name="href" placeholder="URL">
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" id="btnUpdate" class="btn btn-primary" disabled><i class="fas fa-sync-alt"></i> Update</button>
+                                    <button type="button" id="btnAdd" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+                <div class="course_container">
+                    <div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start course-info-o">
+
+
+                        <div class="creator-menu">
+
+
+                            <div class="card mb-3 course-info-column course-border">
+                                <div class="creator-menu-title creator-menu-title-buttons">
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                    <button class="courses-menu-button">Course info</button>
+                                </div>
+                                <div class="card-body">
+
+                                    <form id="frmEdit" class="form-horizontal course-info-content">
+                                        <div class="form-group menu-options">
+                                            <label for="title">Select category</label>
+                                            <div class=" menu-options-categories">
+                                                <select name="target" id="target" class="form-control item-menu menu-options-category">
+                                                    <option value="_self">Self</option>
+                                                    <option value="_blank">Blank</option>
+                                                    <option value="_top">Top</option>
+                                                </select>
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text">Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+
+                                            </div>
+                                            <input type="hidden" name="icon" class="item-menu">
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Text</label>
+                                            <textarea class="form-control item-menu" placeholder="Enter text"></textarea>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" id="btnUpdate" class="btn btn-primary" disabled><i class="fas fa-sync-alt"></i> Update</button>
+                                    <button type="button" id="btnAdd" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="~/js/fontawesome5-3-1.min.js"></script>
+<script type="text/javascript" src="~/js/bootstrap-iconpicker.min.js"></script>
+<script type="text/javascript" src="~/js/jquery-menu-editor.js"></script>
+
+
+<script>
+    // icon picker options
+var iconPickerOptions = {searchText: "Buscar...", labelHeader: "{0}/{1}"};
+// sortable list options
+var sortableListOptions = {
+    placeholderCss: {'background-color': "#cccccc"}
+};
+var editor = new MenuEditor('myEditor', {listOptions: sortableListOptions, iconPicker: iconPickerOptions});
+editor.setForm($('#frmEdit'));
+editor.setUpdateButton($('#btnUpdate'));
+//Calling the update method
+$("#btnUpdate").click(function(){
+    editor.update();
+});
+// Calling the add method
+$('#btnAdd').click(function(){
+    editor.add();
+});
+</script>
+
+
