@@ -20,6 +20,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 
         IEnumerable<Course> GetCourses(CourseFilter filter);
 
+
         IEnumerable<Theme> GetThemes();
 
         Course GetFullCourse(int id);
@@ -39,6 +40,10 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
         void UpdateCourse(int id , Course course);
 
         void DeleteCourse(int id);
+
+        IEnumerable<Domain.Model.User> GetUsersByRole(string role);
+
+        Domain.Model.User GetAuthorAsUser(string id);
 
     }
 }

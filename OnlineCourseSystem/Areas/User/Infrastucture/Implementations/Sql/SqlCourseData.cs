@@ -154,9 +154,27 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             _context.Users.Remove(user);
         }
 
-        public  IEnumerable<Domain.Model.User> GetUserByRole(string role)
+        public  Domain.Model.User GetUserByRole(string role, string id)
         {
-            return null;
+           var users = _context.Users.Include(c => c.Courses)
+               .Include(r => r.UserRoles);
+
+           return users.First(u => u.Id == id && u.UserRoles.First(r => r.Role.Name == role)!=null);
+        }
+
+        public IEnumerable<Domain.Model.User> GetUsersByRole(string role)
+        {
+            var roleFromDb = _context.Roles.First(r => r.Name == role);
+
+            return _context.UserRoles.Where(u => u.Role == roleFromDb).Select(u => u.User);
+        }
+
+        public Domain.Model.User GetAuthorAsUser(string id)
+        {
+            var users = _context.Users.Include(c => c.Courses).ThenInclude(c=>c.Course)
+                .Include(r => r.UserRoles);
+
+            return users.First(u => u.Id == id);
         }
     }
 }

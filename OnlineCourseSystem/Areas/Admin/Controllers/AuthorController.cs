@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
+using OnlineCourseSystem.Areas.User.Models;
 using OnlineCourseSystem.DAL.Context;
 using OnlineCourseSystem.Domain;
+using OnlineCourseSystem.Domain.Model;
 
 namespace OnlineCourseSystem.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class AuthorController : Controller
     {
         private readonly ICourseData _courseData;
@@ -23,20 +26,17 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
         public IActionResult Index()
         {
 
-
-
-
-            var courses = _courseData.GetCourses(new CourseFilter());
+            var courses = _courseData.GetUsersByRole(Roles.CourseCreator);
             return View(courses);
         }
-        public IActionResult Details(int id)
+        public IActionResult Details(string id)
         {
-            var course = _courseData.GetFullCourse(id);
-            return View(course);
+            var author = _courseData.GetAuthorAsUser(id);
+            return View(author);
         }
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
-            _courseData.DeleteCourse(id); ;
+            _courseData.DeleteUser(id); ;
             return RedirectToAction("Index");
         }
     }
