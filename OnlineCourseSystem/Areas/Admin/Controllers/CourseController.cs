@@ -18,7 +18,7 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            var courses = _courseData.GetCourses(new CourseFilter());
+            var courses = _courseData.GetCoursesWithAuthor(new CourseFilter());
             return View(courses);
         }
         public IActionResult Details(int id)

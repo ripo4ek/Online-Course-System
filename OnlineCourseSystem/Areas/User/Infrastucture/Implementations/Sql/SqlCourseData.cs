@@ -145,7 +145,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public Domain.Model.User GetUser(string id)
         {
-            return _context.Users.First(c=>c.Id == "1bfab9c2-fe7d-45e2-849c-a1f7ef9b6483");
+            return _context.Users.First(c=>c.Id == "4a88adfb-7e1e-4820-bf97-1e31a6e7f8f9");
         }
 
         public void DeleteUser(string id)
@@ -175,6 +175,11 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
                 .Include(r => r.UserRoles);
 
             return users.First(u => u.Id == id);
+        }
+
+        public IEnumerable<Course> GetCoursesWithAuthor(CourseFilter filter)
+        {
+            return _context.Courses.Include(c => c.Author);
         }
     }
 }
