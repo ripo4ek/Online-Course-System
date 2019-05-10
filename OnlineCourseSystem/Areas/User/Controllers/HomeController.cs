@@ -9,6 +9,7 @@ using OnlineCourseSystem.Domain;
 
 namespace OnlineCourseSystem.Areas.User.Controllers
 {
+    [Area("User")]
     public class HomeController : Controller
     {
         private readonly ICourseData _courseData;

@@ -84,13 +84,18 @@ namespace OnlineCourseSystem
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "areas",
+                    name: "UserArea",
                     template: "{area=User}/{controller=Home}/{action=Index}/{id?}"
+                );
+                routes.MapRoute(
+                    name: "AdminArea",
+                    template: "{area=Admin}/{controller=Home}/{action=Index}/{id?}"
                 );
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            
         }
     }
 }
