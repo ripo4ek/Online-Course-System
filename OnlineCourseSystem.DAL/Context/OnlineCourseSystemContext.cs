@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OnlineCourseSystem.Domain.Model;
@@ -11,7 +12,9 @@ using OnlineCourseSystem.Domain.Model.Tasks;
 
 namespace OnlineCourseSystem.DAL.Context
 {
-    public class OnlineCourseSystemContext: IdentityDbContext<User>
+    public class OnlineCourseSystemContext: IdentityDbContext<User, Role, string, IdentityUserClaim<string>,
+        ApplicationUserRole, IdentityUserLogin<string>,
+        IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
         public OnlineCourseSystemContext(DbContextOptions options) : 
             base(options)
@@ -62,6 +65,21 @@ namespace OnlineCourseSystem.DAL.Context
                 .HasOne(sc => sc.User)
                 .WithMany(c => c.Courses)
                 .HasForeignKey(sc => sc.UserId);
+
+            modelBuilder.Entity<ApplicationUserRole>(userRole =>
+            {
+                userRole.HasKey(ur => new { ur.UserId, ur.RoleId });
+
+                userRole.HasOne(ur => ur.Role)
+                    .WithMany(r => r.UserRoles)
+                    .HasForeignKey(ur => ur.RoleId)
+                    .IsRequired();
+
+                userRole.HasOne(ur => ur.User)
+                    .WithMany(r => r.UserRoles)
+                    .HasForeignKey(ur => ur.UserId)
+                    .IsRequired();
+            });
         }
 
     }

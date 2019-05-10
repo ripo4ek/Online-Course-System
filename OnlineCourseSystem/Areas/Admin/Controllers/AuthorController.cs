@@ -16,13 +16,6 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
     {
         private readonly ICourseData _courseData;
 
-        var context = services
-            .GetRequiredService<OnlineCourseSystemContext>();
-        var roleStore = new RoleStore<IdentityRole>(context);
-        private RoleManager<IdentityRole> _roleManager = new RoleManager<IdentityRole>(roleStore,
-            new IRoleValidator<IdentityRole>[] { },
-            new UpperInvariantLookupNormalizer(),
-            new IdentityErrorDescriber(), null);
         public AuthorController(ICourseData courseData)
         {
             _courseData = courseData;

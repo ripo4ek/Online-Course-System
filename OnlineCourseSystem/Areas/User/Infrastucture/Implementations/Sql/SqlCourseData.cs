@@ -156,8 +156,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public  IEnumerable<Domain.Model.User> GetUserByRole(string role)
         {
-            var rolefromDb = _context.Roles.SingleOrDefault(m => m.Name == "role");
-            var usersInRole = _context.Users.Where(m => m.Roles.Any(r => r.RoleId == role.Id));
+            return null;
         }
     }
 }

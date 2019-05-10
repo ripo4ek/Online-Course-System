@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineCourseSystem.Areas.User.Models;
-using OnlineCourseSystem.Domain.Model;
 
-
-namespace WebStore.Controllers
+namespace OnlineCourseSystem.Areas.User.Controllers
 {
+    [Area("User")]
     public class AccountController : Controller
     {
 
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<Domain.Model.User> _userManager;
 
-        private readonly SignInManager<User> _signInManager;
+        private readonly SignInManager<Domain.Model.User> _signInManager;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<Domain.Model.User> userManager, SignInManager<Domain.Model.User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -70,7 +66,7 @@ namespace WebStore.Controllers
         {
              if (!ModelState.IsValid) return View(model);
           
-            var user = new User { UserName = model.UserName, Email = model.Email };   
+            var user = new Domain.Model.User { UserName = model.UserName, Email = model.Email };   
             var createResult = await _userManager.CreateAsync(user, model.Password);  
             if (createResult.Succeeded)
             {

@@ -28,25 +28,26 @@ namespace OnlineCourseSystem
                                     .GetRequiredService<OnlineCourseSystemContext>();
                     DbInitializer.Initialize(context);
 
-                    var roleStore = new RoleStore<IdentityRole>(context);
-                    var roleManager = new RoleManager<IdentityRole>(roleStore,
-                        new IRoleValidator<IdentityRole>[] { },
+                    var roleStore = new RoleStore<Role>(context);
+                    var roleManager = new RoleManager<Role>(roleStore,
+                        new IRoleValidator<Role>[] { },
                         new UpperInvariantLookupNormalizer(),
                         new IdentityErrorDescriber(), null);
 
                     if (!roleManager.RoleExistsAsync(Roles.Administrator).Result)
                     {
-                        var role = new IdentityRole(Roles.Administrator);
+                        //var role = new IdentityRole(Roles.Administrator);
+                        var role = new Role(Roles.Administrator);
                         var result = roleManager.CreateAsync(role).Result;
                     }
                     if (!roleManager.RoleExistsAsync(Roles.Student).Result)
                     {
-                        var role = new IdentityRole(Roles.Student);
+                        var role = new Role(Roles.Student);
                         var result = roleManager.CreateAsync(role).Result;
                     }
                     if (!roleManager.RoleExistsAsync(Roles.CourseCreator).Result)
                     {
-                        var role = new IdentityRole(Roles.CourseCreator);
+                        var role = new Role(Roles.CourseCreator);
                         var result = roleManager.CreateAsync(role).Result;
                     }
 
