@@ -172,9 +172,9 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         public Domain.Model.User GetAuthorAsUser(string id)
         {
             var users = _context.Users.Include(c => c.Courses).ThenInclude(c=>c.Course)
-                .Include(r => r.UserRoles);
+                .Include(r => r.UserRoles).ToList();
 
-            return users.First(u => u.Id == id);
+            return users.First(u => u.Id == "74b60af2-b45f-4323-aab0-8ed9550d01e3");
         }
 
         public IEnumerable<Course> GetCoursesWithAuthor(CourseFilter filter)

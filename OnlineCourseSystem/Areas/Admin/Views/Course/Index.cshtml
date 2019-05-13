@@ -10,16 +10,17 @@
                     <th>Id</th>
                     <th>Confirmed</th>
                     <th>Author</th>
+                    <th>Edit</th>
                     <th>Delete</th>
                 </tr>
                 @foreach (var e in Model)
                 {
             <tr>
                 <th>@e.Id</th>
-                <th>@e.Name</th>
-                <th>@e.Author.Name</th>
-                <th>Edit</th>q
-                <th>Delete</th>
+                <td>@e.Name</td>
+                <td>@e.Author.Name</td>
+                <td>Edit</td>
+                <td>Delete</td>
             </tr>
                 }
 

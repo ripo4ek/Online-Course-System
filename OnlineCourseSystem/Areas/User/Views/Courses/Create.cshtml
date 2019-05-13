@@ -267,7 +267,7 @@
     $(document).on('click', '#addVariant', function(){
         let imput = $('#data-quiz').val();
 
-        $('#quiz-var').append(`<li class="additional-var">${imput} <span class="delete-var">&times;</span></li>`);
+        $('#quiz-var').append(`<li class="additional-var">${imput} <div class="delete-var">&times;</div></li>`);
 
         $('#data-quiz').val("");
     });
@@ -349,10 +349,10 @@
                                         <div class="form-group menu-options-full-raw">
                                             <label for="title">Quiz variants</label>
                                             <ul id="quiz-var" type="disc" class="quiz-variants">
-                                                <li class="additional-var">Added variant <span class="delete-var">&times;</span></li>
-                                                <li class="additional-var wrong-var">Added variant <span class="delete-var">&times;</span></li>
-                                                <li class="additional-var">Added variant <span class="delete-var">&times;</span></li>
-                                                <li class="additional-var">Added variant <span class="delete-var">&times;</span></li>
+                                                <li class="additional-var">Added variant <div class="delete-var">&times;</div></li>
+                                                <li class="additional-var wrong-var">Added variant <div class="delete-var">&times;</div></li>
+                                                <li class="additional-var">Added variant <div class="delete-var">&times;</div></li>
+                                                <li class="additional-var">Added variant <div class="delete-var">&times;</div></li>
                                             </ul>
                                         </div>
                                         <div class="form-group">
@@ -586,4 +586,3 @@
 
 
 
-<div class="card-body">
