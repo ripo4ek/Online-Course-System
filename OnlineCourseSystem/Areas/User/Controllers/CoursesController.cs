@@ -11,6 +11,7 @@ using OnlineCourseSystem.Domain.Model;
 
 namespace OnlineCourseSystem.Areas.User.Controllers
 {
+    [Area("User")]
     public class CoursesController : Controller
     {
 

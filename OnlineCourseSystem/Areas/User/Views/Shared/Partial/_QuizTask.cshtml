@@ -4,20 +4,17 @@
 
 <div class="question-wrap">
     <div>
-        <h2 class="quiz-title">Are CSS property names case-sensitive?</h2>
+        <h2 class="quiz-title">@Model.Question</h2>
     </div>
     <form class="form-quiz" name="quiz" action="" method="post">
-        <div class="quiz-option">
-            <input type="radio" name="quiz_var" value="Yes" checked="checked" /> Yes<br />
-        </div>
-        <div class="quiz-option">
-            <input type="radio" name="quiz_var" value="No" /> No<br />
-        </div>
-        <div class="quiz-option">
-            <input type="radio" name="quiz_var" value="Skip question" /> Skip question<br />
-        </div>
         
         
+        @foreach (var variant in Model.VariantOfAnswers)
+        {
+            <div class="quiz-option">
+                <input type="radio" name="quiz_var" value="Yes" checked="checked"/> @variant<br/>
+            </div>
+        }
         <button class="counter_form_button question-button">Send answer</button>
     </form>
 

@@ -12,6 +12,7 @@ using OnlineCourseSystem.Domain.Model.Tasks;
 
 namespace OnlineCourseSystem.Areas.User.Controllers
 {
+    [Area("User")]
     public class StudyController : Controller
     {
         private readonly ICourseData _data;

@@ -45,24 +45,23 @@
 
                             <div class="card mb-3 course-info-column course-border">
                                 <div class="creator-menu-title creator-menu-title-buttons">
-                                    <button class="courses-menu-button">Course info</button>
-                                    <button class="courses-menu-button">Course info</button>
-                                    <button class="courses-menu-button">Course info</button>
-                                    <button class="courses-menu-button">Course info</button>
+                                    <button id="course-info-btn" class="courses-menu-button">Course info</button>
+                                    <button id="add-section-btn" class="courses-menu-button">Add Section</button>
+                                    <button id="add-topic-btn" class="courses-menu-button">AddTopic</button>
+                                    <button id="add-task-btn" class="courses-menu-button">AddTask</button>
                                 </div>
                                 <div class="card-body">
-                                    <form id="frmEdit" class="form-horizontal course-info-content">
+                                    <form id="frmEdit" class="form-horizontal course-info-content active-course">
                                         <div class="form-group">
                                             <label for="text">Name</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
-                                                
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">                                               
                                             </div>
                                             <input type="hidden" name="icon" class="item-menu">
                                         </div>
                                         <div class="form-group">
                                             <label for="href">Picture</label> <br />
-                                            <input type="file" class="item-menu" id="href" name="href" placeholder="URL">
+                                            <input  type="file" class="item-menu" id="href" name="href" placeholder="URL">
                                         </div>
                                         <div class="form-group menu-options">
                                             <label for="title">Select category</label>
@@ -75,22 +74,18 @@
                                                 <span>or</span>
                                                 <input class="form-control item-menu menu-options-category" type="text" name="name" value="" placeholder="Your option" />
                                             </div>
-
-
                                         </div>
                                         <div class="form-group menu-options-full-raw">
-                                            <label class="form-group" for="target">Duration</label> <br />
-
-                                            <input class="input-duration" type="text" required> h
-
+                                            <label for="target">Duration</label> <br />
+                                            <input name="duration" class="item-menu input-duration " type="text" required> h
                                         </div>
                                         <div class="form-group menu-options-full-raw">
                                             <label for="title">Description</label>
-                                            <textarea class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                            <textarea name="desc" class="item-menu form-control " placeholder="Enter description of your course"></textarea>
                                         </div>
                                         <div class="form-group menu-options-full-raw">
                                             <label for="title">Curriculum description</label>
-                                            <textarea class="form-control item-menu" placeholder="Enter curriculum description of your course"></textarea>
+                                            <textarea name="descCurr" class="item-menu form-control " placeholder="Enter curriculum description of your course"></textarea>
                                         </div>
                                     </form>
                                 </div>
@@ -141,7 +136,7 @@
                                     <button class="courses-menu-button">Course info</button>
                                 </div>
                                 <div class="card-body">
-                                    <form id="frmEdit" class="form-horizontal course-info-content">
+                                    @*<form id="frmEdit" class="form-horizontal course-info-content">
                                         <div class="form-group">
                                             <label for="text">Name</label>
                                             <div class="input-group">
@@ -157,7 +152,7 @@
                                             <textarea class="form-control item-menu" placeholder="Enter description of section"></textarea>
                                         </div>
 
-                                    </form>
+                                    </form>*@
                                 </div>
                                 <div class="card-footer">
                                     <button type="button" id="btnUpdate" class="btn btn-primary" disabled><i class="fas fa-sync-alt"></i> Update</button>
@@ -174,54 +169,7 @@
 
                     </div>
                 </div>
-                <div class="course_container">
-                    <div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start course-info-o">
-
-
-                        <div class="creator-menu">
-
-
-                            <div class="card mb-3 course-info-column course-border">
-                                <div class="creator-menu-title creator-menu-title-buttons">
-                                    <button class="courses-menu-button">Course info</button>
-                                    <button class="courses-menu-button">Course info</button>
-                                    <button class="courses-menu-button">Course info</button>
-                                    <button class="courses-menu-button">Course info</button>
-                                </div>
-                                <div class="card-body">
-                                    <form id="frmEdit" class="form-horizontal course-info-content">
-                                        <div class="form-group">
-                                            <label for="text">Name</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
-
-                                            </div>
-                                            <input type="hidden" name="icon" class="item-menu">
-                                        </div>
-
-
-                                        <div class="form-group menu-options-full-raw">
-                                            <label for="title">Description</label>
-                                            <textarea class="form-control item-menu" placeholder="Enter description of your course"></textarea>
-                                        </div>
-
-                                    </form>
-                                </div>
-                                <div class="card-footer">
-                                    <button type="button" id="btnUpdate" class="btn btn-primary" disabled><i class="fas fa-sync-alt"></i> Update</button>
-                                    <button type="button" id="btnAdd" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
-                                </div>
-                            </div>
-
-
-
-                        </div>
-
-
-
-
-                    </div>
-                </div>
+                
                 <div class="course_container">
                     <div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start course-info-o">
 
@@ -249,10 +197,117 @@
                                                 </select>
 
                                             </div>
-
-
                                         </div>
-                                        <div class="form-group">
+
+                                    </form>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" id="btnUpdate" class="btn btn-primary" disabled><i class="fas fa-sync-alt"></i> Update</button>
+                                    <button type="button" id="btnAdd" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+                
+                
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="~/js/fontawesome5-3-1.min.js"></script>
+<script type="text/javascript" src="~/js/bootstrap-iconpicker.min.js"></script>
+<script type="text/javascript" src="~/js/jquery-menu-editor.js"></script>
+
+
+<script>
+
+
+    // icon picker options
+    var iconPickerOptions = {searchText: "Buscar...", labelHeader: "{0}/{1}"};
+// sortable list options
+    var sortableListOptions = {
+        placeholderCss: {'background-color': "#cccccc"}
+    };
+    var editor = new MenuEditor('myEditor', {listOptions: sortableListOptions, iconPicker: iconPickerOptions});
+    editor.setForm($('#frmEdit'));
+    editor.setUpdateButton($('#btnUpdate'));
+//Calling the update method
+    $("#btnUpdate").click(function(){
+        editor.update();
+    });
+// Calling the add method
+    $('#btnAdd').click(function(){
+        editor.add();
+    });
+
+
+    $(document).on('click','.delete-var',function(){
+        this.parent(".additional-var").remove();
+    });
+
+
+
+    $(document).on('click', '#addVariant', function(){
+        let imput = $('#data-quiz').val();
+
+        $('#quiz-var').append(`<li class="additional-var">${imput} <span class="delete-var">&times;</span></li>`);
+
+        $('#data-quiz').val("");
+    });
+ 
+    
+
+
+    $(function() {
+        $('#frmEdit').on('change', '#target1', function () {
+
+
+            $('#task-container').empty();
+            clearTasks();
+            let selector = this.value;
+
+            if (selector === "question") {
+                $('#task-container').addClass('task-question');
+                $('#task-container').html(getQuestionTask);           
+            }
+                
+            if (selector === "quiz") {
+                $('#task-container').addClass('task-quiz');
+                $('#task-container').html(getQuizTask);
+            }
+                
+            if (selector === "text") {
+                $('#task-container').addClass('task-text');
+                $('#task-container').html(getTextTask);
+            }
+                
+            if (selector === "video") {
+                $('#task-container').addClass('task-video');
+                $('#task-container').html(getVideoTask);
+            }
+                
+        });
+    });
+
+
+    function getQuestionTask() {
+        return `                         <div class="form-group">
                                             <label for="text">Name</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
@@ -273,56 +328,10 @@
 
                                             </div>
                                             <input type="hidden" name="icon" class="item-menu">
-                                        </div>
-
-                                    </form>
-                                </div>
-                                <div class="card-footer">
-                                    <button type="button" id="btnUpdate" class="btn btn-primary" disabled><i class="fas fa-sync-alt"></i> Update</button>
-                                    <button type="button" id="btnAdd" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
-                                </div>
-                            </div>
-
-
-
-                        </div>
-
-
-
-
-                    </div>
-                </div>
-                <div class="course_container">
-                    <div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start course-info-o">
-
-
-                        <div class="creator-menu">
-
-
-                            <div class="card mb-3 course-info-column course-border">
-                                <div class="creator-menu-title creator-menu-title-buttons">
-                                    <button class="courses-menu-button">Course info</button>
-                                    <button class="courses-menu-button">Course info</button>
-                                    <button class="courses-menu-button">Course info</button>
-                                    <button class="courses-menu-button">Course info</button>
-                                </div>
-                                <div class="card-body">
-
-                                    <form id="frmEdit" class="form-horizontal course-info-content">
-                                        <div class="form-group menu-options">
-                                            <label for="title">Select category</label>
-                                            <div class=" menu-options-categories">
-                                                <select name="target" id="target" class="form-control item-menu menu-options-category">
-                                                    <option value="_self">Self</option>
-                                                    <option value="_blank">Blank</option>
-                                                    <option value="_top">Top</option>
-                                                </select>
-
-                                            </div>
-
-
-                                        </div>
-                                        <div class="form-group">
+                                        </div>`;
+    }
+    function getQuizTask() {
+        return                         `<div class="form-group">
                                             <label for="text">Name</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
@@ -338,7 +347,7 @@
                                         </div>
                                         <div class="form-group menu-options-full-raw">
                                             <label for="title">Quiz variants</label>
-                                            <ul type="disc" class="quiz-variants">
+                                            <ul id="quiz-var" type="disc" class="quiz-variants">
                                                 <li class="additional-var">Added variant <span class="delete-var">&times;</span></li>
                                                 <li class="additional-var wrong-var">Added variant <span class="delete-var">&times;</span></li>
                                                 <li class="additional-var">Added variant <span class="delete-var">&times;</span></li>
@@ -348,65 +357,14 @@
                                         <div class="form-group">
                                             <label for="text">Add variant</label>
                                             <div class="quiz-add-var">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
-
-                                                </div>
-
+                                                    <input type="text" class="form-control item-menu"  id="data-quiz" placeholder="Text">
                                                 <input type="hidden" name="icon" class="item-menu">
-                                                <button type="button" id="btnAdd" class="btn btn-success button-add-var"><i class="fas fa-plus"></i> Add</button>
+                                                <button type="button" id="addVariant" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
                                             </div>
-
-                                        </div>
-
-                                    </form>
-                                </div>
-                                <div class="card-footer">
-                                    <button type="button" id="btnUpdate" class="btn btn-primary" disabled><i class="fas fa-sync-alt"></i> Update</button>
-                                    <button type="button" id="btnAdd" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
-                                </div>
-                            </div>
-
-
-
-                        </div>
-
-
-
-
-                    </div>
-                </div>
-                <div class="course_container">
-                    <div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start course-info-o">
-
-
-                        <div class="creator-menu">
-
-
-                            <div class="card mb-3 course-info-column course-border">
-                                <div class="creator-menu-title creator-menu-title-buttons">
-                                    <button class="courses-menu-button">Course info</button>
-                                    <button class="courses-menu-button">Course info</button>
-                                    <button class="courses-menu-button">Course info</button>
-                                    <button class="courses-menu-button">Course info</button>
-                                </div>
-                                <div class="card-body">
-
-                                    <form id="frmEdit" class="form-horizontal course-info-content">
-                                        <div class="form-group menu-options">
-                                            <label for="title">Select category</label>
-                                            <div class=" menu-options-categories">
-                                                <select name="target" id="target" class="form-control item-menu menu-options-category">
-                                                    <option value="_self">Self</option>
-                                                    <option value="_blank">Blank</option>
-                                                    <option value="_top">Top</option>
-                                                </select>
-
-                                            </div>
-
-
-                                        </div>
-                                        <div class="form-group">
+                                        </div>`;
+    }
+    function getTextTask() {
+        return ` <div class="form-group">
                                             <label for="text">Name</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
@@ -418,7 +376,23 @@
 
                                         <div class="form-group menu-options-full-raw">
                                             <label for="title">Description</label>
-                                            <textarea class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                        </div>`;
+    }
+    function getVideoTask() {
+        return`                      <div class="form-group">
+                                            <label for="text">Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+
+                                            </div>
+                                            <input type="hidden" name="icon" class="item-menu">
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter description of your course"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="href">Video</label> <br />
@@ -426,39 +400,25 @@
                                         </div>
 
                                     </form>
-                                </div>
-                                <div class="card-footer">
-                                    <button type="button" id="btnUpdate" class="btn btn-primary" disabled><i class="fas fa-sync-alt"></i> Update</button>
-                                    <button type="button" id="btnAdd" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
-                                </div>
-                            </div>
+                                </div>`;
+    }
 
-
-
-                        </div>
-
-
-
-
-                    </div>
-                </div>
-                <div class="course_container">
-                    <div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start course-info-o">
-
-
-                        <div class="creator-menu">
-
-
-                            <div class="card mb-3 course-info-column course-border">
-                                <div class="creator-menu-title creator-menu-title-buttons">
-                                    <button class="courses-menu-button">Course info</button>
-                                    <button class="courses-menu-button">Course info</button>
-                                    <button class="courses-menu-button">Course info</button>
-                                    <button class="courses-menu-button">Course info</button>
-                                </div>
-                                <div class="card-body">
-
-                                    <form id="frmEdit" class="form-horizontal course-info-content">
+    $('#course-info-btn').click(function(){
+        if (!($('#frmEdit').hasClass("active-course"))) {
+            clearClasses();
+            $('#frmEdit').empty();
+            $('#frmEdit').html(`
+                                        <div class="form-group">
+                                            <label for="text">Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">                                               
+                                            </div>
+                                            <input type="hidden" name="icon" class="item-menu">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="href">Picture</label> <br />
+                                            <input  type="file" class="item-menu" id="href" name="href" placeholder="URL">
+                                        </div>
                                         <div class="form-group menu-options">
                                             <label for="title">Select category</label>
                                             <div class=" menu-options-categories">
@@ -467,11 +427,68 @@
                                                     <option value="_blank">Blank</option>
                                                     <option value="_top">Top</option>
                                                 </select>
+                                                <span>or</span>
+                                                <input class="form-control item-menu menu-options-category" type="text" name="name" value="" placeholder="Your option" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="target">Duration</label> <br />
+                                            <input name="duration" class="item-menu input-duration " type="text" required> h
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea name="desc" class="item-menu form-control " placeholder="Enter description of your course"></textarea>
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Curriculum description</label>
+                                            <textarea name="descCurr" class="item-menu form-control " placeholder="Enter curriculum description of your course"></textarea>
+                                        </div>
+
+
+                        `);
+        }
+
+
+        $('#frmEdit').addClass("active-course");
+        editor.setForm($('#frmEdit'));
+    });
+
+
+    $('#add-section-btn').click(function () {
+
+        if (!($('#frmEdit').hasClass("active-section"))) {
+            clearClasses();
+            $('#frmEdit').empty();
+            $('#frmEdit').html(`
+                                       <div class="form-group">
+                                            <label for="text">Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
 
                                             </div>
-
-
                                         </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter description of section"></textarea>
+                                        </div>
+
+
+                        `);
+        }
+
+
+        $('#frmEdit').addClass("active-section");
+        editor.setForm($('#frmEdit'));
+    });
+
+
+    $('#add-topic-btn').click(function(){
+        if (!($('#frmEdit').hasClass("active-topic"))) {
+            clearClasses();
+            $('#frmEdit').empty();
+            $('#frmEdit').html(`
                                         <div class="form-group">
                                             <label for="text">Name</label>
                                             <div class="input-group">
@@ -484,65 +501,88 @@
 
                                         <div class="form-group menu-options-full-raw">
                                             <label for="title">Description</label>
-                                            <textarea class="form-control item-menu" placeholder="Enter description of your course"></textarea>
-                                        </div>
-                                        <div class="form-group menu-options-full-raw">
-                                            <label for="title">Text</label>
-                                            <textarea class="form-control item-menu" placeholder="Enter text"></textarea>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter description of your course"></textarea>
                                         </div>
 
-                                    </form>
-                                </div>
-                                <div class="card-footer">
-                                    <button type="button" id="btnUpdate" class="btn btn-primary" disabled><i class="fas fa-sync-alt"></i> Update</button>
-                                    <button type="button" id="btnAdd" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
-                                </div>
-                            </div>
 
-
-
-                        </div>
+                        `);
+        }
 
 
 
 
-                    </div>
-                </div>
+        $('#frmEdit').addClass("active-topic");
+        editor.setForm($('#frmEdit'));
+    });
+    $('#add-task-btn').click(function () {
+        if (!($('#frmEdit').hasClass("active-task"))) {
+            clearClasses();
+            $('#frmEdit').empty();
+            $('#frmEdit').html(`
+                                          <div class="form-group menu-options">
+                                            <label for="title">Select category</label>
+                                            <div class=" menu-options-categories">
+                                                <select name="target" id="target1" class="form-control item-menu menu-task-selector">
+                                                    <option value="question">Question</option>
+                                                    <option value="text">Text</option>
+                                                    <option value="video">Video</option>
+                                                    <option value="quiz">Quiz</option>
+                                                </select>
 
-            </div>
-        </div>
-    </div>
-</div>
+                                            </div>
 
 
+                                        </div>
+                                        <div id="task-container" class="task-question">
+                                            <div class="form-group">
+                                                <label for="text">Name</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+
+                                                </div>
+                                                <input type="hidden" name="icon" class="item-menu">
+                                            </div>
 
 
+                                            <div class="form-group menu-options-full-raw">
+                                                <label for="title">Question</label>
+                                                <textarea name="question" class="form-control item-menu" placeholder="Enter the question"></textarea>
+                                         </div>
+                                            <div class="form-group">
+                                                <label for="text">Correct answer</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control item-menu" name="answer" id="text" placeholder="Text">
 
-<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
-<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="~/js/fontawesome5-3-1.min.js"></script>
-<script type="text/javascript" src="~/js/bootstrap-iconpicker.min.js"></script>
-<script type="text/javascript" src="~/js/jquery-menu-editor.js"></script>
+                                                </div>
+                                                <input type="hidden" name="icon" class="item-menu">
+                                            </div>
+                                      </div>
+
+                        `);
+        }
 
 
-<script>
-    // icon picker options
-var iconPickerOptions = {searchText: "Buscar...", labelHeader: "{0}/{1}"};
-// sortable list options
-var sortableListOptions = {
-    placeholderCss: {'background-color': "#cccccc"}
-};
-var editor = new MenuEditor('myEditor', {listOptions: sortableListOptions, iconPicker: iconPickerOptions});
-editor.setForm($('#frmEdit'));
-editor.setUpdateButton($('#btnUpdate'));
-//Calling the update method
-$("#btnUpdate").click(function(){
-    editor.update();
-});
-// Calling the add method
-$('#btnAdd').click(function(){
-    editor.add();
-});
+        $('#frmEdit').addClass("active-task");
+        editor.setForm($('#frmEdit'));
+    });
+    
+
+
+    function clearClasses() {
+        $('#frmEdit').removeClass("active-task");
+        $('#frmEdit').removeClass("active-topic");
+        $('#frmEdit').removeClass("active-section");
+        $('#frmEdit').removeClass("active-course");
+    }
+    function clearTasks() {
+        $('#task-container').removeClass("task-question");
+        $('#task-container').removeClass("task-quiz");
+        $('#task-container').removeClass("task-video");
+        $('#task-container').removeClass("task-text");
+    }
+
 </script>
 
 
+
+<div class="card-body">

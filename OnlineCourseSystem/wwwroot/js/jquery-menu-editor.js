@@ -1117,8 +1117,159 @@ function MenuEditor(idSelector, options) {
     $(document).on('click', '.btnEdit', function (e) {
         e.preventDefault();
         itemEditing = $(this).closest('li');
+
+        var coursePointer = itemEditing.find('div').find("#pointer").attr('target');
+
+        if (coursePointer === "active-course")
+            $('#course-info-btn').click();
+
+        if (coursePointer === "active-topic")
+            $('#add-topic-btn').click();
+
+        if (coursePointer === "active-section")
+            $('#add-section-btn').click();
+
+        if (coursePointer === "active-task") {
+	        clearTasks();
+            $('#add-task-btn').click();
+            var taskpointer = itemEditing.find('div').find("#pointer").attr('task-target');
+
+            if (taskpointer === "task-question") {
+                $('#task-container').addClass('task-question');
+                $('#task-container').html(getQuestionTask);   
+            }
+                
+				
+
+            if (taskpointer === "task-quiz") {
+	            $('#task-container').addClass('task-quiz');
+	            $('#task-container').html(getQuizTask);
+            }
+
+
+            if (taskpointer === "task-text") {
+	            $('#task-container').addClass('task-text');
+	            $('#task-container').html(getTextTask);
+            }
+
+
+            if (coursePointer === "task-video") {
+	            $('#task-container').addClass('task-video');
+	            $('#task-container').html(getVideoTask);
+            }
+
+
+        }
+
+	
+
+
         editItem(itemEditing);
     });
+    function getQuestionTask() {
+        return `                         <div class="form-group">
+                                            <label for="text">Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+
+                                            </div>
+                                            <input type="hidden" name="icon" class="item-menu">
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Question</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter the question"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text">Correct answer</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+
+                                            </div>
+                                            <input type="hidden" name="icon" class="item-menu">
+                                        </div>`;
+    }
+    function getQuizTask() {
+        return `<div class="form-group">
+                                            <label for="text">Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+
+                                            </div>
+                                            <input type="hidden" name="icon" class="item-menu">
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Quiz variants</label>
+                                            <ul type="disc" class="quiz-variants">
+                                                <li class="additional-var">Added variant <span class="delete-var">&times;</span></li>
+                                                <li class="additional-var wrong-var">Added variant <span class="delete-var">&times;</span></li>
+                                                <li class="additional-var">Added variant <span class="delete-var">&times;</span></li>
+                                                <li class="additional-var">Added variant <span class="delete-var">&times;</span></li>
+                                            </ul>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text">Add variant</label>
+                                            <div class="quiz-add-var">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+                                                </div>
+                                                <input type="hidden" name="icon" class="item-menu">
+                                                <button type="button" id="btnAdd" class="btn btn-success button-add-var"><i class="fas fa-plus"></i> Add</button>
+                                            </div>
+                                        </div>`;
+    }
+    function getTextTask() {
+        return ` <div class="form-group">
+                                            <label for="text">Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+
+                                            </div>
+                                            <input type="hidden" name="icon" class="item-menu">
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                        </div>`;
+    }
+    function getVideoTask() {
+        return `                      <div class="form-group">
+                                            <label for="text">Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+
+                                            </div>
+                                            <input type="hidden" name="icon" class="item-menu">
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="href">Video</label> <br />
+                                            <input type="file" class="item-menu" id="href" name="href" placeholder="URL">
+                                        </div>
+
+                                    </form>
+                                </div>`;
+    }
+    function clearTasks() {
+        $('#task-container').removeClass("task-question");
+        $('#task-container').removeClass("task-quiz");
+        $('#task-container').removeClass("task-video");
+        $('#task-container').removeClass("task-text");
+    }
 
     $main.on('click', '.btnUp', function (e) {
         e.preventDefault();
@@ -1232,6 +1383,7 @@ function MenuEditor(idSelector, options) {
             $li.data(itemObject);
             var $div = $('<div>').css('overflow', 'auto');
             var $i = $('<i>').addClass(v.icon);
+
             var $span = $('<span>').addClass('txt').append(v.text).css('margin-right', '5px');
             var $divbtn =  TButtonGroup();
             $div.append($i).append("&nbsp;").append($span).append($divbtn);
@@ -1313,9 +1465,40 @@ function MenuEditor(idSelector, options) {
             data[$(this).attr('name')] = $(this).val();
         });
         var btnGroup = TButtonGroup();
-        var textItem = $('<span>').addClass('txt').text(data.text);
+        var textItem = $('<span>').addClass('txt').text(data.text);//
+
+        var pointer = "";
+
+        if ($('#frmEdit').hasClass("active-task")) {
+
+	        let taskPointer = '';
+	        if ($('#task-container').hasClass('task-question'))
+                taskPointer = 'task-target=task-question';
+
+            if ($('#task-container').hasClass('task-quiz'))
+                taskPointer = 'task-target=task-quiz';
+            if ($('#task-container').hasClass('task-text'))
+                taskPointer = 'task-target=task-text';
+            if ($('#task-container').hasClass('task-video'))
+                taskPointer = 'task-target=task-video';
+
+	        pointer = `<input id="pointer" type="hidden" target=active-task ${taskPointer}>`;
+
+        }
+            
+
+        if ($('#frmEdit').hasClass("active-topic"))
+            pointer = `<input id="pointer" type="hidden" target=active-topic>`;
+        if ($('#frmEdit').hasClass("active-section"))
+            pointer = `<input id="pointer" type="hidden" target=active-section>`;
+        if ($('#frmEdit').hasClass("active-course"))
+            pointer =`<input id="pointer" type="hidden" target=active-course>`;
+
+        $('#task-container').html(getQuestionTask); 
+
+
         var iconItem = $('<i>').addClass(data.icon);
-        var div = $('<div>').css({"overflow": "auto"}).append(iconItem).append("&nbsp;").append(textItem).append(btnGroup);
+        var div = $('<div>').css({"overflow": "auto"}).append(iconItem).append("&nbsp;").append(textItem).append(pointer).append(btnGroup);
         var $li = $("<li>").data(data);
         $li.addClass('list-group-item pr-0').append(div);
         $main.append($li);
