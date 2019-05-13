@@ -179,9 +179,13 @@
     display: flex;
 }
 .delete-var {
+    display:inline;
     font-size: 16px;
     font-weight: 800;
     color:red;
+}
+.delete-var:hover {
+    cursor: pointer;
 }
 .quiz-variants {
     list-style-type: disc;
