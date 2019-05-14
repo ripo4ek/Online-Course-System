@@ -1143,7 +1143,7 @@ function MenuEditor(idSelector, options) {
 
             if (taskpointer === "task-quiz") {
 	            $('#task-container').addClass('task-quiz');
-	            $('#task-container').html(getQuizTask);
+                $('#task-container').html(getQuizTask);
             }
 
 
@@ -1160,10 +1160,6 @@ function MenuEditor(idSelector, options) {
 
 
         }
-
-	
-
-
         editItem(itemEditing);
     });
     function getQuestionTask() {
@@ -1197,7 +1193,6 @@ function MenuEditor(idSelector, options) {
                                                 <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
 
                                             </div>
-                                            <input type="hidden" name="icon" class="item-menu">
                                         </div>
 
 
@@ -1207,21 +1202,19 @@ function MenuEditor(idSelector, options) {
                                         </div>
                                         <div class="form-group menu-options-full-raw">
                                             <label for="title">Quiz variants</label>
-                                            <ul type="disc" class="quiz-variants">
-                                                <li class="additional-var">Added variant <span class="delete-var">&times;</span></li>
-                                                <li class="additional-var wrong-var">Added variant <span class="delete-var">&times;</span></li>
-                                                <li class="additional-var">Added variant <span class="delete-var">&times;</span></li>
-                                                <li class="additional-var">Added variant <span class="delete-var">&times;</span></li>
+                                            <ul id="quiz-var" type="disc" class="quiz-variants">
+                                                <li class="additional-var">Added variant <div class="delete-var">&times;</div></li>
+                                                <li class="additional-var wrong-var">Added variant <div class="delete-var">&times;</div></li>
+                                                <li class="additional-var">Added variant <div class="delete-var">&times;</div></li>
+                                                <li class="additional-var">Added variant <div class="delete-var">&times;</div></li>
                                             </ul>
                                         </div>
                                         <div class="form-group">
                                             <label for="text">Add variant</label>
                                             <div class="quiz-add-var">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
-                                                </div>
-                                                <input type="hidden" name="icon" class="item-menu">
-                                                <button type="button" id="btnAdd" class="btn btn-success button-add-var"><i class="fas fa-plus"></i> Add</button>
+                                                    <input type="text" class="form-control item-menu"  id="data-quiz" placeholder="Text">
+                                                <input type="hidden" id="variant-save" name="icon" class="item-menu">
+                                                <button type="button" id="addVariant" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
                                             </div>
                                         </div>`;
     }
@@ -1314,12 +1307,37 @@ function MenuEditor(idSelector, options) {
         MenuEditor.updateButtons($main);
     });
 
+    function clearVariants(variantsArray) {
+	    let rezultArray = [];
+	    for (var element of variantsArray) {
+		    if (element === "") {
+			    continue;
+		    }
+		rezultArray.push(element);
+	    }
+	    return rezultArray;
+    }
+
     /* PRIVATE METHODS */
     function editItem($item) {
         var data = $item.data();
         $.each(data, function (p, v) {
             $form.find("[name=" + p + "]").val(v);
         });
+
+        let varData =$('.quiz-add-var').find('[name=icon]');
+
+
+        let quizVar = varData.val().split(";");
+
+        let clArr = clearVariants(quizVar);
+        if (clArr.length !== 0)
+	        for (var variant of clArr)
+                $('.quiz-variants').append(`<li class="additional-var">${variant} <div class="delete-var">&times;</div></li>`);
+
+
+
+
         $form.find(".item-menu").first().focus();
         if (data.hasOwnProperty('icon')) {
             iconPicker.iconpicker('setIcon', data.icon);
