@@ -5,22 +5,28 @@
 }
 <div class="container-fluid">
     <div class="row">
-        <table id="customers" class="table table-bordered table-hover">
-            <tr>
-                <th>UserName</th>
-                <th>Confirmed</th>
-                <th>Details</th>
-                <th>Delete</th>
-            </tr>
-            @foreach (var e in Model)
-            {
+        <div class="table-title">
+            List of users
+        </div>
+        <table id="customers" class="table table-bordered table-hover table-custom">
+            <thead>
                 <tr>
-                    <th>@e.UserName</th>
-                    <th>@e.EmailConfirmed?Yes:No</th>
+                    <th>UserName</th>
+                    <th>Confirmed</th>
                     <th>Details</th>
                     <th>Delete</th>
                 </tr>
-            }
+            </thead>
+             
+                @foreach (var e in Model)
+                {
+                    <tr>
+                        <td>@e.UserName</td>
+                        <td>@e.EmailConfirmed?Yes:No</td>
+                        <td>Details</td>
+                        <td>Delete</td>
+                    </tr>
+                }
 
         </table>
     </div>
