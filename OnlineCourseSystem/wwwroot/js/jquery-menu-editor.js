@@ -1203,17 +1203,13 @@ function MenuEditor(idSelector, options) {
                                         <div class="form-group menu-options-full-raw">
                                             <label for="title">Quiz variants</label>
                                             <ul id="quiz-var" type="disc" class="quiz-variants">
-                                                <li class="additional-var">Added variant <div class="delete-var">&times;</div></li>
-                                                <li class="additional-var wrong-var">Added variant <div class="delete-var">&times;</div></li>
-                                                <li class="additional-var">Added variant <div class="delete-var">&times;</div></li>
-                                                <li class="additional-var">Added variant <div class="delete-var">&times;</div></li>
                                             </ul>
                                         </div>
                                         <div class="form-group">
                                             <label for="text">Add variant</label>
                                             <div class="quiz-add-var">
                                                     <input type="text" class="form-control item-menu"  id="data-quiz" placeholder="Text">
-                                                <input type="hidden" id="variant-save" name="icon" class="item-menu">
+                                                <input type="hidden" answer="" id="variant-save" name="icon" class="item-menu">
                                                 <button type="button" id="addVariant" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
                                             </div>
                                         </div>`;
@@ -1332,8 +1328,14 @@ function MenuEditor(idSelector, options) {
 
         let clArr = clearVariants(quizVar);
         if (clArr.length !== 0)
-	        for (var variant of clArr)
-                $('.quiz-variants').append(`<li class="additional-var">${variant} <div class="delete-var">&times;</div></li>`);
+            for (var variant of clArr) {
+                if (variant.includes("answer=")) {
+                    $('.quiz-variants').append(`<li class="additional-var wrong-var">${variant.replace("answer=", "")} <div class="delete-var">&times;</div></li>`);
+                    continue;
+                }
+	            $('.quiz-variants').append(`<li class="additional-var">${variant} <div class="delete-var">&times;</div></li>`);
+            }
+                
 
 
 

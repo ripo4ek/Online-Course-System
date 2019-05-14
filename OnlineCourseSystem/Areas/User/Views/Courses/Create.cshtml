@@ -276,8 +276,20 @@
 
     $(document).on('click', '.additional-var', function () {
 
-        $('.wrong-var').remove();
-        this.addClass('wrong-var');
+
+        let data = $('#variant-save').val().replace('answer=', '');
+
+        let elementData = $(this).text().replace(" ×","");
+
+        let rezultData = data.replace(elementData,`answer=${elementData}`);
+
+
+        $('#variant-save').val(rezultData);
+
+        $('.wrong-var').removeClass('wrong-var');
+
+
+        $(this).addClass('wrong-var');
 
     });
 
@@ -395,10 +407,6 @@
                                         <div class="form-group menu-options-full-raw">
                                             <label for="title">Quiz variants</label>
                                             <ul id="quiz-var" type="disc" class="quiz-variants">
-                                                <li class="additional-var">Added variant <div class="delete-var">&times;</div></li>
-                                                <li class="additional-var wrong-var">Added variant <div class="delete-var">&times;</div></li>
-                                                <li class="additional-var">Added variant <div class="delete-var">&times;</div></li>
-                                                <li class="additional-var">Added variant <div class="delete-var">&times;</div></li>
                                             </ul>
                                         </div>
                                         <div class="form-group">
