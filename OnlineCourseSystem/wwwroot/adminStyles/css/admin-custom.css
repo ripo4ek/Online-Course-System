@@ -1,0 +1,20 @@
+.table-custom {
+    border: 2px solid white;
+    border-radius: 5px;
+    border-collapse: separate;
+}
+th {
+    background-color: rgba(78, 115, 223, .95);
+    color: #fff;
+}
+td {
+    background-color: rgba(78, 115, 223, .60);
+    color: #fff;
+}
+.table-title {
+    margin: auto;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 25px;
+}

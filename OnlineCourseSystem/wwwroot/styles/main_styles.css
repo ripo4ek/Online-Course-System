@@ -829,11 +829,13 @@ section
 	border: none;
 	outline: none;
 	height: 25px;
-	padding-left: 20px;
+    text-align:center;
 }
-.home_search_input:not(:last-child)
+.home_search_splitter 
 {
-	border-right: solid 1px #e5e5e5;
+    font-size: 20px;
+    font-weight: 100;
+}
 }
 .home_search_input::-webkit-input-placeholder
 {
