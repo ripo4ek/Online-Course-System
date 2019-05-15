@@ -41,6 +41,12 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Create(Course course)
+        {
+            return RedirectToAction();
+        }
+
 
         //TODO: Пофиксить 2 вызов
         public IActionResult Details(int id)
