@@ -1245,10 +1245,6 @@ function MenuEditor(idSelector, options) {
                                             <label for="title">Description</label>
                                             <textarea name="desc" class="form-control item-menu" placeholder="Enter description of your course"></textarea>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="href">Video</label> <br />
-                                            <input type="file" class="item-menu" id="href" name="href" placeholder="URL">
-                                        </div>
 
                                     </form>
                                 </div>`;

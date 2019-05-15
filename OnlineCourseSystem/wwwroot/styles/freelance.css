@@ -71,6 +71,9 @@
 }
 
 /*text task*/
+.task-container-video {
+    width: 100%;
+}
 .text-task {
     margin: auto;
     text-align: justify;
@@ -112,7 +115,9 @@
     border-radius: 5px;
     margin-bottom: 15px;
 }
-
+.menu-input {
+    min-height: 135px;
+}
 .input-duration {
     width: 35px;
     margin-top: 1px;
@@ -169,6 +174,9 @@
 .courses-menu-button:focus {
     outline: none;
 }
+.courses-menu-button-chosen {
+    background-color: #1a9ec4;
+}
 .course-info-o {
     margin-top: 0;
 }
@@ -202,9 +210,24 @@
 .home-create {
     height: 200px;
 }
-
+.form_name {
+    margin: auto;
+}
+.title-create {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.title-create>span {
+    color: #14bdee;
+}
+.quiz_options {
+    list-style-type: none;
+}
+.quiz_options>li {
+    margin-left: 0;
+    padding-left: 0;
+}
 /*Login-form*/
-
 .login-form-center {
     margin: 300px auto 300px auto;
 }
