@@ -47,7 +47,10 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             return null;
         }
 
-
+        public IActionResult UploadContent()
+        {
+            return View();
+        }
         //TODO: Пофиксить 2 вызов
         public IActionResult Details(int id)
         {
