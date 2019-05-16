@@ -44,10 +44,13 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         [HttpPost]
         public IActionResult Create(Course course)
         {
-            return RedirectToAction();
+            return null;
         }
 
-
+        public IActionResult UploadContent()
+        {
+            return View();
+        }
         //TODO: Пофиксить 2 вызов
         public IActionResult Details(int id)
         {

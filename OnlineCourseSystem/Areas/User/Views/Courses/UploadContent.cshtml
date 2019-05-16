@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewData["Title"] = "UploadContent";
+    Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
+}
+    <div class="container">
+        <div class="upload-video">
+
+            <h3 class="section_title title-create">Step <span>2</span> of <span>2</span></h3>
+
+            <div class="uploading-box">
+                <h4>Choose a picture of your course</h4>
+                <div class="form-group form-group-upload">
+
+                    <div class="input-group">
+                        <div class="add-course-picture">
+                            <form method="post">
+                                <div class="file-input-wrapper">
+                                    <button class="btn-file-input counter_form_button">Choose a picture</button>
+                                    <input type="file" name="CoursePicture">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="content-uploading">
+
+                            <img src="~/images/picture-download-icon.svg" alt="AddPicture" />
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+                <h4>Upload your video</h4>
+                <div class="form-group form-group-upload">
+                    
+
+                    <div class="input-group input-group-video">
+                        <div class="add-video">
+                            <div class="add-video-box">
+                                <div class="add-video-text">Section-1 Task-2</div>
+                                <div class="file-input-wrapper">
+                                    <button class="btn-file-input counter_form_button counter_form_button-video">Upload video</button>
+                                    <input type="file" name="CourseVideo">
+                                </div>
+                            </div>
+                                
+                            
+                                <div class="add-video-box">
+                                    <div class="add-video-text">Section-1 Task-2</div>
+                                    <div class="file-input-wrapper">
+                                        <button class="btn-file-input counter_form_button counter_form_button-video">Upload video</button>
+                                        <input type="file" name="CourseVideo">
+                                    </div>
+                                </div>
+                                
+                            
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <form action="/" method="post">
+                <button class="counter_form_button">finish</button>
+            </form>
+        </div>
+
+    </div>
+    
+    
+
