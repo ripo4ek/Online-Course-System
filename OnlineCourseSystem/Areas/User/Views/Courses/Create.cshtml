@@ -55,21 +55,21 @@
                                     <form id="frmEdit" class="form-horizontal course-info-content active-course">
                                         <div class="form-group menu-options-full-raw form_name">
                                             <label for="text">Name</label>
+                                            <input type="hidden" name="type" value="course" class="item-menu">
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Text">
                                             </div>
-                                            <input type="hidden" name="icon" class="item-menu">
                                         </div>
                                         <div class="form-group menu-options">
                                             <label for="title">Select category</label>
                                             <div class=" menu-options-categories">
-                                                <select name="target" id="target" class="form-control item-menu menu-options-category">
+                                                <select name="category" id="target" class="form-control item-menu menu-options-category">
                                                     <option value="_self">Self</option>
                                                     <option value="_blank">Blank</option>
                                                     <option value="_top">Top</option>
                                                 </select>
                                                 <span>or</span>
-                                                <input class="form-control item-menu menu-options-category" type="text" name="name" value="" placeholder="Your option" />
+                                                <input class="form-control item-menu menu-options-category" type="text" name="categoryCustom" value="" placeholder="Your option" />
                                             </div>
                                         </div>
                                         <div class="form-group menu-options-full-raw">
@@ -117,9 +117,7 @@
                 </div>
             </div>
         </div>
-        <form action="/" method="post">
-            <button class="counter_form_button">Next step</button>
-        </form>
+            <button id="save-course" class="counter_form_button">Next step</button>
     </div>
 
 </div>
@@ -136,6 +134,7 @@
 
 
 <script>
+
 
 
     // icon picker options
@@ -156,7 +155,24 @@
         editor.add();
     });
 
+    $('#save-course').click(function (e) {
+        e.preventDefault();
 
+        var str = editor.getString();
+
+        console.log(str);
+
+        //ajax call to save product
+        @*$.ajax({
+            url: "@Url.Action("Create", "Courses")",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ course: tommy }),
+            success: function(response) {
+                response ? alert("It worked!") : alert("It didn't work.");
+            }
+        });*@
+    });
     $(document).on('click', '.delete-var', function () {
 
         var liElement = $(this).parent(".additional-var");
@@ -269,40 +285,37 @@
     function getQuestionTask() {
         return `                         <div class="form-group">
                                             <label for="text">Name</label>
+                                            <input type="hidden" name="type" value="questionTask" class="item-menu">
                                             <div class="input-group">
                                                 <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
-
                                             </div>
-                                            <input type="hidden" name="icon" class="item-menu">
                                         </div>
 
 
                                         <div class="form-group menu-options-full-raw">
                                             <label for="title">Question</label>
-                                            <textarea class="form-control item-menu" placeholder="Enter the question"></textarea>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter the question"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="text">Correct answer</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
-
                                             </div>
-                                            <input type="hidden" name="icon" class="item-menu">
                                         </div>`;
     }
     function getQuizTask() {
         return                         `<div class="form-group">
-                                            <label for="text">Name</label>
+                                            <label for="text">Title</label>
+                                            <input type="hidden" name="type" value="quizTask" class="item-menu">
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
-
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Title">
                                             </div>
                                         </div>
 
 
                                         <div class="form-group menu-options-full-raw">
-                                            <label for="title">Description</label>
-                                            <textarea class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                            <label for="title">Task</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter the text of task"></textarea>
                                         </div>
                                         <div class="form-group menu-options-full-raw">
                                             <label for="title">Quiz variants</label>
@@ -320,34 +333,33 @@
     }
     function getTextTask() {
         return ` <div class="form-group">
-                                            <label for="text">Name</label>
+                                            <label for="text">Title</label>
+                                            <input type="hidden" name="type" value="textTask" class="item-menu">
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
-
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Title">
                                             </div>
-                                            <input type="hidden" name="icon" class="item-menu">
                                         </div>
 
 
                                         <div class="form-group menu-options-full-raw">
-                                            <label for="title">Description</label>
-                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                            <label for="title">Text</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter the text"></textarea>
                                         </div>`;
     }
     function getVideoTask() {
         return`                      <div class="form-group">
-                                            <label for="text">Name</label>
+                                            <label for="text">Title</label>
+                                            <input type="hidden" name="type" value="videoTask" class="item-menu">
                                             <div class="input-group ">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Title">
 
                                             </div>
-                                            <input type="hidden" name="icon" class="item-menu">
                                         </div>
 
 
                                         <div class="form-group menu-options-full-raw">
                                             <label for="title">Description</label>
-                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter description for video"></textarea>
                                         </div>
 
 
@@ -364,21 +376,22 @@
             $('#frmEdit').html(`
                                         <div class="form-group menu-options-full-raw">
                                             <label for="text">Name</label>
+
+                                            <input type="hidden" name="type" value="course" class="item-menu">
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">                                               
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Text">                                               
                                             </div>
-                                            <input type="hidden" name="icon" class="item-menu">
                                         </div>
                                         <div class="form-group menu-options">
                                             <label for="title">Select category</label>
                                             <div class=" menu-options-categories">
-                                                <select name="target" id="target" class="form-control item-menu menu-options-category">
+                                                <select name="category" id="target" class="form-control item-menu menu-options-category">
                                                     <option value="_self">Self</option>
                                                     <option value="_blank">Blank</option>
                                                     <option value="_top">Top</option>
                                                 </select>
                                                 <span>or</span>
-                                                <input class="form-control item-menu menu-options-category" type="text" name="name" value="" placeholder="Your option" />
+                                                <input class="form-control item-menu menu-options-category" type="text" name="categoryCustom" value="" placeholder="Your option" />
                                             </div>
                                         </div>
                                         <div class="form-group menu-options-full-raw">
@@ -413,9 +426,10 @@
             $('#frmEdit').empty();
             $('#frmEdit').html(`
                                        <div class="form-group menu-options-full-raw">
-                                            <label for="text">Name</label>
+                                            <label for="text">Title</label>
+                                            <input type="hidden" name="type" value="section" class="item-menu">
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Text">
 
                                             </div>
                                         </div>
@@ -444,12 +458,11 @@
             $('#frmEdit').empty();
             $('#frmEdit').html(`
                                         <div class="form-group menu-options-full-raw">
-                                            <label for="text">Name</label>
+                                            <label for="text">Title</label>
+                                            <input type="hidden" name="type" value="topic" class="item-menu">
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
-
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Text">
                                             </div>
-                                            <input type="hidden" name="icon" class="item-menu">
                                         </div>
 
 
@@ -477,8 +490,9 @@
             $('#frmEdit').html(`
                                           <div class="form-group menu-options">
                                             <label for="title">Select category</label>
+                                            <input type="hidden" name="type" value="task" class="item-menu">
                                             <div class=" menu-options-categories">
-                                                <select name="target" id="target1" class="form-control item-menu menu-task-selector">
+                                                <select name="task" id="target1" class="form-control item-menu menu-task-selector">
                                                     <option value="question">Question</option>
                                                     <option value="text">Text</option>
                                                     <option value="video">Video</option>
@@ -492,28 +506,23 @@
                                         <div id="task-container" class="task-question task-container-video">
                                             <div class="form-group">
                                                 <label for="text">Name</label>
+                                                <input type="hidden" name="type" value="questionTask" class="item-menu">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
-
                                                 </div>
-                                                <input type="hidden" name="icon" class="item-menu">
                                             </div>
 
 
-                                            <div class="form-group menu-options-full-raw">
-                                                <label for="title">Question</label>
-                                                <textarea name="question" class="form-control item-menu" placeholder="Enter the question"></textarea>
-                                         </div>
-                                            <div class="form-group">
-                                                <label for="text">Correct answer</label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control item-menu" name="answer" id="text" placeholder="Text">
-
-                                                </div>
-                                                <input type="hidden" name="icon" class="item-menu">
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Question</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter the question"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text">Correct answer</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
                                             </div>
-                                      </div>
-
+                                        </div>
                         `);
         }
 

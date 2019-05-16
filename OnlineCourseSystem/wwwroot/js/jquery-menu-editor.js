@@ -1,6 +1,5 @@
 /**
  * jQuery Menu Editor
- * @author David Ticona Saravia https://github.com/davicotico
  * @version 1.0.0
  * */
 (function ($){
@@ -8,7 +7,6 @@
     /**
      * @desc jQuery plugin to sort html list also the tree structures
      * @version 1.4.0
-     * @author Vladimír Čamaj
      * @license MIT
      * @desc jQuery plugin
      * @param options
@@ -1003,9 +1001,22 @@
      */
     $.fn.sortableListsToJson = function (){
         var arr = [];
+
+
+
+        let itemEditing = $('.btnEdit')/*.closest('li')*/;
+
+        //console.log(itemEditing);
+
+        //var data = itemEditing.data();
+
+        //console.log(data);
+        //console.log(itemEditing.attr("data-duration"));
+
         $(this).children('li').each(function () {
             var li = $(this);
-            var object = li.data();
+            //console.log(li);
+            let object = li.data();
             arr.push(object);
             var ch = li.children('ul,ol').sortableListsToJson();
             if (ch.length > 0) {
@@ -1117,7 +1128,7 @@ function MenuEditor(idSelector, options) {
     $(document).on('click', '.btnEdit', function (e) {
         e.preventDefault();
         itemEditing = $(this).closest('li');
-
+        
         var coursePointer = itemEditing.find('div').find("#pointer").attr('target');
 
         if (coursePointer === "active-course")
@@ -1165,11 +1176,10 @@ function MenuEditor(idSelector, options) {
     function getQuestionTask() {
         return `                         <div class="form-group">
                                             <label for="text">Name</label>
+                                            <input type="hidden" name="type" value="questionTask" class="item-menu">
                                             <div class="input-group">
                                                 <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
-
                                             </div>
-                                            <input type="hidden" name="icon" class="item-menu">
                                         </div>
 
 
@@ -1181,70 +1191,68 @@ function MenuEditor(idSelector, options) {
                                             <label for="text">Correct answer</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
-
                                             </div>
-                                            <input type="hidden" name="icon" class="item-menu">
                                         </div>`;
     }
     function getQuizTask() {
         return `<div class="form-group">
-                                            <label for="text">Name</label>
+                                            <label for="text">Title</label>
+                                            <input type="hidden" name="type" value="quizTask" class="item-menu">
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
-
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Title">
                                             </div>
                                         </div>
 
 
                                         <div class="form-group menu-options-full-raw">
-                                            <label for="title">Description</label>
-                                            <textarea class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                            <label for="title">Task</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter the text of task"></textarea>
                                         </div>
                                         <div class="form-group menu-options-full-raw">
                                             <label for="title">Quiz variants</label>
-                                            <ul id="quiz-var" type="disc" class="quiz-variants">
+                                            <ul class="quiz_options" id="quiz-var" class="quiz-variants">
                                             </ul>
                                         </div>
                                         <div class="form-group">
                                             <label for="text">Add variant</label>
                                             <div class="quiz-add-var">
                                                     <input type="text" class="form-control item-menu"  id="data-quiz" placeholder="Text">
-                                                <input type="hidden" answer="" id="variant-save" name="icon" class="item-menu">
+                                                <input type="hidden" id="variant-save" name="icon" class="item-menu">
                                                 <button type="button" id="addVariant" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
                                             </div>
                                         </div>`;
     }
     function getTextTask() {
         return ` <div class="form-group">
-                                            <label for="text">Name</label>
+                                            <label for="text">Title</label>
+                                            <input type="hidden" name="type" value="textTask" class="item-menu">
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
-
+                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Title">
                                             </div>
-                                            <input type="hidden" name="icon" class="item-menu">
                                         </div>
 
 
                                         <div class="form-group menu-options-full-raw">
-                                            <label for="title">Description</label>
-                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                            <label for="title">Text</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter the text"></textarea>
                                         </div>`;
     }
     function getVideoTask() {
         return `                      <div class="form-group">
-                                            <label for="text">Name</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+                                            <label for="text">Title</label>
+                                            <input type="hidden" name="type" value="videoTask" class="item-menu">
+                                            <div class="input-group ">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Title">
 
                                             </div>
-                                            <input type="hidden" name="icon" class="item-menu">
                                         </div>
 
 
                                         <div class="form-group menu-options-full-raw">
                                             <label for="title">Description</label>
-                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter description for video"></textarea>
                                         </div>
+
 
                                     </form>
                                 </div>`;
@@ -1312,25 +1320,28 @@ function MenuEditor(idSelector, options) {
 
     /* PRIVATE METHODS */
     function editItem($item) {
+        console.log($item);
         var data = $item.data();
+        console.log(data);
         $.each(data, function (p, v) {
             $form.find("[name=" + p + "]").val(v);
         });
 
-        let varData =$('.quiz-add-var').find('[name=icon]');
-
-
-        let quizVar = varData.val().split(";");
-
-        let clArr = clearVariants(quizVar);
-        if (clArr.length !== 0)
-            for (var variant of clArr) {
-                if (variant.includes("answer=")) {
-                    $('.quiz-variants').append(`<li class="additional-var wrong-var">${variant.replace("answer=", "")} <div class="delete-var">&times;</div></li>`);
-                    continue;
-                }
-	            $('.quiz-variants').append(`<li class="additional-var">${variant} <div class="delete-var">&times;</div></li>`);
-            }
+        let varData = $('.quiz-add-var').find('[name=icon]').val();
+        let quizVar = [];
+        if (varData !== undefined) {
+	        quizVar = varData.split(";");
+	        let clArr = clearVariants(quizVar);
+	        if (clArr.length !== 0)
+		        for (var variant of clArr) {
+			        if (variant.includes("answer=")) {
+				        $('.quiz-variants').append(`<li class="additional-var wrong-var">${variant.replace("answer=", "")} <div class="delete-var">&times;</div></li>`);
+				        continue;
+			        }
+			        $('.quiz-variants').append(`<li class="additional-var">${variant} <div class="delete-var">&times;</div></li>`);
+		        }
+        }
+            
                 
 
 
@@ -1481,7 +1492,10 @@ function MenuEditor(idSelector, options) {
             data[$(this).attr('name')] = $(this).val();
         });
         var btnGroup = TButtonGroup();
-        var textItem = $('<span>').addClass('txt').text(data.text);//
+
+        
+
+        var textItem = $('<span>').addClass('txt').text(data.title);//
 
         var pointer = "";
 
@@ -1526,7 +1540,22 @@ function MenuEditor(idSelector, options) {
      * @return String JSON menu scheme
      */
     this.getString = function () {
-        var obj = $main.sortableListsToJson();
+
+
+	    //var all = $('.btnEdit').map(function() {
+		   // return this.closest('li');
+	    //});
+     //   let test = $('.btnEdit').closest('li');
+     //   console.log($('.btnEdit').closest('li').data());
+     //   for (let t=0; t<test.length;t++) {
+     //       console.log(all[t].data());
+     //       //console.log(all[t].data());
+     //   }
+     let obj = sortableListsToJson($("#myEditor"));
+
+        
+        
+        //console.log(obj);
         return JSON.stringify(obj);
     };
     /**
@@ -1548,6 +1577,26 @@ function MenuEditor(idSelector, options) {
         }
     };
 };
+
+
+function sortableListsToJson(form) {
+	var arr = [];
+	form.children('li').each(function () {
+		var li = $(this);
+		//console.log(li);
+		let object = li.data();
+		arr.push(object);
+        var ch = sortableListsToJson(li.children('ul,ol'));
+		if (ch.length > 0) {
+			object.children = ch;
+		} else {
+			delete object.children;
+		}
+	});
+	return arr;
+};
+
+
 /* STATIC METHOD */
 /**
  * Update the buttons on the list. Only the buttons 'Up', 'Down', 'In', 'Out'

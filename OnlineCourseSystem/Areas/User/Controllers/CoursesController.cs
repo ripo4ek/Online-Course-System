@@ -44,7 +44,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         [HttpPost]
         public IActionResult Create(Course course)
         {
-            return RedirectToAction();
+            return null;
         }
 
 
