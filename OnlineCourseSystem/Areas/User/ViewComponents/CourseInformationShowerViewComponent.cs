@@ -22,7 +22,7 @@ namespace OnlineCourseSystem.Areas.User.ViewComponents
             {
                 CourseId = courseId,
                 TopicId = topicId
-            });
+            }).OrderBy(t=>t.Order);
             return View(tasks);
         }
     }

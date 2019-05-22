@@ -1,4 +1,4 @@
-﻿@model  OnlineCourseSystem.Domain.Model.Course
+﻿@model OnlineCourseSystem.Domain.Model.Course
 @{
     ViewData["Title"] = "Course";
     Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
@@ -28,7 +28,7 @@
     <div class="pushy-content">
         <ul>
             <!-- Submenu -->
-            @await Component.InvokeAsync("Sections", new {idOfCourse = Model.Id})
+            @await Component.InvokeAsync("Sections", new { idOfCourse = Model.Id })
         </ul>
     </div>
 </nav>
@@ -45,8 +45,8 @@
                     <button class="menu-btn">&#9776; Menu</button>
                     <div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
 
-                        <div class="content-course" id="course-content"></div>
-                        
+                        <div class="content-course content-course-align-none" id="course-content"></div>
+
                     </div>
                 </div>
             </div>
@@ -54,12 +54,14 @@
     </div>
 </div>
 
+<link href="~/styles/video-js.css" rel="stylesheet">
+<script src='~/js/video.js'></script>
+
 <script src="~/js/jquery-3.2.1.min.js"></script>
 <script src="~/js/pushy.min.js"></script>
 <script src="~/styles/bootstrap4/popper.js"></script>
 <script src="~/styles/bootstrap4/bootstrap.min.js"></script>
 <script src="~/js/course.js"></script>
-
 <script>
 
 
@@ -79,13 +81,13 @@
         $.get(`/User/Study/Task/?courseId=@Model.Id&topicId=${$('.content-link').data("id")}`,
             function (data) { container.html(data); });
 
-        
 
-        
-        
+
+
+
     });
 
-  
+
 
 
 
@@ -98,6 +100,6 @@
     function courseContent(topicId) {
         var container = $("#course-content");
         $.get(`/User/Study/Task/?courseId=@Model.Id&topicId=${topicId}`, function (data) { container.html(data); });
-        
+
     }
 </script>

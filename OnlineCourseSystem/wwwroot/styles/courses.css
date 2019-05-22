@@ -897,8 +897,7 @@ section
 .course_image
 {
 	width: 100%;
-	border-top-left-radius: 6px;
-	border-top-right-radius: 6px;
+	border-radius: 6px;
 	overflow: hidden;
 }
 .course_image img

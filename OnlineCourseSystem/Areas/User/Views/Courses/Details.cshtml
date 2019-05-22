@@ -56,7 +56,7 @@
                         <div class="course_info_item">
                             <div class="course_info_title">Categories:</div>
                             <div class="course_info_text">  <a href="#">  
-                             @Model.Categories.Select(c=>c.Category).First(c=>c.Id==1).Name
+                             
 
                         </a></div>
                         </div>
@@ -64,7 +64,7 @@
                     </div>
 
                     <!-- Course Image -->
-                    <div class="course_image"><img src="@Model.ImageUrl" alt=""></div>
+                    <div class="course_image"><img src="~/images/banner_1.jpg" alt=""></div>
 
                     <!-- Course Tabs -->
                     <div class="course_tabs_container">
@@ -108,35 +108,29 @@
                                                 <div class="accordion_container">
                                                     <div class="accordion d-flex flex-row align-items-center"><div>Can I just enroll in a single course?</div></div>
                                                     <div class="accordion_panel">
-                                                        <p>Lorem ipsun gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auci elit consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a.</p>
+                                                        <p>You can take individual courses in a Specialization without having to complete the entire Specialization.</p>
                                                     </div>
                                                 </div>
 
                                                 <div class="accordion_container">
-                                                    <div class="accordion d-flex flex-row align-items-center active"><div>I'm not interested in the entire Specialization?</div></div>
+                                                    <div class="accordion d-flex flex-row align-items-center active"><div>What if I'm not interested in the entire Specialization.</div></div>
                                                     <div class="accordion_panel">
-                                                        <p>Lorem ipsun gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auci elit consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a.</p>
+                                                        <p>You can buy individual courses.</p>
                                                     </div>
                                                 </div>
 
-                                                <div class="accordion_container">
-                                                    <div class="accordion d-flex flex-row align-items-center"><div>What is the refund policy?</div></div>
-                                                    <div class="accordion_panel">
-                                                        <p>Lorem ipsun gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auci elit consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a.</p>
-                                                    </div>
-                                                </div>
 
                                                 <div class="accordion_container">
                                                     <div class="accordion d-flex flex-row align-items-center"><div>What background knowledge is necessary?</div></div>
                                                     <div class="accordion_panel">
-                                                        <p>Lorem ipsun gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auci elit consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a.</p>
+                                                        <p>Our courses are optimised for base level of knoledge.</p>
                                                     </div>
                                                 </div>
 
                                                 <div class="accordion_container">
                                                     <div class="accordion d-flex flex-row align-items-center"><div>Do i need to take the courses in a specific order?</div></div>
                                                     <div class="accordion_panel">
-                                                        <p>Lorem ipsun gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auci elit consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a.</p>
+                                                        <p>Yes, we recommend to take the courses in a specific order, but you can come back to any lesson of courses in any time.</p>
                                                     </div>
                                                 </div>
 
@@ -295,30 +289,29 @@
                     <div class="sidebar_section">
                         <div class="sidebar_section_title">Course Feature</div>
                         <div class="sidebar_feature">
-                            <div class="course_price">$180</div>
                             <!-- Features -->
                             <div class="feature_list">
                                 <!-- Feature -->
                                 <div class="d-flex flex-row align-items-center justify-content-start">
-                                    <div class="feature_title"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Duration:</span></div>
+                                    <div class="feature_title"><i class="fa fa-clock-o" aria-hidden="true"></i><span class="fa-row">Duration:</span></div>
                                     <div class="feature_text position-value-fixer ml-auto">@(Model.Duration.Day)</div>
                                 </div>
 
                                 <!-- Feature -->
                                 <div class="d-flex flex-row align-items-center justify-content-start">
-                                    <div class="feature_title"><i class="fa fa-file-text-o" aria-hidden="true"></i><span>Lectures:</span></div>
+                                    <div class="feature_title"><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="fa-row">Lectures:</span></div>
                                     <div class="feature_text position-value-fixer ml-auto">@Model.TextTasks.Count</div>
                                 </div>
 
                                 <!-- Feature -->
                                 <div class="d-flex flex-row align-items-center justify-content-start">
-                                    <div class="feature_title"><i class="fa fa-question-circle-o" aria-hidden="true"></i><span>Questions:</span></div>
+                                    <div class="feature_title"><i class="fa fa-question-circle-o" aria-hidden="true"></i><span class="fa-row">Questions:</span></div>
                                     <div class="feature_text position-value-fixer ml-auto">@Model.QuizTasks.Count</div>
                                 </div>
 
                                 <!-- Feature -->
                                 <div class="d-flex flex-row align-items-center justify-content-start">
-                                    <div class="feature_title"><i class="fa fa-list-alt" aria-hidden="true"></i><span>Videos:</span></div>
+                                    <div class="feature_title"><i class="fa fa-list-alt" aria-hidden="true"></i><span class="fa-row">Videos:</span></div>
                                     <div class="feature_text position-value-fixer ml-auto">@Model.VideoTasks.Count</div>
                                 </div>
                                 <!-- Feature -->

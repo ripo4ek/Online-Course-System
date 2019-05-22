@@ -4,8 +4,8 @@
 
     <div class="question-wrap">
         <div class="question-body">
-            <div class="question-title">
-                <h2>@Model.Question</h2>
+            <div>
+                <h2 class="question-title">@Model.Question</h2>
             </div>
             <div class="question-paragraph">
                 <p>@Model.Question</p>
@@ -13,14 +13,14 @@
             <div class="question-form">
                 <form>
                     <textarea class="question-area" placeholder="Enter your answer"></textarea>
-                    <button class="counter_form_button question-button">Send answer</button>
+                    <button class="counter_form_button question-button question-button-send">Send answer</button>
                 </form>
             </div>
 
-            <div class="nav-buttons">
-                <button class="counter_form_button question-button">Back</button>
-                <button class="counter_form_button question-button">Next</button>
-            </div>
+            
         </div>
-        
+        <div class="nav-buttons">
+            <button class="counter_form_button question-button">Back</button>
+            <button class="counter_form_button question-button">Next</button>
+        </div>
     </div>

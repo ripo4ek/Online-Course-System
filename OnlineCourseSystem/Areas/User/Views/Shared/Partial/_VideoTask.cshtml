@@ -5,11 +5,24 @@
     <div class="question-wrap video-wrap">
         <h2 class="quiz-title">@Model.Name</h2>
         <div class="video">
-            <video width="560" height="315" src="@Model.VideoUrl"></video>
+            <video id='my-video' class='video-js' controls preload='auto' width='800' height='315'
+               poster='MY_VIDEO_POSTER.jpg' data-setup='{}'>
+            <source src='~/images/uncle_zina.mp4' type='video/mp4'>
+            <source src='MY_VIDEO.webm' type='video/webm'>
+            <p class='vjs-no-js'>
+                To view this video please enable JavaScript, and consider upgrading to a web browser that
+                <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+            </p>
+        </video>
         </div>
-            
         <div class="nav-buttons">
             <button class="counter_form_button question-button">Back</button>
             <button class="counter_form_button question-button">Next</button>
         </div>
     </div>
+
+    <script>
+        var player = videojs('my-video', {
+            height: '500'
+});
+    </script>
