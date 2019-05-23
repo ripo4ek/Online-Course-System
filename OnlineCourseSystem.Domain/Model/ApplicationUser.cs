@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace OnlineCourseSystem.Domain.Model
 {
-    public class User : IdentityUser
+    public class ApplicationUser : IdentityUser
     {
         public IEnumerable<CoursesToUsers> Courses { get; set; }
         public ICollection<ApplicationUserRole> UserRoles { get; set; }

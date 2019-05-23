@@ -23,12 +23,9 @@ namespace OnlineCourseSystem.Domain.Model
         [ForeignKey("UniversityId")]
         public virtual University University { get; set; }
 
-        public int? AuthorId { get; set; }
+        public virtual ApplicationUser Author { get; set; }
 
-        [ForeignKey("AuthorId")]
-        public virtual Author Author { get; set; }
-
-        public DateTime Duration { get; set; }
+        public string DurationInHours { get; set; }
 
         public string Target { get; set; }
         public string CurriculumDesctiption { get; set; }
@@ -41,15 +38,6 @@ namespace OnlineCourseSystem.Domain.Model
 
         public IEnumerable<CoursesToUsers> Users { get; set; }
         public  ICollection<Section> Sections { get; set; }
-
-        public  ICollection<Theme> Topics { get; set; }
-
-        public  ICollection<QuizTask> QuizTasks { get; set; }
-
-        public  ICollection<QuestionTask> QuestionTasks { get; set; }
-
-        public virtual ICollection<TextTask> TextTasks { get; set; }
-        public ICollection<VideoTask> VideoTasks { get; set; }
 
         public IEnumerable<Requierment> Requirements { get; set; }
         public int Order { get; set; }

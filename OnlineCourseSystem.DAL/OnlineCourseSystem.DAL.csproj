@@ -20,6 +20,8 @@
     <Compile Remove="Migrations\20190510100915_possibilityToGetUsersByRole.Designer.cs" />
     <Compile Remove="Migrations\20190510101412_Initialize.cs" />
     <Compile Remove="Migrations\20190510101412_Initialize.Designer.cs" />
+    <Compile Remove="Migrations\20190521141320_smthing.cs" />
+    <Compile Remove="Migrations\20190521141320_smthing.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

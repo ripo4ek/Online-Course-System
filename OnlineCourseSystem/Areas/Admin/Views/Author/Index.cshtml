@@ -1,4 +1,4 @@
-﻿@model  IEnumerable<OnlineCourseSystem.Domain.Model.User>
+﻿@model  IEnumerable<OnlineCourseSystem.Domain.Model.ApplicationUser>
 @{
     ViewData["Title"] = "Users";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -11,7 +11,7 @@
         <table id="customers" class="table table-bordered table-hover table-custom">
             <thead>
                 <tr>
-                    <th>UserName</th>
+                    <th>ApplicationUserName</th>
                     <th>Confirmed</th>
                     <th>Details</th>
                     <th>Delete</th>

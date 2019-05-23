@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Create";
-    Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
+    Layout = "~/Areas/ApplicationUser/Views/Shared/_LayoutMain.cshtml";
 }
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
@@ -155,23 +155,159 @@
         editor.add();
     });
 
+    function Course() {
+        this.Name = '';
+        this.Duration = '';
+        this.CurriculumDesctiption = '';
+        this.Description = '';
+        this.Category = '';
+        this.Sections = [];
+
+    }
+
+
+    function dataToObject(data) {
+        let newCourse = new Course();
+
+        let coursesArray = JSON.parse(data);
+
+        for (let course in coursesArray) {
+
+            let courseFromForm = coursesArray[course];
+            fillCourseInfo(courseFromForm, newCourse);
+            fillCourseUnderSections(courseFromForm, newCourse);
+
+            console.log(courseFromForm);
+            console.log(newCourse);
+            return newCourse;
+        }
+    }
+    function fillCourseUnderSections(courseFromForm, course) {
+        if (courseFromForm.hasOwnProperty("children") && courseFromForm.children.length > 0) {
+            let sections = courseFromForm.children;
+            for (var section in sections) {
+                let sec = sections[section];
+                course.Sections.push({
+                    //Id: section,
+                    Name: sec.title,
+                    Description: sec.desc,
+                });
+                if (sec.hasOwnProperty("children") && sec.children.length > 0) {
+                    let topics = sec.children;
+                    
+                    for (var topic in topics) {
+                        let lastIndexOfSection = course.Sections.length - 1;
+                        let t = topics[topic];
+                        course.Sections[lastIndexOfSection].Topics = [];
+                        course.Sections[lastIndexOfSection].Topics.push({
+                            //Id: topic,
+                            //SectionId: section,
+                            Name: t.title,
+                            Description: t.desc                      
+                        });
+                        //НЕ УБИВАЙТЕ Я JS ПЛОХО ЗНАЛ К ЭТОМУ МОМЕНТУ
+                        if (t.hasOwnProperty("children") && t.children.length > 0) {
+                            let tasks = t.children;
+                            let orderOfTasks = 0;
+                            for (var task in tasks) {
+                                let tk = tasks[task];
+                                let lastIndexOfTopic = course.Sections[lastIndexOfSection].Topics.length - 1;
+                                orderOfTasks++;
+                                if (tk.type === 'questionTask') {
+                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuestionTasks = [];
+                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuestionTasks.push({
+                                        //Id: task,
+                                        //TopicId: topic,
+                                        Name: tk.title,
+                                        Order: orderOfTasks,
+                                        Question: tk.desc,
+                                        CorrectAnswer: tk.answer
+                                });
+                                }
+                                if (tk.type === 'textTask') {
+                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].TextTasks = [];
+                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].TextTasks.push({
+                                        //Id: task,
+                                        //TopicId: topic,
+                                        Name: tk.title,
+                                        Description: tk.desc,
+                                        Order: orderOfTasks,
+                                        Data: tk.desc
+                                    });
+                                }
+                                if (tk.type === 'videoTask') {
+                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].VideoTasks = [];
+                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].VideoTasks.push({
+                                        //Id: task,
+                                        //TopicId: topic,
+                                        Name: tk.title,
+                                        Description: tk.desc,
+                                        Order: orderOfTasks
+                                    });
+                                }
+                                if (tk.type === 'quizTask') {
+
+                                    let variants = tk.icon.replace("answer=","").split(';');
+                                    let splitedStr = tk.icon.split(";");
+                                    let answer = '';
+
+                                    for (var str of splitedStr)
+                                        if (str.includes("answer=")) {
+                                            answer = str.replace("answer=", "");
+                                            break;
+                                        }
+                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuizTasks = [];
+                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuizTasks.push({
+                                        //Id: task,
+                                        //TopicId: topic,
+                                        Name: tk.title,
+                                        Description: tk.desc,
+                                        Order: orderOfTasks,
+                                        VariantOfAnswers: variants,
+                                        CorrectAnswer: answer
+                                    });
+                                }
+
+
+                            }
+
+                        }
+                    }
+
+                }
+            }
+
+        }
+    }
+    function fillCourseInfo(courseFromForm, course) {
+        course.Name = courseFromForm.title;
+        course.Duration = courseFromForm.duration;
+        course.CurriculumDesctiption = courseFromForm.descCurr;
+        course.Description = courseFromForm.desc;
+        course.RepresentForConstructor = editor.getString();
+        course.Category = courseFromForm.categoryCustom === null ||
+            courseFromForm.categoryCustom === undefined || courseFromForm.categoryCustom === ""
+            ?
+            courseFromForm.category : courseFromForm.categoryCustom;
+    }
+
     $('#save-course').click(function (e) {
         e.preventDefault();
 
-        var str = editor.getString();
+        var data = editor.getString();
 
-        console.log(str);
+        let course = dataToObject(data);
 
-        //ajax call to save product
-        @*$.ajax({
-            url: "@Url.Action("Create", "Courses")",
+
+        $.ajax({
+            url: "/ApplicationUser/Course/Create",
             type: "POST",
             contentType: "application/json",
-            data: JSON.stringify({ course: tommy }),
+            data: JSON.stringify(course),
             success: function(response) {
                 response ? alert("It worked!") : alert("It didn't work.");
             }
-        });*@
+        });
     });
     $(document).on('click', '.delete-var', function () {
 
@@ -287,7 +423,7 @@
                                             <label for="text">Name</label>
                                             <input type="hidden" name="type" value="questionTask" class="item-menu">
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Text">
                                             </div>
                                         </div>
 
@@ -299,7 +435,7 @@
                                         <div class="form-group">
                                             <label for="text">Correct answer</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+                                                <input type="text" class="form-control item-menu" name="answer" id="text" placeholder="Text">
                                             </div>
                                         </div>`;
     }
@@ -336,7 +472,7 @@
                                             <label for="text">Title</label>
                                             <input type="hidden" name="type" value="textTask" class="item-menu">
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Title">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Title">
                                             </div>
                                         </div>
 
@@ -508,7 +644,7 @@
                                                 <label for="text">Name</label>
                                                 <input type="hidden" name="type" value="questionTask" class="item-menu">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+                                                    <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Text">
                                                 </div>
                                             </div>
 
@@ -520,7 +656,7 @@
                                         <div class="form-group">
                                             <label for="text">Correct answer</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+                                                <input type="text" class="form-control item-menu" name="answer" id="text" placeholder="Text">
                                             </div>
                                         </div>
                         `);

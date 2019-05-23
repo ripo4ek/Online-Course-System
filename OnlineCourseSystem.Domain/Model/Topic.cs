@@ -6,8 +6,14 @@ using OnlineCourseSystem.Domain.Model.Tasks;
 
 namespace OnlineCourseSystem.Domain.Model
 {
-    public class Theme : NamedEntity
+    public class Topic : NamedEntity
     {
+        public ICollection<QuizTask> QuizTasks { get; set; }
+
+        public ICollection<QuestionTask> QuestionTasks { get; set; }
+
+        public virtual ICollection<TextTask> TextTasks { get; set; }
+        public ICollection<VideoTask> VideoTasks { get; set; }
 
         public string Description { get; set; }
         public int SectionId { get; set; }

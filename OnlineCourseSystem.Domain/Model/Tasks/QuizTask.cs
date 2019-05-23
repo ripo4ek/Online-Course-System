@@ -13,29 +13,7 @@ namespace OnlineCourseSystem.Domain.Model.Tasks
     public class QuizTask : Task
     {
         public string Question { get; set; }
-
-        public List<string> VariantOfAnswers = new List<string>();
-        public string CorrectAnswer;
-
-        //public QuizTask( string question,List<string> variantOfAnswers, string correctAnswer)
-        //{
-        //    Question = question;
-        //    VariantOfAnswers = variantOfAnswers;
-        //    CorrectAnswer = correctAnswer;
-        //}
-
-        //public QuizTask()
-        //{
-        //}
-
-        public bool CheckAnswer(string answer)
-        {
-            if (CorrectAnswer == answer)
-            {
-                return true;
-            }
-
-            return false;
-        }
+        public List<QuizVariant> VariantOfAnswers { get; set; }
+        public QuizVariant CorrectAnswer { get; set; }
     }
 }

@@ -1164,7 +1164,7 @@ function MenuEditor(idSelector, options) {
             }
 
 
-            if (coursePointer === "task-video") {
+            if (taskpointer === "task-video") {
 	            $('#task-container').addClass('task-video');
 	            $('#task-container').html(getVideoTask);
             }
@@ -1174,11 +1174,11 @@ function MenuEditor(idSelector, options) {
         editItem(itemEditing);
     });
     function getQuestionTask() {
-        return `                         <div class="form-group">
+	    return `                         <div class="form-group">
                                             <label for="text">Name</label>
                                             <input type="hidden" name="type" value="questionTask" class="item-menu">
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Text">
                                             </div>
                                         </div>
 
@@ -1190,7 +1190,7 @@ function MenuEditor(idSelector, options) {
                                         <div class="form-group">
                                             <label for="text">Correct answer</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Text">
+                                                <input type="text" class="form-control item-menu" name="answer" id="text" placeholder="Text">
                                             </div>
                                         </div>`;
     }
@@ -1223,11 +1223,11 @@ function MenuEditor(idSelector, options) {
                                         </div>`;
     }
     function getTextTask() {
-        return ` <div class="form-group">
+	    return ` <div class="form-group">
                                             <label for="text">Title</label>
                                             <input type="hidden" name="type" value="textTask" class="item-menu">
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="text" id="text" placeholder="Title">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Title">
                                             </div>
                                         </div>
 
@@ -1335,10 +1335,10 @@ function MenuEditor(idSelector, options) {
 	        if (clArr.length !== 0)
 		        for (var variant of clArr) {
 			        if (variant.includes("answer=")) {
-				        $('.quiz-variants').append(`<li class="additional-var wrong-var">${variant.replace("answer=", "")} <div class="delete-var">&times;</div></li>`);
+                        $('#quiz-var').append(`<li class="additional-var wrong-var">${variant.replace("answer=", "")} <div class="delete-var">&times;</div></li>`);
 				        continue;
 			        }
-			        $('.quiz-variants').append(`<li class="additional-var">${variant} <div class="delete-var">&times;</div></li>`);
+                    $('#quiz-var').append(`<li class="additional-var">${variant} <div class="delete-var">&times;</div></li>`);
 		        }
         }
             
@@ -1483,6 +1483,7 @@ function MenuEditor(idSelector, options) {
         });
         $cEl.children().children('i').removeClass(oldIcon).addClass($cEl.data('icon'));
         $cEl.find('span.txt').first().text($cEl.data('text'));
+        $('#task-container').html(getQuestionTask); 
         resetForm();
     };
    
@@ -1542,15 +1543,6 @@ function MenuEditor(idSelector, options) {
     this.getString = function () {
 
 
-	    //var all = $('.btnEdit').map(function() {
-		   // return this.closest('li');
-	    //});
-     //   let test = $('.btnEdit').closest('li');
-     //   console.log($('.btnEdit').closest('li').data());
-     //   for (let t=0; t<test.length;t++) {
-     //       console.log(all[t].data());
-     //       //console.log(all[t].data());
-     //   }
      let obj = sortableListsToJson($("#myEditor"));
 
         

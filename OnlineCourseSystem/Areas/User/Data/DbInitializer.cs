@@ -66,17 +66,7 @@ namespace OnlineCourseSystem.Areas.User.Data
                 },
 
             };
-            using (var trans = context.Database.BeginTransaction())
-            {
-                foreach (var author in authors)
-                {
-                    context.Authors.Add(author);
-                }
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Authors] ON");
-                context.SaveChanges();
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Authors] OFF");
-                trans.Commit();
-            }
+
             var directions = new List<Direction>()
             {
                 new Direction()
@@ -112,7 +102,7 @@ namespace OnlineCourseSystem.Areas.User.Data
                     ImageUrl = "Course1.png",
                     
                     UniversityId = 1,
-                    AuthorId = 1
+                    
                     
                 },
                 new Course()
@@ -125,7 +115,7 @@ namespace OnlineCourseSystem.Areas.User.Data
                     ImageUrl = "Course2.png",
                     
                     UniversityId = 1,
-                    AuthorId = 1
+                    
                 },
                 new Course()
                 {
@@ -137,7 +127,7 @@ namespace OnlineCourseSystem.Areas.User.Data
                     ImageUrl = "Course3.png",
                     
                     UniversityId = 2,
-                    AuthorId = 2
+                    
                 },
                 
             };
@@ -206,44 +196,44 @@ namespace OnlineCourseSystem.Areas.User.Data
                 trans.Commit();
             }
 
-            var topics = new List<Theme>()
+            var topics = new List<Topic>()
             {
-                new Theme()
+                new Topic()
                 {
                     Id = 1,
                     Name = "Hello, World",
                     SectionId = 1,
                    
                 },
-                new Theme()
+                new Topic()
                 {
                     Id = 2,
                     Name = "Types of Data C#",
                     SectionId = 1,
                     
                 },
-                new Theme()
+                new Topic()
                 {
                     Id = 3,
                     Name = "Cycles and logic",
                     SectionId = 1,
                    
                 },
-                new Theme()
+                new Topic()
                 {
                     Id = 4,
                     Name = "Methods",
                     SectionId = 2,
                     
                 },
-                new Theme()
+                new Topic()
                 {
                     Id = 5,
                     Name = "OOP",
                     SectionId = 3,
                    
                 },
-                new Theme()
+                new Topic()
                 {
                     Id = 6,
                     Name = "How to put your dick into the man ass",
@@ -296,13 +286,17 @@ namespace OnlineCourseSystem.Areas.User.Data
                     Id = 2,
                     Name = "Hello World Test",
                     TopicId = 1,
-                    CorrectAnswer = "Hello World",
-                    Question = "Как правильно?",
-                    VariantOfAnswers =
+                    CorrectAnswer = new QuizVariant()
                     {
-                        "Hi world",
-                        "Хай кста",
-                        "HW"
+                        Id = 1,
+                        Data = "Hello World"
+                    },
+                    Question = "Как правильно?",
+                    VariantOfAnswers = new List<QuizVariant>()
+                    {
+                        new QuizVariant(){Data = "Hi world"},
+                        new QuizVariant(){Data = "Хай кста"},
+                        new QuizVariant(){Data ="HW"}
                     }
                 },
                 new QuizTask()
@@ -310,13 +304,17 @@ namespace OnlineCourseSystem.Areas.User.Data
                     Id = 3,
                     Name = "Types of Var Test",
                     TopicId = 2,
-                    CorrectAnswer = "var",
-                    Question = "Ключевое слово для анонимной переменной?",
-                    VariantOfAnswers =
+                    CorrectAnswer = new QuizVariant()
                     {
-                        "Int32",
-                        "bool",
-                        "WO"
+                        Id = 1,
+                        Data = "Hello World"
+                    },
+                    Question = "Как правильно?",
+                    VariantOfAnswers = new List<QuizVariant>()
+                    {
+                        new QuizVariant(){Data = "Hi world"},
+                        new QuizVariant(){Data = "Хай кста"},
+                        new QuizVariant(){Data ="HW"}
                     }
                 },
             };
