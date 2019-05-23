@@ -43,7 +43,7 @@
                         <!-- Course Info Item -->
                         <div class="course_info_item">
                             <div class="course_info_title">Teacher:</div>
-                            <div class="course_info_text"> <a href="#">  @Model.Author.Name</a></div>
+                            <div class="course_info_text"> <a href="#">  @Model.Author.UserName</a></div>
                         </div>
 
                         <!-- Course Info Item -->
@@ -163,7 +163,7 @@
                                                         </div>
                                                     </div>
                                                     <ul>
-                                                        @foreach (var theme in Model.Topics.Where(t=>t.SectionId == sec.Id))
+                                                        @foreach (var theme in sec.Topics)
                                                         {
                                                             <li>
                                                                 <div class="dropdown_item">
@@ -294,25 +294,25 @@
                                 <!-- Feature -->
                                 <div class="d-flex flex-row align-items-center justify-content-start">
                                     <div class="feature_title"><i class="fa fa-clock-o" aria-hidden="true"></i><span class="fa-row">Duration:</span></div>
-                                    <div class="feature_text position-value-fixer ml-auto">@(Model.Duration.Day)</div>
+                                    <div class="feature_text position-value-fixer ml-auto">@(Model.DurationInHours)</div>
                                 </div>
 
                                 <!-- Feature -->
                                 <div class="d-flex flex-row align-items-center justify-content-start">
                                     <div class="feature_title"><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="fa-row">Lectures:</span></div>
-                                    <div class="feature_text position-value-fixer ml-auto">@Model.TextTasks.Count</div>
+                                    <div class="feature_text position-value-fixer ml-auto">@Model.TextTaskCount</div>
                                 </div>
 
                                 <!-- Feature -->
                                 <div class="d-flex flex-row align-items-center justify-content-start">
                                     <div class="feature_title"><i class="fa fa-question-circle-o" aria-hidden="true"></i><span class="fa-row">Questions:</span></div>
-                                    <div class="feature_text position-value-fixer ml-auto">@Model.QuizTasks.Count</div>
+                                    <div class="feature_text position-value-fixer ml-auto">@Model.QuizTaskCount</div>
                                 </div>
 
                                 <!-- Feature -->
                                 <div class="d-flex flex-row align-items-center justify-content-start">
                                     <div class="feature_title"><i class="fa fa-list-alt" aria-hidden="true"></i><span class="fa-row">Videos:</span></div>
-                                    <div class="feature_text position-value-fixer ml-auto">@Model.VideoTasks.Count</div>
+                                    <div class="feature_text position-value-fixer ml-auto">@Model.VideoTaskCount</div>
                                 </div>
                                 <!-- Feature -->
                             </div>
@@ -324,10 +324,10 @@
                         <div class="sidebar_section_title">Teacher</div>
                         <div class="sidebar_teacher">
                             <div class="teacher_title_container d-flex flex-row align-items-center justify-content-start">
-                                <div class="teacher_image"><img src="@Model.Author.PhotoUrl" alt=""></div>
+                                <div class="teacher_image"><img src="@Model.Author." alt=""></div>
                                 <div class="teacher_title">
-                                    <div class="teacher_name"> <!--  <a href="#">  @Model.Author.Name</a>--></div>
-                                    <div class="teacher_position">@Model.Author.Position</div>
+                                    <div class="teacher_name"> <!--  <a href="#">  @Model.Author.UserName</a>--></div>
+                                    <div class="teacher_position">@Model.Author.Status</div>
                                 </div>
                             </div>
                             <div class="teacher_meta_container">

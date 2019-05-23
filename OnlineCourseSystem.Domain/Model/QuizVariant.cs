@@ -7,6 +7,6 @@ namespace OnlineCourseSystem.Domain.Model
 {
     public class QuizVariant: BaseEntity       
     {
-        public string Data { get; set; }
+        public string Text { get; set; }
     }
 }

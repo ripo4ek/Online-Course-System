@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Create";
-    Layout = "~/Areas/ApplicationUser/Views/Shared/_LayoutMain.cshtml";
+    Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
 }
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
@@ -247,7 +247,12 @@
                                 }
                                 if (tk.type === 'quizTask') {
 
-                                    let variants = tk.icon.replace("answer=","").split(';');
+                                    let variants = tk.icon.replace("answer=", "").split(';');
+                                    let objVariants = [];
+                                    for (let o of variants)
+                                        objVariants.push({
+                                            Text: o,
+                                        });
                                     let splitedStr = tk.icon.split(";");
                                     let answer = '';
 
@@ -263,8 +268,8 @@
                                         Name: tk.title,
                                         Description: tk.desc,
                                         Order: orderOfTasks,
-                                        VariantOfAnswers: variants,
-                                        CorrectAnswer: answer
+                                        VariantOfAnswers: objVariants,
+                                        CorrectAnswer: {Text: answer}
                                     });
                                 }
 
@@ -300,7 +305,7 @@
 
 
         $.ajax({
-            url: "/ApplicationUser/Course/Create",
+            url: "/User/Course/Create",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(course),

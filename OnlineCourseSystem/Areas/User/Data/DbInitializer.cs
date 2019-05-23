@@ -289,14 +289,14 @@ namespace OnlineCourseSystem.Areas.User.Data
                     CorrectAnswer = new QuizVariant()
                     {
                         Id = 1,
-                        Data = "Hello World"
+                        Text = "Hello World"
                     },
                     Question = "Как правильно?",
                     VariantOfAnswers = new List<QuizVariant>()
                     {
-                        new QuizVariant(){Data = "Hi world"},
-                        new QuizVariant(){Data = "Хай кста"},
-                        new QuizVariant(){Data ="HW"}
+                        new QuizVariant(){Text = "Hi world"},
+                        new QuizVariant(){Text = "Хай кста"},
+                        new QuizVariant(){Text ="HW"}
                     }
                 },
                 new QuizTask()
@@ -307,14 +307,14 @@ namespace OnlineCourseSystem.Areas.User.Data
                     CorrectAnswer = new QuizVariant()
                     {
                         Id = 1,
-                        Data = "Hello World"
+                        Text = "Hello World"
                     },
                     Question = "Как правильно?",
                     VariantOfAnswers = new List<QuizVariant>()
                     {
-                        new QuizVariant(){Data = "Hi world"},
-                        new QuizVariant(){Data = "Хай кста"},
-                        new QuizVariant(){Data ="HW"}
+                        new QuizVariant(){Text = "Hi world"},
+                        new QuizVariant(){Text = "Хай кста"},
+                        new QuizVariant(){Text ="HW"}
                     }
                 },
             };

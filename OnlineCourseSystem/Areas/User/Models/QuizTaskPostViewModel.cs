@@ -9,8 +9,8 @@ namespace OnlineCourseSystem.Areas.User.Models
     public class QuizTaskPostViewModel
     {
         public string Question { get; set; }
-        public List<string> VariantOfAnswers { get; set;}
-        public string CorrectAnswer { get; set; }
+        public List<QuizVariant> VariantOfAnswers { get; set;}
+        public QuizVariant CorrectAnswer { get; set; }
         public string Name { get; set; }
         public int Order { get; set; }
         public string Description { get; set; }

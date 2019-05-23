@@ -27,6 +27,14 @@ namespace OnlineCourseSystem.Domain.Model
 
         public string DurationInHours { get; set; }
 
+        public int TextTaskCount => GetCountOfTextTasks();
+
+        public int VideoTaskCount => GetCountOfVideoasks();
+
+        public int QuizTaskCount => GetCountOfQuizTasks();
+
+        public int QuestionTaskCount => GetCountOfQuestionTasks();
+
         public string Target { get; set; }
         public string CurriculumDesctiption { get; set; }
         /// <summary>
@@ -48,5 +56,59 @@ namespace OnlineCourseSystem.Domain.Model
         public  Direction Direction { get; set; }
         public string Name { get; set; }
         public int Id { get; set; }
+
+
+        private int GetCountOfTextTasks()
+        {
+            int count = 0;
+            foreach (var section in Sections)
+            {
+                foreach (var sectionTopic in section.Topics)
+                {
+                    count += sectionTopic.TextTasks.Count;
+                }
+            }
+
+            return count;
+        }
+        private int GetCountOfQuizTasks()
+        {
+            int count = 0;
+            foreach (var section in Sections)
+            {
+                foreach (var sectionTopic in section.Topics)
+                {
+                    count += sectionTopic.QuizTasks.Count;
+                }
+            }
+
+            return count;
+        }
+        private int GetCountOfQuestionTasks()
+        {
+            int count = 0;
+            foreach (var section in Sections)
+            {
+                foreach (var sectionTopic in section.Topics)
+                {
+                    count += sectionTopic.QuestionTasks.Count;
+                }
+            }
+
+            return count;
+        }
+        private int GetCountOfVideoasks()
+        {
+            int count = 0;
+            foreach (var section in Sections)
+            {
+                foreach (var sectionTopic in section.Topics)
+                {
+                    count += sectionTopic.VideoTasks.Count;
+                }
+            }
+
+            return count;
+        }
     }
 }

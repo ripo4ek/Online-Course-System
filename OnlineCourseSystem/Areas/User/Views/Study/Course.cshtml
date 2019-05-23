@@ -78,7 +78,7 @@
 
         var container = $("#course-content");
         console.log(container);
-        $.get(`/ApplicationUser/Study/Task/?courseId=@Model.Id&topicId=${$('.content-link').data("id")}`,
+        $.get(`/User/Study/Task/?courseId=@Model.Id&topicId=${$('.content-link').data("id")}`,
             function (data) { container.html(data); });
 
 

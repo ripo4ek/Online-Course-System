@@ -96,7 +96,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
                 Include(c => c.Sections).
                 ThenInclude(t => t.Topics).ThenInclude(t => t.TextTasks).
                 Include(c => c.Sections).
-                ThenInclude(t => t.Topics).ThenInclude(t => t.QuizTasks).
+                ThenInclude(t => t.Topics).ThenInclude(t => t.QuizTasks).ThenInclude(v=>v.VariantOfAnswers).
                 FirstOrDefault(c=>c.Id == id);
         }
 
@@ -142,10 +142,10 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             {
                 foreach (var theme in section.Topics)
                 {
-                    tasks.AddRange(theme.QuestionTasks);
-                    tasks.AddRange(theme.QuizTasks);
-                    tasks.AddRange(theme.TextTasks);
-                    tasks.AddRange(theme.VideoTasks);
+                    tasks.AddRange(theme.QuestionTasks.Where(t=>t.TopicId == filter.TopicId));
+                    tasks.AddRange(theme.QuizTasks.Where(t => t.TopicId == filter.TopicId));
+                    tasks.AddRange(theme.TextTasks.Where(t => t.TopicId == filter.TopicId));
+                    tasks.AddRange(theme.VideoTasks.Where(t => t.TopicId == filter.TopicId));
                 }
             }
             return tasks;

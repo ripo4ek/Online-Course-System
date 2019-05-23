@@ -12,7 +12,7 @@
         @foreach (var variant in Model.VariantOfAnswers)
         {
             <div class="quiz-option">
-                <input type="radio" name="quiz_var" value="Yes" checked="checked"/> @variant<br/>
+                <input type="radio" name="quiz_var" value="Yes" checked="checked"/> @variant.Text<br/>
             </div>
         }
         <button class="counter_form_button question-button">Send answer</button>
