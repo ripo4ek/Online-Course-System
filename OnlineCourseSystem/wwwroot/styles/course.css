@@ -381,6 +381,7 @@ section
 	font-size: 36px;
 	font-weight: 700;
 	line-height: 0.75;
+    letter-spacing: 1.5px;
 	color: #384158;
 	vertical-align: middle;
 	margin-left: 4px;
@@ -1433,12 +1434,11 @@ section
 }
 .feature_title
 {
-	padding-left: 31px;
 }
 .feature_title i
 {
 	position: absolute;
-	top: calc(50% - 1px);
+	top: calc(40% - 1px);
 	-webkit-transform: translateY(-50%);
 	-moz-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
@@ -1485,7 +1485,7 @@ section
 }
 .teacher_name a:hover
 {
-	color: #14bdee;
+	color: #14bdee
 }
 .teacher_meta_container
 {
@@ -1891,4 +1891,5 @@ section
 }
 .task {
     display: block;
+    width: 100%;
 }
