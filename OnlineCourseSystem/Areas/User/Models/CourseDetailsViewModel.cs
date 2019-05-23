@@ -22,7 +22,7 @@ namespace OnlineCourseSystem.Areas.User.Models
         public string AuthorPosition { get; set; }
         public int DurationInDays { get; set; }
         public IEnumerable<Section> Sections { get; set; }
-        public IEnumerable<Theme> Themes { get; set; }
+        public IEnumerable<Topic> Themes { get; set; }
         public int  VideosCount { get; set; }
         public string AuthorImage { get; set; }
         public string CourseImage { get; set; }

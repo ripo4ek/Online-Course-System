@@ -65,7 +65,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers.Api
             }
             var courseFromDb = _data.GetFullCourse(id);
             var courseForSave = _mapper.Map(course, courseFromDb);
-            _data.UpdateCourse(id , courseForSave);
+            _data.UpdateCourse(courseForSave);
             return Ok();
 
         }

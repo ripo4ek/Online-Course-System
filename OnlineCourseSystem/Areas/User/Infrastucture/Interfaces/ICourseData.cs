@@ -8,22 +8,29 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 {
     public interface ICourseData
     {
-        IEnumerable<Theme> GetTopic();
+        IEnumerable<Topic> GetTopic();
 
         IEnumerable<Section> GetSections();
 
-        IEnumerable<Domain.Model.User> GetUsers();
-        Domain.Model.User GetUser(string id);
+        IEnumerable<Domain.Model.ApplicationUser> GetUsers();
+        Domain.Model.ApplicationUser GetUser(string id);
         IEnumerable<Task> GetTasksOfCourse(TaskFilter filter);
         IEnumerable<Course> GetFullCourse();
         IEnumerable<Category> GetCategories();
 
+        Course GetCourseByName(string name);
         IEnumerable<Course> GetCourses(CourseFilter filter);
 
         IEnumerable<Course> GetCoursesWithAuthor(CourseFilter filter);
-        IEnumerable<Theme> GetThemes();
+        IEnumerable<Topic> GetThemes();
+
+        void AddCategory(Category category);
+
+        void AddCategoryToCourse(Category category, Course course);
 
         Course GetFullCourse(int id);
+
+ 
 
         IEnumerable<Course> GetThreeRandomCourses();
 
@@ -37,13 +44,13 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 
         void AddCourse(Course course);
 
-        void UpdateCourse(int id , Course course);
+        void UpdateCourse(Course course);
 
         void DeleteCourse(int id);
 
-        IEnumerable<Domain.Model.User> GetUsersByRole(string role);
+        IEnumerable<Domain.Model.ApplicationUser> GetUsersByRole(string role);
 
-        Domain.Model.User GetAuthorAsUser(string id);
+        Domain.Model.ApplicationUser GetAuthorAsUser(string id);
 
     }
 }

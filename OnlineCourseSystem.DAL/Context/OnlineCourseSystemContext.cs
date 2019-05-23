@@ -12,7 +12,7 @@ using OnlineCourseSystem.Domain.Model.Tasks;
 
 namespace OnlineCourseSystem.DAL.Context
 {
-    public class OnlineCourseSystemContext: IdentityDbContext<User, Role, string, IdentityUserClaim<string>,
+    public class OnlineCourseSystemContext: IdentityDbContext<ApplicationUser, Role, string, IdentityUserClaim<string>,
         ApplicationUserRole, IdentityUserLogin<string>,
         IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
@@ -22,10 +22,9 @@ namespace OnlineCourseSystem.DAL.Context
              
         }
             public DbSet<Course> Courses { get; set; }
-            public DbSet<Author> Authors { get; set; }
             public DbSet<Direction> Directions { get; set; }
             public DbSet<Section> Sections { get; set; }
-            public DbSet<Theme> Topics { get; set; }
+            public DbSet<Topic> Topics { get; set; }
             public DbSet<University> Universities { get; set; }
             public DbSet<VideoTask> VideoTasks { get; set; }
             public DbSet<QuizTask> QuizTasks { get; set; }
@@ -35,6 +34,7 @@ namespace OnlineCourseSystem.DAL.Context
             public DbSet<Requierment> Requierments { get; set; }
             public DbSet<CoursesToUsers> CoursesToUsers { get; set; }
             public DbSet<CoursesToCategories> CoursesToCategories { get; set; }
+            public DbSet<QuizVariant> QuizVariants { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
                 base.OnModelCreating(modelBuilder);
@@ -62,7 +62,7 @@ namespace OnlineCourseSystem.DAL.Context
                 .HasForeignKey(sc => sc.CourseId);
 
             modelBuilder.Entity<CoursesToUsers>()
-                .HasOne(sc => sc.User)
+                .HasOne(sc => sc.ApplicationUser)
                 .WithMany(c => c.Courses)
                 .HasForeignKey(sc => sc.UserId);
 
@@ -75,7 +75,7 @@ namespace OnlineCourseSystem.DAL.Context
                     .HasForeignKey(ur => ur.RoleId)
                     .IsRequired();
 
-                userRole.HasOne(ur => ur.User)
+                userRole.HasOne(ur => ur.ApplicationUser)
                     .WithMany(r => r.UserRoles)
                     .HasForeignKey(ur => ur.UserId)
                     .IsRequired();

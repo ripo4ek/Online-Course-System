@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineCourseSystem.DAL.Context;
 
 namespace OnlineCourseSystem.DAL.Migrations
 {
     [DbContext(typeof(OnlineCourseSystemContext))]
-    partial class OnlineCourseSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20190522164431_FixedSomaBugs")]
+    partial class FixedSomaBugs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,57 +98,6 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.ApplicationUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AccessFailedCount");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256);
-
-                    b.Property<bool>("EmailConfirmed");
-
-                    b.Property<bool>("LockoutEnabled");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PasswordHash");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers");
-                });
-
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.ApplicationUserRole", b =>
                 {
                     b.Property<string>("UserId");
@@ -158,6 +109,27 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("Order");
+
+                    b.Property<string>("PhotoUrl");
+
+                    b.Property<string>("Position");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Category", b =>
@@ -179,7 +151,7 @@ namespace OnlineCourseSystem.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AuthorId");
+                    b.Property<int?>("AuthorId");
 
                     b.Property<string>("CurriculumDesctiption");
 
@@ -462,6 +434,57 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.ToTable("Universities");
                 });
 
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("OnlineCourseSystem.Domain.Model.Role")
@@ -472,7 +495,7 @@ namespace OnlineCourseSystem.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -480,7 +503,7 @@ namespace OnlineCourseSystem.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -488,7 +511,7 @@ namespace OnlineCourseSystem.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -501,7 +524,7 @@ namespace OnlineCourseSystem.DAL.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser", "ApplicationUser")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -509,7 +532,7 @@ namespace OnlineCourseSystem.DAL.Migrations
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Course", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser", "Author")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Author", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId");
 
@@ -542,7 +565,7 @@ namespace OnlineCourseSystem.DAL.Migrations
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser", "ApplicationUser")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.User", "User")
                         .WithMany("Courses")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -609,7 +632,7 @@ namespace OnlineCourseSystem.DAL.Migrations
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Topic", b =>
                 {
                     b.HasOne("OnlineCourseSystem.Domain.Model.Section")
-                        .WithMany("Topics")
+                        .WithMany("Themes")
                         .HasForeignKey("SectionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

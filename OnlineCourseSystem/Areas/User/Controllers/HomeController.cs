@@ -28,7 +28,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 viewModel.Add(new HomeViewModel()
                 {
                     CourseName = course.Name,
-                    CourseAuthor = course.Author.Name,
+                    CourseAuthor = course.Author.UserName,
                     CourseDescription = course.Description,
                     CourseImage = course.ImageUrl
                 });

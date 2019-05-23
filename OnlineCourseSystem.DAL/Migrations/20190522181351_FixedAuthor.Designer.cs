@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineCourseSystem.DAL.Context;
 
 namespace OnlineCourseSystem.DAL.Migrations
 {
     [DbContext(typeof(OnlineCourseSystemContext))]
-    partial class OnlineCourseSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20190522181351_FixedAuthor")]
+    partial class FixedAuthor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,7 +181,7 @@ namespace OnlineCourseSystem.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AuthorId");
+                    b.Property<string>("CreatorId");
 
                     b.Property<string>("CurriculumDesctiption");
 
@@ -201,7 +203,7 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("CreatorId");
 
                     b.HasIndex("DirectionId");
 
@@ -509,9 +511,9 @@ namespace OnlineCourseSystem.DAL.Migrations
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Course", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser", "Author")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser", "Creator")
                         .WithMany()
-                        .HasForeignKey("AuthorId");
+                        .HasForeignKey("CreatorId");
 
                     b.HasOne("OnlineCourseSystem.Domain.Model.Direction", "Direction")
                         .WithMany()

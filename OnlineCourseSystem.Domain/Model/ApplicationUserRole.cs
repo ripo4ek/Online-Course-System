@@ -7,7 +7,7 @@ namespace OnlineCourseSystem.Domain.Model
 {
     public class ApplicationUserRole : IdentityUserRole<string>
     {
-        public virtual User User { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
         public virtual Role Role { get; set; }
     }
 }

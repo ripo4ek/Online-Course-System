@@ -34,7 +34,7 @@ namespace OnlineCourseSystem
                 Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<ICourseData, SqlCourseData>();
             services.AddAutoMapper();
-            services.AddIdentity<User, Role>(options => options.Stores.MaxLengthForKeys = 128)
+            services.AddIdentity<ApplicationUser, Role>(options => options.Stores.MaxLengthForKeys = 128)
                 .AddEntityFrameworkStores<OnlineCourseSystemContext>()
                 .AddDefaultTokenProviders();
 
@@ -49,7 +49,7 @@ namespace OnlineCourseSystem
                 options.Lockout.MaxFailedAccessAttempts = 10;
                 options.Lockout.AllowedForNewUsers = true;
 
-                // User settings
+                // ApplicationUser settings
                 options.User.RequireUniqueEmail = false;
             });
 

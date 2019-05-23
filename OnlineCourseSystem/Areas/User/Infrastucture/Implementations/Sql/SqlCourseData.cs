@@ -30,11 +30,11 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         {
             return _context.Courses.ToList();
         }
-        public IEnumerable<Theme> GetTopic()
+        public IEnumerable<Topic> GetTopic()
         {
             return _context.Topics.ToList();
         }
-        public IEnumerable<Domain.Model.User> GetUsers()
+        public IEnumerable<Domain.Model.ApplicationUser> GetUsers()
         {
             return _context.Users;
         }
@@ -86,15 +86,17 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
            
             return _context.Courses.
                 Include(c => c.Author).
-                Include(c => c.QuestionTasks).
-                Include(c => c.QuizTasks).
                 Include(c => c.Categories).
                 ThenInclude(c => c.Category).
                 Include(c => c.Requirements).
                 Include(c => c.Sections).
-                Include(c => c.TextTasks).
-                Include(c => c.Topics).
-                Include(c => c.VideoTasks).
+                ThenInclude(t=>t.Topics).ThenInclude(t=>t.QuestionTasks).
+                Include(c => c.Sections).
+                ThenInclude(t => t.Topics).ThenInclude(t => t.VideoTasks).
+                Include(c => c.Sections).
+                ThenInclude(t => t.Topics).ThenInclude(t => t.TextTasks).
+                Include(c => c.Sections).
+                ThenInclude(t => t.Topics).ThenInclude(t => t.QuizTasks).
                 FirstOrDefault(c=>c.Id == id);
         }
 
@@ -106,10 +108,9 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
 
         
-        public void UpdateCourse(int id , Course course)
+        public void UpdateCourse(Course course)
         {
-            DeleteCourse(id);
-            _context.Courses.Add(course);
+            _context.Courses.Update(course);
             _context.SaveChanges();
 
         }
@@ -127,7 +128,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
            return _context.Categories;
         }
 
-        public IEnumerable<Theme> GetThemes()
+        public IEnumerable<Topic> GetThemes()
         {
             return _context.Topics;
         }
@@ -136,14 +137,21 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             var course = GetFullCourse(filter.CourseId);
 
             List<Task> tasks = new List<Task>();
-            tasks.AddRange(course.QuestionTasks.Where(t=>t.TopicId == filter.TopicId));
-            tasks.AddRange(course.QuizTasks.Where(t => t.TopicId == filter.TopicId));
-            tasks.AddRange(course.TextTasks.Where(t => t.TopicId == filter.TopicId));
-            tasks.AddRange(course.VideoTasks.Where(t => t.TopicId == filter.TopicId));
+
+            foreach (var section in course.Sections)
+            {
+                foreach (var theme in section.Topics)
+                {
+                    tasks.AddRange(theme.QuestionTasks);
+                    tasks.AddRange(theme.QuizTasks);
+                    tasks.AddRange(theme.TextTasks);
+                    tasks.AddRange(theme.VideoTasks);
+                }
+            }
             return tasks;
         }
 
-        public Domain.Model.User GetUser(string id)
+        public Domain.Model.ApplicationUser GetUser(string id)
         {
             return _context.Users.First(c=>c.Id == "4a88adfb-7e1e-4820-bf97-1e31a6e7f8f9");
         }
@@ -154,7 +162,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             _context.Users.Remove(user);
         }
 
-        public  Domain.Model.User GetUserByRole(string role, string id)
+        public  Domain.Model.ApplicationUser GetUserByRole(string role, string id)
         {
            var users = _context.Users.Include(c => c.Courses)
                .Include(r => r.UserRoles);
@@ -162,14 +170,14 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
            return users.First(u => u.Id == id && u.UserRoles.First(r => r.Role.Name == role)!=null);
         }
 
-        public IEnumerable<Domain.Model.User> GetUsersByRole(string role)
+        public IEnumerable<Domain.Model.ApplicationUser> GetUsersByRole(string role)
         {
             var roleFromDb = _context.Roles.First(r => r.Name == role);
 
-            return _context.UserRoles.Where(u => u.Role == roleFromDb).Select(u => u.User);
+            return _context.UserRoles.Where(u => u.Role == roleFromDb).Select(u => u.ApplicationUser);
         }
 
-        public Domain.Model.User GetAuthorAsUser(string id)
+        public Domain.Model.ApplicationUser GetAuthorAsUser(string id)
         {
             var users = _context.Users.Include(c => c.Courses).ThenInclude(c=>c.Course)
                 .Include(r => r.UserRoles).ToList();
@@ -180,6 +188,27 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         public IEnumerable<Course> GetCoursesWithAuthor(CourseFilter filter)
         {
             return _context.Courses.Include(c => c.Author);
+        }
+
+        public void AddCategory(Category category)
+        {
+            _context.Categories.Add(category);
+            _context.SaveChanges();
+        }
+
+
+        public void AddCategoryToCourse(Category category, Course course)
+        {
+            _context.CoursesToCategories.Add(new CoursesToCategories()
+            {
+                Course = course,
+                Category = category
+            });
+        }
+
+        public Course GetCourseByName(string name)
+        {
+            return _context.Courses.First(n=>n.Name == name);
         }
     }
 }

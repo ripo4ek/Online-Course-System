@@ -76,7 +76,7 @@
 
         var container = $("#course-content");
         console.log(container);
-        $.get(`/User/Study/Task/?courseId=@Model.Id&topicId=${$('.content-link').data("id")}`,
+        $.get(`/ApplicationUser/Study/Task/?courseId=@Model.Id&topicId=${$('.content-link').data("id")}`,
             function (data) { container.html(data); });
 
         
@@ -97,7 +97,7 @@
 
     function courseContent(topicId) {
         var container = $("#course-content");
-        $.get(`/User/Study/Task/?courseId=@Model.Id&topicId=${topicId}`, function (data) { container.html(data); });
+        $.get(`/ApplicationUser/Study/Task/?courseId=@Model.Id&topicId=${topicId}`, function (data) { container.html(data); });
         
     }
 </script>
