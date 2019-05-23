@@ -4,15 +4,18 @@
 
 <div class="question-wrap">
     <div>
-        <h2 class="quiz-title">@Model.Question</h2>
+        <h2 class="quiz-title">@Model.Name</h2>
     </div>
+    
     <form class="form-quiz" name="quiz" action="" method="post">
         
-        
+        <div class="question-paragraph">
+            <p>@Model.Question</p>
+        </div>
         @foreach (var variant in Model.VariantOfAnswers)
         {
             <div class="quiz-option">
-                <input type="radio" name="quiz_var" value="Yes" checked="checked"/> @variant.Text<br/>
+                <input type="radio" name="quiz_var" value="Yes" checked="checked"/>@variant.Text<br/>
             </div>
         }
         <button class="counter_form_button question-button question-button-send">Send answer</button>
