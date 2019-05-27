@@ -5,7 +5,7 @@
     <div class="question-wrap video-wrap">
         <h2 class="quiz-title">@Model.Name</h2>
         <div class="video">
-            <video id='my-video' class='video-js' controls preload='auto' width='800' height='315'
+            <video id='my-video' class='video-js' controls preload='auto' width='800' height='215'
                poster='MY_VIDEO_POSTER.jpg' data-setup='{}'>
             <source src='~/images/uncle_zina.mp4' type='video/mp4'>
             <source src='MY_VIDEO.webm' type='video/webm'>
@@ -23,6 +23,6 @@
 
     <script>
         var player = videojs('my-video', {
-            height: '500'
+            height: '450'
 });
     </script>
