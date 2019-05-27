@@ -86,11 +86,11 @@
                                         </div>
                                         <div class="form-group menu-options-full-raw">
                                             <label for="title">Requirements for course</label>
-                                            <textarea name="descCurr" class="item-menu form-control menu-input" placeholder="Enter requirements of your course"></textarea>
+                                            <textarea name="req" class="item-menu form-control menu-input" placeholder="Enter requirements of your course"></textarea>
                                         </div>
                                         <div class="form-group menu-options-full-raw">
                                             <label for="title">Target audience</label>
-                                            <textarea name="descCurr" class="item-menu form-control menu-input" placeholder="Enter target audience of your course"></textarea>
+                                            <textarea name="target" class="item-menu form-control menu-input" placeholder="Enter target audience of your course"></textarea>
                                         </div>
                                     </form>
                                 </div>
@@ -165,12 +165,13 @@
 
     function Course() {
         this.Name = '';
-        this.Duration = '';
-        this.CurriculumDesctiption = '';
+        this.DurationInHours = '';
+        this.CurriculumDescription = '';
         this.Description = '';
         this.Category = '';
+        this.TargetAuditory = '';
+        this.RequirementKnowledge = '';
         this.Sections = [];
-
     }
 
 
@@ -294,10 +295,12 @@
     }
     function fillCourseInfo(courseFromForm, course) {
         course.Name = courseFromForm.title;
-        course.Duration = courseFromForm.duration;
-        course.CurriculumDesctiption = courseFromForm.descCurr;
+        course.DurationInHours = courseFromForm.duration;
+        course.CurriculumDescription = courseFromForm.descCurr;
         course.Description = courseFromForm.desc;
         course.RepresentForConstructor = editor.getString();
+        course.TargetAuditory = courseFromForm.target;
+        course.RequirementKnowledge = courseFromForm.req;
         course.Category = courseFromForm.categoryCustom === null ||
             courseFromForm.categoryCustom === undefined || courseFromForm.categoryCustom === ""
             ?
@@ -555,7 +558,14 @@
                                             <label for="title">Curriculum description</label>
                                             <textarea name="descCurr" class="item-menu form-control menu-input" placeholder="Enter curriculum description of your course"></textarea>
                                         </div>
-
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Requirements for course</label>
+                                            <textarea name="req" class="item-menu form-control menu-input" placeholder="Enter requirements of your course"></textarea>
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Target audience</label>
+                                            <textarea name="target" class="item-menu form-control menu-input" placeholder="Enter target audience of your course"></textarea>
+                                        </div>                                    
 
                         `);
         }

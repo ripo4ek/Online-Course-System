@@ -58,58 +58,25 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
             courseForSave.Author = await _userManager.GetUserAsync(User);
             
-
-            var categories = _courseData.GetCategories().Where(c=>c.Name==course.Category);
-
-
-            var newCourse = new Course()
-            {
-                Name = course.Name,
-                Description = course.Description,
-                //CurriculumDesctiption = courseCurriculumDescription,
-                //Duration = new DateTime(0,0,0,Convert.ToInt32(course.Duration),0,0), 
-            };
-            _courseData.AddCourse(newCourse);
+            _courseData.AddCourse(courseForSave);
 
             var courseFromDb = _courseData.GetCourseByName(course.Name);
 
+            var category = _courseData.GetCategories().FirstOrDefault(c=>c.Name==course.Category.ToLower());
 
-            var sections = new List<Section>();
-            var topics = new List<Topic>();
-            var quizTasks = new List<QuizTask>();
-            var questionTasks = new List<QuestionTask>();
-            var textTasks = new List<TextTask>();
-            var videoTasks = new List<VideoTask>();
-
-            foreach (var sectionPostViewModel in course.Sections)
+            if (category == null)
             {
-                sections.Add(new Section()
+                category =  new Category
                 {
-                    Name = sectionPostViewModel.Name,
-                    CourseId = courseFromDb.Id,
-                    Description = sectionPostViewModel.Description
-                });
-
-            }
-            foreach (var sectionPostViewModel in course.Sections)
-            {
+                    Name = course.Category
+                };
+                _courseData.AddCategory(category);
                 
-
             }
-            courseFromDb.Sections = sections;
-           _courseData.UpdateCourse(courseFromDb);
+            _courseData.AddCategoryToCourse(category, courseFromDb);
+            _courseData.UpdateCourse(courseFromDb);
 
-
-
-
-
-
-
-            
-            //_addCategoryToCourse(course, newCourse);
-
-            return null;
-
+            return RedirectToAction("UploadContent", courseFromDb.Id);
         }
 
         private void _addCategoryToCourse(CoursePostViewModel coursePostViewModel, Course newCourse)
@@ -127,9 +94,10 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             _courseData.AddCategoryToCourse(category, newCourse);
         }
 
-        public IActionResult UploadContent()
+        public IActionResult UploadContent(int id)
         {
-            return View();
+            var course = _courseData.GetFullCourse(id);
+            return View(course);
         }
         //TODO: Пофиксить 2 вызов
         public IActionResult Details(int id)

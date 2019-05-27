@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineCourseSystem.DAL.Context;
 
 namespace OnlineCourseSystem.DAL.Migrations
 {
     [DbContext(typeof(OnlineCourseSystemContext))]
-    partial class OnlineCourseSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20190523152218_CourseEntityWasUpdated")]
+    partial class CourseEntityWasUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -187,9 +189,11 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.Property<string>("AuthorId");
 
-                    b.Property<string>("CurriculumDescription");
+                    b.Property<string>("CurriculumDesctiption");
 
                     b.Property<string>("Description");
+
+                    b.Property<int?>("DirectionId");
 
                     b.Property<string>("DurationInHours");
 
@@ -197,13 +201,23 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int>("Order");
+
                     b.Property<string>("RequirementKnowledge");
 
+                    b.Property<string>("Target");
+
                     b.Property<string>("TargetAuditory");
+
+                    b.Property<int?>("UniversityId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
+
+                    b.HasIndex("DirectionId");
+
+                    b.HasIndex("UniversityId");
 
                     b.ToTable("Courses");
                 });
@@ -272,11 +286,15 @@ namespace OnlineCourseSystem.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CourseId");
+
                     b.Property<string>("Name");
 
                     b.Property<string>("Text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
 
                     b.ToTable("Requierments");
                 });
@@ -506,6 +524,14 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId");
+
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Direction", "Direction")
+                        .WithMany()
+                        .HasForeignKey("DirectionId");
+
+                    b.HasOne("OnlineCourseSystem.Domain.Model.University", "University")
+                        .WithMany()
+                        .HasForeignKey("UniversityId");
                 });
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.CoursesToCategories", b =>
@@ -539,6 +565,13 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.HasOne("OnlineCourseSystem.Domain.Model.Tasks.QuizTask")
                         .WithMany("VariantOfAnswers")
                         .HasForeignKey("QuizTaskId");
+                });
+
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Requierment", b =>
+                {
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Course")
+                        .WithMany("Requirements")
+                        .HasForeignKey("CourseId");
                 });
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Section", b =>

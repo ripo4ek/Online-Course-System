@@ -88,7 +88,6 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
                 Include(c => c.Author).
                 Include(c => c.Categories).
                 ThenInclude(c => c.Category).
-                Include(c => c.Requirements).
                 Include(c => c.Sections).
                 ThenInclude(t=>t.Topics).ThenInclude(t=>t.QuestionTasks).
                 Include(c => c.Sections).

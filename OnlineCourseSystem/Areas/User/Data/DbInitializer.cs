@@ -96,12 +96,8 @@ namespace OnlineCourseSystem.Areas.User.Data
                 {
                     Id = 1,
                     Name = "C# Start",
-                    Order = 0,
                     Description = "C# For Newbee",
-                    DirectionId = 1,
                     ImageUrl = "Course1.png",
-                    
-                    UniversityId = 1,
                     
                     
                 },
@@ -109,24 +105,17 @@ namespace OnlineCourseSystem.Areas.User.Data
                 {
                     Id = 2,
                     Name = "C# Essential",
-                    Order = 1,
                     Description = "C# for pepole who's know something",
-                    DirectionId = 1,
                     ImageUrl = "Course2.png",
-                    
-                    UniversityId = 1,
                     
                 },
                 new Course()
                 {
                     Id = 3,
                     Name = "Java Starter",
-                    Order = 2,
                     Description = "For Gays",
-                    DirectionId = 1,
                     ImageUrl = "Course3.png",
                     
-                    UniversityId = 2,
                     
                 },
                 

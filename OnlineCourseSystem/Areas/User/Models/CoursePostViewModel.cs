@@ -13,14 +13,17 @@ namespace OnlineCourseSystem.Areas.User.Models
 
         public string Name { get; set; }
 
-        public string Duration { get; set; }
+        public string DurationInHours { get; set; }
 
         public string CurriculumDescription { get; set; }
 
         public string Description { get; set; }
 
-        public string Category { get; set; }
+        public string TargetAuditory { get; set; }
 
+        public string RequirementKnowledge { get; set; }
+
+        public string Category { get; set; }
         public string RepresentForConstructor { get; set; }
         public List<SectionPostViewModel> Sections { get; set; }
        

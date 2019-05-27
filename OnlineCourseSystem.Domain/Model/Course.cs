@@ -8,7 +8,7 @@ using OnlineCourseSystem.Domain.Model.Tasks;
 namespace OnlineCourseSystem.Domain.Model
 {
     [Table("Courses")]
-    public class Course: INamedEntity, IOrderedEntity
+    public class Course: INamedEntity
     {
         /// <summary>
         /// Ссылка на картинку
@@ -18,10 +18,6 @@ namespace OnlineCourseSystem.Domain.Model
         /// <summary>
         /// Бренд товара
         /// </summary>
-        public int? UniversityId { get; set; }
-
-        [ForeignKey("UniversityId")]
-        public virtual University University { get; set; }
 
         public virtual ApplicationUser Author { get; set; }
 
@@ -35,8 +31,7 @@ namespace OnlineCourseSystem.Domain.Model
 
         public int QuestionTaskCount => GetCountOfQuestionTasks();
 
-        public string Target { get; set; }
-        public string CurriculumDesctiption { get; set; }
+        public string CurriculumDescription { get; set; }
         /// <summary>
         /// Описание курса
         /// </summary>
@@ -47,17 +42,12 @@ namespace OnlineCourseSystem.Domain.Model
         public IEnumerable<CoursesToUsers> Users { get; set; }
         public  ICollection<Section> Sections { get; set; }
 
-        public IEnumerable<Requierment> Requirements { get; set; }
-        public int Order { get; set; }
-
-        public  int? DirectionId { get; set; }
-
-        [ForeignKey("DirectionId")]
-        public  Direction Direction { get; set; }
         public string Name { get; set; }
         public int Id { get; set; }
 
+        public string TargetAuditory { get; set; }
 
+        public string RequirementKnowledge { get; set; }
         private int GetCountOfTextTasks()
         {
             int count = 0;
