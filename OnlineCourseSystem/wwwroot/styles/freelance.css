@@ -417,9 +417,23 @@
     margin-top: 20px;
     color: #fff
 }
-
+.file-upload-box {
+    display: flex;
+    align-items: center;
+}
+.progress-style {
+    width: 200px;
+    padding-left: 13px;
+    margin-right: 5px;
+}
+.delete-video {
+    font-size: 22px;
+    font-weight: 400;
+}
+.delete-video {
+    margin-right: 30px;
+}
 /*courses/details*/
-
 .fa-row {
     padding-left: 30px;
 }
