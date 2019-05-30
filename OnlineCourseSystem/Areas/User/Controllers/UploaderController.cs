@@ -67,10 +67,9 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             _data.UpdateVideoTask(task);
             return Ok();
         }
-        [AcceptVerbs("Post")]
-        public IActionResult Remove(int videoTaskId)
+        public IActionResult Remove(int taskId)
         {
-            var task = _data.GetVideoTask(videoTaskId);
+            var task = _data.GetVideoTask(taskId);
             if (task == null)
                 return NotFound();
 

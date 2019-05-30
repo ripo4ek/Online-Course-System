@@ -107,6 +107,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                     {
                         courseTaskViewModel.Add(new CourseTaskViewModel
                         {
+                            VideoExist = !string.IsNullOrEmpty(sectionTopicVideoTask.VideoUrl),
                             SectionName = section.Name,
                             TopicName = sectionTopic.Name,
                             VideoTaskId = sectionTopicVideoTask.Id

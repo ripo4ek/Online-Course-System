@@ -562,3 +562,10 @@
 .file-input-wrapper:hover > .upload {
     box-shadow: 0px 5px 40px rgba(29,34,47,0.45);
 }
+.rdy-bar {
+    background: green;
+    width: 100%;
+}
+.upload-hided {
+    display: none;
+}
