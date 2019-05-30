@@ -439,8 +439,9 @@
 }
 .upload-bar-plate {
     position: relative;
-    width: 36%;
+    width: 33%;
     background: #f0f0f0;
+    margin-right: 10px;
 }
 .upload-bar {
     background: blue;
