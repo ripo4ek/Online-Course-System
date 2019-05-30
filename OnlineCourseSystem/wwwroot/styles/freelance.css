@@ -457,3 +457,77 @@
     cursor: pointer;
     color: #14bdee;
 }
+
+/*create-event*/
+.create-section {
+    margin: auto;
+    margin-top: 180px;
+    margin-bottom: 50px;
+    width: 550px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+    border-radius: .25rem;
+    padding: 50px;
+}
+.create-name-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.create-box {
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+.create-name-subtitle {
+    color: #384158;
+    margin-bottom: 15px;
+}
+.create-box > form > input {
+    border: solid 1px #e5e5e5;
+    border-radius: 3px;
+    padding-left: 10px;
+    outline: none;
+}
+.create-date-text {
+    font-size: 16px;
+    font-weight: 400;
+    color: #384158;
+    margin-bottom: 15px;
+}
+.create-address-title {
+    color: #384158;
+}
+.create-text-input {
+    width: 450px;
+    height: 200px;
+    border: solid 1px #e5e5e5;
+    border-radius: 3px;
+    padding-left: 20px;
+    outline: none;
+    margin-left: auto;
+    padding-top: 15px;
+}
+.create-section-input {
+    width: 45%;
+}
+.create-text {
+    text-align: center;
+}
+.create-box > input {
+    border: solid 1px #e5e5e5;
+    border-radius: 3px;
+    padding-left: 10px;
+    outline: none;
+}
+.create-button {
+    display: block;
+    margin-top: 30px;
+    margin-left: auto;
+}
+.file-input-wrapper > input[type="file"] {
+    font-size: 45px;
+    position: absolute;
+    top: 0;
+    width: 200px;
+    height: 40px;
+    right: 0;
+    opacity: 0;
+}
