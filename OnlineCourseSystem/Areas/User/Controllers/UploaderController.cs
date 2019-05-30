@@ -1,85 +1,88 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Net.Http.Headers;
+using OnlineCourseSystem.Areas.User.Data;
+using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
+using OnlineCourseSystem.Areas.User.Models;
+using ContentDispositionHeaderValue = System.Net.Http.Headers.ContentDispositionHeaderValue;
+using MediaTypeHeaderValue = System.Net.Http.Headers.MediaTypeHeaderValue;
 
 namespace OnlineCourseSystem.Areas.User.Controllers
 {
+    [Area("User")]
     public class UploaderController : Controller
     {
-        private readonly IHostingEnvironment _hostingEnv;
-        public UploaderController(IHostingEnvironment env)
+        private IHostingEnvironment _hostingEnv;
+        private readonly ICourseData _data;
+
+        public UploaderController(IHostingEnvironment env, ICourseData data)
         {
-            this._hostingEnv = env;
+            _hostingEnv = env;
+            _data = data;
         }
-        [AcceptVerbs("Post")]
-        public IActionResult Save(IList<IFormFile> uploadFiles)
+
+        [HttpPost]
+        [DisableFormValueModelBinding]
+        [DisableRequestSizeLimit]
+        public async Task<IActionResult> Upload()
         {
-            try
+            FormValueProvider formModel;
+            var tempFileName = _hostingEnv.WebRootPath + "/videos/tem.mp4";
+            using (var stream = System.IO.File.Create(tempFileName))
             {
-                foreach (var file in uploadFiles)
+                formModel = await Request.StreamFile(stream);
+            }
+            var viewModel = new UploaderViewModel();
+
+
+            var bindingSuccessful = await TryUpdateModelAsync(viewModel, prefix: "",
+                valueProvider: formModel);
+
+            if (!bindingSuccessful)
+            {
+                if (!ModelState.IsValid)
                 {
-                    if (file != null)
-                    {
-                        var filename = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim();
-                        filename = (_hostingEnv.WebRootPath + $@"\{filename}");
-                        if (!System.IO.File.Exists(filename.ToString()))
-                        {
-                            using (FileStream fs = System.IO.File.Create(filename.ToString()))
-                            {
-                                file.CopyTo(fs);
-                                fs.Flush();
-                            }
-                        }
-                        else
-                        {
-                            Response.Clear();
-                            Response.StatusCode = 204;
-                            Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = "File already exists.";
-                        }
-                    }
+                    return BadRequest(ModelState);
                 }
             }
-            catch (Exception e)
+
+            var rezultFileName = _hostingEnv.WebRootPath + $"/videos/{viewModel.TaskId}.mp4";
+            if (System.IO.File.Exists(rezultFileName))
             {
-                Response.Clear();
-                Response.ContentType = "application/json; charset=utf-8";
-                Response.StatusCode = 204;
-                Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = "No Content";
-                Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = e.Message;
+                System.IO.File.Delete(rezultFileName);
             }
-            return Content("");
+            System.IO.File.Move(tempFileName, rezultFileName);
+            var task = _data.GetVideoTask(viewModel.TaskId);
+            task.VideoUrl = rezultFileName;
+            _data.UpdateVideoTask(task);
+            return Ok();
         }
         [AcceptVerbs("Post")]
-        public IActionResult Remove(IList<IFormFile> uploadFiles)
+        public IActionResult Remove(int videoTaskId)
         {
-            try
+            var task = _data.GetVideoTask(videoTaskId);
+            if (task == null)
+                return NotFound();
+
+            if (string.IsNullOrEmpty(task.VideoUrl))
             {
-                foreach (var file in uploadFiles)
-                {
-                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim();
-                    var filePath = Path.Combine(_hostingEnv.WebRootPath);
-                    var fileSavePath = filePath + "\\" + fileName;
-                    if (!System.IO.File.Exists(fileSavePath))
-                    {
-                        System.IO.File.Delete(fileSavePath);
-                    }
-                }
+                return NotFound();
             }
-            catch (Exception e)
-            {
-                Response.Clear();
-                Response.StatusCode = 200;
-                Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = "File removed successfully";
-                Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = e.Message;
-            }
-            return Content("");
+
+            System.IO.File.Delete(task.VideoUrl);
+            task.VideoUrl = null;
+            return Ok();
         }
+
     }
 }

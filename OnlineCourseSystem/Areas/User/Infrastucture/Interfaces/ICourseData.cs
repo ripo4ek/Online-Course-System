@@ -11,7 +11,8 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
         IEnumerable<Topic> GetTopic();
 
         IEnumerable<Section> GetSections();
-
+        void UpdateVideoTask(VideoTask task);
+        VideoTask GetVideoTask(int id);
         IEnumerable<Domain.Model.ApplicationUser> GetUsers();
         Domain.Model.ApplicationUser GetUser(string id);
         IEnumerable<Task> GetTasksOfCourse(TaskFilter filter);

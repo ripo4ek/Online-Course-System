@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -97,7 +98,23 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         public IActionResult UploadContent(int id)
         {
             var course = _courseData.GetFullCourse(id);
-            return View(course);
+            var courseTaskViewModel = new List<CourseTaskViewModel>();
+            foreach (var section in course.Sections)
+            {
+                foreach (var sectionTopic in section.Topics)
+                {
+                    foreach (var sectionTopicVideoTask in sectionTopic.VideoTasks)
+                    {
+                        courseTaskViewModel.Add(new CourseTaskViewModel
+                        {
+                            SectionName = section.Name,
+                            TopicName = sectionTopic.Name,
+                            VideoTaskId = sectionTopicVideoTask.Id
+                        });
+                    }
+                }               
+            }
+            return View(courseTaskViewModel);
         }
         //TODO: Пофиксить 2 вызов
         public IActionResult Details(int id)

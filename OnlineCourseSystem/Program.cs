@@ -81,6 +81,7 @@ namespace OnlineCourseSystem
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .Build();
+
     }
 
 }

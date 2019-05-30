@@ -60,7 +60,13 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         {
             return View(new RegisterUserViewModel());
         }
+        public async Task<IActionResult> Profile()
+        {
 
+            var user = await _userManager.GetUserAsync(User);
+
+            return View(user);
+        }
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterUserViewModel model)
         {

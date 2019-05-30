@@ -122,6 +122,12 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         }
 
+
+        public VideoTask GetVideoTask(int id)
+        {
+            return _context.VideoTasks.First(t => t.Id == id);
+        }
+
         public IEnumerable<Category> GetCategories()
         {
            return _context.Categories;
@@ -208,6 +214,12 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         public Course GetCourseByName(string name)
         {
             return _context.Courses.First(n=>n.Name == name);
+        }
+
+        public void UpdateVideoTask(VideoTask task)
+        {
+            _context.VideoTasks.Update(task);
+            _context.SaveChanges();
         }
     }
 }
