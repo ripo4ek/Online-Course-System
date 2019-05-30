@@ -335,7 +335,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 30px;
+    padding: 30px 100px 0px 100px;
     border: 1px solid #fff;
     border-radius: .25rem;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
@@ -354,7 +354,7 @@
 }
 .input-group {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 .input-group-video {
     margin-top: 60px;
@@ -391,7 +391,7 @@
     display:flex;
 }
 .add-video-box {
-    width: 73%;
+    width: 100%;
     padding: 14px;
     display: flex;
     margin: auto;
@@ -406,8 +406,12 @@
     margin-top: 0;
 }
 .add-video-text {
-    margin-left: 30px;
-    
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 35%;
+    margin-right: 20px;
 }
 .add-video {
     width: 100%;
@@ -433,6 +437,25 @@
 .delete-video {
     margin-right: 30px;
 }
+.upload-bar-plate {
+    position: relative;
+    width: 36%;
+    background: #f0f0f0;
+}
+.upload-bar {
+    background: blue;
+    height: 20px;
+    width: 0;
+}
+.upload {
+    width: 97px;
+    margin-top: 0px;
+    height: 20px;
+    border-radius: 3px;
+    margin-right: 20px;
+    font-size: 12px;
+}
+
 /*courses/details*/
 .fa-row {
     padding-left: 30px;
@@ -526,8 +549,15 @@
     font-size: 45px;
     position: absolute;
     top: 0;
-    width: 200px;
-    height: 40px;
+    width: 100%;
+    height: 100%;
     right: 0;
     opacity: 0;
+    text-indent: -999px;
+}
+.file-input-wrapper > input[type=file]:hover {
+    cursor: pointer;
+}
+.file-input-wrapper:hover > .upload {
+    box-shadow: 0px 5px 40px rgba(29,34,47,0.45);
 }
