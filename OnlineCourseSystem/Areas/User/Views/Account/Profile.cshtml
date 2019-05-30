@@ -1,10 +1,38 @@
 ﻿@model  OnlineCourseSystem.Domain.Model.ApplicationUser
 @{
     ViewData["Title"] = "Profile";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
 }
 
-<div class="container">
+    <section class="my-info">
+        <div class="container">
+            <div class="my-info-content">
 
-</div>         
+                <div class="my-info-box">
+                    <div class="my-info-name">
+                        <h1>
+                            Dungeon<br />
+                            Master
+                        </h1>
+
+                    </div>
+                    <div class="my-info-courses">
+                        <div class="my-info-course">
+                            2 courses <br />
+                            <span class="info-course-small">completed</span>
+                        </div>
+                        <div class="my-info-course">
+                            2 courses <br />
+                            <span class="info-course-small">in queue</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="my-info-avatar">
+
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
 
