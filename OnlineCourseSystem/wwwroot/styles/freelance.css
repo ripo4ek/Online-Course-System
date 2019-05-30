@@ -569,3 +569,63 @@
 .upload-hided {
     display: none;
 }
+/*Profile styles*/
+.my-info {
+    color: white;
+    padding-top: 50px;
+    padding-bottom: 120px;
+    margin-top: 130px;
+    min-height: 200px;
+    background-color: #393939;
+    background: url(/images/newsletter.jpg) center no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+    .my-info::before {
+        content: '';
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.10);
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 0
+    }
+
+.my-info-content {
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.my-info-avatar {
+    display: block;
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    background: url(/images/dungeon_master.jpeg) center no-repeat
+}
+
+.my-info-name {
+    margin-bottom: 40px;
+    color: white;
+}
+
+    .my-info-name > h1 {
+        color: white;
+    }
+
+.my-info-courses {
+    display: flex;
+}
+
+.my-info-course {
+    font-size: 24px;
+    margin-right: 35px;
+}
+
+.info-course-small {
+    font-size: 16px;
+}
