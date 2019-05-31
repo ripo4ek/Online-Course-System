@@ -98,6 +98,8 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         public IActionResult UploadContent(int id)
         {
             var course = _courseData.GetFullCourse(id);
+            
+
             var courseTaskViewModel = new List<CourseTaskViewModel>();
             foreach (var section in course.Sections)
             {
@@ -108,14 +110,20 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                         courseTaskViewModel.Add(new CourseTaskViewModel
                         {
                             VideoExist = !string.IsNullOrEmpty(sectionTopicVideoTask.VideoUrl),
-                            SectionName = section.Name,
                             TopicName = sectionTopic.Name,
-                            VideoTaskId = sectionTopicVideoTask.Id
+                            TaskName = sectionTopicVideoTask.Name,                      
+                            VideoTaskId = sectionTopicVideoTask.Id,
+                            CourseId = course.Id
                         });
                     }
                 }               
             }
-            return View(courseTaskViewModel);
+            var model = new UploadContentViewModel
+            {
+                CourseId = course.Id,
+                Models =  courseTaskViewModel
+            };
+            return View(model);
         }
         //TODO: Пофиксить 2 вызов
         public IActionResult Details(int id)

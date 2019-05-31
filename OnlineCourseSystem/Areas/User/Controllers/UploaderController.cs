@@ -80,7 +80,32 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
             System.IO.File.Delete(task.VideoUrl);
             task.VideoUrl = null;
+            _data.UpdateVideoTask(task);
             return Ok();
+        }
+        [HttpPost]
+        public async Task<IActionResult> UploadCourseImage(UploadCourseCover model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var course = _data.GetFullCourse(model.CourseId);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            string path = _hostingEnv.WebRootPath + "/images/coursesMainImages/" + model.File.FileName;
+
+            using (var fileStream = new FileStream(path, FileMode.Create))
+            {
+                await model.File.CopyToAsync(fileStream);
+            }
+
+            course.ImageUrl = path;
+            return Ok(new{ImageUrl = path});
         }
 
     }
