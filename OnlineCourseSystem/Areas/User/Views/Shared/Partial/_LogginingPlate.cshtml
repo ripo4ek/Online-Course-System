@@ -1,9 +1,19 @@
 ﻿@if (User.Identity.IsAuthenticated)
 {
     <div class="login_button reg-menu">
-        <a class="test">Здравствуйте, @User.Identity.Name</a>
+        <ul class="main-menu">
+            <li>
+                <a href="#services">Услуги</a>
+                <ul class="sub-menu">
+                    <li><a href="#1">Разработка</a></li>
+                    <li><a href="#2">Продвижение</a></li>
+                    <li><a href="#3">Контекст</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="test">Hello, @User.Identity.Name</div>
         <form method="post" asp-controller="Account" asp-action="Logout" asp-antiforgery="true">
-            <input type="submit" value="Выход" class="test" />
+            <input type="submit" value="Log Out" class="log-out-button" />
         </form>
     </div>
 }

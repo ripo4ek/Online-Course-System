@@ -313,12 +313,14 @@ section
 {
 	height: 100%;
 }
-.login_button
-{
-	width: 160px;
-	height: 100%;
-	background: #f3f3f3;
-	text-align: center;
+.login_button {
+    width: 160px;
+    height: 100%;
+    background-color: #14bdee;
+    text-align: center;
+    color: #fff;
+    align-items: center;
+    justify-content: space-around;
 }
 .login_button a
 {
