@@ -166,6 +166,7 @@
 .input-duration {
     width: 35px;
     margin-top: 1px;
+
 }
 
 .course-info-column {
@@ -573,7 +574,7 @@
 .my-info {
     color: white;
     padding-top: 50px;
-    padding-bottom: 120px;
+    padding-bottom: 100px;
     margin-top: 130px;
     min-height: 200px;
     background-color: #393939;
@@ -582,16 +583,16 @@
     position: relative;
 }
 
-    .my-info::before {
-        content: '';
-        position: absolute;
-        background-color: rgba(0, 0, 0, 0.10);
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-        z-index: 0
-    }
+.my-info::before {
+    content: '';
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.04);
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0
+}
 
 .my-info-content {
     z-index: 3;
@@ -603,8 +604,8 @@
 .my-info-avatar {
     display: block;
     border-radius: 50%;
-    height: 200px;
-    width: 200px;
+    height: 190px;
+    width: 190px;
     background: url(/images/dungeon_master.jpeg) center no-repeat
 }
 
@@ -628,4 +629,79 @@
 
 .info-course-small {
     font-size: 16px;
+}
+
+.my-courses-title {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(159, 159, 159, .2);
+    margin-bottom: 40px;
+}
+.my-courses-counter {
+    margin-bottom: 20px;
+}
+.my-courses-done {
+    font-size: 16px;
+}
+
+.my-courses-box {
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    margin-bottom: 50px;
+}
+.my-courses-box-top {
+    display: flex;
+    padding: 10px;
+}
+.my-courses-box-image {
+    flex-basis: 25%;
+    margin-right: 50px;
+}
+.my-courses-box-image> img {
+    width: 100%
+}
+.my-courses-box-info {
+    padding: 10px;
+    width: 100%;
+}
+.my-courses-box-date {
+    width: 100%;
+    display: flex;
+    justify-content: space-between
+}
+.my-courses-box-title {
+    margin-bottom: 10px;
+}
+.my-courses-box-button {
+    width: 40%;
+}
+.courses-duration {
+    padding-left: 30px;
+}
+
+.courses-duration:before {
+    content: '';
+    display: block;
+    background: url(/images/calendar-icon.svg) center no-repeat;
+    background-size: cover;
+    height: 20px;
+    width: 20px;
+    position: relative;
+    top: 20px;
+    left: -30px;
+}
+.my-courses-box-bottom {
+    background-color: #f8f8f8;
+    padding: 10px;
+    display: flex;
+    align-items:center ;
+}
+.professor-avatar {
+    display: block;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    background: url(/images/professor-avatar.jpg) center no-repeat;
+    background-size: cover;
+    margin-right: 15px;
 }
