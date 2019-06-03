@@ -77,8 +77,11 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             {
                 return NotFound();
             }
-
-            System.IO.File.Delete(task.VideoUrl);
+            if (System.IO.File.Exists(task.VideoUrl))
+            {
+                System.IO.File.Delete(task.VideoUrl);
+            }
+            
             task.VideoUrl = null;
             _data.UpdateVideoTask(task);
             return Ok();
