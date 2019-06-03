@@ -247,5 +247,10 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         {
            return _context.CoursesToUsers.Where(cu => cu.ApplicationUser == user).Select(c => c.Course).Include(c=>c.Author);
         }
+
+        public ApplicationUser GetUserWithStats(string userId)
+        {
+            return _context.Users.Include(c => c.CourseStatistics).First(u => u.Id == userId);
+        }
     }
 }
