@@ -10,7 +10,7 @@ namespace OnlineCourseSystem.Domain.Model
         public IEnumerable<CoursesToUsers> Courses { get; set; }
         public ICollection<ApplicationUserRole> UserRoles { get; set; }
 
-        public ICollection<CourseStatistic> CourseStatistics { get; set; }
+        public virtual ICollection<CourseStatistic> CourseStatistics { get; set; }
         public string Name { get; set; }
 
         public string Surname { get; set; }

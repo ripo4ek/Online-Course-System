@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using OnlineCourseSystem.Areas.User.Data;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
 using OnlineCourseSystem.Areas.User.Models;
 using OnlineCourseSystem.DAL.Migrations;
@@ -26,17 +27,28 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var user = await _userManager.GetUserAsync(User);
+            var userId = User.GetUserId();
 
-            var courses = _data.GetCoursesOfUser(user);
+            var user = _data.GetUserWithStats(userId);
+
+            var courses = _data.GetCoursesOfUser(user).ToList();
 
             var coursesForModel = new List<CourseProfileViewModel>();
             foreach (var course in courses)
             {
+                string authorName = "";
+                if (course.Author.Name == null || course.Author.Surname == null)
+                {
+                    authorName = course.Author.UserName;
+                }
+                else
+                {
+                    authorName = course.Author.Name + course.Author.Surname;
+                }
                 coursesForModel.Add(new CourseProfileViewModel
                 {
                     Name = course.Name,
-                    Author = course.Author.Name,
+                    Author = authorName,
                     ImageUrl = course.ImageUrl,
                     DurationInHours = course.DurationInHours,
                 });
@@ -48,13 +60,13 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 Courses = coursesForModel,
                 UserName = user.UserName,
                 Surname = user.Surname,
-                CoursesComplete = ,
-                CoursesInProgress = ,
-                CoursesInTotal = ,
+                CoursesComplete = user.CourseStatistics.Count(c => c.IsCompleted),
+                CoursesInProgress = user.CourseStatistics.Count(c => !c.IsCompleted),
+                CoursesInTotal = user.CourseStatistics.Count
             };
 
 
-            return View(user);
+            return View(model);
         }
         public async Task<IActionResult> AddCourse(int courseId)
         {

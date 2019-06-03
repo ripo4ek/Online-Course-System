@@ -9,7 +9,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
     public interface ICourseData
     {
         IEnumerable<Topic> GetTopic();
-
+        ApplicationUser GetUserWithStats(string userId);
         void UpdateUser(ApplicationUser user);
         IEnumerable<Section> GetSections();
         void UpdateVideoTask(VideoTask task);

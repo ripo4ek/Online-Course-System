@@ -77,7 +77,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             _courseData.AddCategoryToCourse(category, courseFromDb);
             _courseData.UpdateCourse(courseFromDb);
 
-            return RedirectToAction("UploadContent", courseFromDb.Id);
+            return RedirectToAction("UploadContent", new{ id = courseFromDb.Id });
         }
 
         private void _addCategoryToCourse(CoursePostViewModel coursePostViewModel, Course newCourse)
