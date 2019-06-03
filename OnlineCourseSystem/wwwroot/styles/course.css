@@ -312,9 +312,10 @@ section
 .top_bar_login
 {
 	height: 100%;
+    width: 160px;
 }
 .login_button {
-    width: 160px;
+    width: 100%;
     height: 100%;
     background-color: #14bdee;
     text-align: center;

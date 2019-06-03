@@ -708,45 +708,74 @@
 
 /*Log Out*/
 .log-out-button {
-
+    color: black !important;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 40px;
+    cursor: pointer;
+    outline: none;
 }
 input[type=submit] {
     background-color: transparent;
     border: none;
     color: white;
 }
-.main-menu {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    border: 1px solid #e5e5e5;
+
+
+/*Dropdown menu*/
+.dropbtn {
+    background-color: #14bdee;
+    color: white;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+.dropbtn:focus {
+    outline: none;
 }
 
-    .main-menu > li {
-        position: relative;
-        display: inline-block;
-        margin-right: -4px;
-    }
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
 
-    .main-menu a {
-        display: block;
-        margin-left: -1px;
-        padding: 8px 10px;
-        color: #0088cc;
-        border-left: 1px solid #e5e5e5;
-    }
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 14px 0px rgba(0,0,0,0.1);
+    z-index: 1;
+}
 
-        .main-menu a:hover {
-            background-color: #f5f5f5;
-        }
+    /* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 5px 16px;
+    text-decoration: none;
+    display: block;
+    border-radius: 4px;
+}
 
-    .main-menu .sub-menu {
-        position: absolute;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        background-color: #fcf8e3;
-    }
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
 
-        .main-menu .sub-menu a {
-        }
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+    box-shadow: 0px 8px 14px 0px rgba(0,0,0,0.1);
+    border-radius: 4px;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: white;
+    color: black;
+}
