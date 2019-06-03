@@ -328,6 +328,13 @@
 }
 .content-uploading {
     height: 30vh;
+    display: block;
+    background: url(/images/blog_single.jpg) center no-repeat;
+    background-size: contain;
+    width: 45vh;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    background-color: #384158;
 }
 .content-uploading>img {
     width: 290px;
@@ -359,6 +366,7 @@
 }
 .input-group-video {
     margin-top: 60px;
+    margin-bottom: 27px;
 }
 .add-video>form {
     margin-bottom: 10px;

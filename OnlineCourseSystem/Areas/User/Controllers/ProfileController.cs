@@ -42,16 +42,16 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 });
             }
 
-            var model = new ProfileViewModel
-            {
-                Name = user.Name,
-                Courses = coursesForModel,
-                UserName = user.UserName,
-                Surname = user.Surname,
-                CoursesComplete = ,
-                CoursesInProgress = ,
-                CoursesInTotal = ,
-            };
+            //var model = new ProfileViewModel
+            //{
+            //    Name = user.Name,
+            //    Courses = coursesForModel,
+            //    UserName = user.UserName,
+            //    Surname = user.Surname,
+            //    CoursesComplete = ,
+            //    CoursesInProgress = ,
+            //    CoursesInTotal = ,
+            //};
 
 
             return View(user);
