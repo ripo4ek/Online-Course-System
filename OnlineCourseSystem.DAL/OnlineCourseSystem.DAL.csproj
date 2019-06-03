@@ -22,6 +22,10 @@
     <Compile Remove="Migrations\20190510101412_Initialize.Designer.cs" />
     <Compile Remove="Migrations\20190521141320_smthing.cs" />
     <Compile Remove="Migrations\20190521141320_smthing.Designer.cs" />
+    <Compile Remove="Migrations\20190603113113_addModelsForStatistic.cs" />
+    <Compile Remove="Migrations\20190603113113_addModelsForStatistic.Designer.cs" />
+    <Compile Remove="Migrations\20190603115107_addModelsForStatistic.cs" />
+    <Compile Remove="Migrations\20190603115107_addModelsForStatistic.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +36,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OnlineCourseSystem.Domain\OnlineCourseSystem.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.WindowsAzure.Storage">
+      <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\windowsazure.storage\8.1.4\lib\netstandard1.3\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

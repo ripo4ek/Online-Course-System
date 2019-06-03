@@ -21,6 +21,12 @@ namespace OnlineCourseSystem.DAL.Context
         {
              
         }
+            public DbSet<QuestionTaskStatistic> QuestionTaskStatistics { get; set; }
+            public DbSet<VideoTaskStatistic> VideoTaskStatistic { get; set; }
+
+            public DbSet<TextTaskStatistics> TextTaskStatistics { get; set; }
+            public DbSet<QuizTaskStatistic> QuizTaskStatistics { get; set; }
+            public DbSet<CourseStatistic> CourseStatistics { get; set; }
             public DbSet<Course> Courses { get; set; }
             public DbSet<Direction> Directions { get; set; }
             public DbSet<Section> Sections { get; set; }

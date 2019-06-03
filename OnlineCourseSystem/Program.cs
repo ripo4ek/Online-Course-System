@@ -80,6 +80,11 @@ namespace OnlineCourseSystem
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseKestrel(options =>
+                {
+                    options.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(120);
+                    options.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(120);
+                })
                 .Build();
 
     }

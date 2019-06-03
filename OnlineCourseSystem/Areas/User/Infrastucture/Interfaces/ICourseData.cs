@@ -10,6 +10,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
     {
         IEnumerable<Topic> GetTopic();
 
+        void UpdateUser(ApplicationUser user);
         IEnumerable<Section> GetSections();
         void UpdateVideoTask(VideoTask task);
         VideoTask GetVideoTask(int id);
@@ -22,6 +23,8 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
         Course GetCourseByName(string name);
         IEnumerable<Course> GetCourses(CourseFilter filter);
 
+        IEnumerable<Course> GetCoursesOfUser(ApplicationUser user);
+        IEnumerable<Course> GetCoursesByAuthor(ApplicationUser author);
         IEnumerable<Course> GetCoursesWithAuthor(CourseFilter filter);
         IEnumerable<Topic> GetThemes();
 
@@ -31,7 +34,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 
         Course GetFullCourse(int id);
 
- 
+
 
         IEnumerable<Course> GetThreeRandomCourses();
 
@@ -45,13 +48,16 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 
         void AddCourse(Course course);
 
+
+        void AddCourseToUser(Course course, ApplicationUser user);
+
         void UpdateCourse(Course course);
 
         void DeleteCourse(int id);
 
-        IEnumerable<Domain.Model.ApplicationUser> GetUsersByRole(string role);
+        IEnumerable<ApplicationUser> GetUsersByRole(string role);
 
-        Domain.Model.ApplicationUser GetAuthorAsUser(string id);
+        ApplicationUser GetAuthorAsUser(string id);
 
     }
 }

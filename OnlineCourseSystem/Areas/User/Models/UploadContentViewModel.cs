@@ -9,5 +9,6 @@ namespace OnlineCourseSystem.Areas.User.Models
     {
         public int CourseId { get; set; }
         public List<CourseTaskViewModel> Models { get; set; }
+        public string CourseImage { get; set; }
     }
 }

@@ -121,7 +121,8 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             var model = new UploadContentViewModel
             {
                 CourseId = course.Id,
-                Models =  courseTaskViewModel
+                Models =  courseTaskViewModel,
+                CourseImage = course.ImageUrl
             };
             return View(model);
         }

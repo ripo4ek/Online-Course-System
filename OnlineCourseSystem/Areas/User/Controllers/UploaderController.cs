@@ -37,7 +37,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         public async Task<IActionResult> Upload()
         {
             FormValueProvider formModel;
-            var tempFileName = _hostingEnv.WebRootPath + "/videos/tem.mp4";
+            var tempFileName = _hostingEnv.WebRootPath + $"{Path.DirectorySeparatorChar}videos{Path.DirectorySeparatorChar}tem.mp4";
             using (var stream = System.IO.File.Create(tempFileName))
             {
                 formModel = await Request.StreamFile(stream);
@@ -56,14 +56,15 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 }
             }
 
-            var rezultFileName = _hostingEnv.WebRootPath + $"/videos/{viewModel.TaskId}.mp4";
+            var rezultFileName = _hostingEnv.WebRootPath + $"{Path.DirectorySeparatorChar}videos{Path.DirectorySeparatorChar}{viewModel.TaskId}.mp4";
             if (System.IO.File.Exists(rezultFileName))
             {
                 System.IO.File.Delete(rezultFileName);
             }
             System.IO.File.Move(tempFileName, rezultFileName);
             var task = _data.GetVideoTask(viewModel.TaskId);
-            task.VideoUrl = rezultFileName;
+            task.LocalVideoUrl = rezultFileName;
+            task.VideoUrl = $"/videos/{viewModel.TaskId}.mp4";
             _data.UpdateVideoTask(task);
             return Ok();
         }
@@ -77,9 +78,13 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             {
                 return NotFound();
             }
+            if (System.IO.File.Exists(task.LocalVideoUrl))
+            {
+                System.IO.File.Delete(task.LocalVideoUrl);
+            }
 
-            System.IO.File.Delete(task.VideoUrl);
             task.VideoUrl = null;
+            task.LocalVideoUrl = null;
             _data.UpdateVideoTask(task);
             return Ok();
         }
@@ -97,15 +102,22 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 return NotFound();
             }
 
-            string path = _hostingEnv.WebRootPath + "/images/coursesMainImages/" + model.File.FileName;
+            string path = _hostingEnv.WebRootPath +
+                          $"{Path.DirectorySeparatorChar}images{Path.DirectorySeparatorChar}coursesMainImages{Path.DirectorySeparatorChar}" +
+                          model.File.FileName;
 
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
                 await model.File.CopyToAsync(fileStream);
             }
 
-            course.ImageUrl = path;
-            return Ok(new{ImageUrl = path});
+
+            var urlPath = $"/images/coursesMainImages/{model.File.FileName}";
+            course.ImageUrl = urlPath;
+            course.LocalImageUrl = path;
+            _data.UpdateCourse(course);
+            return Ok(new { ImageUrl = urlPath });
+
         }
 
     }

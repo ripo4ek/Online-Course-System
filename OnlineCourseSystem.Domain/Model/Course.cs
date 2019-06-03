@@ -15,6 +15,8 @@ namespace OnlineCourseSystem.Domain.Model
         /// </summary>
         public string ImageUrl { get; set; }
 
+        public string LocalImageUrl { get; set; }
+
         /// <summary>
         /// Бренд товара
         /// </summary>
@@ -40,7 +42,7 @@ namespace OnlineCourseSystem.Domain.Model
         public IEnumerable<CoursesToCategories> Categories { get; set; }
 
         public IEnumerable<CoursesToUsers> Users { get; set; }
-        public  ICollection<Section> Sections { get; set; }
+        public ICollection<Section> Sections { get; set; }
 
         public string Name { get; set; }
         public int Id { get; set; }

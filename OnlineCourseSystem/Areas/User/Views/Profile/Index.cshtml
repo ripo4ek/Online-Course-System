@@ -1,0 +1,67 @@
+﻿@model OnlineCourseSystem.Domain.Model.ApplicationUser
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
+}
+
+<section class="my-info">
+    <div class="container">
+        <div class="my-info-content">
+
+            <div class="my-info-box">
+                <div class="my-info-name">
+                    <h1>
+                        @Model.Name<br />
+                        @Model.Surname
+                    </h1>
+
+                </div>
+                <div class="my-info-courses">
+                    <div class="my-info-course">
+                        2 courses <br />
+                        <span class="info-course-small">completed</span>
+                    </div>
+                    <div class="my-info-course">
+                        2 courses <br />
+                        <span class="info-course-small">in queue</span>
+                    </div>
+                </div>
+            </div>
+            <div class="my-info-avatar">
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="my-courses">
+
+    <div class="container">
+
+        <div class="my-courses-title">
+            <div class="my-courses-counter">
+                <h3>2 courses in total</h3>
+            </div>
+            <div class="my-courses-done">
+                2 courses completed
+            </div>
+        </div>
+
+        <div class="my-courses-box">
+            <div class="my-courses-box-top">
+                <div class="my-courses-box-image">
+                    <img src="~/images/coursass-image.jpg" alt="Alternate Text" />
+                </div>
+                <div class="my-courses-box-info">
+                    <div class="my-courses-box-title"><h4>Dangeon & Dragons</h4></div>
+                    <div class="my-courses-box-date"> <div class="courses-duration">February 15th - June 28th 2019</div> <button class="home_search_button my-courses-box-button">Go to course materials</button></div>
+                </div>
+            </div>
+            <div class="my-courses-box-bottom">
+                <div class="professor-avatar"></div>
+                <div class="professor-name"><h5>Dungeon Master</h5></div>
+            </div>
+        </div>
+    </div>
+</section>

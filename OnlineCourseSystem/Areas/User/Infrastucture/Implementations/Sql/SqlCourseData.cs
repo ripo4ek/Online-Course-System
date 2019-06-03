@@ -52,13 +52,13 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
                 var t = filter.UserSearchInput.ToLower();
                 var test = query.ToList();
                 query = query.Where(c => c.Name.ToLower().Contains(t));
-                
+
                 var test2 = query.ToList();
             }
-                
+
             return query.ToList();
 
-        } 
+        }
         //TODO: Доделать к продакшену
         //public IEnumerable<Task> GetTasksOfCourse()
         //{
@@ -77,26 +77,26 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public IEnumerable<Course> GetThreeRandomCourses()
         {
-            return _context.Courses.Include(c=>c.Author).Take(3).ToList() ;
+            return _context.Courses.Include(c => c.Author).Take(3).ToList();
         }
 
         public Course GetFullCourse(int id)
         {
 
-           
+
             return _context.Courses.
                 Include(c => c.Author).
                 Include(c => c.Categories).
                 ThenInclude(c => c.Category).
                 Include(c => c.Sections).
-                ThenInclude(t=>t.Topics).ThenInclude(t=>t.QuestionTasks).
+                ThenInclude(t => t.Topics).ThenInclude(t => t.QuestionTasks).
                 Include(c => c.Sections).
                 ThenInclude(t => t.Topics).ThenInclude(t => t.VideoTasks).
                 Include(c => c.Sections).
                 ThenInclude(t => t.Topics).ThenInclude(t => t.TextTasks).
                 Include(c => c.Sections).
-                ThenInclude(t => t.Topics).ThenInclude(t => t.QuizTasks).ThenInclude(v=>v.VariantOfAnswers).
-                FirstOrDefault(c=>c.Id == id);
+                ThenInclude(t => t.Topics).ThenInclude(t => t.QuizTasks).ThenInclude(v => v.VariantOfAnswers).
+                FirstOrDefault(c => c.Id == id);
         }
 
         public void AddCourse(Course course)
@@ -106,7 +106,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         }
 
 
-        
+
         public void UpdateCourse(Course course)
         {
             _context.Courses.Update(course);
@@ -130,7 +130,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public IEnumerable<Category> GetCategories()
         {
-           return _context.Categories;
+            return _context.Categories;
         }
 
         public IEnumerable<Topic> GetThemes()
@@ -147,7 +147,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             {
                 foreach (var theme in section.Topics)
                 {
-                    tasks.AddRange(theme.QuestionTasks.Where(t=>t.TopicId == filter.TopicId));
+                    tasks.AddRange(theme.QuestionTasks.Where(t => t.TopicId == filter.TopicId));
                     tasks.AddRange(theme.QuizTasks.Where(t => t.TopicId == filter.TopicId));
                     tasks.AddRange(theme.TextTasks.Where(t => t.TopicId == filter.TopicId));
                     tasks.AddRange(theme.VideoTasks.Where(t => t.TopicId == filter.TopicId));
@@ -158,7 +158,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public Domain.Model.ApplicationUser GetUser(string id)
         {
-            return _context.Users.First(c=>c.Id == "4a88adfb-7e1e-4820-bf97-1e31a6e7f8f9");
+            return _context.Users.First(c => c.Id == "4a88adfb-7e1e-4820-bf97-1e31a6e7f8f9");
         }
 
         public void DeleteUser(string id)
@@ -167,12 +167,12 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             _context.Users.Remove(user);
         }
 
-        public  Domain.Model.ApplicationUser GetUserByRole(string role, string id)
+        public Domain.Model.ApplicationUser GetUserByRole(string role, string id)
         {
-           var users = _context.Users.Include(c => c.Courses)
-               .Include(r => r.UserRoles);
+            var users = _context.Users.Include(c => c.Courses)
+                .Include(r => r.UserRoles);
 
-           return users.First(u => u.Id == id && u.UserRoles.First(r => r.Role.Name == role)!=null);
+            return users.First(u => u.Id == id && u.UserRoles.First(r => r.Role.Name == role) != null);
         }
 
         public IEnumerable<Domain.Model.ApplicationUser> GetUsersByRole(string role)
@@ -184,7 +184,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public Domain.Model.ApplicationUser GetAuthorAsUser(string id)
         {
-            var users = _context.Users.Include(c => c.Courses).ThenInclude(c=>c.Course)
+            var users = _context.Users.Include(c => c.Courses).ThenInclude(c => c.Course)
                 .Include(r => r.UserRoles).ToList();
 
             return users.First(u => u.Id == "74b60af2-b45f-4323-aab0-8ed9550d01e3");
@@ -213,13 +213,39 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public Course GetCourseByName(string name)
         {
-            return _context.Courses.First(n=>n.Name == name);
+            return _context.Courses.First(n => n.Name == name);
         }
 
         public void UpdateVideoTask(VideoTask task)
         {
             _context.VideoTasks.Update(task);
             _context.SaveChanges();
+        }
+
+        public void AddCourseToUser(Course course, ApplicationUser user)
+        {
+            _context.CoursesToUsers.Add(new CoursesToUsers()
+            {
+                ApplicationUser = user,
+                Course = course
+            });
+            _context.SaveChanges();
+        }
+
+        public void UpdateUser(ApplicationUser user)
+        {
+            _context.Users.Update(user);
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<Course> GetCoursesByAuthor(ApplicationUser author)
+        {
+            return _context.Courses.Where(c => c.Author == author);
+        }
+
+        public IEnumerable<Course> GetCoursesOfUser(ApplicationUser user)
+        {
+           return _context.CoursesToUsers.Where(cu => cu.ApplicationUser == user).Select(c => c.Course).Include(c=>c.Author);
         }
     }
 }
