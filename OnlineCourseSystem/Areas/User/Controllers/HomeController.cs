@@ -21,11 +21,15 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         public IActionResult Index()
         {
             var courses = _courseData.GetThreeRandomCourses();
-            List<HomeViewModel> viewModel = new List<HomeViewModel>();
+            var users = _courseData.GetThreeRandomUsers();
+            var events = _courseData.GetFiveRandomEvents();
 
+            List<HomeCourseViewModel> courseViewModel = new List<HomeCourseViewModel>();
+            List<HomeAuthorsViewModel> authorsViewModel = new List<HomeAuthorsViewModel>();
+            List<HomeEventViewModel> eventsViewModel = new List<HomeEventViewModel>();
             foreach (var course in courses)
             {
-                viewModel.Add(new HomeViewModel()
+                courseViewModel.Add(new HomeCourseViewModel()
                 {
                     CourseName = course.Name,
                     CourseAuthor = course.Author.UserName,
@@ -33,11 +37,53 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                     CourseImage = course.ImageUrl
                 });
             }
+            foreach (var user in users)
+            {
+                authorsViewModel.Add(new HomeAuthorsViewModel()
+                {
+                    Name = user.Name,
+                    UserName = user.UserName,
+                    Position = user.Status,
+                    Subname = user.Surname,
+                    PhotoUrl = user.PhotoUrl
+                });
+            }
+            foreach (var eventModel in events)
+            {
+                eventsViewModel.Add(new HomeEventViewModel()
+                {
+                    Name = eventModel.Name,
+                    Address= eventModel.Address,
+                    SampleText = CutterString(eventModel.Text),
+                    Time = eventModel.Time,
+                    ImageUrl = eventModel.ImageUrl
+                });
+            }
+            HomeViewModel viewModel = new HomeViewModel
+            {
+                Courses = courseViewModel,
+                Authors = authorsViewModel,
+                Events = eventsViewModel,
+                Stats = new PlatformStatsViewModel()
+                {
+                    AuthorsCount = _courseData.GetAuthorsCount(),
+                    CourseCount = _courseData.GetCourseCount(),
+                    UserCount = _courseData.GetUserCount(),
+                },             
+            };
             return View(viewModel);
         }
 
 
+        private string CutterString(string str)
+        {
+            if (str.Length >= 100)
+            {
+                return str.Substring(0, 100) + "...";
+            }
 
+            return str + "...";
+        }
         public IActionResult Locker()
         {
             return View();

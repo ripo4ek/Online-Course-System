@@ -16,7 +16,7 @@ namespace OnlineCourseSystem.Areas.User.ViewComponents
         {
             _courseData = courseData;
         }
-        public async Task<IViewComponentResult> InvokeAsync(int courseId, int topicId)
+        public async   Task<IViewComponentResult> InvokeAsync(int courseId, int topicId)
         {
             var tasks = _courseData.GetTasksOfCourse(new TaskFilter()
             {

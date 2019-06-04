@@ -7,9 +7,12 @@ namespace OnlineCourseSystem.Areas.User.Models
 {
     public class HomeViewModel
     {
-        public string CourseName { get; set; }
-        public string CourseDescription { get; set; }
-        public string CourseAuthor { get; set; }
-        public string CourseImage { get; set; }
+        public IEnumerable<HomeCourseViewModel> Courses { get; set; }
+
+        public IEnumerable<HomeAuthorsViewModel> Authors { get; set; }
+
+        public IEnumerable<HomeEventViewModel> Events { get; set; }
+        public PlatformStatsViewModel Stats { get; set; }
+
     }
 }

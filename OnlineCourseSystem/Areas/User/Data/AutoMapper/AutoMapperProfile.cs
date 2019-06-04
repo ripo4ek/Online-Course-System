@@ -29,6 +29,9 @@ namespace OnlineCourseSystem.Areas.User.Data.AutoMapper
             CreateMap<QuestionTaskPostViewModel, QuestionTask>();
             CreateMap<TextTaskPostViewModel, TextTask>();
             CreateMap<VideoTaskPostViewModel, VideoTask>();
+
+
+            CreateMap<EventViewModel, Event>();
         }
     }
 }

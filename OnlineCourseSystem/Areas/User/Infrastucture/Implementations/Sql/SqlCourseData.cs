@@ -252,5 +252,54 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         {
             return _context.Users.Include(c => c.CourseStatistics).First(u => u.Id == userId);
         }
+
+        public IEnumerable<ApplicationUser> GetThreeRandomUsers()
+        {
+            return _context.Users.Take(3).ToList();
+        }
+
+        public IEnumerable<Event> GetEvents()
+        {
+            return _context.Events;
+        }
+
+        public Event AddEvent(Event eventModel)
+        {
+            _context.Events.Add(eventModel);
+            _context.SaveChanges();
+            return eventModel;
+        }
+
+        public int GetAuthorsCount()
+        {
+
+            return _context.UserRoles.Count(ur => ur.Role.Name == Roles.CourseCreator);
+        }
+
+        public int GetCourseCount()
+        {
+            return _context.Courses.Count();
+        }
+
+        public int GetUserCount()
+        {
+            return _context.Users.Count();
+        }
+
+        public IEnumerable<Event> GetFiveRandomEvents()
+        {
+            return  _context.Events.Take(5);
+        }
+
+        public void UpdateEvent(Event eventModel)
+        {
+            _context.Events.Update(eventModel);
+            _context.SaveChanges();
+        }
+
+        public Event GetEvent(int id)
+        {
+            return _context.Events.First(e => e.Id == id);
+        }
     }
 }

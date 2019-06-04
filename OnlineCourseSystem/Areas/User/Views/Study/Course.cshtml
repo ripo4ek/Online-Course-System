@@ -81,8 +81,7 @@
         $.get(`/User/Study/Task/?courseId=@Model.Id&topicId=${$('.content-link').data("id")}`,
             function (data) { container.html(data); });
 
-
-
+        $('a[data-id="1"]').click();
 
 
     });

@@ -255,6 +255,27 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.ToTable("Directions");
                 });
 
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Event", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Text");
+
+                    b.Property<DateTime>("Time");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Events");
+                });
+
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.QuestionTaskStatistic", b =>
                 {
                     b.Property<int>("Id")

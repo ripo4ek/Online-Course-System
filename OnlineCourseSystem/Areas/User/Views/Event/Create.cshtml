@@ -4,35 +4,41 @@
     Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
 }
 
-    <div class="container">
-        <div class="create-wrap">
-            <div class="create-section">
+<div class="container">
+    <div class="create-wrap">
+        <div class="create-section">
+            <form asp-controller="Event" enctype="multipart/form-data" asp-action="Create" method="post">
                 <h3 class="create-name-title">Create your event</h3>
                 <div class="create-box">
+                    <div class="create-name-subtitle">Wallpaper</div>
+                    <input type="file" name="Wallpaper" id="Wallpaper"/><br>
+                </div>                  
+                <div class="create-box">
                     <div class="create-name-subtitle">Event Name:</div>
-                    <input class="create-section-input" type="text" name="name" value="" />
+                    <input class="create-section-input" type="text" name="Name" id="Name" value="" />
                 </div>
                 <div class="create-box">
-                    <form>
 
-                        <div class="create-name-subtitle">Choose time:</div><input type="datetime-local" name="calendar">
 
-                    </form>
+                    <div class="create-name-subtitle">Choose time:</div><input type="datetime-local" name="Time" id="Time">
+
+
                 </div>
                 <div class="create-box">
                     <div class="create-name-subtitle">Event address:</div>
-                    <input class="create-section-input" type="text" name="name" value="" />
+                    <input class="create-section-input" type="text" name="Address" id="Address" value="" />
                 </div>
                 <div class="create-text">
-                    <textarea class="create-text-input" placeholder="Enter comment here"></textarea>
+                    <textarea class="create-text-input" name="Text" id="Text" placeholder="Enter comment here"></textarea>
                 </div>
                 <button class="home_search_button create-button">Create</button>
-            </div>
+            </form>
         </div>
+    </div>
         
     
 
 
-    </div>
+</div>
 
 

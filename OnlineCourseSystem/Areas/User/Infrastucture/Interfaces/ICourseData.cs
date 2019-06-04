@@ -9,6 +9,16 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
     public interface ICourseData
     {
         IEnumerable<Topic> GetTopic();
+        int GetAuthorsCount();
+
+        int GetCourseCount();
+
+        int GetUserCount();
+        IEnumerable<Event> GetEvents();
+        Event AddEvent(Event eventModel);
+
+        Event GetEvent(int id);
+        void UpdateEvent(Event eventModel);
         ApplicationUser GetUserWithStats(string userId);
         void UpdateUser(ApplicationUser user);
         IEnumerable<Section> GetSections();
@@ -17,9 +27,10 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
         IEnumerable<Domain.Model.ApplicationUser> GetUsers();
         Domain.Model.ApplicationUser GetUser(string id);
         IEnumerable<Task> GetTasksOfCourse(TaskFilter filter);
+
+        IEnumerable<Event> GetFiveRandomEvents();
         IEnumerable<Course> GetFullCourse();
         IEnumerable<Category> GetCategories();
-
         Course GetCourseByName(string name);
         IEnumerable<Course> GetCourses(CourseFilter filter);
 
@@ -37,6 +48,8 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 
 
         IEnumerable<Course> GetThreeRandomCourses();
+
+        IEnumerable<ApplicationUser> GetThreeRandomUsers();
 
         //IEnumerable<Task> GetTasksOfCourse();
 

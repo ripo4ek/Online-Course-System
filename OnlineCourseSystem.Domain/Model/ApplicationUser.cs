@@ -17,7 +17,8 @@ namespace OnlineCourseSystem.Domain.Model
 
         public string Status { get; set; }
 
-        public string PhotoUrl { get; set; }
+        public string PhotoUrl { get; set; } = "/images/user.svg/";
+
         public string Description { get; set; }
     }
 }
