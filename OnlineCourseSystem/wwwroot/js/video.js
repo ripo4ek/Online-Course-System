@@ -28144,7 +28144,7 @@
         head.insertBefore(style$1, head.firstChild);
       }
 
-      setTextContent(style$1, "\n      .video-js {\n        width: 300px;\n        height: 150px;\n      }\n\n      .vjs-fluid {\n        padding-top: 56.25%\n      }\n    ");
+      setTextContent(style$1, "\n      .video-js {\n        width: 800px;\n        height: 450px;\n      }\n\n      .vjs-fluid {\n        padding-top: 56.25%\n      }\n    ");
     }
   } // Run Auto-load players
   // You have to wait at least once in case this script is loaded after your

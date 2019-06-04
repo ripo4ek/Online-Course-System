@@ -23,7 +23,7 @@
                         </div>
                         <div class="content-uploading">
 
-                            <img id="view-wallpaper" src="~/images/picture-download-icon.svg" alt="AddPicture" />
+                            @*<img id="view-wallpaper" src="~/images/picture-download-icon.svg" alt="AddPicture" />*@
                         </div>
 
 
@@ -124,7 +124,7 @@
             contentType: false,
             type: "POST",
             success: function (data) {
-                $("#view-wallpaper").attr("src",`../../../images/blog_5.jpg`);
+                $("#view-wallpaper").attr("src",data.imageUrl);
             }
         });
     });
