@@ -803,3 +803,22 @@ input[type=submit] {
     background-color: white;
     color: black;
 }
+
+/*Hot Wheels*/
+
+.course_image_margin {
+    margin-top: 0;
+}
+
+.top_bar_contact_list {
+    margin-bottom: 0;
+}
+.blog_image {
+    text-align: center;
+}
+.wrapped_paragraph {
+    word-break: break-word;
+}
+.sidebar_event {
+    padding-top: 0;
+}
