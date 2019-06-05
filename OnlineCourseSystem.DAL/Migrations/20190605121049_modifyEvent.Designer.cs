@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineCourseSystem.DAL.Context;
 
 namespace OnlineCourseSystem.DAL.Migrations
 {
     [DbContext(typeof(OnlineCourseSystemContext))]
-    partial class OnlineCourseSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20190605121049_modifyEvent")]
+    partial class modifyEvent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

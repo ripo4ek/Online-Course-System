@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
 using OnlineCourseSystem.Areas.User.Models;
@@ -18,12 +19,14 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         private readonly ICourseData _courseData;
         private readonly IMapper _mapper;
         private readonly IHostingEnvironment _env;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EventController(ICourseData courseData, IMapper mapper, IHostingEnvironment env)
+        public EventController(ICourseData courseData, IMapper mapper, IHostingEnvironment env, UserManager<ApplicationUser> userManager)
         {
             _courseData = courseData;
             _mapper = mapper;
             _env = env;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -56,7 +59,9 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 }
 
                 eventFromDb.ImageUrl = "/images/eventWallpapers/"+ eventFromDb.Id + $".{fileExt}";
+                eventFromDb.Organizer = await _userManager.GetUserAsync(User);
 
+                eventFromDb.ImageLocalUrl = _env.WebRootPath + path;
                 _courseData.UpdateEvent(eventFromDb);
                 return RedirectToAction("Index","Event");
             }

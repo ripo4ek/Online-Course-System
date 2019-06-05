@@ -14,6 +14,5 @@ namespace OnlineCourseSystem.Areas.User.Models
 
         public IFormFile Wallpaper { get; set; }
 
-        public DateTime ReleaaseTime { get; set; }
     }
 }

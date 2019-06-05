@@ -9,9 +9,9 @@ namespace OnlineCourseSystem.Domain.Model
     {
         public string Address { get; set; }
         public DateTime Time { get; set; }
-
+        public ApplicationUser Organizer { get; set; }
         public string ImageUrl { get; set; }
-
+        public string ImageLocalUrl { get; set; }
         public string Text { get; set; }
     }
 }

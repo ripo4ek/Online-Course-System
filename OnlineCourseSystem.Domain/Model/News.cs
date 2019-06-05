@@ -15,6 +15,8 @@ namespace OnlineCourseSystem.Domain.Model
 
         public string ImageUrl { get; set; }
 
-        public DateTime  ReleaaseTime { get; set; }
+        public string ImageLocalUrl { get; set; }
+
+        public DateTime  ReleaseTime { get; set; }
     }
 }

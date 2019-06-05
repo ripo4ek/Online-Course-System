@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
 using OnlineCourseSystem.Areas.User.Models;
@@ -19,12 +20,14 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         private readonly ICourseData _courseData;
         private readonly IMapper _mapper;
         private readonly IHostingEnvironment _env;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public BlogController(ICourseData courseData, IMapper mapper, IHostingEnvironment env)
+        public BlogController(ICourseData courseData, IMapper mapper, IHostingEnvironment env, UserManager<ApplicationUser> userManager)
         {
             _courseData = courseData;
             _mapper = mapper;
             _env = env;
+            _userManager = userManager;
         }
 
 
@@ -49,7 +52,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 var fileExt = blog.Wallpaper.FileName.Split('.').Last();
 
                 string path = $"{Path.DirectorySeparatorChar}images{Path.DirectorySeparatorChar}" +
-                              $"eventWallpapers{Path.DirectorySeparatorChar}"
+                              $"blogWallpapers{Path.DirectorySeparatorChar}"
                               + blogFromDb.Id + $".{fileExt}";
 
 
@@ -58,8 +61,10 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                     await blog.Wallpaper.CopyToAsync(fileStream);
                 }
 
-                blogFromDb.ImageUrl = "/images/eventWallpapers/" + blogFromDb.Id + $".{fileExt}";
-                blogFromDb.ReleaaseTime = DateTime.Now;
+                blogFromDb.ImageUrl = "/images/blogWallpapers/" + blogFromDb.Id + $".{fileExt}";
+                blogFromDb.ReleaseTime = DateTime.Now;
+                blogFromDb.ImageLocalUrl = _env.WebRootPath + path;
+                blogFromDb.Author = await _userManager.GetUserAsync(User);
                 _courseData.UpdateBlogs(blogFromDb);
                 return RedirectToAction("Index", "Blog");
             }
