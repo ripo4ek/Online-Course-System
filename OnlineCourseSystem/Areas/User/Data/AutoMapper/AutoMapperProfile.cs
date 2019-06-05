@@ -31,7 +31,7 @@ namespace OnlineCourseSystem.Areas.User.Data.AutoMapper
             CreateMap<VideoTaskPostViewModel, VideoTask>();
 
 
-            CreateMap<EventViewModel, Event>();
+            CreateMap<EventPostViewModel, Event>();
         }
     }
 }

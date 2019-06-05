@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using OnlineCourseSystem.Areas.User.Data;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
 using OnlineCourseSystem.Areas.User.Models;
 using OnlineCourseSystem.Domain.Model;
@@ -31,22 +32,36 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var events = _courseData.GetEventsWithOrganizer();
+            var model = new List<EventViewModel>();
+            foreach (var e in events)
+            {
+                model.Add(new EventViewModel
+                {
+                    Author = string.IsNullOrEmpty(e.Organizer.Name)  || string.IsNullOrEmpty(e.Organizer.Surname)?
+                            e.Organizer.UserName:$"{e.Organizer.Name} {e.Organizer.Surname}",
+                    ImageUrl = e.ImageUrl,
+                    ReleaseTime = e.Time,
+                    TextPreview = StringFormatter.FormatForPreview(e.Text),
+                    Title = e.Name,
+                });
+            }
+            return View(model);
         }
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(EventViewModel eventModel)
+        public async Task<IActionResult> Create(EventPostViewModel eventPostModel)
         {
             if (ModelState.IsValid)
             {
-                var eventForSave = _mapper.Map<EventViewModel, Event>(eventModel);
+                var eventForSave = _mapper.Map<EventPostViewModel, Event>(eventPostModel);
 
                 var eventFromDb = _courseData.AddEvent(eventForSave);
 
-                var fileExt = eventModel.Wallpaper.FileName.Split('.').Last();
+                var fileExt = eventPostModel.Wallpaper.FileName.Split('.').Last();
 
                 string path = $"{Path.DirectorySeparatorChar}images{Path.DirectorySeparatorChar}" +
                               $"eventWallpapers{Path.DirectorySeparatorChar}" 
@@ -55,7 +70,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
                 using (var fileStream = new FileStream(_env.WebRootPath + path, FileMode.Create))
                 {
-                    await eventModel.Wallpaper.CopyToAsync(fileStream);
+                    await eventPostModel.Wallpaper.CopyToAsync(fileStream);
                 }
 
                 eventFromDb.ImageUrl = "/images/eventWallpapers/"+ eventFromDb.Id + $".{fileExt}";
@@ -66,6 +81,17 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 return RedirectToAction("Index","Event");
             }
             return View();
+        }
+        public IActionResult Delete(int id)
+        {
+            var eventModel = _courseData.GetEvent(id);
+            _courseData.DeleteEvent(eventModel);
+            return RedirectToAction("Index","Event");
+        }
+        public IActionResult Details(int id)
+        {
+            var modelEvent = _courseData.GetEvent(id);
+            return View(modelEvent);
         }
     }
 }

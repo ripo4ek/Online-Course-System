@@ -15,19 +15,24 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 
         Post AddNews(Post news);
 
+        Post GetBlog(int id);
+
+        IEnumerable<Post> GetNewsWithAuthor();
+
         void UpdateNews(Post post);
 
         IEnumerable<Post> GetNewsOfUser(string userId);
 
         Post GetNews(string userId);
 
+        Post GetNews(int id);
         IEnumerable<Post> GetBlogs();
 
         Post AddBlog(Post post);
 
         IEnumerable<Post> GetBlogsOfUser(string userId);
 
-        Post GetBlog(string userId);
+        Post GetBlogByUser(string userId);
 
         void UpdateBlogs(Post post);
 
@@ -37,6 +42,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
         IEnumerable<Event> GetEvents();
         Event AddEvent(Event eventModel);
 
+        IEnumerable<Event> GetEventsWithOrganizer();
         Event GetEvent(int id);
         void UpdateEvent(Event eventModel);
         ApplicationUser GetUserWithStats(string userId);
@@ -47,6 +53,12 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
         IEnumerable<Domain.Model.ApplicationUser> GetUsers();
         Domain.Model.ApplicationUser GetUser(string id);
         IEnumerable<Task> GetTasksOfCourse(TaskFilter filter);
+
+        void DeleteEvent(Event eventModel);
+
+        void DeleteBlog(Post blog);
+
+        void DeleteNews(Post blog);
 
         IEnumerable<Event> GetFiveRandomEvents();
         IEnumerable<Course> GetFullCourse();

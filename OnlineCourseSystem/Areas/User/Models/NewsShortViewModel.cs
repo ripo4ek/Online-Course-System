@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace OnlineCourseSystem.Areas.User.Models
 {
-    public class EventViewModel
+    public class NewsShortViewModel
     {
         public string Title { get; set; }
         public string ImageUrl { get; set; }
 
-        public string Author{ get; set; }
+        public string Author { get; set; }
 
         public string TextPreview { get; set; }
 

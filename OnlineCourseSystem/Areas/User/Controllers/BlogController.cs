@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using OnlineCourseSystem.Areas.User.Data;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
 using OnlineCourseSystem.Areas.User.Models;
 using OnlineCourseSystem.Domain.Model;
@@ -70,9 +71,28 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             }
             return View();
         }
-        public IActionResult Details(int blogId)
+        public IActionResult Index()
         {
-            return View();
+            var events = _courseData.GetNewsWithAuthor();
+            var model = new List<NewsShortViewModel>();
+            foreach (var e in events)
+            {
+                model.Add(new NewsShortViewModel
+                {
+                    Author = string.IsNullOrEmpty(e.Author.Name) || string.IsNullOrEmpty(e.Author.Surname) ?
+                        e.Author.UserName : $"{e.Author.Name} {e.Author.Surname}",
+                    ImageUrl = e.ImageUrl,
+                    ReleaseTime = e.ReleaseTime,
+                    TextPreview = StringFormatter.FormatForPreview(e.Text),
+                    Title = e.Name,
+                });
+            }
+            return View(model);
+        }
+        public IActionResult Details(int id)
+        {
+            var modelEvent = _courseData.GetBlog(id);
+            return View(modelEvent);
         }
     }
 }

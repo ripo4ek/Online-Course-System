@@ -262,6 +262,10 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         {
             return _context.Events;
         }
+        public IEnumerable<Event> GetEventsWithOrganizer()
+        {
+            return _context.Events.Include(a=>a.Organizer);
+        }
 
         public Event AddEvent(Event eventModel)
         {
@@ -299,13 +303,9 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public Event GetEvent(int id)
         {
-            return _context.Events.First(e => e.Id == id);
+            return _context.Events.Include(e=>e.Organizer).First(e => e.Id == id);
         }
 
-        public IEnumerable<Post> GetNews()
-        {
-            return _context.News;
-        }
 
         public Post AddNews(Post news)
         {
@@ -326,7 +326,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             return _context.News.Include(n => n.Author).Where(n => n.Author.Id == userId);
         }
 
-        public Post GetNews(string userId)
+        public Post GetNewsByUser(string userId)
         {
             return _context.News.Include(n => n.Author).First(n => n.Author.Id == userId);
         }
@@ -348,7 +348,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             return _context.Blogs.Include(n => n.Author).Where(n => n.Author.Id == userId);
         }
 
-        public Post GetBlog(string userId)
+        public Post GetBlogByUser(string userId)
         {
             return _context.Blogs.Include(n => n.Author).First(n => n.Author.Id == userId);
         }
@@ -357,6 +357,48 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         {
             _context.Blogs.Update(post);
             _context.SaveChanges();
+        }
+
+        public void DeleteEvent(Event eventModel)
+        {
+            _context.Events.Remove(eventModel);
+            _context.SaveChanges();
+        }
+
+        public void DeleteBlog(Post blog)
+        {
+            _context.Blogs.Remove(blog);
+            _context.SaveChanges();
+        }
+
+        public void DeleteNews(Post news)
+        {
+            _context.News.Remove(news);
+            _context.SaveChanges();
+        }
+
+        public Post GetBlog(int id)
+        {
+            return _context.Blogs.First(b=>b.Id ==id);
+        }
+        public Post GetNews(int id)
+        {
+            return _context.Blogs.First(b => b.Id == id);
+        }
+
+        public IEnumerable<Post> GetNews()
+        {
+            return _context.News;
+        }
+
+        public Post GetNews(string userId)
+        {
+            return _context.News.First(n=>n.Author.Id == userId);
+        }
+
+        public IEnumerable<Post> GetNewsWithAuthor()
+        {
+            return _context.News.Include(n => n.Author);
         }
     }
 }

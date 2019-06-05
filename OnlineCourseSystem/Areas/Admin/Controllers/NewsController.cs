@@ -71,5 +71,16 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
             }
             return View();
         }
+        public IActionResult Delete(int id)
+        {
+            var news = _courseData.GetNews(id);
+            _courseData.DeleteNews(news);
+            return RedirectToAction("Index", "Event");
+        }
+        public IActionResult Details(int id)
+        {
+            var modelEvent = _courseData.GetNews(id);
+            return View(modelEvent);
+        }
     }
 }

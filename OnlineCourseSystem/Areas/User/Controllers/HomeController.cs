@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using OnlineCourseSystem.Areas.User.Data;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
 using OnlineCourseSystem.Areas.User.Models;
 using OnlineCourseSystem.Domain;
@@ -54,7 +55,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 {
                     Name = eventModel.Name,
                     Address= eventModel.Address,
-                    SampleText = CutterString(eventModel.Text),
+                    SampleText = StringFormatter.FormatForPreview(eventModel.Text),
                     Time = eventModel.Time,
                     ImageUrl = eventModel.ImageUrl
                 });
@@ -75,15 +76,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         }
 
 
-        private string CutterString(string str)
-        {
-            if (str.Length >= 100)
-            {
-                return str.Substring(0, 100) + "...";
-            }
 
-            return str + "...";
-        }
         public IActionResult Locker()
         {
             return View();
