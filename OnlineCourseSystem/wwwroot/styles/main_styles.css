@@ -1596,10 +1596,13 @@ section
 	width: 100%;
 	border-radius: 6px;
 	overflow: hidden;
+    text-align: center;
 }
 .news_post_image img
 {
 	max-width: 100%;
+    max-height: 290px;
+    border-radius: 6px;
 }
 .news_post_large_title
 {

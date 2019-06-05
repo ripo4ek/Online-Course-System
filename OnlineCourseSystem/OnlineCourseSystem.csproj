@@ -28,7 +28,6 @@
     <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\coursesMainImages\" />
-    <Folder Include="wwwroot\images\eventWallpapers\" />
     <Folder Include="wwwroot\videos\" />
   </ItemGroup>
 
