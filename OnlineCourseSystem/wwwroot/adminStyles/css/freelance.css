@@ -1,0 +1,794 @@
+
+
+/*New content here*/
+
+/*Question*/
+.content-course-align-none {
+    align-items: flex-start;
+}
+.tab > a {
+    color: #384158;
+}
+.content-course {
+    border-radius: 6px;
+    padding-top: 45px;
+}
+.question-wrap {
+    padding: 55px;
+    background: linear-gradient(45deg, #f2f4f5, rgba(20, 189, 238, .05));
+    box-shadow: 0px 1px 10px rgba(29,34,47,0.1);
+}
+
+.question-title {
+    margin-bottom: 30px;
+    font-size: 26px;
+    text-align: start;
+}
+
+.question-form {
+    margin-bottom: 117px;
+}
+
+.question-paragraph {
+    margin-bottom: 30px;
+    text-align: initial;
+    text-indent: 5%
+}
+
+.question-area {
+    width: 100%;
+    height: 105px;
+    border-radius: 4px;
+}
+
+.question-button {
+    width: 130px;
+    margin: 0;
+    margin-top: 25px;
+    display: block;
+    box-shadow: 0px 1px 10px rgba(29,34,47,0.1);
+    border-radius: 4px;
+}
+
+.question-body {
+    width: 70%;
+    margin: auto;
+    min-height: 390px;
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+.question-button-send {
+    margin-left: auto;
+}
+/*Quiz*/
+.question-quiz {
+    margin-bottom: 25px;
+    min-height: 450px;
+}
+
+.form-quiz {
+    margin-bottom: 55px;
+    width: 40%;
+    margin: auto;
+    min-height: 450px;
+}
+
+.quiz-title {
+    font-size: 26px;
+    margin-bottom: 26px;
+}
+
+.quiz-option {
+    margin-bottom: 2px;
+    padding: 10px;
+    padding-left: 30px;
+    border-radius: 5px;
+    background-color: rgba(20, 189, 238, .4);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 43px;
+    word-break: break-all;
+}
+.quiz-option> input {
+    margin-right: 30px;
+} 
+
+/*video*/
+
+.video-wrap {
+    text-align: center;
+}
+
+.video {
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/*text task*/
+.text-body {
+    margin: auto;
+    min-height: 507px;
+}
+.task-container-video {
+    width: 100%;
+}
+.text-task {
+    margin: auto;
+    text-align: justify;
+    width: 75%;
+    text-indent: 5%;
+}
+
+.question-title {
+    text-indent: 0;
+}
+
+.question-subtitle {
+    margin-bottom: 15px;
+}
+
+
+/*стили для create*/
+.creator-menu {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+}
+
+.creator-menu-title {
+    background-color: #14bdee;
+    color: #FFFFFF;
+    padding-top: 0.75rem;
+    padding-right: 1.25rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1.25rem;
+    border-top: 1px solid transparent;
+    border-radius: 1px;
+}
+
+.drop-menu {
+    flex-basis: 44%;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-shadow: 0px 1px 10px rgba(29,34,47,0.1);
+}
+.menu-input {
+    min-height: 70px;
+}
+.input-duration {
+    width: 35px;
+    margin-top: 1px;
+
+}
+
+.course-info-column {
+    flex-basis: 55%;
+    box-shadow: 0px 1px 10px rgba(29,34,47,0.1);
+}
+.course-info-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.menu-options {
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+}
+.menu-options>label {
+    flex-basis: 100%;
+}
+.menu-options-categories {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    flex-basis: 100%;
+    vertical-align: middle;
+}
+.menu-options-categories>span {
+    padding-top: 7px;
+}
+.menu-options-category {
+    flex-basis: 47%;
+    }
+.menu-options-full-raw {
+    width: 100%;
+}
+.creator-menu-title-buttons {
+    padding: 0;
+}
+.courses-menu-button {
+    background-color: #14bdee;
+    width: 20%;
+    margin-top: 0;
+    color: white;
+    border: none;
+    height: 45px;
+    box-shadow: 1px;
+}
+.courses-menu-button:hover {
+    cursor: pointer;
+    background-color: #1a9ec4;
+}
+.courses-menu-button:focus {
+    outline: none;
+}
+.courses-menu-button-chosen {
+    background-color: #1a9ec4;
+}
+.course-info-o {
+    margin-top: 0;
+}
+.button-add-var {
+    margin-left: 15px;
+}
+.quiz-add-var {
+    display: flex;
+}
+.delete-var {
+    display:inline;
+    font-size: 16px;
+    font-weight: 800;
+    color:red;
+}
+.delete-var:hover {
+    cursor: pointer;
+}
+.quiz-variants {
+    list-style-type: disc;
+}
+.additional-var {
+    margin-left: 25px;
+    background-color: rgba(226, 8, 8, 0.30);
+    border-radius: 5px;
+    margin-bottom: 1px;
+}
+.wrong-var {
+    background-color: rgba(75, 172, 0, 0.30);
+}
+.home-create {
+    height: 200px;
+}
+.form_name {
+    margin: auto;
+}
+.title-create {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.title-create>span {
+    color: #14bdee;
+}
+.quiz_options {
+    list-style-type: none;
+}
+.quiz_options>li {
+    margin-left: 0;
+    padding-left: 0;
+}
+/*Login-form*/
+.login-form-center {
+    margin: 300px auto 300px auto;
+}
+.login-form {
+    background-color: #fff;
+    border-radius: 5px;
+    border: solid 1px #d8dee2;
+    padding: 20px;
+    margin: 0;
+}
+.login-form-input {
+    margin-bottom: 15px;
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+    background-position: right 8px center;
+    background-repeat: no-repeat;
+    border: 1px solid #d1d5da;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 2px rgba(27,31,35,.075);
+    line-height: 20px;
+    min-height: 34px;
+    padding: 6px 8px;
+    vertical-align: middle;
+}
+.login-form-input:focus {
+    border-color: #2188ff;
+    box-shadow: inset 0 1px 2px rgba(27,31,35,.075), 0 0 0 0.2em rgba(3,102,214,.3);
+    outline: none;
+}
+.btn-custom {
+    display: block;
+    text-align: center;
+    width: 100%;
+    background-color: #14bdee;
+    color: #fff;
+    margin-top: 30px;
+    cursor: pointer;
+}
+.login-title {
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: -.5px;
+    color: #384158;
+    margin-bottom: 25px;
+}
+/*UploadContent*/
+.upload-video {
+    margin-top: 130px;
+    margin-bottom: 35px;
+    padding: 20px;
+}
+.content-uploading {
+    height: 30vh;
+    display: block;
+    background: url(/images/blog_single.jpg) center no-repeat;
+    background-size: contain;
+    width: 45vh;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    background-color: #384158;
+}
+.content-uploading>img {
+    width: 290px;
+}
+.uploading-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 100px 0px 100px;
+    border: 1px solid #fff;
+    border-radius: .25rem;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+}
+.form-group-upload {
+    text-align: center;
+    width: 100%;
+
+}
+.form-group-upload>label {
+    margin-bottom: 30px;
+
+}
+.add-course-picture {
+    display: flex;
+}
+.input-group {
+    display: flex;
+    justify-content: space-between;
+}
+.input-group-video {
+    margin-top: 60px;
+    margin-bottom: 27px;
+}
+.add-video>form {
+    margin-bottom: 10px;
+}
+.file-input {
+    width: 200px;
+    height: 40px;
+    overflow: hidden;
+    position: relative;
+}
+.file-input-wrapper > input[type="file"] {
+    font-size: 45px;
+    position: absolute;
+    top: 0;
+    width: 200px;
+    height: 40px;
+    right: 0;
+    opacity: 0;
+}
+
+.file-input-wrapper > .btn-file-input {
+    display: inline-block;
+    width: 200px;
+    height: 40px;
+    border-radius: 4px;
+    margin-top: 0px;
+}
+
+.file-input-wrapper:hover > .btn-file-input {
+    background-color: #aaa;
+}
+.add-video>form {
+    display:flex;
+}
+.add-video-box {
+    width: 100%;
+    padding: 14px;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    margin-bottom: 30px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+    justify-content: space-between;
+}
+.counter_form_button-video {
+    margin-top: 0;
+}
+.add-video-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 35%;
+    margin-right: 20px;
+}
+.add-video {
+    width: 100%;
+    align-items: center;
+}
+.upload-button {
+    margin-top: 20px;
+    color: #fff
+}
+.file-upload-box {
+    display: flex;
+    align-items: center;
+}
+.progress-style {
+    width: 200px;
+    padding-left: 13px;
+    margin-right: 5px;
+}
+.delete-video {
+    font-size: 22px;
+    font-weight: 400;
+}
+.delete-video {
+    margin-right: 30px;
+}
+.upload-bar-plate {
+    position: relative;
+    width: 33%;
+    background: #f0f0f0;
+    margin-right: 10px;
+}
+.upload-bar {
+    background: blue;
+    height: 20px;
+    width: 0;
+}
+.upload {
+    width: 97px;
+    margin-top: 0px;
+    height: 20px;
+    border-radius: 3px;
+    margin-right: 20px;
+    font-size: 12px;
+}
+
+/*courses/details*/
+.fa-row {
+    padding-left: 30px;
+}
+.course_image> img {
+    width: 100%;
+}
+/*Menu*/
+.menu-turbo-button {
+    transform: translate(25px,94px);
+    background-color: transparent;
+    color: #000;
+    border: none;
+    width: 70px;
+    height: 70px;
+    font-size: 20px;
+}
+.menu-turbo-button:focus {
+    outline: none;
+}
+.menu-turbo-button:hover {
+    cursor: pointer;
+    color: #14bdee;
+}
+
+/*create-event*/
+.create-section {
+    margin: auto;
+    margin-top: 135px;
+    margin-bottom: 50px;
+    width: 100%;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+    border-radius: .25rem;
+    padding: 50px;
+}
+.create-name-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.create-box {
+    margin-bottom: 25px;
+    font-size: 16px;
+}
+.create-name-subtitle {
+    color: #384158;
+    margin-bottom: 15px;
+}
+.create-box > form > input {
+    border: solid 1px #e5e5e5;
+    border-radius: 3px;
+    padding-left: 10px;
+    outline: none;
+}
+.create-date-text {
+    font-size: 16px;
+    font-weight: 400;
+    color: #384158;
+    margin-bottom: 15px;
+}
+.create-address-title {
+    color: #384158;
+}
+.create-text-input {
+    width: 100%;
+    height: 200px;
+    border: solid 1px #e5e5e5;
+    border-radius: 3px;
+    padding-left: 20px;
+    outline: none;
+    margin-left: auto;
+    padding-top: 15px;
+}
+.create-section-input {
+    width: 45%;
+}
+.create-text {
+    
+}
+.create-box > input {
+    border: solid 1px #e5e5e5;
+    border-radius: 3px;
+    padding-left: 10px;
+    outline: none;
+    width: 30%;
+}
+.create-button {
+    display: block;
+    margin-top: 30px;
+    margin-left: auto;
+}
+.file-input-wrapper {
+    width: 200px;
+}
+.file-input-wrapper > input[type="file"] {
+    font-size: 45px;
+    position: absolute;
+    left: 0;
+    width: 200px;
+    height: 40px;
+    opacity: 0;
+    text-indent: -999px;
+}
+.file-input-wrapper > input[type=file]:hover {
+    cursor: pointer;
+}
+.file-input-wrapper:hover > .upload {
+    box-shadow: 0px 5px 40px rgba(29,34,47,0.45);
+}
+.rdy-bar {
+    background: green;
+    width: 100%;
+}
+.upload-hided {
+    display: none;
+}
+/*Profile styles*/
+.my-info {
+    color: white;
+    padding-top: 50px;
+    padding-bottom: 75px;
+    margin-top: 130px;
+    min-height: 200px;
+    background-color: #393939;
+    background: url(/images/newsletter.jpg) center no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.my-info::before {
+    content: '';
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.04);
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0
+}
+
+.my-info-content {
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.my-info-avatar {
+    display: block;
+    border-radius: 50%;
+    height: 190px;
+    width: 190px;
+    background: url(/images/dungeon_master.jpeg) center no-repeat
+}
+
+.my-info-name {
+    margin-bottom: 40px;
+    color: white;
+}
+
+    .my-info-name > h1 {
+        color: white;
+    }
+
+.my-info-courses {
+    display: flex;
+}
+
+.my-info-course {
+    font-size: 24px;
+    margin-right: 35px;
+}
+
+.info-course-small {
+    font-size: 16px;
+}
+
+.my-courses-title {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(159, 159, 159, .2);
+    margin-bottom: 40px;
+}
+.my-courses-counter {
+    margin-bottom: 20px;
+}
+.my-courses-done {
+    font-size: 16px;
+}
+
+.my-courses-box {
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    margin-bottom: 50px;
+}
+.my-courses-box-top {
+    display: flex;
+    padding: 10px;
+}
+.my-courses-box-image {
+    flex-basis: 25%;
+    margin-right: 50px;
+}
+.my-courses-box-image> img {
+    width: 100%
+}
+.my-courses-box-info {
+    padding: 10px;
+    width: 100%;
+}
+.my-courses-box-date {
+    width: 100%;
+    display: flex;
+    justify-content: space-between
+}
+.my-courses-box-title {
+    margin-bottom: 10px;
+}
+.my-courses-box-button {
+    width: 40%;
+}
+.courses-duration {
+    padding-left: 30px;
+}
+
+.courses-duration:before {
+    content: '';
+    display: block;
+    background: url(/images/calendar-icon.svg) center no-repeat;
+    background-size: cover;
+    height: 20px;
+    width: 20px;
+    position: relative;
+    top: 20px;
+    left: -30px;
+}
+.my-courses-box-bottom {
+    background-color: #f8f8f8;
+    padding: 10px;
+    display: flex;
+    align-items:center ;
+}
+.professor-avatar {
+    display: block;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    background: url(/images/professor-avatar.jpg) center no-repeat;
+    background-size: cover;
+    margin-right: 15px;
+}
+
+/*Log Out*/
+.log-out-button {
+    color: black !important;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 40px;
+    cursor: pointer;
+    outline: none;
+}
+input[type=submit] {
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+
+/*Dropdown menu*/
+.dropbtn {
+    background-color: #14bdee;
+    color: white;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+.dropbtn:focus {
+    outline: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 14px 0px rgba(0,0,0,0.1);
+    z-index: 1;
+}
+
+    /* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 5px 16px;
+    text-decoration: none;
+    display: block;
+    border-radius: 4px;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+    box-shadow: 0px 8px 14px 0px rgba(0,0,0,0.1);
+    border-radius: 4px;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: white;
+    color: black;
+}
