@@ -14,6 +14,7 @@ using OnlineCourseSystem.Domain.Model;
 
 namespace OnlineCourseSystem.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class NewsController : Controller
     {
 
