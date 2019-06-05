@@ -157,6 +157,7 @@
     background-color: white;
     border-radius: 5px;
     margin-bottom: 15px;
+    box-shadow: 0px 1px 10px rgba(29,34,47,0.1);
 }
 .menu-input {
     min-height: 70px;
@@ -169,6 +170,7 @@
 
 .course-info-column {
     flex-basis: 55%;
+    box-shadow: 0px 1px 10px rgba(29,34,47,0.1);
 }
 .course-info-content {
     display: flex;
