@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Text;
 using OnlineCourseSystem.Domain.Model.Base;
 using OnlineCourseSystem.Domain.Model.Tasks;
@@ -13,9 +14,9 @@ namespace OnlineCourseSystem.Domain.Model
         /// <summary>
         /// Ссылка на картинку
         /// </summary>
-        public string ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = "/images/coursesMainImages/no-image-icon.svg";
 
-        public string LocalImageUrl { get; set; }
+        public string LocalImageUrl { get; set; } = $"{Path.DirectorySeparatorChar}images{Path.DirectorySeparatorChar}coursesMainImages{Path.DirectorySeparatorChar}no-image-icon.svg";
 
         /// <summary>
         /// Бренд товара
