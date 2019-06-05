@@ -301,5 +301,62 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         {
             return _context.Events.First(e => e.Id == id);
         }
+
+        public IEnumerable<Post> GetNews()
+        {
+            return _context.News;
+        }
+
+        public Post AddNews(Post news)
+        {
+            _context.News.Add(news);
+            _context.SaveChanges();
+            return news;
+        }
+
+        public void UpdateNews(Post post)
+        {
+            _context.News.Update(post);
+            _context.SaveChanges();
+
+        }
+
+        public IEnumerable<Post> GetNewsOfUser(string userId)
+        {
+            return _context.News.Include(n => n.Author).Where(n => n.Author.Id == userId);
+        }
+
+        public Post GetNews(string userId)
+        {
+            return _context.News.Include(n => n.Author).First(n => n.Author.Id == userId);
+        }
+
+        public IEnumerable<Post> GetBlogs()
+        {
+            return _context.Blogs;
+        }
+
+        public Post AddBlog(Post post)
+        {
+            _context.Blogs.Add(post);
+            _context.SaveChanges();
+            return post;
+        }
+
+        public IEnumerable<Post> GetBlogsOfUser(string userId)
+        {
+            return _context.Blogs.Include(n => n.Author).Where(n => n.Author.Id == userId);
+        }
+
+        public Post GetBlog(string userId)
+        {
+            return _context.Blogs.Include(n => n.Author).First(n => n.Author.Id == userId);
+        }
+
+        public void UpdateBlogs(Post post)
+        {
+            _context.Blogs.Update(post);
+            _context.SaveChanges();
+        }
     }
 }

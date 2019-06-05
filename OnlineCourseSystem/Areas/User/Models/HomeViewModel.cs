@@ -12,6 +12,7 @@ namespace OnlineCourseSystem.Areas.User.Models
         public IEnumerable<HomeAuthorsViewModel> Authors { get; set; }
 
         public IEnumerable<HomeEventViewModel> Events { get; set; }
+
         public PlatformStatsViewModel Stats { get; set; }
 
     }

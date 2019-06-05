@@ -11,6 +11,26 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
         IEnumerable<Topic> GetTopic();
         int GetAuthorsCount();
 
+        IEnumerable<Post> GetNews();
+
+        Post AddNews(Post news);
+
+        void UpdateNews(Post post);
+
+        IEnumerable<Post> GetNewsOfUser(string userId);
+
+        Post GetNews(string userId);
+
+        IEnumerable<Post> GetBlogs();
+
+        Post AddBlog(Post post);
+
+        IEnumerable<Post> GetBlogsOfUser(string userId);
+
+        Post GetBlog(string userId);
+
+        void UpdateBlogs(Post post);
+
         int GetCourseCount();
 
         int GetUserCount();
