@@ -4,10 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace OnlineCourseSystem.Areas.User.Controllers
+namespace OnlineCourseSystem.Areas.Admin.Controllers
 {
-    [Area("User")]
-    public class ContactController : Controller
+    public class BlogController : Controller
     {
         public IActionResult Index()
         {

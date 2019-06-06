@@ -626,13 +626,17 @@
 }
 
 .my-info-avatar {
-    display: block;
+    display: flex;
+    align-items: flex-start;
     border-radius: 50%;
     height: 190px;
     width: 190px;
-    background: url(/images/dungeon_master.jpeg) center no-repeat
+    overflow: hidden;
 }
-
+.my-info-avatar >img
+{
+    width: 100%;
+}
 .my-info-name {
     margin-bottom: 40px;
     color: white;
@@ -680,6 +684,8 @@
 .my-courses-box-image {
     flex-basis: 25%;
     margin-right: 50px;
+    height: 135px;
+    overflow: hidden;
 }
 .my-courses-box-image> img {
     width: 100%
@@ -721,13 +727,17 @@
     align-items:center ;
 }
 .professor-avatar {
-    display: block;
+    margin-right: 15px;
+    display: flex;
+    align-items: flex-start;
     border-radius: 50%;
     height: 30px;
     width: 30px;
-    background: url(/images/professor-avatar.jpg) center no-repeat;
-    background-size: cover;
-    margin-right: 15px;
+    overflow: hidden;
+}
+
+.professor-avatar > img {
+    width: 100%;
 }
 
 /*Log Out*/
@@ -822,3 +832,6 @@ input[type=submit] {
 .sidebar_event {
     padding-top: 0;
 }
+
+
+
