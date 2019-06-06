@@ -10,5 +10,8 @@ namespace OnlineCourseSystem.Areas.User.Models
     public class CourseViewModel
     {
         public IEnumerable<string> Categories { get; set; }
+        public string UserInput { get; set; }
+
+        public string CategoryName { get; set; }
     }
 }
