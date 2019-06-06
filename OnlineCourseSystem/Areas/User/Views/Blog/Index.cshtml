@@ -1,0 +1,50 @@
+﻿@model IEnumerable<NewsShortViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="~/styles/bootstrap4/bootstrap.min.css">
+<link href="~/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="~/styles/blog.css">
+<link rel="stylesheet" type="text/css" href="~/styles/blog_responsive.css">
+
+<div class="blog">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="blog_post_container">
+                    @foreach(var e in Model)
+                    {
+                    <div class="blog_post trans_200">
+                        @if (e.ImageUrl != null)
+                        {
+                            <div class="blog_post_image"><img src="@e.ImageUrl" alt=""></div>
+                        }
+                        <div class="blog_post_body">
+                            <div class="blog_post_title"><a href="blog_single.html">@e.Title</a></div>
+                            <div class="blog_post_meta">
+                                <ul>
+                                    <li><a href="#">@e.Author</a></li>
+                                    <li><a href="#">@e.ReleaseTime</a></li>
+                                </ul>
+                            </div>
+                            <div class="blog_post_text">
+                                <p>@e.TextPreview</p>
+                            </div>
+                        </div>
+                    </div>  
+                    }
+                    <!-- Blog Post -->
+                 
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <div class="load_more trans_200"><a href="#">load more</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

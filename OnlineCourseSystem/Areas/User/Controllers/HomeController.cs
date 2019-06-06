@@ -22,12 +22,14 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         public IActionResult Index()
         {
             var courses = _courseData.GetThreeRandomCourses();
-            var users = _courseData.GetThreeRandomUsers();
+            var authors = _courseData.GetThreeRandomAuthors();
             var events = _courseData.GetFiveRandomEvents();
+            var news = _courseData.GetFiveRandomNews();
 
             List<HomeCourseViewModel> courseViewModel = new List<HomeCourseViewModel>();
             List<HomeAuthorsViewModel> authorsViewModel = new List<HomeAuthorsViewModel>();
             List<HomeEventViewModel> eventsViewModel = new List<HomeEventViewModel>();
+            List<HomeNewsViewModel> newsViewModel = new List<HomeNewsViewModel>();
             foreach (var course in courses)
             {
                 courseViewModel.Add(new HomeCourseViewModel()
@@ -35,18 +37,19 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                     CourseName = course.Name,
                     CourseAuthor = course.Author.UserName,
                     CourseDescription = course.Description,
-                    CourseImage = course.ImageUrl
+                    CourseImage = course.ImageUrl,
+                    UsersCount = course.Users.Count(), 
                 });
             }
-            foreach (var user in users)
+            foreach (var author in authors)
             {
                 authorsViewModel.Add(new HomeAuthorsViewModel()
                 {
-                    Name = user.Name,
-                    UserName = user.UserName,
-                    Position = user.Status,
-                    Subname = user.Surname,
-                    PhotoUrl = user.PhotoUrl
+                    Name = author.Name,
+                    UserName = author.UserName,
+                    Position = author.Status,
+                    Subname = author.Surname,
+                    PhotoUrl = author.PhotoUrl
                 });
             }
             foreach (var eventModel in events)
@@ -60,16 +63,46 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                     ImageUrl = eventModel.ImageUrl
                 });
             }
+            foreach (var newsModel in news.Skip(1))
+            {
+                newsViewModel.Add(new HomeNewsViewModel()
+                {
+                    Author = string.IsNullOrEmpty(newsModel.Author.Name) || string.IsNullOrEmpty(newsModel.Author.Surname) ?
+                        newsModel.Author.UserName : $"{newsModel.Author.Name} {newsModel.Author.Surname}",
+                    ImageUrl = newsModel.ImageUrl,
+                    ReleaseTime= newsModel.ReleaseTime,
+                    TextPreview = StringFormatter.FormatForPreview(newsModel.Text),
+                    Title = newsModel.Title,
+                });
+            }
+
+            HomeNewsViewModel bigNewsModel = null;
+            if (news.Any())
+            {
+                var firstElement = news.First();
+                bigNewsModel = new HomeNewsViewModel()
+                {
+                    Author = string.IsNullOrEmpty(firstElement.Author.Name) || string.IsNullOrEmpty(firstElement.Author.Surname) ?
+                        firstElement.Author.UserName : $"{firstElement.Author.Name} {firstElement.Author.Surname}",
+                    ImageUrl = firstElement.ImageUrl,
+                    ReleaseTime = firstElement.ReleaseTime,
+                    TextPreview = StringFormatter.FormatForPreview(firstElement.Text),
+                    Title = firstElement.Title,
+                };
+            }
+
             HomeViewModel viewModel = new HomeViewModel
             {
                 Courses = courseViewModel,
                 Authors = authorsViewModel,
                 Events = eventsViewModel,
+                News = newsViewModel,
+                BigNews = bigNewsModel,
                 Stats = new PlatformStatsViewModel()
                 {
                     AuthorsCount = _courseData.GetAuthorsCount(),
                     CourseCount = _courseData.GetCourseCount(),
-                    UserCount = _courseData.GetUserCount(),
+                    UserCount = _courseData.GetUserCount(),           
                 },             
             };
             return View(viewModel);

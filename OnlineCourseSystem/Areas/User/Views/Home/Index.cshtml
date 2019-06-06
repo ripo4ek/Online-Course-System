@@ -1,4 +1,5 @@
 ﻿
+@using OnlineCourseSystem.Areas.User.Data
 @model HomeViewModel
 @{
     ViewBag.Title = "Index";
@@ -183,30 +184,30 @@
             <!-- Course -->
             @foreach (var m in Model.Courses)
             {
-                <div class="col-lg-4 course_col">
-                    <div class="course">
-                        <div class="course_image"><img src="@m.CourseImage" alt=""></div>
-                        <div class="course_body">
-                            <h3 class="course_title"><a href="course.html">@m.CourseName</a></h3>
-                            <div class="course_teacher">@m.CourseAuthor</div>
-                            <div class="course_text">
-                                <p>@m.CourseDescription</p>
-                            </div>
+            <div class="col-lg-4 course_col">
+                <div class="course">
+                    <div class="course_image"><img src="@m.CourseImage" alt=""></div>
+                    <div class="course_body">
+                        <h3 class="course_title"><a href="course.html">@m.CourseName</a></h3>
+                        <div class="course_teacher">@m.CourseAuthor</div>
+                        <div class="course_text">
+                            <p>@m.CourseDescription</p>
                         </div>
-                        <div class="course_footer">
-                            <div class="course_footer_content d-flex flex-row align-items-center justify-content-between">
-                                <div class="course_info">
-                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                                    <span>20 Student</span>
-                                </div>
-                                <div class="course_info">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <span>5 Ratings</span>
-                                </div>
+                    </div>
+                    <div class="course_footer">
+                        <div class="course_footer_content d-flex flex-row align-items-center justify-content-between">
+                            <div class="course_info">
+                                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                <span>@m.UsersCount Student</span>
+                            </div>
+                            <div class="course_info">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <span>@m.UsersScore Ratings</span>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             }
 
         </div>
@@ -241,7 +242,7 @@
 
                         <!-- Milestone -->
                         <div class="milestone">
-                            <div class="milestone_counter" data-end-value="@Model.Stats.UserCount" >0</div>
+                            <div class="milestone_counter" data-end-value="@Model.Stats.UserCount">0</div>
                             <div class="milestone_text">users</div>
                         </div>
 
@@ -295,29 +296,29 @@
         <div class="row events_row">
             @foreach(var eventModel in Model.Events)
             {
-                <div class="col-lg-4 event_col">
-                    <div class="event event_left">
-                        <div class="course_image"><img src="@eventModel.ImageUrl" alt=""></div>
-                        <div class="event_body d-flex flex-row align-items-start justify-content-start">
-                            <div class="event_date">
-                                <div class="d-flex flex-column align-items-center justify-content-center trans_200">
-                                    <div class="event_day trans_200">@eventModel.Time.Day</div>
-                                    <div class="event_month trans_200">@eventModel.Time.Month</div>
-                                </div>
+            <div class="col-lg-4 event_col">
+                <div class="event event_left">
+                    <div class="course_image"><img src="@eventModel.ImageUrl" alt=""></div>
+                    <div class="event_body d-flex flex-row align-items-start justify-content-start">
+                        <div class="event_date">
+                            <div class="d-flex flex-column align-items-center justify-content-center trans_200">
+                                <div class="event_day trans_200">@eventModel.Time.Day</div>
+                                <div class="event_month trans_200">@eventModel.Time.Month</div>
                             </div>
-                            <div class="event_content">
-                                <div class="event_title"><a href="#">@eventModel.Name</a></div>
-                                <div class="event_info_container">
-                                    <div class="event_info"><i class="fa fa-clock-o" aria-hidden="true"></i><span>@eventModel.Time.Hour.@eventModel.Time.Minute</span></div>
-                                    <div class="event_info"><i class="fa fa-map-marker" aria-hidden="true"></i><span>@eventModel.Address</span></div>
-                                    <div class="event_text">
-                                        <p>@eventModel.SampleText</p>
-                                    </div>
+                        </div>
+                        <div class="event_content">
+                            <div class="event_title"><a href="#">@eventModel.Name</a></div>
+                            <div class="event_info_container">
+                                <div class="event_info"><i class="fa fa-clock-o" aria-hidden="true"></i><span>@eventModel.Time.Hour.ToString("00.##").@eventModel.Time.Minute.ToString("00.##")</span></div>
+                                <div class="event_info"><i class="fa fa-map-marker" aria-hidden="true"></i><span>@eventModel.Address</span></div>
+                                <div class="event_text">
+                                    <p>@eventModel.SampleText</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             }
         </div>
     </div>
@@ -337,25 +338,25 @@
             </div>
         </div>
         <div class="row team_row">
-            
+
             @foreach (var author in Model.Authors)
             {
-                <div class="col-lg-3 col-md-6 team_col">
-                    <div class="team_item">
-                        <div class="team_image"><img src="@author.PhotoUrl" alt=""></div>
-                        <div class="team_body">
-                            @if (author.Name == null || author.Subname == null)
+            <div class="col-lg-3 col-md-6 team_col">
+                <div class="team_item">
+                    <div class="team_image"><img src="@author.PhotoUrl" alt=""></div>
+                    <div class="team_body">
+                        @if (author.Name == null || author.Subname == null)
                             {
-                                <div class="team_title"><a href="#">@author.UserName</a></div>
+                        <div class="team_title"><a href="#">@author.UserName</a></div>
                             }
                             else
                             {
-                                <div class="team_title"><a href="#">@(author.Name+" "+author.Subname)</a></div>
+                        <div class="team_title"><a href="#">@(author.Name+" "+author.Subname)</a></div>
                             }
                         <div class="team_subtitle">@(author.Position ?? "Good Guy")</div>
-                        </div>
                     </div>
                 </div>
+            </div>
             }
 
         </div>
@@ -363,7 +364,8 @@
 </div>
 
 <!-- Latest News -->
-
+@if (Model.BigNews != null)
+{
 <div class="news">
     <div class="container">
         <div class="row">
@@ -374,21 +376,22 @@
                 </div>
             </div>
         </div>
+
         <div class="row news_row">
             <div class="col-lg-7 news_col">
                 <!-- News Post Large -->
                 <div class="news_post_large_container">
                     <div class="news_post_large">
-                        <div class="news_post_image"><img src="images/news_1.jpg" alt=""></div>
-                        <div class="news_post_large_title"><a href="blog_single.html">Here’s What You Need to Know About Online Testing for the ACT and SAT</a></div>
+                        <div class="news_post_image"><img src="@Model.BigNews.ImageUrl" alt=""></div>
+                        <div class="news_post_large_title"><a href="blog_single.html">@Model.BigNews.Title</a></div>
                         <div class="news_post_meta">
                             <ul>
-                                <li><a href="#">admin</a></li>
-                                <li><a href="#">november 11, 2017</a></li>
+                                <li><a href="#">@Model.BigNews.Author</a></li>
+                                <li><a href="#">@Model.BigNews.ReleaseTime.ToMonthName() @Model.BigNews.ReleaseTime.Day, @Model.BigNews.ReleaseTime.Year</a></li>
                             </ul>
                         </div>
                         <div class="news_post_text">
-                            <p>Policy analysts generally agree on a need for reform, but not on which path policymakers should take. Can America learn anything from other nations...</p>
+                            <p>@Model.BigNews.TextPreview</p>
                         </div>
                         <div class="news_post_link"><a href="blog_single.html">read more</a></div>
                     </div>
@@ -397,84 +400,26 @@
 
             <div class="col-lg-5 news_col">
                 <div class="news_posts_small">
-
-                    <!-- News Posts Small -->
+                    @foreach (var sp in Model.News)
+                        {
                     <div class="news_post_small">
-                        <div class="news_post_small_title"><a href="blog_single.html">Home-based business insurance issue (Spring 2017 - 2018)</a></div>
+                        <div class="news_post_small_title"><a href="blog_single.html">@sp.Title</a></div>
                         <div class="news_post_meta">
                             <ul>
-                                <li><a href="#">admin</a></li>
-                                <li><a href="#">november 11, 2017</a></li>
+                                <li><a href="#">@sp.Author</a></li>
+                                <li><a href="#">@sp.ReleaseTime.ToMonthName() @sp.ReleaseTime.Day, @sp.ReleaseTime.Year</a></li>
                             </ul>
                         </div>
                     </div>
-
-                    <!-- News Posts Small -->
-                    <div class="news_post_small">
-                        <div class="news_post_small_title"><a href="blog_single.html">2018 Fall Issue: Credit Card Comparison Site Survey (Summer 2018)</a></div>
-                        <div class="news_post_meta">
-                            <ul>
-                                <li><a href="#">admin</a></li>
-                                <li><a href="#">november 11, 2017</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- News Posts Small -->
-                    <div class="news_post_small">
-                        <div class="news_post_small_title"><a href="blog_single.html">Cuentas de cheques gratuitas una encuesta de Consumer Action</a></div>
-                        <div class="news_post_meta">
-                            <ul>
-                                <li><a href="#">admin</a></li>
-                                <li><a href="#">november 11, 2017</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- News Posts Small -->
-                    <div class="news_post_small">
-                        <div class="news_post_small_title"><a href="blog_single.html">Troubled borrowers have fewer repayment or forgiveness options</a></div>
-                        <div class="news_post_meta">
-                            <ul>
-                                <li><a href="#">admin</a></li>
-                                <li><a href="#">november 11, 2017</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                        }
 
                 </div>
             </div>
         </div>
+
     </div>
 </div>
+}
 
-<!-- Newsletter -->
-
-<div class="newsletter">
-    <div class="newsletter_background parallax-window" data-parallax="scroll" data-image-src="images/newsletter.jpg" data-speed="0.8"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="newsletter_container d-flex flex-lg-row flex-column align-items-center justify-content-start">
-
-                    <!-- Newsletter Content -->
-                    <div class="newsletter_content text-lg-left text-center">
-                        <div class="newsletter_title">sign up for news and offers</div>
-                        <div class="newsletter_subtitle">Subcribe to lastest smartphones news & great deals we offer</div>
-                    </div>
-
-                    <!-- Newsletter Form -->
-                    <div class="newsletter_form_container ml-lg-auto">
-                        <form action="#" id="newsletter_form" class="newsletter_form d-flex flex-row align-items-center justify-content-center">
-                            <input type="email" class="newsletter_input" placeholder="Your Email" required="required">
-                            <button type="submit" class="newsletter_button">subscribe</button>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 

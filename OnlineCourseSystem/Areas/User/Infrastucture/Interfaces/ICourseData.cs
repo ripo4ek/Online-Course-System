@@ -13,6 +13,8 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 
         IEnumerable<Post> GetNews();
 
+        IEnumerable<ApplicationUser> GetThreeRandomAuthors();
+
         Post AddNews(Post news);
 
         Post GetBlog(int id);
@@ -77,7 +79,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 
         Course GetFullCourse(int id);
 
-
+        IEnumerable<Post> GetFiveRandomNews();
 
         IEnumerable<Course> GetThreeRandomCourses();
 

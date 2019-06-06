@@ -1,0 +1,16 @@
+﻿@model  OnlineCourseSystem.Domain.Model.Post
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+    <div class="container-fluid">
+        <div class="row">
+            <h2>@Model.Title (Id:@Model.Id)</h2>
+            <p>@Model.ReleaseTime</p>
+            <p>@Model.Text</p>
+            <img src="@Model.ImageUrl">
+
+            <p>Back</p>
+        </div>
+    </div>
+

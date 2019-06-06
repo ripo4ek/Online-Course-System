@@ -77,7 +77,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public IEnumerable<Course> GetThreeRandomCourses()
         {
-            return _context.Courses.Include(c => c.Author).Take(3).ToList();
+            return _context.Courses.Include(c => c.Author).Include(u=>u.Users).Take(3).ToList();
         }
 
         public Course GetFullCourse(int id)
@@ -399,6 +399,16 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         public IEnumerable<Post> GetNewsWithAuthor()
         {
             return _context.News.Include(n => n.Author);
+        }
+
+        public IEnumerable<Post> GetFiveRandomNews()
+        {
+            return _context.News.Include(a => a.Author).Take(5);
+        }
+
+        public IEnumerable<ApplicationUser> GetThreeRandomAuthors()
+        {
+            return _context.Courses.Include(c=>c.Author).Select(c=>c.Author).Take(3);
         }
     }
 }

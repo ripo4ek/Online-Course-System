@@ -13,7 +13,10 @@ namespace OnlineCourseSystem.Areas.User.Models
 
         public IEnumerable<HomeEventViewModel> Events { get; set; }
 
-        public PlatformStatsViewModel Stats { get; set; }
+        public IEnumerable<HomeNewsViewModel> News { get; set; }
 
+        public HomeNewsViewModel BigNews { get; set; }
+
+        public PlatformStatsViewModel Stats { get; set; }
     }
 }
