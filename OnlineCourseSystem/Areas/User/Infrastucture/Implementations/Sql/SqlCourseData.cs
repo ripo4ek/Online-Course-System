@@ -56,7 +56,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
                 var test2 = query.ToList();
             }
 
-            return query.ToList();
+            return query.Include(u => u.Users).Include(u => u.Author).ToList();
 
         }
         //TODO: Доделать к продакшену

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace OnlineCourseSystem.Areas.User.Controllers
 {
+    [Area("User")]
     public class ContactController : Controller
     {
         public IActionResult Index()

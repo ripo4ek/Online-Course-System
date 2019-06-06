@@ -31,7 +31,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         }
 
 
-        public IActionResult Index(int? universityId, int? directionId)
+        public IActionResult Index(string category, string inputString)
         {
             //var courses = _courseData.GetFullCourse(new CourseFilter()
             //{
@@ -41,7 +41,10 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             var categories = _courseData.GetCategories();
             var model = new CourseViewModel()
             {
-                Categories = categories.Select(c=>c.Name)
+                Categories = categories.Select(c=>c.Name),
+                CategoryName = category,
+                UserInput = inputString,
+                
             };
             return View(model);
         }
