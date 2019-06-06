@@ -1566,14 +1566,13 @@ section
 {
 	color: #14bdee;
 }
-.latest_price
-{
-	font-family: 'Roboto Slab', serif;
-	font-size: 14px;
-	font-weight: 700;
-	color: #14bdee;
-	line-height: 0.75;
-	margin-top: 16px;
+.latest_price {
+    font-family: 'Roboto Slab', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #14bdee;
+    line-height: 1.75;
+    margin-top: 16px;
 }
 
 /*********************************
