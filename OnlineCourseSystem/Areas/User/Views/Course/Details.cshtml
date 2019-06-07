@@ -1,4 +1,4 @@
-﻿@model OnlineCourseSystem.Domain.Model.Course
+﻿@model CourseDetailsViewModel
 
 @{
     ViewBag.Title = "title";
@@ -37,19 +37,19 @@
             <div class="col-lg-8">
 
                 <div class="course_container">
-                    <div class="course_title">@Model.Name</div>
+                    <div class="course_title">@Model.Course.Name</div>
                     <div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
 
                         <!-- Course Info Item -->
                         <div class="course_info_item">
                             <div class="course_info_title">Teacher:</div>
-                            @if (Model.Author.Name == null || Model.Author.Surname == null)
+                            @if (@Model.Course.Author.Name == null || @Model.Course.Author.Surname == null)
                             {
-                                <div class="course_info_text">@Model.Author.UserName</div>
+                                <div class="course_info_text">@Model.Course.Author.UserName</div>
                             }
                             else
                             {
-                                <div class="course_info_text">@Model.Author.Name @Model.Author.Surname</div>
+                                <div class="course_info_text">@Model.Course.Author.Name @Model.Course.Author.Surname</div>
                             }
                         </div>
 
@@ -62,14 +62,14 @@
                         <!-- Course Info Item -->
                         <div class="course_info_item">
                             <div class="course_info_title">Main Category:</div>
-                            <div class="course_info_text"> <a href="#">@Model.Categories.Take(1).First().Category.Name</a>
+                            <div class="course_info_text"> <a href="#">@Model.Course.Categories.Take(1).First().Category.Name</a>
                         </div>
                         </div>
 
                     </div>
 
                     <!-- Course Image -->
-                    <div class="course_image"><img src="@Model.ImageUrl" alt=""></div>
+                    <div class="course_image"><img src="@Model.Course.ImageUrl" alt=""></div>
 
                     <!-- Course Tabs -->
                     <div class="course_tabs_container">
@@ -82,21 +82,21 @@
 
                             <!-- Description -->
                             <div class="tab_panel active">
-                                <div class="tab_panel_title">@Model.Name</div>
+                                <div class="tab_panel_title">@Model.Course.Name</div>
                                 <div class="tab_panel_content">
                                     <div class="tab_panel_text">
-                                        <p>@Model.Description</p>
+                                        <p>@Model.Course.Description</p>
                                     </div>
                                     <div class="tab_panel_section">
                                         <div class="tab_panel_subtitle">Requirements</div>
                                         <ul class="tab_panel_bullets">
-                                                <li>@Model.RequirementKnowledge</li>
+                                                <li>@Model.Course.RequirementKnowledge</li>
                                         </ul>
                                     </div>
                                     <div class="tab_panel_section">
                                         <div class="tab_panel_subtitle">What is the target audience?</div>
                                         <div class="tab_panel_text">
-                                            <p>@Model.TargetAuditory</p>
+                                            <p>@Model.Course.TargetAuditory</p>
                                         </div>
                                     </div>
                                     <div class="tab_panel_faq">
@@ -146,15 +146,15 @@
                             <!-- Curriculum -->
                             <div class="tab_panel tab_panel_2">
                                 <div class="tab_panel_content">
-                                    <div class="tab_panel_title">@Model.Name</div>
+                                    <div class="tab_panel_title">@Model.Course.Name</div>
                                     <div class="tab_panel_content">
                                         <div class="tab_panel_text">
-                                            <p>@Model.Description</p>
+                                            <p>@Model.Course.Description</p>
                                         </div>
 
                                         <!-- Dropdowns -->
                                         <ul class="dropdowns">
-                                            @foreach (var sec in Model.Sections)
+                                            @foreach (var sec in Model.Course.Sections)
                                             {
                                                 
                                                 <li class="has_children">
@@ -203,9 +203,17 @@
             <div class="col-lg-4">
                 <div class="sidebar">
                     <div class="sidebar_section">
-                        <form>
-                            <button> Enroll this Course</button>
-                        </form>
+                        @if (Model.IsEnrolled)
+                        {
+                            <h2>Already Enrolled</h2>
+                        }
+                        else
+                        {
+                            <form asp-action="AddCourse" asp-controller="Profile" asp-route-courseId="@Model.Course.Id">
+                                <button> Enroll this Course</button>
+                            </form>
+                        }
+
                     </div>
                         <!-- Feature -->
                         <div class="sidebar_section">
@@ -216,25 +224,25 @@
                                     <!-- Feature -->
                                     <div class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="feature_title"><i class="fa fa-clock-o" aria-hidden="true"></i><span class="fa-row">Duration:</span></div>
-                                        <div class="feature_text position-value-fixer ml-auto">@(Model.DurationInHours)</div>
+                                        <div class="feature_text position-value-fixer ml-auto">@(Model.Course.DurationInHours)</div>
                                     </div>
 
                                     <!-- Feature -->
                                     <div class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="feature_title"><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="fa-row">Lectures:</span></div>
-                                        <div class="feature_text position-value-fixer ml-auto">@Model.TextTaskCount</div>
+                                        <div class="feature_text position-value-fixer ml-auto">@Model.Course.TextTaskCount</div>
                                     </div>
 
                                     <!-- Feature -->
                                     <div class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="feature_title"><i class="fa fa-question-circle-o" aria-hidden="true"></i><span class="fa-row">Questions:</span></div>
-                                        <div class="feature_text position-value-fixer ml-auto">@Model.QuizTaskCount</div>
+                                        <div class="feature_text position-value-fixer ml-auto">@Model.Course.QuizTaskCount</div>
                                     </div>
 
                                     <!-- Feature -->
                                     <div class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="feature_title"><i class="fa fa-list-alt" aria-hidden="true"></i><span class="fa-row">Videos:</span></div>
-                                        <div class="feature_text position-value-fixer ml-auto">@Model.VideoTaskCount</div>
+                                        <div class="feature_text position-value-fixer ml-auto">@Model.Course.VideoTaskCount</div>
                                     </div>
                                     <!-- Feature -->
                                 </div>
@@ -246,17 +254,17 @@
                             <div class="sidebar_section_title">Teacher</div>
                             <div class="sidebar_teacher">
                                 <div class="teacher_title_container d-flex flex-row align-items-center justify-content-start">
-                                    <div class="teacher_image"><img src="@Model.Author.PhotoUrl" alt=""></div>
+                                    <div class="teacher_image"><img src="@Model.Course.Author.PhotoUrl" alt=""></div>
                                     <div class="teacher_title">
-                                        @if (Model.Author.Name == null || Model.Author.Surname == null)
+                                        @if (Model.Course.Author.Name == null || Model.Course.Author.Surname == null)
                                     {
-                                        <div class="teacher_name">@Model.Author.UserName</div>
+                                        <div class="teacher_name">@Model.Course.Author.UserName</div>
                                     }
                                     else
                                     {
-                                        <div class="teacher_name">@Model.Author.Name @Model.Author.Surname</div>
+                                        <div class="teacher_name">@Model.Course.Author.Name @Model.Course.Author.Surname</div>
                                     }
-                                        <div class="teacher_position">@Model.Author.Status</div>
+                                        <div class="teacher_position">@Model.Course.Author.Status</div>
                                     </div>
                                 </div>
                                 <div class="teacher_meta_container">
@@ -267,7 +275,7 @@
                                     </div>
                                 </div>
                                 <div class="teacher_info">
-                                    <p>@Model.Author.Description</p>
+                                    <p>@Model.Course.Author.Description</p>
                                 </div>
                             </div>
                         </div>

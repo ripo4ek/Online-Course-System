@@ -47,8 +47,10 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 }
                 coursesForModel.Add(new CourseProfileViewModel
                 {
+                    Id = course.Id,
                     Name = course.Name,
                     Author = authorName,
+                    AuthorImageUrl = course.Author.PhotoUrl,
                     ImageUrl = course.ImageUrl,
                     DurationInHours = course.DurationInHours,
                 });
@@ -72,7 +74,10 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         {
             var course = _data.GetFullCourse(courseId);
 
-            var user = await _userManager.GetUserAsync(ClaimsPrincipal.Current);
+            var userId = User.GetUserId();
+
+            var user = _data.GetUserWithStats(userId);
+
 
             user.CourseStatistics.Add(CreateStatisticsForCourse(course));
 
@@ -81,7 +86,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             _data.AddCourseToUser(course, user);
 
 
-            return RedirectToAction("Details", "Course");
+            return RedirectToAction("Details", "Course",new {id = courseId});
         }
 
         private CourseStatistic CreateStatisticsForCourse(Course course)
@@ -141,9 +146,5 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             };
         }
 
-        public async Task<IActionResult> AddCourseToUser(int id)
-        {
-            return View();
-        }
     }
 }

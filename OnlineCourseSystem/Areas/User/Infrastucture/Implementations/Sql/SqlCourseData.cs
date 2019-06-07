@@ -87,6 +87,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
                 Include(c => c.Author).
                 Include(c => c.Categories).
                 ThenInclude(c => c.Category).
+                Include(c => c.Users).ThenInclude(u=>u.ApplicationUser).
                 Include(c => c.Sections).
                 ThenInclude(t => t.Topics).ThenInclude(t => t.QuestionTasks).
                 Include(c => c.Sections).
@@ -413,6 +414,28 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         public int GetCoursesCountOfCategory(int categoryId)
         {
             return _context.CoursesToCategories.Count(c => c.CategoryId == categoryId);
+        }
+
+        public QuestionTask GetQuestionTask(int id)
+        {
+            return _context.QuestionTasks.First(q=>q.Id == id);
+        }
+
+        public QuizTask GetQuizTask(int id)
+        {
+            return _context.QuizTasks.First(q => q.Id == id);
+        }
+
+        public void UpdateQuizTaskStatistic(QuizTaskStatistic statistic)
+        {
+            _context.QuizTaskStatistics.Update(statistic);
+            _context.SaveChanges();
+        }
+
+        public void UpdateQuestionTaskStatistic(QuestionTaskStatistic statistic)
+        {
+            _context.QuestionTaskStatistics.Update(statistic);
+            _context.SaveChanges();
         }
     }
 }

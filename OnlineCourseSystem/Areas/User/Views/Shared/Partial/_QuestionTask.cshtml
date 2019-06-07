@@ -11,10 +11,10 @@
                 <p>@Model.Description</p>
             </div>
             <div class="question-form">
-                <form>
-                    <textarea class="question-area" placeholder="Enter your answer"></textarea>
-                    <button class="counter_form_button question-button question-button-send">Send answer</button>
-                </form>
+                <input name="courseId" id="courseId" type="hidden" value="@Model.Id" />
+                <input name="taskId" id="taskId" type="hidden" value="@Model.Id" />
+                <textarea class="question-area" placeholder="Enter your answer"></textarea>
+                <button id="send-answer" class="counter_form_button question-button question-button-send">Send answer</button>
             </div>
 
             
@@ -24,3 +24,22 @@
             <button class="counter_form_button question-button move-next-btn">Next</button>
         </div>
     </div>
+
+
+
+<script>
+ $("#send-answer").click(function() {
+     $.ajax({
+         url: "/User/CourseStatistic/Question",
+         type: "GET",
+         data: {
+             answer: ,
+             taskId: ,
+             courseId: ,
+         }
+     }).
+         done(function (res) {
+             console.log(res.rezult);
+         });
+ });
+</script>

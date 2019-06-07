@@ -10,6 +10,7 @@ using OnlineCourseSystem.Areas.User.Models;
 
 namespace OnlineCourseSystem.Areas.User.Controllers
 {
+    [Area("User")]
     public class NewsController : Controller
     {
         private readonly ICourseData _data;

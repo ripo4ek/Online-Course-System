@@ -131,18 +131,24 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             return View(model);
         }
         //TODO: Пофиксить 2 вызов
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
 
 
             var course = _courseData.GetFullCourse(id);
+            var currUser = await _userManager.GetUserAsync(User);
 
+            var model = new CourseDetailsViewModel
+            {
+                Course = course,
+                CurrentUser =currUser 
+            };
             if (course == null)
             {
                 return NotFound();
             }
             
-            return View(course);
+            return View(model);
             
         }
     }
