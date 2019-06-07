@@ -250,7 +250,12 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public ApplicationUser GetUserWithStats(string userId)
         {
-            return _context.Users.Include(c => c.CourseStatistics).First(u => u.Id == userId);
+            return _context.Users.
+                Include(c => c.CourseStatistics).ThenInclude(q=>q.QuestionTaskStatistics).
+                Include(c => c.CourseStatistics).ThenInclude(q => q.QuizTaskStatistics).
+                Include(c => c.CourseStatistics).ThenInclude(q => q.VideoTaskStatistics).
+                Include(c => c.CourseStatistics).ThenInclude(q => q.TextTaskStatistics).
+                First(u => u.Id == userId);
         }
 
         public IEnumerable<ApplicationUser> GetThreeRandomUsers()
@@ -437,5 +442,17 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             _context.QuestionTaskStatistics.Update(statistic);
             _context.SaveChanges();
         }
+
+        public QuizTaskStatistic GetQuizTaskStatisticByTask(int taskId)
+        {
+            return _context.QuizTaskStatistics.First(st => st.TaskId == taskId);
+        }
+
+        public QuestionTaskStatistic GetQuestionTaskStatisticByTask(int taskId)
+        {
+            return _context.QuestionTaskStatistics.First(st => st.TaskId == taskId);
+        }
+
+
     }
 }

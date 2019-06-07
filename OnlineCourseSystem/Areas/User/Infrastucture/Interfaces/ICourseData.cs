@@ -31,6 +31,8 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
         Post GetNews(string userId);
 
         Post GetNews(int id);
+        QuizTaskStatistic GetQuizTaskStatisticByTask(int taskId);
+        QuestionTaskStatistic GetQuestionTaskStatisticByTask(int taskId);
         IEnumerable<Post> GetBlogs();
 
         Post AddBlog(Post post);

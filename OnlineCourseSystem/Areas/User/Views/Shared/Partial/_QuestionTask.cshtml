@@ -1,6 +1,4 @@
-﻿
-@model OnlineCourseSystem.Domain.Model.Tasks.QuestionTask
-
+﻿@model OnlineCourseSystem.Domain.Model.Tasks.QuestionTask
 
     <div class="question-wrap">
         <div class="question-body">
@@ -11,9 +9,9 @@
                 <p>@Model.Description</p>
             </div>
             <div class="question-form">
-                <input name="courseId" id="courseId" type="hidden" value="@Model.Id" />
                 <input name="taskId" id="taskId" type="hidden" value="@Model.Id" />
-                <textarea class="question-area" placeholder="Enter your answer"></textarea>
+                <div id="result"></div>
+                <textarea id="user-input" class="question-area" placeholder="Enter your answer"></textarea>
                 <button id="send-answer" class="counter_form_button question-button question-button-send">Send answer</button>
             </div>
 
@@ -33,13 +31,17 @@
          url: "/User/CourseStatistic/Question",
          type: "GET",
          data: {
-             answer: ,
-             taskId: ,
-             courseId: ,
+             answer:$("#user-input").val() ,
+             taskId: $("#taskId").val(),
          }
      }).
          done(function (res) {
-             console.log(res.rezult);
+             $("#send-answer").prop("disabled", true); 
+             if (res.rezult === true) {
+                 $("#result").html(`<div class="question-paragraph"><p>Correct! Well Done</p></div>`);
+             } else {
+                 $("#result").html(`<div class="question-paragraph"><p>Unfortunately, You are wrong</p></div>`);
+             }
          });
  });
 </script>

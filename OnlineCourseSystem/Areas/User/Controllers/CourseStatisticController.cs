@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OnlineCourseSystem.Areas.User.Data;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
+using OnlineCourseSystem.Domain.Model;
 
 namespace OnlineCourseSystem.Areas.User.Controllers
 {
+
+    [Area("User")]
     public class CourseStatisticController : Controller
     {
         private readonly ICourseData _data;
@@ -23,35 +26,55 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             var quizTaskStatistic = courseStatistic.QuizTaskStatistics.First(qs => qs.TaskId == taskId);
             var task = _data.GetQuizTask(taskId);
 
-            quizTaskStatistic.UserVariant = answer;
 
+            quizTaskStatistic.IsComplete = true;
+            quizTaskStatistic.UserVariant = answer;
+            
             foreach (var taskVariantOfAnswer in task.VariantOfAnswers)
             {
                 if (string.Equals(taskVariantOfAnswer.Text, answer, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    quizTaskStatistic.IsComplete = true;
-                    
+
+                    quizTaskStatistic.IsCorrect = true;
                 }
             }
             _data.UpdateQuizTaskStatistic(quizTaskStatistic);
 
             return Ok(new{rezult = quizTaskStatistic.IsComplete});
         }
-        public IActionResult Question(string answer, int taskId, int courseId)
+        public IActionResult Question(string answer, int taskId)
         {
             var user = _data.GetUserWithStats(User.GetUserId());
-            var courseStatistic = user.CourseStatistics.First(s=>s.CourseId == courseId);
-            var questionTaskStatistic = courseStatistic.QuestionTaskStatistics.First(qs => qs.TaskId == taskId);
-            var task = _data.GetQuestionTask(taskId);
-            _data.
-            questionTaskStatistic.UserAnswer = answer;
-            if (string.Equals(task.CorrectAnswer, answer, StringComparison.CurrentCultureIgnoreCase))
-            {
-                questionTaskStatistic.IsComplete = true;
-            }
-            _data.UpdateQuestionTaskStatistic(questionTaskStatistic);
 
-            return Ok(new { rezult = questionTaskStatistic.IsComplete });
+            QuestionTaskStatistic currentStat = null;
+
+            foreach (var stat in user.CourseStatistics)
+            {
+                foreach (var statQuestionTaskStatistic in stat.QuestionTaskStatistics)
+                {
+                    if (statQuestionTaskStatistic.TaskId == taskId)
+                    {
+                        currentStat = statQuestionTaskStatistic;
+                        break;
+                    }
+                }
+            }
+
+            if (currentStat != null)
+            {
+                currentStat.IsComplete = true;
+                currentStat.UserAnswer = answer;
+                if (string.Equals(currentStat.UserAnswer, answer, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    currentStat.IsCorrect = true;
+                }
+                _data.UpdateQuestionTaskStatistic(currentStat);
+                return Ok(new { rezult = currentStat.IsCorrect });
+            }
+
+            return NotFound();
+
+
         }
 
     }
