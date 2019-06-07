@@ -140,5 +140,10 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 VideoTaskStatistics = videoTaskForStatistics,
             };
         }
+
+        public async Task<IActionResult> AddCourseToUser(int id)
+        {
+            return View();
+        }
     }
 }

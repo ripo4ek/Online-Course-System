@@ -158,8 +158,8 @@
                             <div class="sidebar_banner_background" style="background-image:url(images/banner_1.jpg)"></div>
                             <div class="sidebar_banner_overlay"></div>
                             <div class="sidebar_banner_content">
-                                <div class="banner_title">Free Book</div>
-                                <div class="banner_button"><a href="#">download now</a></div>
+                                <div class="banner_title">Advertising</div>
+                                <div class="banner_button"><a href="#">order now</a></div>
                             </div>
                         </div>
                     </div>
@@ -200,19 +200,19 @@
     let paginationStartup = {
         current: 1,
         length: 6,
-        ajax: function(options, refresh, $target) {
+        ajax: function (options, refresh, $target) {
 
             $.ajax({
                 url: "/test/",
                 type: "GET",
                 data: {
-                    requestPage: options.current,                  
+                    requestPage: options.current,
                     Category: $("#categoryName").val(),
-                    UserSearchInput:$("#userInput").val() ,
+                    UserSearchInput: $("#userInput").val(),
                     pageLimit: $("#courses_show_select").val()
 
                 }
-            }).done(function(res) {
+            }).done(function (res) {
                 console.log(res.data);
                 var html = informationHandler(res.data);
                 console.log(html);
@@ -228,7 +228,7 @@
                     total: res.totalRecord,
                     length: res.pageLimit
                 });
-            }).fail(function() {
+            }).fail(function () {
                 $("#pag-info").hide();
                 $("#scrolList").html(`<div class="sidebar_section_title">По вашему запросу ничего не найдено</div>`);
             });
@@ -238,7 +238,7 @@
     let paginationConf = {
         current: 1,
         length: 6,
-        ajax: function(options, refresh, $target) {
+        ajax: function (options, refresh, $target) {
 
             $.ajax({
                 url: "/test/",
@@ -250,7 +250,7 @@
                     pageLimit: $("#courses_show_select").val()
 
                 }
-            }).done(function(res) {
+            }).done(function (res) {
                 console.log(res.data);
                 var html = informationHandler(res.data);
                 console.log(html);
@@ -266,7 +266,7 @@
                     total: res.totalRecord,
                     length: res.pageLimit
                 });
-            }).fail(function() {
+            }).fail(function () {
                 $("#pag-info").hide();
                 $("#scrolList").html(`<div class="sidebar_section_title">По вашему запросу ничего не найдено</div>`);
             });
@@ -275,22 +275,22 @@
 
     container.pagination(paginationStartup);
 
-    $('#search-button').bind('click', function() {
+    $('#search-button').bind('click', function () {
         $("#scrolList").empty();
         container.pagination(paginationConf);
     });
-    
+
     $(document).ready(function () {
-        
+
     });
-    
-    $("#courses_show_select").change(function(){
+
+    $("#courses_show_select").change(function () {
         $("#scrolList").empty();
         container.pagination(paginationConf);
     });
 
 
-  
+
 
 
 
@@ -316,31 +316,31 @@
     }
     function setterTagsForInfo(object) {
         return `
-							<div class="col-lg-6 course_col">
-								<div class="course">
-									<div class="course_image"><img src="${object.imageUrl}" alt=""></div>
-									<div class="course_body">
-										<h3 class="course_title"><a href="course.html">${object.name}</a></h3>
-										<div class="course_teacher">${object.author}</div>
-										<div class="course_text">
-											<p>${object.description}</p>
-										</div>
-									</div>
-									<div class="course_footer">
-										<div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
-											<div class="course_info">
-												<i class="fa fa-graduation-cap" aria-hidden="true"></i>
-												<span>${object.studentCount} Student</span>
-											</div>
-											<div class="course_info">
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<span>${object.userRaiting} Ratings</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>`
-    }
+                            <div class="col-lg-6 course_col">
+                                <div class="course">
+                                    <div class="course_image"><img src="${object.imageUrl}" alt=""></div>
+                                    <div class="course_body">
+                                        <h3 class="course_title"><a href="/User/Course/Details?id=${object.id}">${object.name}</a></h3>
+                                            <div class="course_teacher">${object.author}</div>
+                                            <div class="course_text">
+                                                <p>${object.description}</p>
+                                            </div>
+                                        </div>
+                                        <div class="course_footer">
+                                            <div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
+                                                <div class="course_info">
+                                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                                    <span>${object.studentCount} Student</span>
+                                                </div>
+                                                <div class="course_info">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <span>${object.userRaiting} Ratings</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`
+        }
 </script>
 
 
