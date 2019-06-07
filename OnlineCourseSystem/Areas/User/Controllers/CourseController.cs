@@ -53,6 +53,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             return View();
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CoursePostViewModel course)
         {

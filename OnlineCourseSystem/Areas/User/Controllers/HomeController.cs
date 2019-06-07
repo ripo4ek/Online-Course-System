@@ -25,11 +25,13 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             var authors = _courseData.GetThreeRandomAuthors();
             var events = _courseData.GetFiveRandomEvents();
             var news = _courseData.GetFiveRandomNews();
+            var categories = _courseData.GetCategories();
 
             List<HomeCourseViewModel> courseViewModel = new List<HomeCourseViewModel>();
             List<HomeAuthorsViewModel> authorsViewModel = new List<HomeAuthorsViewModel>();
             List<HomeEventViewModel> eventsViewModel = new List<HomeEventViewModel>();
             List<HomeNewsViewModel> newsViewModel = new List<HomeNewsViewModel>();
+            List<string> categoriesNames = new List<string>();
             foreach (var course in courses)
             {
                 courseViewModel.Add(new HomeCourseViewModel()
@@ -75,7 +77,10 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                     Title = newsModel.Title,
                 });
             }
-
+            foreach (var category in categories)
+            {
+                categoriesNames.Add(category.Name);
+            }
             HomeNewsViewModel bigNewsModel = null;
             if (news.Any())
             {
@@ -98,6 +103,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 Events = eventsViewModel,
                 News = newsViewModel,
                 BigNews = bigNewsModel,
+                CategoriesNames = categoriesNames,
                 Stats = new PlatformStatsViewModel()
                 {
                     AuthorsCount = _courseData.GetAuthorsCount(),
@@ -108,7 +114,10 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             return View(viewModel);
         }
 
-
+        public IActionResult Searcher(string selectedCategory, string userInput)
+        {
+            return RedirectToAction("Index", "Course", new{category = selectedCategory, inputString = userInput });
+        }
 
         public IActionResult Locker()
         {

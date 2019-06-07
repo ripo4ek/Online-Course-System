@@ -10,7 +10,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
     {
         IEnumerable<Topic> GetTopic();
         int GetAuthorsCount();
-
+        int GetCoursesCountOfCategory(int categoryId);
         IEnumerable<Post> GetNews();
 
         IEnumerable<ApplicationUser> GetThreeRandomAuthors();

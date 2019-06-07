@@ -91,17 +91,7 @@
             <div class="col-lg-4">
                 <div class="sidebar">
                     <!-- Categories -->
-                    <div class="sidebar_section">
-                        <div class="sidebar_section_title">Categories</div>
-                        <div class="sidebar_categories">
-                            <ul>
-                                @foreach (var category in Model.Categories)
-                                {
-                                    <li><a href="#">@category</a></li>
-                                }
-                            </ul>
-                        </div>
-                    </div>
+                    @await Component.InvokeAsync("Categories");
                     <!-- Latest Course -->
                     @await Component.InvokeAsync("LastCourses");
                     <!-- Gallery -->
@@ -217,8 +207,8 @@
                 type: "GET",
                 data: {
                     requestPage: options.current,                  
-                    Category: $("#userInput").val(),
-                    UserSearchInput: $("#categoryName").val(),
+                    Category: $("#categoryName").val(),
+                    UserSearchInput:$("#userInput").val() ,
                     pageLimit: $("#courses_show_select").val()
 
                 }

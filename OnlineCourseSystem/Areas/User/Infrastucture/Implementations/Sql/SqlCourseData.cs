@@ -43,17 +43,16 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         {
             var query = _context.Courses.AsQueryable();
             if (filter.Category != null)
+
                 query = _context.CoursesToCategories
                     .Where(c => c.Category.Name == filter.Category)
                     .Select(c => c.Course);
 
+
             if (filter.UserSearchInput != null)
             {
                 var t = filter.UserSearchInput.ToLower();
-                var test = query.ToList();
                 query = query.Where(c => c.Name.ToLower().Contains(t));
-
-                var test2 = query.ToList();
             }
 
             return query.Include(u => u.Users).Include(u => u.Author).ToList();
@@ -409,6 +408,11 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         public IEnumerable<ApplicationUser> GetThreeRandomAuthors()
         {
             return _context.Courses.Include(c=>c.Author).Select(c=>c.Author).Take(3);
+        }
+
+        public int GetCoursesCountOfCategory(int categoryId)
+        {
+            return _context.CoursesToCategories.Count(c => c.CategoryId == categoryId);
         }
     }
 }
