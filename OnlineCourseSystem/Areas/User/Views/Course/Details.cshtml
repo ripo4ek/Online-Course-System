@@ -62,14 +62,14 @@
                         <!-- Course Info Item -->
                         <div class="course_info_item">
                             <div class="course_info_title">Main Category:</div>
-                            <div class="course_info_text"> <a href="#">@Model.Categories.Take(1).First().Category.Name</a>
+                            <div class="course_info_text"> <a href="#"></a>
                         </div>
                         </div>
 
                     </div>
 
                     <!-- Course Image -->
-                    <div class="course_image"><img src="@Model.ImageUrl" alt=""></div>
+                    <div class="course_image course_image_details"><img src="@Model.ImageUrl" alt=""></div>
 
                     <!-- Course Tabs -->
                     <div class="course_tabs_container">
@@ -89,9 +89,14 @@
                                     </div>
                                     <div class="tab_panel_section">
                                         <div class="tab_panel_subtitle">Requirements</div>
-                                        <ul class="tab_panel_bullets">
-                                                <li>@Model.RequirementKnowledge</li>
-                                        </ul>
+                                        
+                                            <div class="tab_panel_text">
+                                                <p>
+                                                    @Model.RequirementKnowledge
+                                                </p>
+                                                
+                                                                                    </div> 
+                                        
                                     </div>
                                     <div class="tab_panel_section">
                                         <div class="tab_panel_subtitle">What is the target audience?</div>
@@ -115,7 +120,7 @@
                                                 </div>
 
                                                 <div class="accordion_container">
-                                                    <div class="accordion d-flex flex-row align-items-center active"><div>What if I'm not interested in the entire Specialization.</div></div>
+                                                    <div class="accordion d-flex flex-row align-items-center"><div>What if I'm not interested in the entire Specialization.</div></div>
                                                     <div class="accordion_panel">
                                                         <p>You can buy individual courses.</p>
                                                     </div>
@@ -204,7 +209,7 @@
                 <div class="sidebar">
                     <div class="sidebar_section">
                         <form>
-                            <button> Enroll this Course</button>
+                            <button class="counter_form_button"> Enroll this Course</button>
                         </form>
                     </div>
                         <!-- Feature -->
@@ -245,27 +250,29 @@
                         <div class="sidebar_section">
                             <div class="sidebar_section_title">Teacher</div>
                             <div class="sidebar_teacher">
-                                <div class="teacher_title_container d-flex flex-row align-items-center justify-content-start">
+                                <div class="teacher_title_container d-flex flex-row align-items-top justify-content-start">
                                     <div class="teacher_image"><img src="@Model.Author.PhotoUrl" alt=""></div>
                                     <div class="teacher_title">
                                         @if (Model.Author.Name == null || Model.Author.Surname == null)
-                                    {
-                                        <div class="teacher_name">@Model.Author.UserName</div>
-                                    }
-                                    else
-                                    {
-                                        <div class="teacher_name">@Model.Author.Name @Model.Author.Surname</div>
-                                    }
+                                        {
+                                            <div class="teacher_name"><h5>@Model.Author.UserName</h5></div>
+                                        }
+                                        else
+                                        {
+                                            <div class="teacher_name"><h5>@Model.Author.Name @Model.Author.Surname</h5></div>
+                                        }
                                         <div class="teacher_position">@Model.Author.Status</div>
+                                        <div class="teacher_meta_container">
+                                            <!-- Teacher Rating -->
+                                            <div class="teacher_meta d-flex flex-row align-items-center justify-content-start">
+                                                <div class="teacher_meta_title">Avr Rating:</div>
+                                                <div class="teacher_meta_text ml-auto"><span>5</span><i class="fa fa-star" aria-hidden="true"></i></div>
+                                            </div>
+                                        </div>
                                     </div>
+
                                 </div>
-                                <div class="teacher_meta_container">
-                                    <!-- Teacher Rating -->
-                                    <div class="teacher_meta d-flex flex-row align-items-center justify-content-start">
-                                        <div class="teacher_meta_title">Average Rating:</div>
-                                        <div class="teacher_meta_text ml-auto"><span>5</span><i class="fa fa-star" aria-hidden="true"></i></div>
-                                    </div>
-                                </div>
+                                
                                 <div class="teacher_info">
                                     <p>@Model.Author.Description</p>
                                 </div>
@@ -285,32 +292,7 @@
 
 <!-- Newsletter -->
 
-<div class="newsletter">
-    <div class="newsletter_background" style="background-image:url(images/newsletter_background.jpg)"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="newsletter_container d-flex flex-lg-row flex-column align-items-center justify-content-start">
 
-                    <!-- Newsletter Content -->
-                    <div class="newsletter_content text-lg-left text-center">
-                        <div class="newsletter_title">sign up for news and offers</div>
-                        <div class="newsletter_subtitle">Subcribe to lastest smartphones news & great deals we offer</div>
-                    </div>
-
-                    <!-- Newsletter Form -->
-                    <div class="newsletter_form_container ml-lg-auto">
-                        <!-- <form  action="#"  id="newsletter_form" class="newsletter_form d-flex flex-row align-items-center justify-content-center">
-                            <input type="email" class="newsletter_input" placeholder="Your Email" required="required">
-                            <button type="submit" class="newsletter_button">subscribe</button>
-                        </form>-->
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
 

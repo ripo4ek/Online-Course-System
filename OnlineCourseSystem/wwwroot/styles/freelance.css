@@ -660,7 +660,6 @@
 }
 
 .my-courses-title {
-    padding-top: 50px;
     padding-bottom: 20px;
     border-bottom: 1px solid rgba(159, 159, 159, .2);
     margin-bottom: 40px;
@@ -671,11 +670,20 @@
 .my-courses-done {
     font-size: 16px;
 }
-
+.my-courses-create-buttons {
+    margin-top: 30px;
+}
+.creator-button {
+    background-color: transparent;
+    width: 150px;
+}
+.creator-button-big {
+    width: 207px;
+    margin-right: 30px;
+}
 .my-courses-box {
     border: 1px solid #ebebeb;
     border-radius: 4px;
-    margin-bottom: 50px;
 }
 .my-courses-box-top {
     display: flex;
@@ -704,6 +712,11 @@
 }
 .my-courses-box-button {
     width: 40%;
+}
+
+.my-courses-manager {
+    margin-bottom: 60px;
+    margin-top: 60px;
 }
 .courses-duration {
     padding-left: 30px;
@@ -832,6 +845,24 @@ input[type=submit] {
 .sidebar_event {
     padding-top: 0;
 }
-
-
-
+.course_image_details {
+    height: 450px;
+}
+.tab_panel_text>p {
+    word-wrap: break-word;
+}
+.counter_form_sent {
+    background: rgba(0, 0, 0, .6);
+}
+.counter_form_title_sent {
+    color: white;
+    font-weight: 700;
+    font-size: 36px;
+}
+.counter_form_content_sent > h4 {
+    color: white;
+    font-size: 14px;
+}
+.elements_accordions_about {
+    margin-top: 0px;
+}

@@ -1406,7 +1406,7 @@ section
 {
 	width: 100%;
 	padding-left: 40px;
-	padding-top: 120px;
+	padding-top: 140px;
 }
 .sidebar_section:not(:last-child)
 {
@@ -1476,7 +1476,7 @@ section
 {
 	font-size: 14px;
 	color: #76777a;
-	margin-top: 4px;
+	margin-top: 12px;
 }
 .teacher_name a
 {
@@ -1496,7 +1496,7 @@ section
 }
 .teacher_meta_container
 {
-	margin-top: 27px;
+	margin-top: 37px;
 }
 .teacher_meta:not(:last-child)
 {
