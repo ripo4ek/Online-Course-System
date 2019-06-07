@@ -69,7 +69,7 @@
                     </div>
 
                     <!-- Course Image -->
-                    <div class="course_image"><img src="@Model.Course.ImageUrl" alt=""></div>
+                    <div class="course_image course_image_details"><img src="@Model.Course.ImageUrl" alt=""></div>
 
                     <!-- Course Tabs -->
                     <div class="course_tabs_container">
@@ -92,7 +92,7 @@
                                         
                                             <div class="tab_panel_text">
                                                 <p>
-                                                    @Model.RequirementKnowledge
+                                                    @Model.Course.RequirementKnowledge
                                                 </p>
                                                 
                                                                                     </div> 
@@ -206,7 +206,7 @@
 
             <!-- Course Sidebar -->
             <div class="col-lg-4">
-                <div class="sidebar">
+                <div class="sidebar sidebar_course_details">
                     <div class="sidebar_section">
                         @if (Model.IsEnrolled)
                         {
@@ -215,7 +215,7 @@
                         else
                         {
                             <form asp-action="AddCourse" asp-controller="Profile" asp-route-courseId="@Model.Course.Id">
-                                <button> Enroll this Course</button>
+                                <button class="home_search_button my-courses-box-button"> Enroll this Course</button>
                             </form>
                         }
 
@@ -258,27 +258,28 @@
                         <div class="sidebar_section">
                             <div class="sidebar_section_title">Teacher</div>
                             <div class="sidebar_teacher">
-                                <div class="teacher_title_container d-flex flex-row align-items-center justify-content-start">
+                                <div class="teacher_title_container d-flex flex-row align-items-top justify-content-start">
                                     <div class="teacher_image"><img src="@Model.Course.Author.PhotoUrl" alt=""></div>
                                     <div class="teacher_title">
                                         @if (Model.Course.Author.Name == null || Model.Course.Author.Surname == null)
-                                    {
-                                        <div class="teacher_name">@Model.Course.Author.UserName</div>
-                                    }
-                                    else
-                                    {
-                                        <div class="teacher_name">@Model.Course.Author.Name @Model.Course.Author.Surname</div>
-                                    }
+                                        {
+                                            <div class="teacher_name"><h5>@Model.Course.Author.UserName</h5></div>
+                                        }
+                                        else
+                                        {
+                                            <div class="teacher_name">@Model.Course.Author.Name @Model.Course.Author.Surname</div>
+                                        }
                                         <div class="teacher_position">@Model.Course.Author.Status</div>
+                                        <div class="teacher_meta_container">
+                                            <!-- Teacher Rating -->
+                                            <div class="teacher_meta d-flex flex-row align-items-center justify-content-start">
+                                                <div class="teacher_meta_title">Avg Rating:</div>
+                                                <div class="teacher_meta_text ml-auto"><span>5</span><i class="fa fa-star" aria-hidden="true"></i></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="teacher_meta_container">
-                                    <!-- Teacher Rating -->
-                                    <div class="teacher_meta d-flex flex-row align-items-center justify-content-start">
-                                        <div class="teacher_meta_title">Average Rating:</div>
-                                        <div class="teacher_meta_text ml-auto"><span>5</span><i class="fa fa-star" aria-hidden="true"></i></div>
-                                    </div>
-                                </div>
+                                
                                 <div class="teacher_info">
                                     <p>@Model.Course.Author.Description</p>
                                 </div>

@@ -711,7 +711,8 @@
     margin-bottom: 10px;
 }
 .my-courses-box-button {
-    width: 40%;
+    width: 100%;
+    padding: 0px 30px;
 }
 
 .my-courses-manager {
@@ -865,4 +866,10 @@ input[type=submit] {
 }
 .elements_accordions_about {
     margin-top: 0px;
+}
+.sidebar_course_details {
+    padding-top: 170px;
+}
+.course_image_details {
+    height: 430px;
 }
