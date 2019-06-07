@@ -40,6 +40,7 @@ namespace OnlineCourseSystem
                 .AddDefaultTokenProviders();
 
 
+
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings

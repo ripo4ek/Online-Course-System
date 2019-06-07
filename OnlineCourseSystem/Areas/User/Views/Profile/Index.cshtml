@@ -67,35 +67,38 @@
 
                         <div class="container">
 
-                            <div class="my-courses-title">
-                                <div class="my-courses-counter">
-                                    <h3>@Model.CoursesInTotal courses in total</h3>
-                                </div>
-                                <div class="my-courses-done">
-                                    @Model.CoursesComplete courses completed
-                                </div>
-
-                            </div>
-                            @foreach (var courseModel in Model.Courses)
-                            {
-                                <div class="my-courses-box">
-                                    <div class="my-courses-box-top">
-                                        <div class="my-courses-box-image">
-                                            <img src="@courseModel.ImageUrl" alt="Alternate Text" />
-                                        </div>
-                                        <div class="my-courses-box-info">
-                                            <div class="my-courses-box-title"><h4>@courseModel.Name</h4></div>
-                                            <div class="my-courses-box-date"> <div class="courses-duration">@courseModel.DurationInHours hours</div> <button class="home_search_button my-courses-box-button">Go to course materials</button></div>
-                                        </div>
-                                    </div>
-                                    <div class="my-courses-box-bottom">
-                                        <div class="professor-avatar">
-                                            <img src="~/images/professor-avatar.jpg" alt="Alternate Text" />
-                                        </div>
-                                        <div class="professor-name"><h5>@courseModel.Author</h5></div>
-                                    </div>
-                                </div>
-                            }
+        <div class="my-courses-title">
+            <div class="my-courses-counter">
+                <h3>@Model.CoursesInTotal courses in total</h3>
+            </div>
+            <div class="my-courses-done">
+                @Model.CoursesComplete courses completed
+            </div>
+        </div>
+        @foreach (var courseModel in Model.Courses)
+        {
+            <div class="my-courses-box">
+                <div class="my-courses-box-top">
+                    <div class="my-courses-box-image">
+                        <img src="@courseModel.ImageUrl" alt="Alternate Text" />
+                    </div>
+                    <div class="my-courses-box-info">
+                        <div class="my-courses-box-title"><h4>@courseModel.Name</h4></div>
+                        <div class="my-courses-box-date"> <div class="courses-duration">@courseModel.DurationInHours hours</div> 
+                            <form asp-action="Course" asp-controller="Study" asp-route-id="@courseModel.Id">
+                                <button class="home_search_button my-courses-box-button">Go to course materials</button>
+                            </form>        
+                        </div>
+                    </div>
+                </div>
+                <div class="my-courses-box-bottom">
+                    <div class="professor-avatar">
+                        <img src="@courseModel.AuthorImageUrl" alt="Alternate Text" />
+                    </div>
+                    <div class="professor-name"><h5>@courseModel.Author</h5></div>
+                </div>
+            </div>
+        }
 
                         </div>
                     </section>

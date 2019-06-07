@@ -87,6 +87,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
                 Include(c => c.Author).
                 Include(c => c.Categories).
                 ThenInclude(c => c.Category).
+                Include(c => c.Users).ThenInclude(u=>u.ApplicationUser).
                 Include(c => c.Sections).
                 ThenInclude(t => t.Topics).ThenInclude(t => t.QuestionTasks).
                 Include(c => c.Sections).
@@ -249,7 +250,12 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public ApplicationUser GetUserWithStats(string userId)
         {
-            return _context.Users.Include(c => c.CourseStatistics).First(u => u.Id == userId);
+            return _context.Users.
+                Include(c => c.CourseStatistics).ThenInclude(q=>q.QuestionTaskStatistics).
+                Include(c => c.CourseStatistics).ThenInclude(q => q.QuizTaskStatistics).
+                Include(c => c.CourseStatistics).ThenInclude(q => q.VideoTaskStatistics).
+                Include(c => c.CourseStatistics).ThenInclude(q => q.TextTaskStatistics).
+                First(u => u.Id == userId);
         }
 
         public IEnumerable<ApplicationUser> GetThreeRandomUsers()
@@ -414,5 +420,39 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         {
             return _context.CoursesToCategories.Count(c => c.CategoryId == categoryId);
         }
+
+        public QuestionTask GetQuestionTask(int id)
+        {
+            return _context.QuestionTasks.First(q=>q.Id == id);
+        }
+
+        public QuizTask GetQuizTask(int id)
+        {
+            return _context.QuizTasks.First(q => q.Id == id);
+        }
+
+        public void UpdateQuizTaskStatistic(QuizTaskStatistic statistic)
+        {
+            _context.QuizTaskStatistics.Update(statistic);
+            _context.SaveChanges();
+        }
+
+        public void UpdateQuestionTaskStatistic(QuestionTaskStatistic statistic)
+        {
+            _context.QuestionTaskStatistics.Update(statistic);
+            _context.SaveChanges();
+        }
+
+        public QuizTaskStatistic GetQuizTaskStatisticByTask(int taskId)
+        {
+            return _context.QuizTaskStatistics.First(st => st.TaskId == taskId);
+        }
+
+        public QuestionTaskStatistic GetQuestionTaskStatisticByTask(int taskId)
+        {
+            return _context.QuestionTaskStatistics.First(st => st.TaskId == taskId);
+        }
+
+
     }
 }

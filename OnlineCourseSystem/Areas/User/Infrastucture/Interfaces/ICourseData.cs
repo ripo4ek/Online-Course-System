@@ -19,6 +19,9 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 
         Post GetBlog(int id);
 
+        void UpdateQuizTaskStatistic(QuizTaskStatistic id);
+
+        void UpdateQuestionTaskStatistic(QuestionTaskStatistic id);
         IEnumerable<Post> GetNewsWithAuthor();
 
         void UpdateNews(Post post);
@@ -28,6 +31,8 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
         Post GetNews(string userId);
 
         Post GetNews(int id);
+        QuizTaskStatistic GetQuizTaskStatisticByTask(int taskId);
+        QuestionTaskStatistic GetQuestionTaskStatisticByTask(int taskId);
         IEnumerable<Post> GetBlogs();
 
         Post AddBlog(Post post);
@@ -52,6 +57,11 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
         IEnumerable<Section> GetSections();
         void UpdateVideoTask(VideoTask task);
         VideoTask GetVideoTask(int id);
+
+        QuestionTask GetQuestionTask(int id);
+
+        QuizTask GetQuizTask(int id);
+
         IEnumerable<Domain.Model.ApplicationUser> GetUsers();
         Domain.Model.ApplicationUser GetUser(string id);
         IEnumerable<Task> GetTasksOfCourse(TaskFilter filter);
