@@ -43,7 +43,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         {
             if (ModelState.IsValid)
             {
-                var blogForSave = _mapper.Map<BlogViewModel, Post>(blog);
+                var blogForSave = _mapper.Map<BlogViewModel, Blog>(blog);
 
                 var blogFromDb = _courseData.AddBlog(blogForSave);
 
@@ -64,17 +64,17 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 blogFromDb.ImageLocalUrl = _env.WebRootPath + path;
                 blogFromDb.Author = await _userManager.GetUserAsync(User);
                 _courseData.UpdateBlogs(blogFromDb);
-                return RedirectToAction("Index", "Blog");
+                return RedirectToAction("Index", "Profile");
             }
             return View();
         }
         public IActionResult Index()
         {
-            var events = _courseData.GetNewsWithAuthor();
-            var model = new List<NewsShortViewModel>();
+            var events = _courseData.GetBlogsWithAuthor();
+            var model = new List<BlogShortViewModel>();
             foreach (var e in events)
             {
-                model.Add(new NewsShortViewModel
+                model.Add(new BlogShortViewModel
                 {
                     Author = string.IsNullOrEmpty(e.Author.Name) || string.IsNullOrEmpty(e.Author.Surname) ?
                         e.Author.UserName : $"{e.Author.Name} {e.Author.Surname}",

@@ -7,6 +7,7 @@ namespace OnlineCourseSystem.Areas.User.Models
 {
     public class HomeCourseViewModel
     {
+        public int Id { get; set; }
         public string CourseName { get; set; }
         public string CourseDescription { get; set; }
         public string CourseAuthor { get; set; }

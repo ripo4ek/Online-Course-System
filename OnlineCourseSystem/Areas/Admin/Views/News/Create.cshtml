@@ -7,23 +7,25 @@
 <div class="container">
     <div class="create-wrap">
         <div class="create-section">
-            <h3 class="create-name-title">Post your news</h3>
-            <div class="create-box">
-                <div class="create-name-subtitle">News title:</div>
-                <input class="create-section-input" type="text" name="name" value="" />
-            </div>
-            <div class="create-box">
-                <div class="create-name-subtitle">Upload main image:</div>
-                <div class="file-input-wrapper">
-                    <button class="btn-file-input counter_form_button upload-button">Choose a picture</button>
-                    <input class="create-section-input" type="file" name="name" value="" />
+            <form asp-action="Create" asp-controller="News" enctype="multipart/form-data" method="post">
+                <h3 class="create-name-title">News your news</h3>
+                <div class="create-box">
+                    <div class="create-name-subtitle">News title:</div>
+                    <input class="create-section-input" type="text" id="Name" name="Name" value="" />
                 </div>
+                <div class="create-box">
+                    <div class="create-name-subtitle">Upload main image:</div>
+                    <div class="file-input-wrapper">
+                        <button class="btn-file-input counter_form_button upload-button">Choose a picture</button>
+                        <input class="create-section-input" type="file" id="Wallpaper" name="Wallpaper" value="" />
+                    </div>
 
-            </div>
-            <div class="create-text">
-                <textarea class="create-text-input" placeholder="Enter your text here"></textarea>
-            </div>
-            <button class="home_search_button create-button">Create</button>
+                </div>
+                <div class="create-text">
+                    <textarea id="Text" name="Text" class="create-text-input" placeholder="Enter your text here"></textarea>
+                </div>
+                <button class="home_search_button create-button">Create</button>
+            </form>
         </div>
     </div>
 

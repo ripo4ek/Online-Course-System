@@ -24,6 +24,12 @@
                         </h1>
                     }
                 </div>
+                @if (!Model.IsCourseCreator)
+                {
+                    <form asp-action="BecomeCourseCreator" asp-controller="Profile">
+                        <button class="home_search_button creator-button creator-button-big">Become course creator</button>
+                    </form>
+                }
                 <div class="my-info-courses">
                     <div class="my-info-course">
                         @Model.CoursesComplete courses <br />
@@ -35,13 +41,24 @@
                     </div>
                 </div>
                 <div class="my-courses-create-buttons">
-                    <button class="home_search_button creator-button creator-button-big">Become course creator</button>|
-                    <button class="home_search_button creator-button">Plan event</button>|
-                    <button class="home_search_button creator-button">Write a blog</button>
+                    @if (Model.IsCourseCreator)
+                    {
+                        <form asp-action="Create" asp-controller="Course" method="get">
+                            <button class="home_search_button creator-button">Create course</button>
+                        </form>
+                    }
+                    <form asp-action="Create" asp-controller="Event" method="get">
+                        <button class="home_search_button creator-button">Plan event</button>|
+                    </form>
+                    <form asp-action="Create" asp-controller="Blog" method="get">
+                        <button class="home_search_button creator-button">Write a blog</button>
+                    </form>
+                    
+                    
                 </div>
             </div>
             <div class="my-info-avatar">
-                <img src="~/images/dungeon_master.jpeg" alt="Alternate Text" />
+                <img src="@Model.AvatarUrl" alt="Alternate Text" />
             </div>
         </div>
 
@@ -55,8 +72,19 @@
         <div class="course_tabs_container">
             <div class="tabs d-flex flex-row align-items-center justify-content-start">
                 <div class="tab active">Course subscriptions</div>
-                <div class="tab">My courses</div>
-                <div class="tab">My events</div>
+                @if (Model.IsCourseCreator)
+                {
+                   <div class="tab">My courses</div>
+                } 
+                @if (Model.HaveEvents)
+                {
+                    <div class="tab">My events</div>
+                }
+                @if (Model.HaveBlogs)
+                {
+                    <div class="tab">My Blogs</div>
+                }
+                
             </div>
             <div class="tab_panels">
 
@@ -67,85 +95,161 @@
 
                         <div class="container">
 
-        <div class="my-courses-title">
-            <div class="my-courses-counter">
-                <h3>@Model.CoursesInTotal courses in total</h3>
-            </div>
-            <div class="my-courses-done">
-                @Model.CoursesComplete courses completed
-            </div>
-        </div>
-        @foreach (var courseModel in Model.Courses)
+                            <div class="my-courses-title">
+                                <div class="my-courses-counter">
+                                    <h3>@Model.CoursesInTotal courses in total</h3>
+                                </div>
+                                <div class="my-courses-done">
+                                    @Model.CoursesComplete courses completed
+                                </div>
+                            </div>
+                            @foreach (var courseModel in Model.Courses)
         {
-            <div class="my-courses-box">
-                <div class="my-courses-box-top">
-                    <div class="my-courses-box-image">
-                        <img src="@courseModel.ImageUrl" alt="Alternate Text" />
-                    </div>
-                    <div class="my-courses-box-info">
-                        <div class="my-courses-box-title"><h4>@courseModel.Name</h4></div>
-                        <div class="my-courses-box-date"> <div class="courses-duration">@courseModel.DurationInHours hours</div> 
-                            <form asp-action="Course" asp-controller="Study" asp-route-id="@courseModel.Id">
-                                <button class="home_search_button my-courses-box-button">Go to course materials</button>
-                            </form>        
-                        </div>
-                    </div>
-                </div>
-                <div class="my-courses-box-bottom">
-                    <div class="professor-avatar">
-                        <img src="@courseModel.AuthorImageUrl" alt="Alternate Text" />
-                    </div>
-                    <div class="professor-name"><h5>@courseModel.Author</h5></div>
-                </div>
-            </div>
+                            <div class="my-courses-box">
+                                <div class="my-courses-box-top">
+                                    <div class="my-courses-box-image">
+                                        <img src="@courseModel.ImageUrl" alt="Alternate Text" />
+                                    </div>
+                                    <div class="my-courses-box-info">
+                                        <div class="my-courses-box-title"><h4>@courseModel.Name</h4></div>
+                                        <div class="my-courses-box-date">
+                                            <div class="courses-duration">@courseModel.DurationInHours hours</div>
+                                            <form asp-action="Course" asp-controller="Study" asp-route-id="@courseModel.Id">
+                                                <button class="home_search_button my-courses-box-button">Go to course materials</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="my-courses-box-bottom">
+                                    <div class="professor-avatar">
+                                        <img src="@courseModel.AuthorImageUrl" alt="Alternate Text" />
+                                    </div>
+                                    <div class="professor-name"><h5>@courseModel.Author</h5></div>
+                                </div>
+                            </div>
         }
 
                         </div>
                     </section>
 
                 </div>
+                @if (Model.IsCourseCreator)
+                {
+                    <div class="tab_panel tab_panel_2">
+                        <section class="my-courses">
 
-                <!-- Curriculum -->
-                <div class="tab_panel tab_panel_2">
-                    <section class="my-courses">
+                            <div class="container">
 
-                        <div class="container">
+                                <div class="my-courses-title">
+                                    <div class="my-courses-counter">
+                                        <h3>@Model.MyCourses.Count() courses</h3>
+                                    </div>
 
-                            <div class="my-courses-title">
-                                <div class="my-courses-counter">
-                                    <h3>@Model.CoursesInTotal created courses</h3>
+
                                 </div>
-                                
+                                @foreach (var courseModel in Model.MyCourses)
+                                {
+                                    <div class="my-courses-box">
+                                        <div class="my-courses-box-top">
+                                            <div class="my-courses-box-info">
+                                                <div class="my-courses-box-title"><h4>@courseModel.Name</h4></div>
+                                            </div>
+                                            <div class="my-courses-box-info">
+                                                <div class="my-courses-box-title"><h4> Raiting: @courseModel.Raiting of 5 </h4></div>
+                                            </div>
+                                            <div class="my-courses-box-info">
+                                                <div class="my-courses-box-title"><h4> Subscribers : @courseModel.Subscribers </h4></div>
+                                            </div>
+                                            <div class="my-courses-box-info">
+                                                <div class="my-courses-box-title"><h4>Detial</h4></div>
+                                            </div>
+                                            <div class="my-courses-box-info">
+                                                <div class="my-courses-box-title"><h4>Delete</h4></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                }
 
                             </div>
-                            @foreach (var courseModel in Model.Courses)
-                            {
-                                <div class="my-courses-box">
-                                    <div class="my-courses-box-top">
-                                        <div class="my-courses-box-image">
-                                            <img src="@courseModel.ImageUrl" alt="Alternate Text" />
-                                        </div>
-                                        <div class="my-courses-box-info">
-                                            <div class="my-courses-box-title"><h4>@courseModel.Name</h4></div>
-                                            <div class="my-courses-box-date"> <div class="courses-duration">@courseModel.DurationInHours hours</div> <button class="home_search_button my-courses-box-button">Go to course materials</button></div>
-                                        </div>
+                        </section>
+                    </div>
+                } 
+                <!-- Curriculum -->
+                
+                @if (Model.HaveEvents)
+                {
+                    <div class="tab_panel tab_panel_2">
+                        <section class="my-courses">
+
+                            <div class="container">
+
+                                <div class="my-courses-title">
+                                    <div class="my-courses-counter">
+                                        <h3>@Model.Events.Count() created events</h3>
                                     </div>
-                                    
+
+
                                 </div>
-                            }
+                                @foreach (var eventModel in Model.Events)
+                                {
+                                    <div class="my-courses-box">
+                                        <div class="my-courses-box-top">
+                                            <div class="my-courses-box-info">
+                                                <div class="my-courses-box-title"><h4>@eventModel.Title</h4></div>
+                                            </div>
+                                            <div class="my-courses-box-info">
+                                                <div class="my-courses-box-title"><h4>Detial</h4></div>
+                                            </div>
+                                            <div class="my-courses-box-info">
+                                                <div class="my-courses-box-title"><h4>Delete</h4></div>
+                                            </div>
+                                        </div>
 
-                        </div>
-                    </section>
-                </div>
+                                    </div>
+                                }
 
-                <!-- Reviews -->
-                <div class="tab_panel tab_panel_3">
-                    <div class="tab_panel_title">Discussion</div>
-                    <div id="disqus_thread"></div>
-                    <!-- Rating -->
-                    <!-- Comments -->
+                            </div>
+                        </section>
+                    </div>
+                }
+                @if (Model.HaveBlogs)
+                {
+                    <div class="tab_panel tab_panel_2">
+                        <section class="my-courses">
 
-                </div>
+                            <div class="container">
+
+                                <div class="my-courses-title">
+                                    <div class="my-courses-counter">
+                                        <h3>@Model.Blogs.Count() created blogs</h3>
+                                    </div>
+
+
+                                </div>
+                                @foreach (var eventModel in Model.Blogs)
+                                {
+                                    <div class="my-courses-box">
+                                        <div class="my-courses-box-top">
+                                            <div class="my-courses-box-info">
+                                                <div class="my-courses-box-title"><h4>@eventModel.Title</h4></div>
+                                            </div>
+                                            <div class="my-courses-box-info">
+                                                <div class="my-courses-box-title"><h4>Detial</h4></div>
+                                            </div>
+                                            <div class="my-courses-box-info">
+                                                <div class="my-courses-box-title"><h4>Delete</h4></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                }
+
+                            </div>
+                        </section>
+                    </div>
+                }
+
 
             </div>
         </div>

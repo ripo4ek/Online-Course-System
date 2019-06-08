@@ -1,32 +1,33 @@
-﻿@model  IEnumerable<OnlineCourseSystem.Domain.Model.ApplicationUser>
+﻿@model IEnumerable<OnlineCourseSystem.Domain.Model.ApplicationUser>
 @{
     ViewData["Title"] = "Users";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+
 <div class="container-fluid">
     <div class="row">
         <div class="table-title">
             List of users
         </div>
-        <table id="customers" class="table table-bordered table-hover table-custom">
+        <table id="table_ids" class="table table-bordered table-hover table-custom">
             <thead>
-                <tr>
-                    <th>ApplicationUserName</th>
-                    <th>Confirmed</th>
-                    <th>Details</th>
-                    <th>Delete</th>
-                </tr>
+            <tr>
+                <th>UserName</th>
+                <th>E-mail confirmed</th>
+                <th>Details</th>
+                <th>Delete</th>
+            </tr>
             </thead>
-             
-                @foreach (var e in Model)
-                {
-                    <tr>
-                        <td>@e.UserName</td>
-                        <td>@e.EmailConfirmed?Yes:No</td>
-                        <td>Details</td>
-                        <td>Delete</td>
-                    </tr>
-                }
+
+            @foreach (var e in Model)
+            {
+                <tr>
+                    <td>@e.UserName</td>
+                    <td>@(e.EmailConfirmed?"Yes":"No")</td>
+                    <td><a asp-action="Details" asp-controller="User" asp-route-id="@e.Id">Details</a></td>
+                    <td><a asp-action="DeleteAsync" asp-controller="User" asp-route-id="@e.Id">Delete</a></td>
+                </tr>
+            }
 
         </table>
     </div>

@@ -9,10 +9,10 @@
                 <p>@Model.Description</p>
             </div>
             <div class="question-form">
-                <input name="taskId" id="taskId" type="hidden" value="@Model.Id" />
-                <div id="result"></div>
-                <textarea id="user-input" class="question-area" placeholder="Enter your answer"></textarea>
-                <button id="send-answer" class="counter_form_button question-button question-button-send">Send answer</button>
+                <input name="taskId" id="taskId-@Model.Id" type="hidden" value="@Model.Id" />
+                <div id="result-@Model.Id"></div>
+                <textarea id="user-input-@Model.Id" class="question-area" placeholder="Enter your answer"></textarea>
+                <button id="send-answer-@Model.Id" class="counter_form_button question-button question-button-send">Send answer</button>
             </div>
 
             
@@ -26,22 +26,38 @@
 
 
 <script>
- $("#send-answer").click(function() {
-     $.ajax({
-         url: "/User/CourseStatistic/Question",
-         type: "GET",
-         data: {
-             answer:$("#user-input").val() ,
-             taskId: $("#taskId").val(),
-         }
-     }).
-         done(function (res) {
-             $("#send-answer").prop("disabled", true); 
-             if (res.rezult === true) {
-                 $("#result").html(`<div class="question-paragraph"><p>Correct! Well Done</p></div>`);
-             } else {
-                 $("#result").html(`<div class="question-paragraph"><p>Unfortunately, You are wrong</p></div>`);
-             }
-         });
- });
+    $(document).ready(function() {
+        $.ajax({
+                url: "/User/CourseStatistic/CheckCompleteQuestion",
+                type: "GET",
+                data: {
+                    taskId: $("#taskId-@Model.Id").val(),
+                }
+            }).
+            done(function (res) {
+                
+                if (res.isCompleted === true) {
+                    $("#send-answer-@Model.Id").prop("disabled", true); 
+                    $("#result-@Model.Id").html(`<div class="question-paragraph"><p>Correct! Well Done</p></div>`);
+                }
+            });
+    });
+    $("#send-answer-@Model.Id").click(function() {
+        $.ajax({
+                url: "/User/CourseStatistic/Question",
+                type: "GET",
+                data: {
+                    answer:$("#user-input-@Model.Id").val() ,
+                    taskId: $("#taskId-@Model.Id").val(),
+                }
+            }).
+            done(function (res) {
+                $("#send-answer-@Model.Id").prop("disabled", true); 
+                if (res.rezult === true) {
+                    $("#result-@Model.Id").html(`<div class="question-paragraph"><p>Correct! Well Done</p></div>`);
+                } else {
+                    $("#result-@Model.Id").html(`<div class="question-paragraph"><p>Unfortunately, You are wrong</p></div>`);
+                }
+            });
+    });
 </script>

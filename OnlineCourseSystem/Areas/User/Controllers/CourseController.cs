@@ -50,7 +50,8 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         }
         public IActionResult Create()
         {
-            return View();
+            var categories = _courseData.GetCategories();
+            return View(categories);
         }
 
 
@@ -61,7 +62,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             var courseForSave = _mapper.Map<CoursePostViewModel,Course>(course);
 
 
-            courseForSave.Author = await _userManager.GetUserAsync(User);
+            courseForSave.Author = await _userManager.GetUserAsync(HttpContext.User);
             
             _courseData.AddCourse(courseForSave);
 
@@ -80,8 +81,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             }
             _courseData.AddCategoryToCourse(category, courseFromDb);
             _courseData.UpdateCourse(courseFromDb);
-
-            return RedirectToAction("UploadContent", new{ id = courseFromDb.Id });
+            return Json(new { result = "Redirect", url = Url.Action("UploadContent", "Course", new { id = courseFromDb.Id }) });
         }
 
         private void _addCategoryToCourse(CoursePostViewModel coursePostViewModel, Course newCourse)

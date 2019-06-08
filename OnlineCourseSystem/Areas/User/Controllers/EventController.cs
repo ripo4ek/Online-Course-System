@@ -78,7 +78,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
                 eventFromDb.ImageLocalUrl = _env.WebRootPath + path;
                 _courseData.UpdateEvent(eventFromDb);
-                return RedirectToAction("Index","Event");
+                return RedirectToAction("Index","Profile");
             }
             return View();
         }

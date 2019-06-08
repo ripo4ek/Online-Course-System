@@ -11,37 +11,44 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
         IEnumerable<Topic> GetTopic();
         int GetAuthorsCount();
         int GetCoursesCountOfCategory(int categoryId);
-        IEnumerable<Post> GetNews();
-
+        IEnumerable<News> GetNews();
+        IEnumerable<Blog> GetBlogsWithAuthor();
         IEnumerable<ApplicationUser> GetThreeRandomAuthors();
 
-        Post AddNews(Post news);
+        News AddNews(News news);
 
-        Post GetBlog(int id);
+        Role GetRoleByName(string nameOfRole);
 
+        Blog GetBlog(int id);
+
+        TextTask GetTextTask(int id);
+
+        void UpdateTextTaskStatistic(TextTaskStatistics statistics);
         void UpdateQuizTaskStatistic(QuizTaskStatistic id);
 
         void UpdateQuestionTaskStatistic(QuestionTaskStatistic id);
-        IEnumerable<Post> GetNewsWithAuthor();
+        IEnumerable<News> GetNewsWithAuthor();
 
-        void UpdateNews(Post post);
+        void UpdateVideoTaskStatistic(VideoTaskStatistic id);
 
-        IEnumerable<Post> GetNewsOfUser(string userId);
+        void UpdateNews(News news);
 
-        Post GetNews(string userId);
+        IEnumerable<News> GetNewsOfUser(string userId);
 
-        Post GetNews(int id);
+        News GetNews(string userId);
+
+        News GetNews(int id);
         QuizTaskStatistic GetQuizTaskStatisticByTask(int taskId);
         QuestionTaskStatistic GetQuestionTaskStatisticByTask(int taskId);
-        IEnumerable<Post> GetBlogs();
+        IEnumerable<Blog> GetBlogs();
 
-        Post AddBlog(Post post);
+        Blog AddBlog(Blog news);
 
-        IEnumerable<Post> GetBlogsOfUser(string userId);
+        IEnumerable<Blog> GetBlogsOfUser(string userId);
 
-        Post GetBlogByUser(string userId);
+        Blog GetBlogByUser(string userId);
 
-        void UpdateBlogs(Post post);
+        void UpdateBlogs(Blog blog);
 
         int GetCourseCount();
 
@@ -53,6 +60,8 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
         Event GetEvent(int id);
         void UpdateEvent(Event eventModel);
         ApplicationUser GetUserWithStats(string userId);
+
+
         void UpdateUser(ApplicationUser user);
         IEnumerable<Section> GetSections();
         void UpdateVideoTask(VideoTask task);
@@ -68,9 +77,9 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 
         void DeleteEvent(Event eventModel);
 
-        void DeleteBlog(Post blog);
+        void DeleteBlog(Blog blog);
 
-        void DeleteNews(Post blog);
+        void DeleteNews(News blog);
 
         IEnumerable<Event> GetFiveRandomEvents();
         IEnumerable<Course> GetFullCourse();
@@ -89,7 +98,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 
         Course GetFullCourse(int id);
 
-        IEnumerable<Post> GetFiveRandomNews();
+        IEnumerable<News> GetFiveRandomNews();
 
         IEnumerable<Course> GetThreeRandomCourses();
 

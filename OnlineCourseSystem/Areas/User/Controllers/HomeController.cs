@@ -36,6 +36,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             {
                 courseViewModel.Add(new HomeCourseViewModel()
                 {
+                    Id = course.Id,
                     CourseName = course.Name,
                     CourseAuthor = course.Author.UserName,
                     CourseDescription = course.Description,
@@ -58,6 +59,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             {
                 eventsViewModel.Add(new HomeEventViewModel()
                 {
+                    Id = eventModel.Id,
                     Name = eventModel.Name,
                     Address= eventModel.Address,
                     SampleText = StringFormatter.FormatForPreview(eventModel.Text),
@@ -69,12 +71,13 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             {
                 newsViewModel.Add(new HomeNewsViewModel()
                 {
+                    Id = newsModel.Id,
                     Author = string.IsNullOrEmpty(newsModel.Author.Name) || string.IsNullOrEmpty(newsModel.Author.Surname) ?
                         newsModel.Author.UserName : $"{newsModel.Author.Name} {newsModel.Author.Surname}",
                     ImageUrl = newsModel.ImageUrl,
                     ReleaseTime= newsModel.ReleaseTime,
                     TextPreview = StringFormatter.FormatForPreview(newsModel.Text),
-                    Title = newsModel.Title,
+                    Title = newsModel.Name,
                 });
             }
             foreach (var category in categories)
@@ -87,12 +90,13 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 var firstElement = news.First();
                 bigNewsModel = new HomeNewsViewModel()
                 {
+                    Id = firstElement.Id,
                     Author = string.IsNullOrEmpty(firstElement.Author.Name) || string.IsNullOrEmpty(firstElement.Author.Surname) ?
                         firstElement.Author.UserName : $"{firstElement.Author.Name} {firstElement.Author.Surname}",
                     ImageUrl = firstElement.ImageUrl,
                     ReleaseTime = firstElement.ReleaseTime,
                     TextPreview = StringFormatter.FormatForPreview(firstElement.Text),
-                    Title = firstElement.Title,
+                    Title = firstElement.Name,
                 };
             }
 

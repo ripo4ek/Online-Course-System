@@ -170,6 +170,31 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Blog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuthorId");
+
+                    b.Property<string>("ImageLocalUrl");
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTime>("ReleaseTime");
+
+                    b.Property<string>("Text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Blogs");
+                });
+
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -282,7 +307,7 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Post", b =>
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.News", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -300,13 +325,11 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.Property<string>("Text");
 
-                    b.Property<string>("Title");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Post");
+                    b.ToTable("News");
                 });
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.QuestionTaskStatistic", b =>
@@ -620,6 +643,10 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.Property<int?>("CourseStatisticId");
 
+                    b.Property<double>("CurrentTime");
+
+                    b.Property<bool>("InProgress");
+
                     b.Property<bool>("IsComplete");
 
                     b.Property<bool>("IsCorrect");
@@ -680,6 +707,13 @@ namespace OnlineCourseSystem.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Blog", b =>
+                {
+                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId");
+                });
+
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Course", b =>
                 {
                     b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser", "Author")
@@ -716,14 +750,14 @@ namespace OnlineCourseSystem.DAL.Migrations
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Event", b =>
                 {
                     b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser", "Organizer")
-                        .WithMany()
+                        .WithMany("Events")
                         .HasForeignKey("OrganizerId");
                 });
 
-            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Post", b =>
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.News", b =>
                 {
                     b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser", "Author")
-                        .WithMany()
+                        .WithMany("Blogs")
                         .HasForeignKey("AuthorId");
                 });
 

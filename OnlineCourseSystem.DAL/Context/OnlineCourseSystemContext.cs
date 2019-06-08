@@ -21,8 +21,8 @@ namespace OnlineCourseSystem.DAL.Context
         {
              
         }
-            public DbSet<Post> News { get; set; }
-            public DbSet<Post> Blogs { get; set; }
+            public DbSet<News> News { get; set; }
+            public DbSet<Blog> Blogs { get; set; }
             public DbSet<QuestionTaskStatistic> QuestionTaskStatistics { get; set; }
             public DbSet<VideoTaskStatistic> VideoTaskStatistic { get; set; }
             public DbSet<Event> Events { get; set; }

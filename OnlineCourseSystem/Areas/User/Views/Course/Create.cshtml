@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<OnlineCourseSystem.Domain.Model.Category>
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
@@ -64,9 +64,10 @@
                                             <label for="title">Select category</label>
                                             <div class=" menu-options-categories">
                                                 <select name="category" id="target" class="form-control item-menu menu-options-category">
-                                                    <option value="_self">Self</option>
-                                                    <option value="_blank">Blank</option>
-                                                    <option value="_top">Top</option>
+                                                    @foreach (var category in Model)
+                                                    {
+                                                        <option value="@category.Name">@category.Name</option>
+                                                    }
                                                 </select>
                                                 <span>or</span>
                                                 <input class="form-control item-menu menu-options-category" type="text" name="categoryCustom" value="" placeholder="Your option" />
@@ -321,7 +322,7 @@
             contentType: "application/json",
             data: JSON.stringify(course),
             success: function(response) {
-                response ? alert("It worked!") : alert("It didn't work.");
+                response ? window.location = response.url : alert("It didn't work.");
             }
         });
     });
@@ -538,9 +539,10 @@
                                             <label for="title">Select category</label>
                                             <div class=" menu-options-categories">
                                                 <select name="category" id="target" class="form-control item-menu menu-options-category">
-                                                    <option value="_self">Self</option>
-                                                    <option value="_blank">Blank</option>
-                                                    <option value="_top">Top</option>
+                                                     @foreach (var category in Model)
+                                                    {
+                                                        <option value="@category.Name">@category.Name</option>
+                                                    }
                                                 </select>
                                                 <span>or</span>
                                                 <input class="form-control item-menu menu-options-category" type="text" name="categoryCustom" value="" placeholder="Your option" />

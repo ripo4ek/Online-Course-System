@@ -34,7 +34,8 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var news = _courseData.GetNews();
+            return View(news);
         }
         public IActionResult Create()
         {
@@ -45,7 +46,7 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var newsForSave = _mapper.Map<NewsViewModel, Post>(model);
+                var newsForSave = _mapper.Map<NewsViewModel, News>(model);
 
                 var newsFromDb = _courseData.AddNews(newsForSave);
 

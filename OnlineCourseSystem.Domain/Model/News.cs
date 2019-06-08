@@ -5,11 +5,10 @@ using OnlineCourseSystem.Domain.Model.Base;
 
 namespace OnlineCourseSystem.Domain.Model
 {
-    public class Post: NamedEntity
+    public class News: NamedEntity
     {
-        public ApplicationUser Author { get; set; }
 
-        public string Title { get; set; }
+        public ApplicationUser Author { get; set; }
 
         public string Text { get; set; }
 

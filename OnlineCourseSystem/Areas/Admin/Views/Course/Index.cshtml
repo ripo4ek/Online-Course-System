@@ -6,13 +6,13 @@
     <div class="container-fluid">
         <div class="row">
             <div class="table-title">
-                List of users
+                List of courses
             </div>
             <table id="customers" class="table table-bordered table-hover table-custom">
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Confirmed</th>
+                        <th>Name</th>
                         <th>Author</th>
                         <th>Edit</th>
                         <th>Delete</th>
@@ -23,9 +23,16 @@
                     <tr>
                         <td>@e.Id</td>
                         <td>@e.Name</td>
-                        <td>@e.Author.Name</td>
-                        <td>Edit</td>
-                        <td>Delete</td>
+                        @if (e.Author.Name == null || e.Author.Surname == null)
+                        {
+                            <td>@e.Author.UserName</td>
+                        }
+                        else
+                        {
+                            <td>@e.Author.UserName (@e.Author.Name @e.Author.Surname)</td>
+                        }               
+                        <td><a asp-action="Details" asp-controller="Course" asp-route-id="@e.Id">Details</a></td>
+                        <td><a asp-action="Delete" asp-controller="Course" asp-route-id="@e.Id">Delete</a></td>
                     </tr>
                 }
 

@@ -11,6 +11,13 @@ namespace OnlineCourseSystem.Domain.Model
         public ICollection<ApplicationUserRole> UserRoles { get; set; }
 
         public  ICollection<CourseStatistic> CourseStatistics { get; set; }
+
+
+        public ICollection<Event> Events { get; set; }
+
+        public ICollection<News> News { get; set; }
+        public ICollection<Blog> Blogs { get; set; }
+
         public string Name { get; set; }
 
         public string Surname { get; set; }

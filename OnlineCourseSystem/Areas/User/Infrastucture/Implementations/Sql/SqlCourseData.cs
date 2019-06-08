@@ -39,6 +39,13 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             return _context.Users;
         }
 
+        public TextTask GetTextTask(int id)
+        {
+            return _context.TextTasks.First(tt=>tt.Id == id);
+        }
+
+
+
         public IEnumerable<Course> GetCourses(CourseFilter filter)
         {
             var query = _context.Courses.AsQueryable();
@@ -158,7 +165,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public Domain.Model.ApplicationUser GetUser(string id)
         {
-            return _context.Users.First(c => c.Id == "4a88adfb-7e1e-4820-bf97-1e31a6e7f8f9");
+            return _context.Users.First(c => c.Id == id);
         }
 
         public void DeleteUser(string id)
@@ -237,10 +244,15 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             _context.Users.Update(user);
             _context.SaveChanges();
         }
+        public void UpdateTextTaskStatistic(TextTaskStatistics statistics)
+        {
+            _context.TextTaskStatistics.Update(statistics);
+            _context.SaveChanges();
+        }
 
         public IEnumerable<Course> GetCoursesByAuthor(ApplicationUser author)
         {
-            return _context.Courses.Where(c => c.Author == author);
+            return _context.Courses.Where(c => c.Author == author).Include(u=>u.Users);
         }
 
         public IEnumerable<Course> GetCoursesOfUser(ApplicationUser user)
@@ -255,6 +267,8 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
                 Include(c => c.CourseStatistics).ThenInclude(q => q.QuizTaskStatistics).
                 Include(c => c.CourseStatistics).ThenInclude(q => q.VideoTaskStatistics).
                 Include(c => c.CourseStatistics).ThenInclude(q => q.TextTaskStatistics).
+                Include(c => c.Blogs).
+                Include(c => c.Events).
                 First(u => u.Id == userId);
         }
 
@@ -265,7 +279,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public IEnumerable<Event> GetEvents()
         {
-            return _context.Events;
+            return _context.Events.Include(e=>e.Organizer);
         }
         public IEnumerable<Event> GetEventsWithOrganizer()
         {
@@ -312,55 +326,55 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         }
 
 
-        public Post AddNews(Post news)
+        public News AddNews(News news)
         {
             _context.News.Add(news);
             _context.SaveChanges();
             return news;
         }
 
-        public void UpdateNews(Post post)
+        public void UpdateNews(News news)
         {
-            _context.News.Update(post);
+            _context.News.Update(news);
             _context.SaveChanges();
 
         }
 
-        public IEnumerable<Post> GetNewsOfUser(string userId)
+        public IEnumerable<News> GetNewsOfUser(string userId)
         {
             return _context.News.Include(n => n.Author).Where(n => n.Author.Id == userId);
         }
 
-        public Post GetNewsByUser(string userId)
+        public News GetNewsByUser(string userId)
         {
             return _context.News.Include(n => n.Author).First(n => n.Author.Id == userId);
         }
 
-        public IEnumerable<Post> GetBlogs()
+        public IEnumerable<Blog> GetBlogs()
         {
-            return _context.Blogs;
+            return _context.Blogs.Include(b=>b.Author);
         }
 
-        public Post AddBlog(Post post)
+        public Blog AddBlog(Blog blog)
         {
-            _context.Blogs.Add(post);
+            _context.Blogs.Add(blog);
             _context.SaveChanges();
-            return post;
+            return blog;
         }
 
-        public IEnumerable<Post> GetBlogsOfUser(string userId)
+        public IEnumerable<Blog> GetBlogsOfUser(string userId)
         {
             return _context.Blogs.Include(n => n.Author).Where(n => n.Author.Id == userId);
         }
 
-        public Post GetBlogByUser(string userId)
+        public Blog GetBlogByUser(string userId)
         {
             return _context.Blogs.Include(n => n.Author).First(n => n.Author.Id == userId);
         }
 
-        public void UpdateBlogs(Post post)
+        public void UpdateBlogs(Blog blog)
         {
-            _context.Blogs.Update(post);
+            _context.Blogs.Update(blog);
             _context.SaveChanges();
         }
 
@@ -370,44 +384,44 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             _context.SaveChanges();
         }
 
-        public void DeleteBlog(Post blog)
+        public void DeleteBlog(Blog blog)
         {
             _context.Blogs.Remove(blog);
             _context.SaveChanges();
         }
 
-        public void DeleteNews(Post news)
+        public void DeleteNews(News news)
         {
             _context.News.Remove(news);
             _context.SaveChanges();
         }
 
-        public Post GetBlog(int id)
+        public Blog GetBlog(int id)
         {
             return _context.Blogs.First(b=>b.Id ==id);
         }
-        public Post GetNews(int id)
+        public News GetNews(int id)
         {
-            return _context.Blogs.First(b => b.Id == id);
+            return _context.News.Include(t=>t.Author).First(b => b.Id == id);
         }
 
-        public IEnumerable<Post> GetNews()
+        public IEnumerable<News> GetNews()
         {
-            return _context.News;
+            return _context.News.Include(t => t.Author);
         }
 
-        public Post GetNews(string userId)
+        public News GetNews(string userId)
         {
             return _context.News.First(n=>n.Author.Id == userId);
         }
 
-        public IEnumerable<Post> GetNewsWithAuthor()
+        public IEnumerable<News> GetNewsWithAuthor()
         {
             return _context.News.Include(n => n.Author);
         }
 
-        public IEnumerable<Post> GetFiveRandomNews()
-        {
+        public IEnumerable<News> GetFiveRandomNews()
+        {;
             return _context.News.Include(a => a.Author).Take(5);
         }
 
@@ -428,7 +442,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public QuizTask GetQuizTask(int id)
         {
-            return _context.QuizTasks.First(q => q.Id == id);
+            return _context.QuizTasks.Include(qt=>qt.VariantOfAnswers).Include(qt => qt.CorrectAnswer).First(q => q.Id == id);
         }
 
         public void UpdateQuizTaskStatistic(QuizTaskStatistic statistic)
@@ -453,6 +467,20 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             return _context.QuestionTaskStatistics.First(st => st.TaskId == taskId);
         }
 
+        public void UpdateVideoTaskStatistic(VideoTaskStatistic model)
+        {
+            _context.VideoTaskStatistic.Update(model);
+            _context.SaveChanges();
+        }
 
+        public Role GetRoleByName(string nameOfRole)
+        {
+            return _context.Roles.First(r => r.Name == nameOfRole);
+        }
+
+        public IEnumerable<Blog> GetBlogsWithAuthor()
+        {
+            return _context.Blogs.Include(b => b.Author);
+        }
     }
 }
