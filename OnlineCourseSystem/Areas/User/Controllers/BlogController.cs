@@ -17,15 +17,14 @@ namespace OnlineCourseSystem.Areas.User.Controllers
     [Area("User")]
     public class BlogController : Controller
     {
-
-        private readonly ICourseData _courseData;
+        private readonly IBlogData _blogData;
         private readonly IMapper _mapper;
         private readonly IHostingEnvironment _env;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public BlogController(ICourseData courseData, IMapper mapper, IHostingEnvironment env, UserManager<ApplicationUser> userManager)
+        public BlogController(IBlogData blogData, IMapper mapper, IHostingEnvironment env, UserManager<ApplicationUser> userManager)
         {
-            _courseData = courseData;
+            _blogData = blogData;
             _mapper = mapper;
             _env = env;
             _userManager = userManager;
@@ -45,7 +44,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             {
                 var blogForSave = _mapper.Map<BlogViewModel, Blog>(blog);
 
-                var blogFromDb = _courseData.AddBlog(blogForSave);
+                var blogFromDb = _blogData.AddBlog(blogForSave);
 
                 var fileExt = blog.Wallpaper.FileName.Split('.').Last();
 
@@ -63,14 +62,14 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 blogFromDb.ReleaseTime = DateTime.Now;
                 blogFromDb.ImageLocalUrl = _env.WebRootPath + path;
                 blogFromDb.Author = await _userManager.GetUserAsync(User);
-                _courseData.UpdateBlogs(blogFromDb);
+                _blogData.UpdateBlogs(blogFromDb);
                 return RedirectToAction("Index", "Profile");
             }
             return View();
         }
         public IActionResult Index()
         {
-            var events = _courseData.GetBlogsWithAuthor();
+            var events = _blogData.GetBlogsWithAuthor();
             var model = new List<BlogShortViewModel>();
             foreach (var e in events)
             {
@@ -89,13 +88,13 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         }
         public IActionResult Delete(int id)
         {
-            var blog = _courseData.GetBlog(id);
-            _courseData.DeleteBlog(blog);
+            var blog = _blogData.GetBlog(id);
+            _blogData.DeleteBlog(blog);
             return RedirectToAction("Index", "Profile");
         }
         public IActionResult Details(int id)
         {
-            var blog = _courseData.GetBlog(id);
+            var blog = _blogData.GetBlog(id);
             return View(blog);
         }
     }

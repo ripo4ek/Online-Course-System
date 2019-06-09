@@ -22,13 +22,15 @@ namespace OnlineCourseSystem.Areas.User.Controllers
     [Area("User")]
     public class UploaderController : Controller
     {
-        private IHostingEnvironment _hostingEnv;
-        private readonly ICourseData _data;
+        private readonly IHostingEnvironment _hostingEnv;
+        private readonly ITaskData _taskData;
+        private readonly ICourseData _courseData;
 
-        public UploaderController(IHostingEnvironment env, ICourseData data)
+        public UploaderController(IHostingEnvironment env, ITaskData taskData, ICourseData courseData)
         {
             _hostingEnv = env;
-            _data = data;
+            _taskData = taskData;
+            _courseData = courseData;
         }
 
         [HttpPost]
@@ -62,15 +64,15 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 System.IO.File.Delete(rezultFileName);
             }
             System.IO.File.Move(tempFileName, rezultFileName);
-            var task = _data.GetVideoTask(viewModel.TaskId);
+            var task = _taskData.GetVideoTask(viewModel.TaskId);
             task.LocalVideoUrl = rezultFileName;
             task.VideoUrl = $"/videos/{viewModel.TaskId}.mp4";
-            _data.UpdateVideoTask(task);
+            _taskData.UpdateVideoTask(task);
             return Ok();
         }
         public IActionResult Remove(int taskId)
         {
-            var task = _data.GetVideoTask(taskId);
+            var task = _taskData.GetVideoTask(taskId);
             if (task == null)
                 return NotFound();
 
@@ -85,7 +87,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
             task.VideoUrl = null;
             task.LocalVideoUrl = null;
-            _data.UpdateVideoTask(task);
+            _taskData.UpdateVideoTask(task);
             return Ok();
         }
         [HttpPost]
@@ -96,7 +98,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 return BadRequest();
             }
 
-            var course = _data.GetFullCourse(model.CourseId);
+            var course = _courseData.GetFullCourse(model.CourseId);
             if (course == null)
             {
                 return NotFound();
@@ -115,7 +117,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             var urlPath = $"/images/coursesMainImages/{model.File.FileName}";
             course.ImageUrl = urlPath;
             course.LocalImageUrl = path;
-            _data.UpdateCourse(course);
+            _courseData.UpdateCourse(course);
             return Ok(new { ImageUrl = urlPath });
 
         }

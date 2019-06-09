@@ -10,26 +10,27 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
     [Area("Admin")]
     public class BlogController : Controller
     {
-        private readonly ICourseData _courseData;
+        private readonly IBlogData _blogData;
 
-        public BlogController(ICourseData courseData)
+        public BlogController(IBlogData blogData)
         {
-            _courseData = courseData;
+            _blogData = blogData;
+
         }
         public IActionResult Index()
         {
-            var blogs = _courseData.GetBlogs();
+            var blogs = _blogData.GetBlogs();
             return View(blogs);
         }
         public IActionResult Delete(int id)
         {
-            var blog = _courseData.GetBlog(id);
-            _courseData.DeleteBlog(blog);
+            var blog = _blogData.GetBlog(id);
+            _blogData.DeleteBlog(blog);
             return RedirectToAction("Index", "Blog");
         }
         public IActionResult Details(int id)
         {
-            var blog = _courseData.GetBlog(id);
+            var blog = _blogData.GetBlog(id);
             return View(blog);
         }
     }

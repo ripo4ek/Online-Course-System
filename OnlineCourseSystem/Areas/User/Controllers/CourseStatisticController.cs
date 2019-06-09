@@ -13,16 +13,21 @@ namespace OnlineCourseSystem.Areas.User.Controllers
     [Area("User")]
     public class CourseStatisticController : Controller
     {
-        private readonly ICourseData _data;
+        private readonly ICourseStatisticData _statisticData;
+        private readonly IUserData _userData;
+        private readonly ITaskData _taskData;
 
-        public CourseStatisticController(ICourseData data)
+
+        public CourseStatisticController(ICourseStatisticData statisticData, IUserData userData, ITaskData taskData)
         {
-            _data = data;
+            _statisticData = statisticData;
+            _userData = userData;
+            _taskData = taskData;
         }
         public IActionResult Quiz(string answer, int taskId)
         {
-            var user = _data.GetUserWithStats(User.GetUserId());     
-            var task = _data.GetQuizTask(taskId);
+            var user = _userData.GetUserWithStats(User.GetUserId());     
+            var task = _taskData.GetQuizTask(taskId);
             QuizTaskStatistic currentStat = null;
             foreach (var stat in user.CourseStatistics)
             {
@@ -51,7 +56,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 {
                     currentStat.IsCorrect = false;
                 }
-                _data.UpdateQuizTaskStatistic(currentStat);
+                _statisticData.UpdateQuizTaskStatistic(currentStat);
                 return Ok(new { rezult = currentStat.IsCorrect });
             }
 
@@ -59,9 +64,9 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         }
         public IActionResult Question(string answer, int taskId)
         {
-            var user = _data.GetUserWithStats(User.GetUserId());
+            var user = _userData.GetUserWithStats(User.GetUserId());
 
-            var task = _data.GetQuestionTask(taskId);
+            var task = _taskData.GetQuestionTask(taskId);
 
             QuestionTaskStatistic currentStat = null;
 
@@ -86,7 +91,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 {
                     currentStat.IsCorrect = true;
                 }
-                _data.UpdateQuestionTaskStatistic(currentStat);
+                _statisticData.UpdateQuestionTaskStatistic(currentStat);
                 return Ok(new { rezult = currentStat.IsCorrect });
             }
 
@@ -97,9 +102,9 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
         public IActionResult Text(int taskId)
         {
-            var user = _data.GetUserWithStats(User.GetUserId());
+            var user = _userData.GetUserWithStats(User.GetUserId());
 
-            var task = _data.GetTextTask(taskId);
+            var task = _taskData.GetTextTask(taskId);
 
             TextTaskStatistics currentStat = null;
 
@@ -119,7 +124,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             {
                 currentStat.IsComplete = true;
 
-                _data.UpdateTextTaskStatistic(currentStat);
+                _statisticData.UpdateTextTaskStatistic(currentStat);
                 return Ok();
             }
 
@@ -130,7 +135,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
         public IActionResult Details(int courseId)
         {
-            var user = _data.GetUserWithStats(User.GetUserId());
+            var user = _userData.GetUserWithStats(User.GetUserId());
 
             var statistic = user.CourseStatistics.First(s=>s.CourseId == courseId);
 
@@ -140,9 +145,9 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
         public IActionResult SaveCurrentTime(int taskId, double time)
         {
-            var user = _data.GetUserWithStats(User.GetUserId());
+            var user = _userData.GetUserWithStats(User.GetUserId());
 
-            var task = _data.GetVideoTask(taskId);
+            var task = _taskData.GetVideoTask(taskId);
 
             VideoTaskStatistic currentStat = null;
 
@@ -163,7 +168,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 currentStat.InProgress = true;
                 currentStat.CurrentTime = time;
 
-                _data.UpdateVideoTaskStatistic(currentStat);
+                _statisticData.UpdateVideoTaskStatistic(currentStat);
                 return Ok();
             }
 
@@ -173,9 +178,9 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         }
         public IActionResult Video(int taskId)
         {
-            var user = _data.GetUserWithStats(User.GetUserId());
+            var user = _userData.GetUserWithStats(User.GetUserId());
 
-            var task = _data.GetVideoTask(taskId);
+            var task = _taskData.GetVideoTask(taskId);
 
             VideoTaskStatistic currentStat = null;
 
@@ -194,7 +199,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             if (currentStat != null)
             {
                 currentStat.IsComplete = true;
-                _data.UpdateVideoTaskStatistic(currentStat);
+                _statisticData.UpdateVideoTaskStatistic(currentStat);
                 return Ok();
             }
 
@@ -204,7 +209,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         }
         public IActionResult CheckCompleteQuestion(int taskId)
         {
-            var user = _data.GetUserWithStats(User.GetUserId());
+            var user = _userData.GetUserWithStats(User.GetUserId());
             QuestionTaskStatistic currentStat = null;
 
             foreach (var stat in user.CourseStatistics)
@@ -230,7 +235,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         }
         public IActionResult CheckCompleteVideo(int taskId)
         {
-            var user = _data.GetUserWithStats(User.GetUserId());
+            var user = _userData.GetUserWithStats(User.GetUserId());
             VideoTaskStatistic currentStat = null;
 
             foreach (var stat in user.CourseStatistics)
@@ -256,7 +261,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         }
         public IActionResult CheckCompleteQuiz(int taskId)
         {
-            var user = _data.GetUserWithStats(User.GetUserId());
+            var user = _userData.GetUserWithStats(User.GetUserId());
             QuizTaskStatistic currentStat = null;
 
             foreach (var stat in user.CourseStatistics)

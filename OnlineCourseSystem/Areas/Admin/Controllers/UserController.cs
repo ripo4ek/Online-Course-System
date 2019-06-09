@@ -13,27 +13,27 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
     [Area("Admin")]
     public class UserController : Controller
     {
+        private readonly IUserData _userData;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ICourseData _courseData;
 
-        public UserController(ICourseData courseData, UserManager<ApplicationUser> userManager)
+        public UserController(IUserData userData, UserManager<ApplicationUser> userManager)
         {
-            _courseData = courseData;
+            _userData = userData;
             _userManager = userManager;
         }
         public IActionResult Index()
         {
-            var users = _courseData.GetUsers();
+            var users = _userData.GetUsers();
             return View(users);
         }
         public IActionResult Details(string id)
         {
-            var user = _courseData.GetUser(id);
+            var user = _userData.GetUser(id);
             return View(user);
         }
         public async Task<IActionResult> DeleteAsync(string id)
         {
-            var user = _courseData.GetUser(id);
+            var user = _userData.GetUser(id);
             await _userManager.DeleteAsync(user);            
             return RedirectToAction("Index");
         }

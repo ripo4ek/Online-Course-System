@@ -18,18 +18,20 @@ namespace OnlineCourseSystem.Areas.User.Controllers
     public class ProfileController : Controller
     {
         private readonly UserManager<Domain.Model.ApplicationUser> _userManager;
+        private readonly IUserData _userData;
         private readonly ICourseData _data;
 
-        public ProfileController(UserManager<Domain.Model.ApplicationUser> userManager, ICourseData data)
+        public ProfileController(UserManager<Domain.Model.ApplicationUser> userManager, ICourseData courseData ,IUserData userData)
         {
             _userManager = userManager;
-            _data = data;
+            _userData = userData;
+            _data = courseData;
         }
         public async Task<IActionResult> Index()
         {
             var userId = User.GetUserId();
 
-            var user = _data.GetUserWithStats(userId);
+            var user = _userData.GetUserWithStats(userId);
 
             var coursesAuthor = _data.GetCoursesByAuthor(user);
 
@@ -121,14 +123,14 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
             var userId = User.GetUserId();
 
-            var user = _data.GetUserWithStats(userId);
+            var user = _userData.GetUserWithStats(userId);
 
 
             user.CourseStatistics.Add(CreateStatisticsForCourse(course));
 
-            _data.UpdateUser(user);
+            _userData.UpdateUser(user);
 
-            _data.AddCourseToUser(course, user);
+            _userData.AddCourseToUser(course, user);
 
 
             return RedirectToAction("Details", "Course",new {id = courseId});

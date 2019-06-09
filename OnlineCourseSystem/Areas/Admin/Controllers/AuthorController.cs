@@ -17,26 +17,26 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
     [Area("Admin")]
     public class AuthorController : Controller
     {
-        private readonly ICourseData _courseData;
+        private readonly IUserData _userData;
 
-        public AuthorController(ICourseData courseData)
+        public AuthorController(IUserData userData)
         {
-            _courseData = courseData;
+            _userData = userData;
         }
         public IActionResult Index()
         {
 
-            var courses = _courseData.GetUsersByRole(Roles.CourseCreator);
-            return View(courses);
+            var authors = _userData.GetUsersByRole(Roles.CourseCreator);
+            return View(authors);
         }
         public IActionResult Details(string id)
         {
-            var author = _courseData.GetAuthorAsUser(id);
+            var author = _userData.GetAuthorAsUser(id);
             return View(author);
         }
         public IActionResult Delete(string id)
         {
-            _courseData.DeleteUser(id); ;
+            _userData.DeleteUser(id); ;
             return RedirectToAction("Index");
         }
     }

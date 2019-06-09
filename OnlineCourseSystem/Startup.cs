@@ -34,6 +34,12 @@ namespace OnlineCourseSystem
             services.AddDbContext<OnlineCourseSystemContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<ICourseData, SqlCourseData>();
+            services.AddScoped<IBlogData, SqlBlogData>();
+            services.AddScoped<ICourseStatisticData, SqlCourseStatisticData>();
+            services.AddScoped<IEventData, SqlEventData>();
+            services.AddScoped<INewsData, SqlNewsData>();
+            services.AddScoped<IUserData, SqlUserData>();
+            services.AddScoped<ITaskData, SqlTaskData>();
             services.AddAutoMapper();
             services.AddIdentity<ApplicationUser, Role>(options => options.Stores.MaxLengthForKeys = 128)
                 .AddEntityFrameworkStores<OnlineCourseSystemContext>()

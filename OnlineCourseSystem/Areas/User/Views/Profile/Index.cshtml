@@ -162,7 +162,7 @@
                                                 <div class="my-courses-box-title"><h4> Subscribers : @courseModel.Subscribers </h4></div>
                                             </div>
                                             <div class="my-courses-box-info">
-                                                <div class="my-courses-box-title"><h4>Detial</h4></div>
+                                                <div class="my-courses-box-title"><h4><a asp-action="Details" asp-controller="Course" asp-route-id="@courseModel.Id">Details</a></h4></div>
                                             </div>
                                             <div class="my-courses-box-info">
                                                 <div class="my-courses-box-title"><h4><a asp-action="Delete" asp-controller="Course" asp-route-id="@courseModel.Id">Delete</a></h4></div>
@@ -200,7 +200,7 @@
                                                 <div class="my-courses-box-title"><h4>@eventModel.Title</h4></div>
                                             </div>
                                             <div class="my-courses-box-info">
-                                                <div class="my-courses-box-title"><h4><a asp-action="Details" asp-controller="Event" asp-route-id="@eventModel.Id">Detials</a></h4></div>
+                                                <div class="my-courses-box-title"><h4><a asp-action="Details" asp-controller="Event" asp-route-id="@eventModel.Id">Details</a></h4></div>
                                             </div>
                                             <div class="my-courses-box-info">
                                                 <div class="my-courses-box-title"><h4><a asp-action="Delete" asp-controller="Event" asp-route-id="@eventModel.Id">Delete</a></h4></div>
@@ -236,7 +236,7 @@
                                                 <div class="my-courses-box-title"><h4>@eventModel.Title</h4></div>
                                             </div>
                                             <div class="my-courses-box-info">
-                                                <div class="my-courses-box-title"><h4><a  asp-action="Details" asp-controller="Blog" asp-route-id="@eventModel.Id">Detials</a></h4></div>
+                                                <div class="my-courses-box-title"><h4><a asp-action="Details" asp-controller="Blog" asp-route-id="@eventModel.Id">Details</a></h4></div>
                                             </div>
                                             <div class="my-courses-box-info">
                                                 <div class="my-courses-box-title"><h4><a asp-action="Delete" asp-controller="Blog" asp-route-id="@eventModel.Id">Delete</a></h4></div>

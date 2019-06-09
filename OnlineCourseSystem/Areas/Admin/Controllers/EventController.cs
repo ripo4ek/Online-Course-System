@@ -10,25 +10,25 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
     [Area("Admin")]
     public class EventController : Controller
     {
-        private readonly ICourseData _courseData;
-        public EventController(ICourseData courseData)
+        private readonly IEventData _eventData;
+        public EventController(IEventData eventData)
         {
-            _courseData = courseData;
+            _eventData = eventData;
         }
         public IActionResult Index()
         {
-            var events = _courseData.GetEvents();
+            var events = _eventData.GetEvents();
             return View(events);
         }
         public IActionResult Delete(int id)
         {
-            var eventModel = _courseData.GetEvent(id);
-            _courseData.DeleteEvent(eventModel);
+            var eventModel = _eventData.GetEvent(id);
+            _eventData.DeleteEvent(eventModel);
             return RedirectToAction("Index", "Event");
         }
         public IActionResult Details(int id)
         {
-            var eventModel = _courseData.GetEvent(id);
+            var eventModel = _eventData.GetEvent(id);
             return View(eventModel);
         }
     }

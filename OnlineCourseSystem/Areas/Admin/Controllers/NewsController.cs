@@ -18,15 +18,14 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
     public class NewsController : Controller
     {
 
-
-        private readonly ICourseData _courseData;
+        private readonly INewsData _newsData;
         private readonly IMapper _mapper;
         private readonly IHostingEnvironment _env;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public NewsController(ICourseData courseData, IMapper mapper, IHostingEnvironment env, UserManager<ApplicationUser> userManager)
+        public NewsController(INewsData newsData, IMapper mapper, IHostingEnvironment env, UserManager<ApplicationUser> userManager)
         {
-            _courseData = courseData;
+            _newsData = newsData;
             _mapper = mapper;
             _env = env;
             _userManager = userManager;
@@ -34,7 +33,7 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var news = _courseData.GetNews();
+            var news = _newsData.GetNews();
             return View(news);
         }
         public IActionResult Create()
@@ -48,7 +47,7 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
             {
                 var newsForSave = _mapper.Map<NewsViewModel, News>(model);
 
-                var newsFromDb = _courseData.AddNews(newsForSave);
+                var newsFromDb = _newsData.AddNews(newsForSave);
 
                 var fileExt = model.Wallpaper.FileName.Split('.').Last();
 
@@ -68,20 +67,20 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
                 newsFromDb.ImageLocalUrl = _env.WebRootPath + path;
 
                 newsFromDb.Author = await _userManager.GetUserAsync(User);
-                _courseData.UpdateNews(newsFromDb);
+                _newsData.UpdateNews(newsFromDb);
                 return RedirectToAction("Index", "News");
             }
             return View();
         }
         public IActionResult Delete(int id)
         {
-            var news = _courseData.GetNews(id);
-            _courseData.DeleteNews(news);
+            var news = _newsData.GetNews(id);
+            _newsData.DeleteNews(news);
             return RedirectToAction("Index", "News");
         }
         public IActionResult Details(int id)
         {
-            var modelEvent = _courseData.GetNews(id);
+            var modelEvent = _newsData.GetNews(id);
             return View(modelEvent);
         }
     }

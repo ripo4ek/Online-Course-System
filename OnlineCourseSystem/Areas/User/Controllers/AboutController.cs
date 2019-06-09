@@ -11,15 +11,17 @@ namespace OnlineCourseSystem.Areas.User.Controllers
     [Area("User")]
     public class AboutController : Controller
     {
-        private readonly ICourseData _data;
+        private readonly IUserData _userData;
+        private readonly ICourseData _courseData;
 
-        public AboutController(ICourseData data)
+        public AboutController(IUserData userData, ICourseData courseData)
         {
-            _data = data;
+            _userData = userData;
+            _courseData = courseData;
         }
         public IActionResult Index()
         {
-            var authors = _data.GetThreeRandomAuthors();
+            var authors = _userData.GetThreeRandomAuthors();
             List<HomeAuthorsViewModel> authorsViewModel = new List<HomeAuthorsViewModel>();
 
             foreach (var author in authors)
@@ -38,9 +40,9 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 Authors = authorsViewModel,
                 Stats =  new PlatformStatsViewModel
                 {
-                    AuthorsCount = _data.GetAuthorsCount(),
-                    CourseCount = _data.GetCourseCount(),
-                    UserCount = _data.GetUserCount(),
+                    AuthorsCount = _userData.GetAuthorsCount(),
+                    CourseCount = _courseData.GetCourseCount(),
+                    UserCount = _userData.GetUserCount(),
                 }
             };
             return View(model);

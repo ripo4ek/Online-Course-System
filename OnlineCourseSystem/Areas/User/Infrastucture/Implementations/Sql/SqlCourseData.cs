@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
-using OnlineCourseSystem.Areas.User.Models;
 using OnlineCourseSystem.DAL.Context;
 using OnlineCourseSystem.Domain;
 using OnlineCourseSystem.Domain.Model;
-using OnlineCourseSystem.Domain.Model.Tasks;
-using SQLitePCL;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 {
@@ -34,18 +29,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         {
             return _context.Topics.ToList();
         }
-        public IEnumerable<Domain.Model.ApplicationUser> GetUsers()
-        {
-            return _context.Users;
-        }
-
-        public TextTask GetTextTask(int id)
-        {
-            return _context.TextTasks.First(tt=>tt.Id == id);
-        }
-
-
-
+      
         public IEnumerable<Course> GetCourses(CourseFilter filter)
         {
             var query = _context.Courses.AsQueryable();
@@ -65,22 +49,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             return query.Include(u => u.Users).Include(u => u.Author).ToList();
 
         }
-        //TODO: Доделать к продакшену
-        //public IEnumerable<Task> GetTasksOfCourse()
-        //{
-        //    return null;
-        //}
-
-        public IEnumerable<University> GetUniversities()
-        {
-            return _context.Universities.ToList();
-        }
-
-        public IEnumerable<Direction> GetDirections()
-        {
-            return _context.Directions.ToList();
-        }
-
+ 
         public IEnumerable<Course> GetThreeRandomCourses()
         {
             return _context.Courses.Include(c => c.Author).Include(u=>u.Users).Take(3).ToList();
@@ -128,12 +97,6 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         }
 
-
-        public VideoTask GetVideoTask(int id)
-        {
-            return _context.VideoTasks.First(t => t.Id == id);
-        }
-
         public IEnumerable<Category> GetCategories()
         {
             return _context.Categories;
@@ -143,58 +106,8 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
         {
             return _context.Topics;
         }
-        public IEnumerable<Task> GetTasksOfCourse(TaskFilter filter)
-        {
-            var course = GetFullCourse(filter.CourseId);
-
-            List<Task> tasks = new List<Task>();
-
-            foreach (var section in course.Sections)
-            {
-                foreach (var theme in section.Topics)
-                {
-                    tasks.AddRange(theme.QuestionTasks.Where(t => t.TopicId == filter.TopicId));
-                    tasks.AddRange(theme.QuizTasks.Where(t => t.TopicId == filter.TopicId));
-                    tasks.AddRange(theme.TextTasks.Where(t => t.TopicId == filter.TopicId));
-                    tasks.AddRange(theme.VideoTasks.Where(t => t.TopicId == filter.TopicId));
-                }
-            }
-            return tasks;
-        }
-
-        public Domain.Model.ApplicationUser GetUser(string id)
-        {
-            return _context.Users.First(c => c.Id == id);
-        }
-
-        public void DeleteUser(string id)
-        {
-            var user = _context.Users.First(c => c.Id == id);
-            _context.Users.Remove(user);
-        }
-
-        public Domain.Model.ApplicationUser GetUserByRole(string role, string id)
-        {
-            var users = _context.Users.Include(c => c.Courses)
-                .Include(r => r.UserRoles);
-
-            return users.First(u => u.Id == id && u.UserRoles.First(r => r.Role.Name == role) != null);
-        }
-
-        public IEnumerable<Domain.Model.ApplicationUser> GetUsersByRole(string role)
-        {
-            var roleFromDb = _context.Roles.First(r => r.Name == role);
-
-            return _context.UserRoles.Where(u => u.Role == roleFromDb).Select(u => u.ApplicationUser);
-        }
-
-        public Domain.Model.ApplicationUser GetAuthorAsUser(string id)
-        {
-            var users = _context.Users.Include(c => c.Courses).ThenInclude(c => c.Course)
-                .Include(r => r.UserRoles).ToList();
-
-            return users.First(u => u.Id == "74b60af2-b45f-4323-aab0-8ed9550d01e3");
-        }
+      
+       
 
         public IEnumerable<Course> GetCoursesWithAuthor(CourseFilter filter)
         {
@@ -222,33 +135,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             return _context.Courses.First(n => n.Name == name);
         }
 
-        public void UpdateVideoTask(VideoTask task)
-        {
-            _context.VideoTasks.Update(task);
-            _context.SaveChanges();
-        }
-
-        public void AddCourseToUser(Course course, ApplicationUser user)
-        {
-            _context.CoursesToUsers.Add(new CoursesToUsers()
-            {
-                ApplicationUser = user,
-                Course = course
-            });
-            _context.SaveChanges();
-        }
-
-        public void UpdateUser(ApplicationUser user)
-        {
-            _context.Users.Update(user);
-            _context.SaveChanges();
-        }
-        public void UpdateTextTaskStatistic(TextTaskStatistics statistics)
-        {
-            _context.TextTaskStatistics.Update(statistics);
-            _context.SaveChanges();
-        }
-
+  
         public IEnumerable<Course> GetCoursesByAuthor(ApplicationUser author)
         {
             return _context.Courses.Where(c => c.Author == author).Include(u=>u.Users);
@@ -259,230 +146,20 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
            return _context.CoursesToUsers.Where(cu => cu.ApplicationUser == user).Select(c => c.Course).Include(c=>c.Author);
         }
 
-        public ApplicationUser GetUserWithStats(string userId)
-        {
-            return _context.Users.
-                Include(c => c.CourseStatistics).ThenInclude(q=>q.QuestionTaskStatistics).
-                Include(c => c.CourseStatistics).ThenInclude(q => q.QuizTaskStatistics).
-                Include(c => c.CourseStatistics).ThenInclude(q => q.VideoTaskStatistics).
-                Include(c => c.CourseStatistics).ThenInclude(q => q.TextTaskStatistics).
-                Include(c => c.Blogs).
-                Include(c => c.Events).
-                First(u => u.Id == userId);
-        }
-
-        public IEnumerable<ApplicationUser> GetThreeRandomUsers()
-        {
-            return _context.Users.Take(3).ToList();
-        }
-
-        public IEnumerable<Event> GetEvents()
-        {
-            return _context.Events.Include(e=>e.Organizer);
-        }
-        public IEnumerable<Event> GetEventsWithOrganizer()
-        {
-            return _context.Events.Include(a=>a.Organizer);
-        }
-
-        public Event AddEvent(Event eventModel)
-        {
-            _context.Events.Add(eventModel);
-            _context.SaveChanges();
-            return eventModel;
-        }
-
-        public int GetAuthorsCount()
-        {
-
-            return _context.UserRoles.Count(ur => ur.Role.Name == Roles.CourseCreator);
-        }
-
+      
         public int GetCourseCount()
         {
             return _context.Courses.Count();
         }
 
-        public int GetUserCount()
-        {
-            return _context.Users.Count();
-        }
-
-        public IEnumerable<Event> GetFiveRandomEvents()
-        {
-            return  _context.Events.Take(5);
-        }
-
-        public void UpdateEvent(Event eventModel)
-        {
-            _context.Events.Update(eventModel);
-            _context.SaveChanges();
-        }
-
-        public Event GetEvent(int id)
-        {
-            return _context.Events.Include(e=>e.Organizer).First(e => e.Id == id);
-        }
-
-
-        public News AddNews(News news)
-        {
-            _context.News.Add(news);
-            _context.SaveChanges();
-            return news;
-        }
-
-        public void UpdateNews(News news)
-        {
-            _context.News.Update(news);
-            _context.SaveChanges();
-
-        }
-
-        public IEnumerable<News> GetNewsOfUser(string userId)
-        {
-            return _context.News.Include(n => n.Author).Where(n => n.Author.Id == userId);
-        }
-
-        public News GetNewsByUser(string userId)
-        {
-            return _context.News.Include(n => n.Author).First(n => n.Author.Id == userId);
-        }
-
-        public IEnumerable<Blog> GetBlogs()
-        {
-            return _context.Blogs.Include(b=>b.Author);
-        }
-
-        public Blog AddBlog(Blog blog)
-        {
-            _context.Blogs.Add(blog);
-            _context.SaveChanges();
-            return blog;
-        }
-
-        public IEnumerable<Blog> GetBlogsOfUser(string userId)
-        {
-            return _context.Blogs.Include(n => n.Author).Where(n => n.Author.Id == userId);
-        }
-
-        public Blog GetBlogByUser(string userId)
-        {
-            return _context.Blogs.Include(n => n.Author).First(n => n.Author.Id == userId);
-        }
-
-        public void UpdateBlogs(Blog blog)
-        {
-            _context.Blogs.Update(blog);
-            _context.SaveChanges();
-        }
-
-        public void DeleteEvent(Event eventModel)
-        {
-            _context.Events.Remove(eventModel);
-            _context.SaveChanges();
-        }
-
-        public void DeleteBlog(Blog blog)
-        {
-            _context.Blogs.Remove(blog);
-            _context.SaveChanges();
-        }
-
-        public void DeleteNews(News news)
-        {
-            _context.News.Remove(news);
-            _context.SaveChanges();
-        }
-
-        public Blog GetBlog(int id)
-        {
-            return _context.Blogs.Include(b=>b.Author).First(b=>b.Id ==id);
-        }
-        public News GetNews(int id)
-        {
-            return _context.News.Include(t=>t.Author).First(b => b.Id == id);
-        }
-
-        public IEnumerable<News> GetNews()
-        {
-            return _context.News.Include(t => t.Author);
-        }
-
-        public News GetNews(string userId)
-        {
-            return _context.News.First(n=>n.Author.Id == userId);
-        }
-
-        public IEnumerable<News> GetNewsWithAuthor()
-        {
-            return _context.News.Include(n => n.Author);
-        }
-
-        public IEnumerable<News> GetFiveRandomNews()
-        {;
-            return _context.News.Include(a => a.Author).Take(5);
-        }
-
-        public IEnumerable<ApplicationUser> GetThreeRandomAuthors()
-        {
-            var roleFromDb = _context.Roles.First(r => r.Name == Roles.CourseCreator);
-
-            return _context.UserRoles.Where(u => u.Role == roleFromDb).Select(u => u.ApplicationUser).Take(3);
-            
-        }
-
+    
         public int GetCoursesCountOfCategory(int categoryId)
         {
             return _context.CoursesToCategories.Count(c => c.CategoryId == categoryId);
         }
 
-        public QuestionTask GetQuestionTask(int id)
-        {
-            return _context.QuestionTasks.First(q=>q.Id == id);
-        }
+      
 
-        public QuizTask GetQuizTask(int id)
-        {
-            return _context.QuizTasks.Include(qt=>qt.VariantOfAnswers).Include(qt => qt.CorrectAnswer).First(q => q.Id == id);
-        }
-
-        public void UpdateQuizTaskStatistic(QuizTaskStatistic statistic)
-        {
-            _context.QuizTaskStatistics.Update(statistic);
-            _context.SaveChanges();
-        }
-
-        public void UpdateQuestionTaskStatistic(QuestionTaskStatistic statistic)
-        {
-            _context.QuestionTaskStatistics.Update(statistic);
-            _context.SaveChanges();
-        }
-
-        public QuizTaskStatistic GetQuizTaskStatisticByTask(int taskId)
-        {
-            return _context.QuizTaskStatistics.First(st => st.TaskId == taskId);
-        }
-
-        public QuestionTaskStatistic GetQuestionTaskStatisticByTask(int taskId)
-        {
-            return _context.QuestionTaskStatistics.First(st => st.TaskId == taskId);
-        }
-
-        public void UpdateVideoTaskStatistic(VideoTaskStatistic model)
-        {
-            _context.VideoTaskStatistic.Update(model);
-            _context.SaveChanges();
-        }
-
-        public Role GetRoleByName(string nameOfRole)
-        {
-            return _context.Roles.First(r => r.Name == nameOfRole);
-        }
-
-        public IEnumerable<Blog> GetBlogsWithAuthor()
-        {
-            return _context.Blogs.Include(b => b.Author);
-        }
+     
     }
 }

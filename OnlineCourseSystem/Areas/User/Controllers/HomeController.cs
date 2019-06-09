@@ -14,17 +14,23 @@ namespace OnlineCourseSystem.Areas.User.Controllers
     public class HomeController : Controller
     {
         private readonly ICourseData _courseData;
+        private readonly IUserData _userData;
+        private readonly IEventData _eventData;
+        private readonly INewsData _newsData;
 
-        public HomeController(ICourseData courseData)
+        public HomeController(ICourseData courseData, IUserData userData, IEventData eventData, INewsData newsData)
         {
             _courseData = courseData;
+            _userData = userData;
+            _eventData = eventData;
+            _newsData = newsData;
         }
         public IActionResult Index()
         {
             var courses = _courseData.GetThreeRandomCourses();
-            var authors = _courseData.GetThreeRandomAuthors();
-            var events = _courseData.GetFiveRandomEvents();
-            var news = _courseData.GetFiveRandomNews();
+            var authors = _userData.GetThreeRandomAuthors();
+            var events = _eventData.GetFiveRandomEvents();
+            var news = _newsData.GetFiveRandomNews();
             var categories = _courseData.GetCategories();
 
             List<HomeCourseViewModel> courseViewModel = new List<HomeCourseViewModel>();
@@ -110,9 +116,9 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 CategoriesNames = categoriesNames,
                 Stats = new PlatformStatsViewModel()
                 {
-                    AuthorsCount = _courseData.GetAuthorsCount(),
+                    AuthorsCount = _userData.GetAuthorsCount(),
                     CourseCount = _courseData.GetCourseCount(),
-                    UserCount = _courseData.GetUserCount(),           
+                    UserCount = _userData.GetUserCount(),           
                 },             
             };
             return View(viewModel);
