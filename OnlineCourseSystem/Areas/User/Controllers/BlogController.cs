@@ -76,6 +76,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             {
                 model.Add(new BlogShortViewModel
                 {
+                    Id = e.Id,
                     Author = string.IsNullOrEmpty(e.Author.Name) || string.IsNullOrEmpty(e.Author.Surname) ?
                         e.Author.UserName : $"{e.Author.Name} {e.Author.Surname}",
                     ImageUrl = e.ImageUrl,
@@ -86,10 +87,16 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             }
             return View(model);
         }
+        public IActionResult Delete(int id)
+        {
+            var blog = _courseData.GetBlog(id);
+            _courseData.DeleteBlog(blog);
+            return RedirectToAction("Index", "Profile");
+        }
         public IActionResult Details(int id)
         {
-            var modelEvent = _courseData.GetBlog(id);
-            return View(modelEvent);
+            var blog = _courseData.GetBlog(id);
+            return View(blog);
         }
     }
 }

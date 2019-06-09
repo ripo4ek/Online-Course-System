@@ -114,6 +114,7 @@
                                         <div class="my-courses-box-title"><h4>@courseModel.Name</h4></div>
                                         <div class="my-courses-box-date">
                                             <div class="courses-duration">@courseModel.DurationInHours hours</div>
+                                            <div class="courses-duration">Status: @courseModel. hours</div>
                                             <form asp-action="Course" asp-controller="Study" asp-route-id="@courseModel.Id">
                                                 <button class="home_search_button my-courses-box-button">Go to course materials</button>
                                             </form>
@@ -164,7 +165,7 @@
                                                 <div class="my-courses-box-title"><h4>Detial</h4></div>
                                             </div>
                                             <div class="my-courses-box-info">
-                                                <div class="my-courses-box-title"><h4>Delete</h4></div>
+                                                <div class="my-courses-box-title"><h4><a asp-action="Delete" asp-controller="Course" asp-route-id="@courseModel.Id">Delete</a></h4></div>
                                             </div>
                                         </div>
 
@@ -199,10 +200,10 @@
                                                 <div class="my-courses-box-title"><h4>@eventModel.Title</h4></div>
                                             </div>
                                             <div class="my-courses-box-info">
-                                                <div class="my-courses-box-title"><h4>Detial</h4></div>
+                                                <div class="my-courses-box-title"><h4><a asp-action="Details" asp-controller="Event" asp-route-id="@eventModel.Id">Detials</a></h4></div>
                                             </div>
                                             <div class="my-courses-box-info">
-                                                <div class="my-courses-box-title"><h4>Delete</h4></div>
+                                                <div class="my-courses-box-title"><h4><a asp-action="Delete" asp-controller="Event" asp-route-id="@eventModel.Id">Delete</a></h4></div>
                                             </div>
                                         </div>
 
@@ -212,7 +213,7 @@
                             </div>
                         </section>
                     </div>
-                }
+                                }
                 @if (Model.HaveBlogs)
                 {
                     <div class="tab_panel tab_panel_2">
@@ -235,10 +236,10 @@
                                                 <div class="my-courses-box-title"><h4>@eventModel.Title</h4></div>
                                             </div>
                                             <div class="my-courses-box-info">
-                                                <div class="my-courses-box-title"><h4>Detial</h4></div>
+                                                <div class="my-courses-box-title"><h4><a  asp-action="Details" asp-controller="Blog" asp-route-id="@eventModel.Id">Detials</a></h4></div>
                                             </div>
                                             <div class="my-courses-box-info">
-                                                <div class="my-courses-box-title"><h4>Delete</h4></div>
+                                                <div class="my-courses-box-title"><h4><a asp-action="Delete" asp-controller="Blog" asp-route-id="@eventModel.Id">Delete</a></h4></div>
                                             </div>
                                         </div>
 

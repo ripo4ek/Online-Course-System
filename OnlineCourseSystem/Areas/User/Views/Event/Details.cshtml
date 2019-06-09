@@ -13,9 +13,9 @@
                 <div class="col">
                     <div class="breadcrumbs">
                         <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li>Blog Single</li>
+                            <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                            <li><a asp-action="Index" asp-controller="Event">Event</a></li>
+                            <li>@Model.Name</li>
                         </ul>
                     </div>
                 </div>
@@ -36,14 +36,14 @@
                     <div class="blog_title">@Model.Name</div>
                     <div class="blog_meta">
                         <ul>
-                            <li>News on <a href="#">@Model.Time</a></li>
+                            <li>News on@Model.Time</li>
                             @if (Model.Organizer.Name == null || Model.Organizer.Surname == null )
                             {
-                            <li>By <a href="#">@Model.Organizer.UserName</a></li>
+                            <li>By @Model.Organizer.UserName</li>
                             }
                             else
                             {
-                            <li>By <a href="#">@Model.Organizer.Name @Model.Organizer.Surname</a></li>
+                            <li>By @Model.Organizer.Name @Model.Organizer.Surname</li>
                             }
                         </ul>
                     </div>
@@ -62,53 +62,10 @@
                 <div class="sidebar sidebar_event">
 
                     <!-- Categories -->
-                    <div class="sidebar_section">
-                        <div class="sidebar_section_title">Categories</div>
-                        <div class="sidebar_categories">
-                            <ul class="categories_list">
-                                <li><a href="#" class="clearfix">Art & Design<span>(25)</span></a></li>
-                                <li><a href="#" class="clearfix">Business<span>(10)</span></a></li>
-                                <li><a href="#" class="clearfix">IT & Software<span>(22)</span></a></li>
-                                <li><a href="#" class="clearfix">Languages<span>(12)</span></a></li>
-                                <li><a href="#" class="clearfix">Programming<span>(18)</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    @await Component.InvokeAsync("Categories")
 
-                    <!-- Latest News -->
-                    <div class="sidebar_section">
-                        <div class="sidebar_section_title">Latest Courses</div>
-                        <div class="sidebar_latest">
+                    @await Component.InvokeAsync("LastCourses")
 
-                            <!-- Latest Course -->
-                            <div class="latest d-flex flex-row align-items-start justify-content-start">
-                                <div class="latest_image"><div><img src="images/latest_1.jpg" alt=""></div></div>
-                                <div class="latest_content">
-                                    <div class="latest_title"><a href="course.html">How to Design a Logo a Beginners Course</a></div>
-                                    <div class="latest_date">november 11, 2017</div>
-                                </div>
-                            </div>
-
-                            <!-- Latest Course -->
-                            <div class="latest d-flex flex-row align-items-start justify-content-start">
-                                <div class="latest_image"><div><img src="images/latest_2.jpg" alt=""></div></div>
-                                <div class="latest_content">
-                                    <div class="latest_title"><a href="course.html">Photography for Beginners Masterclass</a></div>
-                                    <div class="latest_date">november 11, 2017</div>
-                                </div>
-                            </div>
-
-                            <!-- Latest Course -->
-                            <div class="latest d-flex flex-row align-items-start justify-content-start">
-                                <div class="latest_image"><div><img src="images/latest_3.jpg" alt=""></div></div>
-                                <div class="latest_content">
-                                    <div class="latest_title"><a href="course.html">The Secrets of Body Language</a></div>
-                                    <div class="latest_date">november 11, 2017</div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
 
                 </div>
             </div>

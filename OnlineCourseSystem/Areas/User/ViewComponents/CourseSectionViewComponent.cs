@@ -18,8 +18,32 @@ namespace OnlineCourseSystem.Areas.User.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync(int idOfCourse)
         {
-            var sections = GetSections(idOfCourse);
-            return View(sections);
+            var viewSections = new List<SectionViewModel>();
+            var course = _courseData.GetFullCourse(idOfCourse);
+            foreach (var section in course.Sections)
+            {
+                var topics = new List<SectionViewModel>();
+                var sectionViewModel = new SectionViewModel
+                {
+                    ParentSection = null,
+                    Name = section.Name,
+                    Id = section.Id,
+                    ChildSections = null
+                };
+                foreach (var topic in section.Topics)
+                {
+                    topics.Add(new SectionViewModel
+                    {
+                        ParentSection = sectionViewModel,
+                        Name = topic.Name,
+                        Id = topic.Id                        
+                    });
+                }
+                sectionViewModel.ChildSections = topics;
+                viewSections.Add(sectionViewModel);
+            }
+
+            return View(viewSections);
         }
 
         private List<SectionViewModel> GetSections(int idOfCourse)

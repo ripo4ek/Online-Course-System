@@ -25,7 +25,7 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
         {
             var blog = _courseData.GetBlog(id);
             _courseData.DeleteBlog(blog);
-            return RedirectToAction("Index", "Event");
+            return RedirectToAction("Index", "Blog");
         }
         public IActionResult Details(int id)
         {

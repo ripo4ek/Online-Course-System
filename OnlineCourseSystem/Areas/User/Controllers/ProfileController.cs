@@ -101,8 +101,8 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 Courses = coursesForModel,
                 UserName = user.UserName,
                 Surname = user.Surname,
-                CoursesComplete = user.CourseStatistics.Count(c => c.IsCompleted),
-                CoursesInProgress = user.CourseStatistics.Count(c => !c.IsCompleted),
+                CoursesComplete = user.CourseStatistics.Count(c => c.TasksCount == c.TasksCompetedCount),
+                CoursesInProgress = user.CourseStatistics.Count(c => c.TasksCount != c.TasksCompetedCount),
                 CoursesInTotal = user.CourseStatistics.Count,
                 HaveBlogs = user.Blogs.Count > 0,
                 HaveEvents = user.Events.Count > 0,
@@ -191,6 +191,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
             return new CourseStatistic()
             {
+                Name = course.Name,
                 CourseId = course.Id,
                 QuestionTaskStatistics = questionTaskForStatistics,
                 TextTaskStatistics = textTaskForStatistics,

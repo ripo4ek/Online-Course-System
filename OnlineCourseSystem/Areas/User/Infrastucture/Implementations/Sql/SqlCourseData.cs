@@ -121,9 +121,8 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         }
 
-        public void DeleteCourse(int id)
+        public void DeleteCourse(Course courseFromDb)
         {
-            var courseFromDb = _context.Courses.SingleOrDefault(c => c.Id == id);
             _context.Remove(courseFromDb);
             _context.SaveChanges();
 
@@ -398,7 +397,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public Blog GetBlog(int id)
         {
-            return _context.Blogs.First(b=>b.Id ==id);
+            return _context.Blogs.Include(b=>b.Author).First(b=>b.Id ==id);
         }
         public News GetNews(int id)
         {
@@ -427,7 +426,10 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public IEnumerable<ApplicationUser> GetThreeRandomAuthors()
         {
-            return _context.Courses.Include(c=>c.Author).Select(c=>c.Author).Take(3);
+            var roleFromDb = _context.Roles.First(r => r.Name == Roles.CourseCreator);
+
+            return _context.UserRoles.Where(u => u.Role == roleFromDb).Select(u => u.ApplicationUser).Take(3);
+            
         }
 
         public int GetCoursesCountOfCategory(int categoryId)

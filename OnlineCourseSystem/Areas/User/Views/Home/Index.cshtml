@@ -406,7 +406,7 @@
                         <div class="news_post_text">
                             <p>@Model.BigNews.TextPreview</p>
                         </div>
-                        <div class="news_post_link"><a href="blog_single.html">read more</a></div>
+                        <div class="news_post_link"><a asp-action="Details" asp-controller="News" asp-route-id="@Model.BigNews.Id">read more</a></div>
                     </div>
                 </div>
             </div>

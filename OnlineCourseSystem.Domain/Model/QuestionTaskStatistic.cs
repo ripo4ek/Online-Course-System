@@ -7,5 +7,7 @@ namespace OnlineCourseSystem.Domain.Model
     public class QuestionTaskStatistic : TaskStatistic
     {
         public string UserAnswer { get; set; }
+
+        public string CorrectAnswer { get; set; }
     }
 }

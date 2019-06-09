@@ -208,7 +208,8 @@
                     for (var topic in topics) {
                         let lastIndexOfSection = course.Sections.length - 1;
                         let t = topics[topic];
-                        course.Sections[lastIndexOfSection].Topics = [];
+                        if (course.Sections[lastIndexOfSection].Topics === undefined)
+                            course.Sections[lastIndexOfSection].Topics = [];                   
                         course.Sections[lastIndexOfSection].Topics.push({
                             //Id: topic,
                             //SectionId: section,
@@ -224,7 +225,9 @@
                                 let lastIndexOfTopic = course.Sections[lastIndexOfSection].Topics.length - 1;
                                 orderOfTasks++;
                                 if (tk.type === 'questionTask') {
-                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuestionTasks = [];
+                                    if (course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuestionTasks === undefined)
+                                        course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuestionTasks = [];
+                                    
                                     course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuestionTasks.push({
                                         //Id: task,
                                         //TopicId: topic,
@@ -235,7 +238,9 @@
                                 });
                                 }
                                 if (tk.type === 'textTask') {
-                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].TextTasks = [];
+
+                                    if (course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].TextTasks === undefined)
+                                        course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].TextTasks = [];
                                     course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].TextTasks.push({
                                         //Id: task,
                                         //TopicId: topic,
@@ -246,7 +251,9 @@
                                     });
                                 }
                                 if (tk.type === 'videoTask') {
-                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].VideoTasks = [];
+                                    if (course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].VideoTasks === undefined)
+                                        course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].VideoTasks = [];
+
                                     course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].VideoTasks.push({
                                         //Id: task,
                                         //TopicId: topic,
@@ -271,7 +278,10 @@
                                             answer = str.replace("answer=", "");
                                             break;
                                         }
-                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuizTasks = [];
+
+                                    if (course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuizTasks === undefined)
+                                        course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuizTasks = [];
+
                                     course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuizTasks.push({
                                         //Id: task,
                                         //TopicId: topic,

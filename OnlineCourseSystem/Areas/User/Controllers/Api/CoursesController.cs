@@ -121,7 +121,8 @@ namespace OnlineCourseSystem.Areas.User.Controllers.Api
         [HttpDelete]
         public IActionResult DeleteCourse(int id)
         {
-            _data.DeleteCourse(id);
+            var course = _data.GetFullCourse(id);
+            _data.DeleteCourse(course);
             return Ok();
         }
     }

@@ -119,7 +119,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 
         void UpdateCourse(Course course);
 
-        void DeleteCourse(int id);
+        void DeleteCourse(Course course);
 
         IEnumerable<ApplicationUser> GetUsersByRole(string role);
 

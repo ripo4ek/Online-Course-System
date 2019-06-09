@@ -41,10 +41,15 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             if (currentStat != null)
             {
                 currentStat.IsComplete = true;
+                currentStat.CorrectAnswer = task.CorrectAnswer.Text;
                 currentStat.UserVariant = answer;
                 if (string.Equals(task.CorrectAnswer.Text, answer, StringComparison.CurrentCultureIgnoreCase))
                 {
                     currentStat.IsCorrect = true;
+                }
+                else
+                {
+                    currentStat.IsCorrect = false;
                 }
                 _data.UpdateQuizTaskStatistic(currentStat);
                 return Ok(new { rezult = currentStat.IsCorrect });
@@ -76,6 +81,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             {
                 currentStat.IsComplete = true;
                 currentStat.UserAnswer = answer;
+                currentStat.CorrectAnswer = task.CorrectAnswer;
                 if (string.Equals(task.CorrectAnswer, answer, StringComparison.CurrentCultureIgnoreCase))
                 {
                     currentStat.IsCorrect = true;
@@ -122,7 +128,15 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
         }
 
+        public IActionResult Details(int courseId)
+        {
+            var user = _data.GetUserWithStats(User.GetUserId());
 
+            var statistic = user.CourseStatistics.First(s=>s.CourseId == courseId);
+
+
+            return View(statistic);
+        }
 
         public IActionResult SaveCurrentTime(int taskId, double time)
         {

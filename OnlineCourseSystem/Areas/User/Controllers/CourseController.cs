@@ -68,7 +68,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
             var courseFromDb = _courseData.GetCourseByName(course.Name);
 
-            var category = _courseData.GetCategories().FirstOrDefault(c=>c.Name==course.Category.ToLower());
+            var category = _courseData.GetCategories().FirstOrDefault(c=>c.Name.ToLower()==course.Category.ToLower());
 
             if (category == null)
             {
@@ -150,6 +150,15 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             
             return View(model);
             
+        }
+        public async Task<IActionResult> Delete(int id)
+        {
+
+
+            var course = _courseData.GetFullCourse(id);
+            _courseData.DeleteCourse(course);
+
+            return RedirectToAction("Index", "Profile");
         }
     }
 }

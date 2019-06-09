@@ -77,7 +77,7 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
         {
             var news = _courseData.GetNews(id);
             _courseData.DeleteNews(news);
-            return RedirectToAction("Index", "Event");
+            return RedirectToAction("Index", "News");
         }
         public IActionResult Details(int id)
         {

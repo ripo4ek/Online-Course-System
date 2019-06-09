@@ -38,6 +38,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             {
                 model.Add(new EventViewModel
                 {
+                    Id = e.Id,
                     Author = string.IsNullOrEmpty(e.Organizer.Name)  || string.IsNullOrEmpty(e.Organizer.Surname)?
                             e.Organizer.UserName:$"{e.Organizer.Name} {e.Organizer.Surname}",
                     ImageUrl = e.ImageUrl,
@@ -86,12 +87,12 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         {
             var eventModel = _courseData.GetEvent(id);
             _courseData.DeleteEvent(eventModel);
-            return RedirectToAction("Index","Event");
+            return RedirectToAction("Index", "Event");
         }
         public IActionResult Details(int id)
         {
-            var modelEvent = _courseData.GetEvent(id);
-            return View(modelEvent);
+            var eventModel = _courseData.GetEvent(id);
+            return View(eventModel);
         }
     }
 }

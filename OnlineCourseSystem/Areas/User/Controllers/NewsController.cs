@@ -27,6 +27,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             {
                 model.Add(new NewsShortViewModel
                 {
+                    Id = e.Id,
                     Author = string.IsNullOrEmpty(e.Author.Name) || string.IsNullOrEmpty(e.Author.Surname) ?
                         e.Author.UserName : $"{e.Author.Name} {e.Author.Surname}",
                     ImageUrl = e.ImageUrl,
