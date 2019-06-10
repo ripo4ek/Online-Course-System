@@ -17,7 +17,7 @@
                         <div class="add-course-picture">
                             <div class="file-input-wrapper">
                                 <button id="course-wallpaper-button" class="btn-file-input counter_form_button upload-button">Choose a picture</button>
-                                <input id="course-wallpaper" type="file" name="CoursePicture">
+                                <input id="course-wallpaper" type="file" name="CoursePicture" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image">
                                 <button id="upload-wallpaper" class=" upload-hided">upload</button>
                             </div>
                         </div>
@@ -30,12 +30,13 @@
 
                     </div>
                 </div>
-
+            @if (Model.Models.Count > 0)
+            {
                 <h4>Upload your video</h4>
                 <div class="form-group form-group-upload">
 
                     <div class="input-group input-group-video">
-                        
+
                         @foreach (var courseTaskViewModel  in Model.Models)
                         {
                             if (courseTaskViewModel.VideoExist)
@@ -47,17 +48,17 @@
                                         <div class="file-input-wrapper">
 
                                             <button class="counter_form_button  upload upload-hided">Choose file</button>
-                                            <input type="file" accept=".mp4" class="input-upload course-upload-button" />
+                                            <input type="file" accept=".mp4" class="input-upload course-upload-button"/>
                                         </div>
 
                                         <button class="counter_form_button  upload upload-hided">upload</button>
-                                        <input type="hidden" class="task-id" value="@courseTaskViewModel.VideoTaskId" />
+                                        <input type="hidden" class="task-id" value="@courseTaskViewModel.VideoTaskId"/>
                                         <div class="upload-bar-plate">
                                             <div class="upload-bar rdy-bar"></div>
                                         </div>
                                         <div class="delete-var">×</div>
                                     </div>
-                                
+
                                 </div>
                             }
                             else
@@ -69,29 +70,33 @@
                                         <div class="file-input-wrapper input-mini">
 
                                             <button class="counter_form_button  upload">Choose file</button>
-                                            <input type="file" accept=".mp4" class="input-upload course-upload-button" />
+                                            <input type="file" accept=".mp4" class="input-upload course-upload-button"/>
                                         </div>
 
                                         <button class="counter_form_button  upload upload-hided">upload</button>
-                                        <input type="hidden" class="task-id" value="@courseTaskViewModel.VideoTaskId" />
+                                        <input type="hidden" class="task-id" value="@courseTaskViewModel.VideoTaskId"/>
                                         <div class="upload-bar-plate">
                                             <div class="upload-bar"></div>
                                         </div>
                                         <div class="delete-var"></div>
                                     </div>
-                                
+
                                 </div>
                             }
                         }
+                        
 
-                      
+
+
 
                     </div>
                 </div>
+            }
             </div>
-            
 
-
+            <form asp-action="Details" asp-controller="Course" asp-route-id="@Model.CourseId">
+                <button id="finish" class="counter_form_button">Finish</button>
+            </form>
         </div>
 
     </div>

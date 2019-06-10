@@ -4,7 +4,7 @@
         <div class="dropdown">
             <button class="dropbtn">Hello, @User.Identity.Name</button>
             <div class="dropdown-content">
-                <a asp-action="Index" asp-controller="Profile">My Courses</a>
+                <a asp-action="Index" asp-controller="Profile">Profile</a>
                 <a href="#"><form method="post" asp-controller="Account" asp-action="Logout" asp-antiforgery="true">
     <input type="submit" value="Log Out" class="log-out-button" />
 </form></a>

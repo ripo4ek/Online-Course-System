@@ -59,10 +59,11 @@
                                         <div class="d-flex flex-row align-items-center justify-content-around">
                                             <input type="search" class="home_search_input" placeholder="Keyword Search" required="required">
                                             <span class="home_search_splitter">|</span>
-                                            <select class="dropdown_item_select home_search_input">
-                                                <option>Category Courses</option>
-                                                <option>Category</option>
-                                                <option>Category</option>
+                                            <select name="selectedCategory" id="selectedCategory" class="dropdown_item_select home_search_input">
+                                                @foreach(var category in Model.CategoriesNames)
+                                                {
+                                                    <option>@category</option>
+                                                }
                                             </select>
 
                                         </div>
@@ -89,10 +90,11 @@
                                         <div class="d-flex flex-row align-items-center justify-content-around">
                                             <input type="search" class="home_search_input" placeholder="Keyword Search" required="required">
                                             <span class="home_search_splitter">|</span>
-                                            <select class="dropdown_item_select home_search_input">
-                                                <option>Category Courses</option>
-                                                <option>Category</option>
-                                                <option>Category</option>
+                                            <select name="selectedCategory" id="selectedCategory" class="dropdown_item_select home_search_input">
+                                                @foreach(var category in Model.CategoriesNames)
+                                                {
+                                                    <option>@category</option>
+                                                }
                                             </select>
                                         </div>
                                         <button type="submit" class="home_search_button">search</button>
@@ -189,7 +191,7 @@
                 <div class="course">
                     <div class="course_image"><img src="@m.CourseImage" alt=""></div>
                     <div class="course_body">
-                        <h3 class="course_title"><a href="course.html">@m.CourseName</a></h3>
+                        <h3 class="course_title"><a asp-action="Details" asp-controller="Course" asp-route-id="@m.Id">@m.CourseName</a></h3>
                         <div class="course_teacher">@m.CourseAuthor</div>
                         <div class="course_text">
                             <p>@m.CourseDescription</p>
@@ -214,7 +216,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <div class="courses_button trans_200"><a href="#">view all courses</a></div>
+                <div class="courses_button trans_200"><a asp-action="Index" asp-controller="Course">view all courses</a></div>
             </div>
         </div>
     </div>
@@ -228,8 +230,8 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="counter_content">
-                    <h2 class="counter_title">Register Now</h2>
-                    <div class="counter_text"><p>Simply dummy text of the printing and typesetting industry.</p></div>
+                    <h2 class="counter_title">Our Achievements</h2>
+                    <div class="counter_text"><p>We are the future in online learning technology.</p></div>
 
                     <!-- Milestones -->
 
@@ -268,23 +270,23 @@
         <div class="counter_form">
             <div class="row fill_height">
                 <div class="col fill_height">
-                    <form class="counter_form_content d-flex flex-column align-items-center justify-content-center" action="#">
+                    <div class="counter_form_content d-flex flex-column align-items-center justify-content-center" action="#">
                         <div class="counter_form_title">order a call</div>
                         <input type="text" class="counter_input" placeholder="Your Name:" required="required">
                         <input type="tel" class="counter_input" placeholder="Phone:" required="required">
                         <textarea class="counter_input counter_text_input" placeholder="Message:" required="required"></textarea>
-                        <button type="submit" class="counter_form_button">submit now</button>
-                    </form>
+                        <button id="submit-call" type="submit" class="counter_form_button">submit now</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="counter_form counter_form_sent">
+        <div id="call-sent" class="counter_form counter_form_sent">
             <div class="row fill_height">
                 <div class="col fill_height">
-                    <form class="counter_form_content counter_form_content_sent d-flex flex-column align-items-center justify-content-center" action="#">
+                    <div class="counter_form_content counter_form_content_sent d-flex flex-column align-items-center justify-content-center" action="#">
                         <div class="counter_form_title counter_form_title_sent">Done!</div>
                         <h4>We will call you back soon!</h4>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -314,11 +316,11 @@
                         <div class="event_date">
                             <div class="d-flex flex-column align-items-center justify-content-center trans_200">
                                 <div class="event_day trans_200">@eventModel.Time.Day</div>
-                                <div class="event_month trans_200">@eventModel.Time.Month</div>
+                                <div class="event_month trans_200">@eventModel.Time.ToMonthName()</div>
                             </div>
                         </div>
                         <div class="event_content">
-                            <div class="event_title"><a href="#">@eventModel.Name</a></div>
+                            <div class="event_title"><a asp-action="Details" asp-controller="Event" asp-route-id="@eventModel.Id">@eventModel.Name</a></div>
                             <div class="event_info_container">
                                 <div class="event_info"><i class="fa fa-clock-o" aria-hidden="true"></i><span>@eventModel.Time.Hour.ToString("00.##").@eventModel.Time.Minute.ToString("00.##")</span></div>
                                 <div class="event_info"><i class="fa fa-map-marker" aria-hidden="true"></i><span>@eventModel.Address</span></div>
@@ -390,11 +392,11 @@
 
         <div class="row news_row">
             <div class="col-lg-7 news_col">
-                <!-- News Post Large -->
+                <!-- News News Large -->
                 <div class="news_post_large_container">
                     <div class="news_post_large">
                         <div class="news_post_image"><img src="@Model.BigNews.ImageUrl" alt=""></div>
-                        <div class="news_post_large_title"><a href="blog_single.html">@Model.BigNews.Title</a></div>
+                        <div class="news_post_large_title"><a asp-action="Details" asp-controller="News" asp-route-id="@Model.BigNews.Id">@Model.BigNews.Title</a></div>
                         <div class="news_post_meta">
                             <ul>
                                 <li><a href="#">@Model.BigNews.Author</a></li>
@@ -404,7 +406,7 @@
                         <div class="news_post_text">
                             <p>@Model.BigNews.TextPreview</p>
                         </div>
-                        <div class="news_post_link"><a href="blog_single.html">read more</a></div>
+                        <div class="news_post_link"><a asp-action="Details" asp-controller="News" asp-route-id="@Model.BigNews.Id">read more</a></div>
                     </div>
                 </div>
             </div>
@@ -414,7 +416,7 @@
                     @foreach (var sp in Model.News)
                         {
                     <div class="news_post_small">
-                        <div class="news_post_small_title"><a href="blog_single.html">@sp.Title</a></div>
+                        <div class="news_post_small_title"><a asp-action="Details" asp-controller="News" asp-route-id="@sp.Id">@sp.Title</a></div>
                         <div class="news_post_meta">
                             <ul>
                                 <li><a href="#">@sp.Author</a></li>
@@ -431,6 +433,11 @@
     </div>
 </div>
 }
-
-
+<script src="~/js/jquery-3.2.1.min.js"></script>
+<script>
+    $("#call-sent").hide();
+    $("#submit-call").click(function() {
+        $("#call-sent").show();
+    });
+</script>
 

@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<OnlineCourseSystem.Domain.Model.Category>
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
@@ -64,9 +64,10 @@
                                             <label for="title">Select category</label>
                                             <div class=" menu-options-categories">
                                                 <select name="category" id="target" class="form-control item-menu menu-options-category">
-                                                    <option value="_self">Self</option>
-                                                    <option value="_blank">Blank</option>
-                                                    <option value="_top">Top</option>
+                                                    @foreach (var category in Model)
+                                                    {
+                                                        <option value="@category.Name">@category.Name</option>
+                                                    }
                                                 </select>
                                                 <span>or</span>
                                                 <input class="form-control item-menu menu-options-category" type="text" name="categoryCustom" value="" placeholder="Your option" />
@@ -207,7 +208,8 @@
                     for (var topic in topics) {
                         let lastIndexOfSection = course.Sections.length - 1;
                         let t = topics[topic];
-                        course.Sections[lastIndexOfSection].Topics = [];
+                        if (course.Sections[lastIndexOfSection].Topics === undefined)
+                            course.Sections[lastIndexOfSection].Topics = [];                   
                         course.Sections[lastIndexOfSection].Topics.push({
                             //Id: topic,
                             //SectionId: section,
@@ -223,7 +225,9 @@
                                 let lastIndexOfTopic = course.Sections[lastIndexOfSection].Topics.length - 1;
                                 orderOfTasks++;
                                 if (tk.type === 'questionTask') {
-                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuestionTasks = [];
+                                    if (course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuestionTasks === undefined)
+                                        course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuestionTasks = [];
+                                    
                                     course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuestionTasks.push({
                                         //Id: task,
                                         //TopicId: topic,
@@ -234,7 +238,9 @@
                                 });
                                 }
                                 if (tk.type === 'textTask') {
-                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].TextTasks = [];
+
+                                    if (course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].TextTasks === undefined)
+                                        course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].TextTasks = [];
                                     course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].TextTasks.push({
                                         //Id: task,
                                         //TopicId: topic,
@@ -245,7 +251,9 @@
                                     });
                                 }
                                 if (tk.type === 'videoTask') {
-                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].VideoTasks = [];
+                                    if (course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].VideoTasks === undefined)
+                                        course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].VideoTasks = [];
+
                                     course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].VideoTasks.push({
                                         //Id: task,
                                         //TopicId: topic,
@@ -270,7 +278,10 @@
                                             answer = str.replace("answer=", "");
                                             break;
                                         }
-                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuizTasks = [];
+
+                                    if (course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuizTasks === undefined)
+                                        course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuizTasks = [];
+
                                     course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuizTasks.push({
                                         //Id: task,
                                         //TopicId: topic,
@@ -321,7 +332,7 @@
             contentType: "application/json",
             data: JSON.stringify(course),
             success: function(response) {
-                response ? alert("It worked!") : alert("It didn't work.");
+                response ? window.location = response.url : alert("It didn't work.");
             }
         });
     });
@@ -538,9 +549,10 @@
                                             <label for="title">Select category</label>
                                             <div class=" menu-options-categories">
                                                 <select name="category" id="target" class="form-control item-menu menu-options-category">
-                                                    <option value="_self">Self</option>
-                                                    <option value="_blank">Blank</option>
-                                                    <option value="_top">Top</option>
+                                                     @foreach (var category in Model)
+                                                    {
+                                                        <option value="@category.Name">@category.Name</option>
+                                                    }
                                                 </select>
                                                 <span>or</span>
                                                 <input class="form-control item-menu menu-options-category" type="text" name="categoryCustom" value="" placeholder="Your option" />

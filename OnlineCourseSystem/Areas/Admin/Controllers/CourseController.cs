@@ -28,7 +28,8 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
         }
         public IActionResult Delete(int id)
         {
-            _courseData.DeleteCourse(id);;
+            var course = _courseData.GetFullCourse(id);
+            _courseData.DeleteCourse(course);
             return RedirectToAction("Index");
         }
     }

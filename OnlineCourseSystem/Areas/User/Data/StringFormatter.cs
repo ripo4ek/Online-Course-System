@@ -9,9 +9,9 @@ namespace OnlineCourseSystem.Areas.User.Data
     {
         public static string FormatForPreview(string str)
         {
-            if (str.Length >= 100)
+            if (str.Length >= 25)
             {
-                return str.Substring(0, 100) + "...";
+                return str.Substring(0, 25) + "...";
             }
 
             return str + "...";

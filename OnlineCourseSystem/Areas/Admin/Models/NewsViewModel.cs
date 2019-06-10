@@ -4,7 +4,7 @@ namespace OnlineCourseSystem.Areas.Admin.Models
 {
     public class NewsViewModel
     {
-        public string Title { get; set; }
+        public string Name { get; set; }
 
         public string Text { get; set; }
 

@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<OnlineCourseSystem.Domain.Model.Event>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -7,27 +7,36 @@
     <div class="container-fluid">
         <div class="row">
             <div class="table-title">
-                List of users
+                List of events
             </div>
             <table id="customers" class="table table-bordered table-hover table-custom">
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Confirmed</th>
+                        <th>Title</th>
                         <th>Author</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
 
-
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>Edit</td>
-                    <td>Delete</td>
-                </tr>
+                @foreach (var newsModel in Model)
+                {
+            <tr>
+                <td>@newsModel.Id</td>
+                <td>@newsModel.Name</td>
+                @if (newsModel.Organizer.Name == null || newsModel.Organizer.Surname == null)
+                {
+                    <td>@newsModel.Organizer.UserName</td>
+                }
+                else
+                {
+                    <td>@newsModel.Organizer.UserName (@newsModel.Organizer.Name @newsModel.Organizer.Surname)</td>
+                }  
+                <td><a asp-action="Details" asp-controller="Event" asp-route-id="@newsModel.Id">Details</a></td>
+                <td><a asp-action="Delete" asp-controller="Event" asp-route-id="@newsModel.Id">Delete</a></td>
+            </tr>
+                }
 
 
             </table>

@@ -34,6 +34,12 @@ namespace OnlineCourseSystem
             services.AddDbContext<OnlineCourseSystemContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<ICourseData, SqlCourseData>();
+            services.AddScoped<IBlogData, SqlBlogData>();
+            services.AddScoped<ICourseStatisticData, SqlCourseStatisticData>();
+            services.AddScoped<IEventData, SqlEventData>();
+            services.AddScoped<INewsData, SqlNewsData>();
+            services.AddScoped<IUserData, SqlUserData>();
+            services.AddScoped<ITaskData, SqlTaskData>();
             services.AddAutoMapper();
             services.AddIdentity<ApplicationUser, Role>(options => options.Stores.MaxLengthForKeys = 128)
                 .AddEntityFrameworkStores<OnlineCourseSystemContext>()
@@ -79,7 +85,7 @@ namespace OnlineCourseSystem
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-            public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -88,7 +94,19 @@ namespace OnlineCourseSystem
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/User/error/500");
+                app.Use(async (ctx, next) =>
+                {
+                    await next();
+
+                    if (ctx.Response.StatusCode == 404 && !ctx.Response.HasStarted)
+                    {
+                        string originalPath = ctx.Request.Path.Value;
+                        ctx.Items["originalPath"] = originalPath;
+                        ctx.Request.Path = "/User/error/404";
+                        await next();
+                    }
+                });
             }
 
             app.UseStaticFiles();
@@ -107,7 +125,7 @@ namespace OnlineCourseSystem
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            
+
         }
     }
 }

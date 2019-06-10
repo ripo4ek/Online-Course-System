@@ -21,11 +21,11 @@
                             <div class="blog_post_image"><img src="@e.ImageUrl" alt=""></div>
                         }
                         <div class="blog_post_body">
-                            <div class="blog_post_title"><a href="blog_single.html">@e.Title</a></div>
+                            <div class="blog_post_title"><a asp-action="Details" asp-controller="News" asp-route-id="@e.Id">@e.Title</a></div>
                             <div class="blog_post_meta">
                                 <ul>
-                                    <li><a href="#">@e.Author</a></li>
-                                    <li><a href="#">@e.ReleaseTime</a></li>
+                                    <li>@e.Author</li>
+                                    <li>@e.ReleaseTime</li>
                                 </ul>
                             </div>
                             <div class="blog_post_text">
@@ -34,14 +34,9 @@
                         </div>
                     </div>  
                     }
-                    <!-- Blog Post -->
+                    <!-- Blog News -->
                  
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col text-center">
-                <div class="load_more trans_200"><a href="#">load more</a></div>
             </div>
         </div>
     </div>

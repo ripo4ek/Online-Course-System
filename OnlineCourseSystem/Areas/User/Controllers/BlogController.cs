@@ -17,15 +17,14 @@ namespace OnlineCourseSystem.Areas.User.Controllers
     [Area("User")]
     public class BlogController : Controller
     {
-
-        private readonly ICourseData _courseData;
+        private readonly IBlogData _blogData;
         private readonly IMapper _mapper;
         private readonly IHostingEnvironment _env;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public BlogController(ICourseData courseData, IMapper mapper, IHostingEnvironment env, UserManager<ApplicationUser> userManager)
+        public BlogController(IBlogData blogData, IMapper mapper, IHostingEnvironment env, UserManager<ApplicationUser> userManager)
         {
-            _courseData = courseData;
+            _blogData = blogData;
             _mapper = mapper;
             _env = env;
             _userManager = userManager;
@@ -43,9 +42,9 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         {
             if (ModelState.IsValid)
             {
-                var blogForSave = _mapper.Map<BlogViewModel, Post>(blog);
+                var blogForSave = _mapper.Map<BlogViewModel, Blog>(blog);
 
-                var blogFromDb = _courseData.AddBlog(blogForSave);
+                var blogFromDb = _blogData.AddBlog(blogForSave);
 
                 var fileExt = blog.Wallpaper.FileName.Split('.').Last();
 
@@ -63,19 +62,20 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 blogFromDb.ReleaseTime = DateTime.Now;
                 blogFromDb.ImageLocalUrl = _env.WebRootPath + path;
                 blogFromDb.Author = await _userManager.GetUserAsync(User);
-                _courseData.UpdateBlogs(blogFromDb);
-                return RedirectToAction("Index", "Blog");
+                _blogData.UpdateBlogs(blogFromDb);
+                return RedirectToAction("Index", "Profile");
             }
             return View();
         }
         public IActionResult Index()
         {
-            var events = _courseData.GetNewsWithAuthor();
-            var model = new List<NewsShortViewModel>();
+            var events = _blogData.GetBlogsWithAuthor();
+            var model = new List<BlogShortViewModel>();
             foreach (var e in events)
             {
-                model.Add(new NewsShortViewModel
+                model.Add(new BlogShortViewModel
                 {
+                    Id = e.Id,
                     Author = string.IsNullOrEmpty(e.Author.Name) || string.IsNullOrEmpty(e.Author.Surname) ?
                         e.Author.UserName : $"{e.Author.Name} {e.Author.Surname}",
                     ImageUrl = e.ImageUrl,
@@ -86,10 +86,16 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             }
             return View(model);
         }
+        public IActionResult Delete(int id)
+        {
+            var blog = _blogData.GetBlog(id);
+            _blogData.DeleteBlog(blog);
+            return RedirectToAction("Index", "Profile");
+        }
         public IActionResult Details(int id)
         {
-            var modelEvent = _courseData.GetBlog(id);
-            return View(modelEvent);
+            var blog = _blogData.GetBlog(id);
+            return View(blog);
         }
     }
 }

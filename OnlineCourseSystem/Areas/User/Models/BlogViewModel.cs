@@ -10,8 +10,8 @@ namespace OnlineCourseSystem.Areas.User.Models
     {
         public string Name { get; set; }
 
-        public IFormFile Wallpaper { get; set; }
-
         public string Text { get; set; }
+
+        public IFormFile Wallpaper { get; set; }
     }
 }

@@ -18,22 +18,30 @@ namespace OnlineCourseSystem.Areas.User.Controllers
     public class ProfileController : Controller
     {
         private readonly UserManager<Domain.Model.ApplicationUser> _userManager;
+        private readonly IUserData _userData;
         private readonly ICourseData _data;
 
-        public ProfileController(UserManager<Domain.Model.ApplicationUser> userManager, ICourseData data)
+        public ProfileController(UserManager<Domain.Model.ApplicationUser> userManager, ICourseData courseData ,IUserData userData)
         {
             _userManager = userManager;
-            _data = data;
+            _userData = userData;
+            _data = courseData;
         }
         public async Task<IActionResult> Index()
         {
             var userId = User.GetUserId();
 
-            var user = _data.GetUserWithStats(userId);
+            var user = _userData.GetUserWithStats(userId);
+
+            var coursesAuthor = _data.GetCoursesByAuthor(user);
 
             var courses = _data.GetCoursesOfUser(user).ToList();
 
             var coursesForModel = new List<CourseProfileViewModel>();
+            var ownCourses = new List<OwnCourseProfileViewModel>();
+            var ownEvents = new List<PostProfileViewModel>();
+            var blogEvents = new List<PostProfileViewModel>();
+
             foreach (var course in courses)
             {
                 string authorName = "";
@@ -55,16 +63,55 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                     DurationInHours = course.DurationInHours,
                 });
             }
+            foreach (var eventModel in user.Events)
+            {
+                
+                ownEvents.Add(new PostProfileViewModel
+                {
+                    Id = eventModel.Id,
+                    Title = eventModel.Name,
+                    UrlImage = eventModel.ImageUrl
 
+                });         
+            }
+            foreach (var course in coursesAuthor)
+            {
+
+                ownCourses.Add(new OwnCourseProfileViewModel
+                {
+                    Id = course.Id,
+                    Name = course.Name,
+                    Subscribers = course.Users.Count(),
+
+                });
+            }
+            foreach (var post in user.Blogs)
+            {
+
+                blogEvents.Add(new PostProfileViewModel
+                {
+                    Id = post.Id,
+                    Title = post.Name,
+                    UrlImage = post.ImageUrl
+
+                });
+            }
             var model = new ProfileViewModel
             {
                 Name = user.Name,
+                AvatarUrl = user.PhotoUrl,  
                 Courses = coursesForModel,
                 UserName = user.UserName,
                 Surname = user.Surname,
-                CoursesComplete = user.CourseStatistics.Count(c => c.IsCompleted),
-                CoursesInProgress = user.CourseStatistics.Count(c => !c.IsCompleted),
-                CoursesInTotal = user.CourseStatistics.Count
+                CoursesComplete = user.CourseStatistics.Count(c => c.TasksCount == c.TasksCompetedCount),
+                CoursesInProgress = user.CourseStatistics.Count(c => c.TasksCount != c.TasksCompetedCount),
+                CoursesInTotal = user.CourseStatistics.Count,
+                HaveBlogs = user.Blogs.Count > 0,
+                HaveEvents = user.Events.Count > 0,
+                IsCourseCreator = User.IsInRole(Roles.CourseCreator),
+                Blogs = blogEvents,
+                Events = ownEvents,
+                MyCourses = ownCourses,
             };
 
 
@@ -76,17 +123,25 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
             var userId = User.GetUserId();
 
-            var user = _data.GetUserWithStats(userId);
+            var user = _userData.GetUserWithStats(userId);
 
 
             user.CourseStatistics.Add(CreateStatisticsForCourse(course));
 
-            _data.UpdateUser(user);
+            _userData.UpdateUser(user);
 
-            _data.AddCourseToUser(course, user);
+            _userData.AddCourseToUser(course, user);
 
 
             return RedirectToAction("Details", "Course",new {id = courseId});
+        }
+        public async Task<IActionResult> BecomeCourseCreator()
+        {
+            var user =  await _userManager.GetUserAsync(HttpContext.User);
+            await _userManager.AddToRoleAsync(user, Roles.CourseCreator);
+
+
+            return RedirectToAction("Index", "Profile");
         }
 
         private CourseStatistic CreateStatisticsForCourse(Course course)
@@ -138,6 +193,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
             return new CourseStatistic()
             {
+                Name = course.Name,
                 CourseId = course.Id,
                 QuestionTaskStatistics = questionTaskForStatistics,
                 TextTaskStatistics = textTaskForStatistics,

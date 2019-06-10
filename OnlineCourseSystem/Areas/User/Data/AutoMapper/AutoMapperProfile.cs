@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using OnlineCourseSystem.Areas.Admin.Models;
 using OnlineCourseSystem.Areas.User.Models;
 using OnlineCourseSystem.Areas.User.Models.Dtos;
 using OnlineCourseSystem.Domain.Model;
@@ -29,8 +30,8 @@ namespace OnlineCourseSystem.Areas.User.Data.AutoMapper
             CreateMap<QuestionTaskPostViewModel, QuestionTask>();
             CreateMap<TextTaskPostViewModel, TextTask>();
             CreateMap<VideoTaskPostViewModel, VideoTask>();
-
-
+            CreateMap<BlogViewModel, Blog>();
+            CreateMap<NewsViewModel, News>();
             CreateMap<EventPostViewModel, Event>();
         }
     }

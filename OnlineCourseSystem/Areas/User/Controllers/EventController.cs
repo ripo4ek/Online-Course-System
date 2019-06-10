@@ -17,14 +17,14 @@ namespace OnlineCourseSystem.Areas.User.Controllers
     [Area("User")]
     public class EventController : Controller
     {
-        private readonly ICourseData _courseData;
+        private readonly IEventData _eventData;
         private readonly IMapper _mapper;
         private readonly IHostingEnvironment _env;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public EventController(ICourseData courseData, IMapper mapper, IHostingEnvironment env, UserManager<ApplicationUser> userManager)
+        public EventController(IEventData eventData, IMapper mapper, IHostingEnvironment env, UserManager<ApplicationUser> userManager)
         {
-            _courseData = courseData;
+            _eventData = eventData;
             _mapper = mapper;
             _env = env;
             _userManager = userManager;
@@ -32,12 +32,13 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
         public IActionResult Index()
         {
-            var events = _courseData.GetEventsWithOrganizer();
+            var events = _eventData.GetEventsWithOrganizer();
             var model = new List<EventViewModel>();
             foreach (var e in events)
             {
                 model.Add(new EventViewModel
                 {
+                    Id = e.Id,
                     Author = string.IsNullOrEmpty(e.Organizer.Name)  || string.IsNullOrEmpty(e.Organizer.Surname)?
                             e.Organizer.UserName:$"{e.Organizer.Name} {e.Organizer.Surname}",
                     ImageUrl = e.ImageUrl,
@@ -59,7 +60,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             {
                 var eventForSave = _mapper.Map<EventPostViewModel, Event>(eventPostModel);
 
-                var eventFromDb = _courseData.AddEvent(eventForSave);
+                var eventFromDb = _eventData.AddEvent(eventForSave);
 
                 var fileExt = eventPostModel.Wallpaper.FileName.Split('.').Last();
 
@@ -77,21 +78,21 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 eventFromDb.Organizer = await _userManager.GetUserAsync(User);
 
                 eventFromDb.ImageLocalUrl = _env.WebRootPath + path;
-                _courseData.UpdateEvent(eventFromDb);
-                return RedirectToAction("Index","Event");
+                _eventData.UpdateEvent(eventFromDb);
+                return RedirectToAction("Index","Profile");
             }
             return View();
         }
         public IActionResult Delete(int id)
         {
-            var eventModel = _courseData.GetEvent(id);
-            _courseData.DeleteEvent(eventModel);
-            return RedirectToAction("Index","Event");
+            var eventModel = _eventData.GetEvent(id);
+            _eventData.DeleteEvent(eventModel);
+            return RedirectToAction("Index", "Event");
         }
         public IActionResult Details(int id)
         {
-            var modelEvent = _courseData.GetEvent(id);
-            return View(modelEvent);
+            var eventModel = _eventData.GetEvent(id);
+            return View(eventModel);
         }
     }
 }

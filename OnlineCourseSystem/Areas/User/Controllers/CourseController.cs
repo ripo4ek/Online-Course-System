@@ -50,7 +50,8 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         }
         public IActionResult Create()
         {
-            return View();
+            var categories = _courseData.GetCategories();
+            return View(categories);
         }
 
 
@@ -61,13 +62,13 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             var courseForSave = _mapper.Map<CoursePostViewModel,Course>(course);
 
 
-            courseForSave.Author = await _userManager.GetUserAsync(User);
+            courseForSave.Author = await _userManager.GetUserAsync(HttpContext.User);
             
             _courseData.AddCourse(courseForSave);
 
             var courseFromDb = _courseData.GetCourseByName(course.Name);
 
-            var category = _courseData.GetCategories().FirstOrDefault(c=>c.Name==course.Category.ToLower());
+            var category = _courseData.GetCategories().FirstOrDefault(c=>c.Name.ToLower()==course.Category.ToLower());
 
             if (category == null)
             {
@@ -80,8 +81,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             }
             _courseData.AddCategoryToCourse(category, courseFromDb);
             _courseData.UpdateCourse(courseFromDb);
-
-            return RedirectToAction("UploadContent", new{ id = courseFromDb.Id });
+            return Json(new { result = "Redirect", url = Url.Action("UploadContent", "Course", new { id = courseFromDb.Id }) });
         }
 
         private void _addCategoryToCourse(CoursePostViewModel coursePostViewModel, Course newCourse)
@@ -150,6 +150,15 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             
             return View(model);
             
+        }
+        public async Task<IActionResult> Delete(int id)
+        {
+
+
+            var course = _courseData.GetFullCourse(id);
+            _courseData.DeleteCourse(course);
+
+            return RedirectToAction("Index", "Profile");
         }
     }
 }

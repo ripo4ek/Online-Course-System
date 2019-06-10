@@ -13,38 +13,60 @@ namespace OnlineCourseSystem.Areas.User.Controllers
     [Area("User")]
     public class CourseStatisticController : Controller
     {
-        private readonly ICourseData _data;
+        private readonly ICourseStatisticData _statisticData;
+        private readonly IUserData _userData;
+        private readonly ITaskData _taskData;
 
-        public CourseStatisticController(ICourseData data)
+
+        public CourseStatisticController(ICourseStatisticData statisticData, IUserData userData, ITaskData taskData)
         {
-            _data = data;
+            _statisticData = statisticData;
+            _userData = userData;
+            _taskData = taskData;
         }
-        public IActionResult Quiz(string answer, string returnUrl, int taskId, int courseId)
+        public IActionResult Quiz(string answer, int taskId)
         {
-            var user = _data.GetUserWithStats(User.GetUserId());
-            var courseStatistic = user.CourseStatistics.First(s => s.CourseId == courseId);
-            var quizTaskStatistic = courseStatistic.QuizTaskStatistics.First(qs => qs.TaskId == taskId);
-            var task = _data.GetQuizTask(taskId);
-
-
-            quizTaskStatistic.IsComplete = true;
-            quizTaskStatistic.UserVariant = answer;
-            
-            foreach (var taskVariantOfAnswer in task.VariantOfAnswers)
+            var user = _userData.GetUserWithStats(User.GetUserId());     
+            var task = _taskData.GetQuizTask(taskId);
+            QuizTaskStatistic currentStat = null;
+            foreach (var stat in user.CourseStatistics)
             {
-                if (string.Equals(taskVariantOfAnswer.Text, answer, StringComparison.CurrentCultureIgnoreCase))
+                foreach (var statQuestionTaskStatistic in stat.QuizTaskStatistics)
                 {
-
-                    quizTaskStatistic.IsCorrect = true;
+                    if (statQuestionTaskStatistic.TaskId == taskId)
+                    {
+                        currentStat = statQuestionTaskStatistic;
+                        break;
+                    }
                 }
             }
-            _data.UpdateQuizTaskStatistic(quizTaskStatistic);
 
-            return Ok(new{rezult = quizTaskStatistic.IsComplete});
+
+
+            if (currentStat != null)
+            {
+                currentStat.IsComplete = true;
+                currentStat.CorrectAnswer = task.CorrectAnswer.Text;
+                currentStat.UserVariant = answer;
+                if (string.Equals(task.CorrectAnswer.Text, answer, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    currentStat.IsCorrect = true;
+                }
+                else
+                {
+                    currentStat.IsCorrect = false;
+                }
+                _statisticData.UpdateQuizTaskStatistic(currentStat);
+                return Ok(new { rezult = currentStat.IsCorrect });
+            }
+
+            return NotFound();
         }
         public IActionResult Question(string answer, int taskId)
         {
-            var user = _data.GetUserWithStats(User.GetUserId());
+            var user = _userData.GetUserWithStats(User.GetUserId());
+
+            var task = _taskData.GetQuestionTask(taskId);
 
             QuestionTaskStatistic currentStat = null;
 
@@ -64,12 +86,199 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             {
                 currentStat.IsComplete = true;
                 currentStat.UserAnswer = answer;
-                if (string.Equals(currentStat.UserAnswer, answer, StringComparison.CurrentCultureIgnoreCase))
+                currentStat.CorrectAnswer = task.CorrectAnswer;
+                if (string.Equals(task.CorrectAnswer, answer, StringComparison.CurrentCultureIgnoreCase))
                 {
                     currentStat.IsCorrect = true;
                 }
-                _data.UpdateQuestionTaskStatistic(currentStat);
+                _statisticData.UpdateQuestionTaskStatistic(currentStat);
                 return Ok(new { rezult = currentStat.IsCorrect });
+            }
+
+            return NotFound();
+
+
+        }
+
+        public IActionResult Text(int taskId)
+        {
+            var user = _userData.GetUserWithStats(User.GetUserId());
+
+            var task = _taskData.GetTextTask(taskId);
+
+            TextTaskStatistics currentStat = null;
+
+            foreach (var stat in user.CourseStatistics)
+            {
+                foreach (var textTaskStatistic in stat.TextTaskStatistics)
+                {
+                    if (textTaskStatistic.TaskId == taskId)
+                    {
+                        currentStat = textTaskStatistic;
+                        break;
+                    }
+                }
+            }
+
+            if (currentStat != null)
+            {
+                currentStat.IsComplete = true;
+
+                _statisticData.UpdateTextTaskStatistic(currentStat);
+                return Ok();
+            }
+
+            return NotFound();
+
+
+        }
+
+        public IActionResult Details(int courseId)
+        {
+            var user = _userData.GetUserWithStats(User.GetUserId());
+
+            var statistic = user.CourseStatistics.First(s=>s.CourseId == courseId);
+
+
+            return View(statistic);
+        }
+
+        public IActionResult SaveCurrentTime(int taskId, double time)
+        {
+            var user = _userData.GetUserWithStats(User.GetUserId());
+
+            var task = _taskData.GetVideoTask(taskId);
+
+            VideoTaskStatistic currentStat = null;
+
+            foreach (var stat in user.CourseStatistics)
+            {
+                foreach (var videoTaskStatistic in stat.VideoTaskStatistics)
+                {
+                    if (videoTaskStatistic.TaskId == taskId)
+                    {
+                        currentStat = videoTaskStatistic;
+                        break;
+                    }
+                }
+            }
+
+            if (currentStat != null)
+            {
+                currentStat.InProgress = true;
+                currentStat.CurrentTime = time;
+
+                _statisticData.UpdateVideoTaskStatistic(currentStat);
+                return Ok();
+            }
+
+            return NotFound();
+
+
+        }
+        public IActionResult Video(int taskId)
+        {
+            var user = _userData.GetUserWithStats(User.GetUserId());
+
+            var task = _taskData.GetVideoTask(taskId);
+
+            VideoTaskStatistic currentStat = null;
+
+            foreach (var stat in user.CourseStatistics)
+            {
+                foreach (var videoTaskStatistic in stat.VideoTaskStatistics)
+                {
+                    if (videoTaskStatistic.TaskId == taskId)
+                    {
+                        currentStat = videoTaskStatistic;
+                        break;
+                    }
+                }
+            }
+
+            if (currentStat != null)
+            {
+                currentStat.IsComplete = true;
+                _statisticData.UpdateVideoTaskStatistic(currentStat);
+                return Ok();
+            }
+
+            return NotFound();
+
+
+        }
+        public IActionResult CheckCompleteQuestion(int taskId)
+        {
+            var user = _userData.GetUserWithStats(User.GetUserId());
+            QuestionTaskStatistic currentStat = null;
+
+            foreach (var stat in user.CourseStatistics)
+            {
+                foreach (var statQuestionTaskStatistic in stat.QuestionTaskStatistics)
+                {
+                    if (statQuestionTaskStatistic.TaskId == taskId)
+                    {
+                        currentStat = statQuestionTaskStatistic;
+                        break;
+                    }
+                }
+            }
+
+            if (currentStat != null)
+            {
+                return Ok(new { isCompleted = currentStat.IsComplete});
+            }
+
+            return NotFound();
+
+
+        }
+        public IActionResult CheckCompleteVideo(int taskId)
+        {
+            var user = _userData.GetUserWithStats(User.GetUserId());
+            VideoTaskStatistic currentStat = null;
+
+            foreach (var stat in user.CourseStatistics)
+            {
+                foreach (var videoTaskStatistic in stat.VideoTaskStatistics)
+                {
+                    if (videoTaskStatistic.TaskId == taskId)
+                    {
+                        currentStat = videoTaskStatistic;
+                        break;
+                    }
+                }
+            }
+
+            if (currentStat != null)
+            {
+                return Ok(new { isCompleted = currentStat.IsComplete, currentTime = currentStat.CurrentTime});
+            }
+
+            return NotFound();
+
+
+        }
+        public IActionResult CheckCompleteQuiz(int taskId)
+        {
+            var user = _userData.GetUserWithStats(User.GetUserId());
+            QuizTaskStatistic currentStat = null;
+
+            foreach (var stat in user.CourseStatistics)
+            {
+                foreach (var quizTaskStatistic in stat.QuizTaskStatistics)
+                {
+                    if (quizTaskStatistic.TaskId == taskId)
+                    {
+                        currentStat = quizTaskStatistic;
+                        break;
+                    }
+                }
+            }
+
+            if (currentStat != null)
+            {
+                return Ok(new { isCompleted = currentStat.IsComplete });
             }
 
             return NotFound();

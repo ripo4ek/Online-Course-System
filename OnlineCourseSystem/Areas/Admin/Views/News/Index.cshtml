@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<OnlineCourseSystem.Domain.Model.News>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -7,8 +7,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="table-title">
-                List of users
+                List of news
+                <a asp-action="Create" asp-controller="News">Button</a>
             </div>
+            
             <table id="customers" class="table table-bordered table-hover table-custom">
                 <thead>
                     <tr>
@@ -19,16 +21,26 @@
                         <th>Delete</th>
                     </tr>
                 </thead>
-                
-                
+
+                @foreach (var newsModel in Model)
+                {
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Edit</td>
-                        <td>Delete</td>
+                        <td>@newsModel.Id</td>
+                        <td>@newsModel.Name</td>
+                        @if (newsModel.Author.Name == null || newsModel.Author.Surname == null)
+                        {
+                            <td>@newsModel.Author.UserName</td>
+                        }
+                        else
+                        {
+                            <td>@newsModel.Author.UserName (@newsModel.Author.Name @newsModel.Author.Surname)</td>
+                        }
+                        <td><a asp-action="Details" asp-controller="News" asp-route-id="@newsModel.Id">Details</a></td>
+                        <td><a asp-action="Delete" asp-controller="News" asp-route-id="@newsModel.Id">Delete</a></td>
                     </tr>
-                
+                }
+
+
 
             </table>
         </div>

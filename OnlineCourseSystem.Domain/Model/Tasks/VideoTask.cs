@@ -12,7 +12,9 @@ namespace OnlineCourseSystem.Domain.Model.Tasks
         /// <summary>
         /// Ссылка на видео
         /// </summary>
+        ///
         public string VideoUrl { get; set; }
         public string LocalVideoUrl { get; set; }
+
     }
 }

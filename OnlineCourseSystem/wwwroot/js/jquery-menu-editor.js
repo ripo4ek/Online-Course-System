@@ -1006,16 +1006,9 @@
 
         let itemEditing = $('.btnEdit')/*.closest('li')*/;
 
-        //console.log(itemEditing);
-
-        //var data = itemEditing.data();
-
-        //console.log(data);
-        //console.log(itemEditing.attr("data-duration"));
 
         $(this).children('li').each(function () {
             var li = $(this);
-            //console.log(li);
             let object = li.data();
             arr.push(object);
             var ch = li.children('ul,ol').sortableListsToJson();
@@ -1320,9 +1313,7 @@ function MenuEditor(idSelector, options) {
 
     /* PRIVATE METHODS */
     function editItem($item) {
-        console.log($item);
         var data = $item.data();
-        console.log(data);
         $.each(data, function (p, v) {
             $form.find("[name=" + p + "]").val(v);
         });
@@ -1544,10 +1535,6 @@ function MenuEditor(idSelector, options) {
 
 
      let obj = sortableListsToJson($("#myEditor"));
-
-        
-        
-        //console.log(obj);
         return JSON.stringify(obj);
     };
     /**
@@ -1575,7 +1562,6 @@ function sortableListsToJson(form) {
 	var arr = [];
 	form.children('li').each(function () {
 		var li = $(this);
-		//console.log(li);
 		let object = li.data();
 		arr.push(object);
         var ch = sortableListsToJson(li.children('ul,ol'));
