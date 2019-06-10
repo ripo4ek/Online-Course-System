@@ -36,6 +36,7 @@
          }
      }).
          done(function (res) {
+             console.log(res.rezult);
              $("#send-answer").prop("disabled", true); 
              if (res.rezult === true) {
                  $("#result").html(`<div class="question-paragraph"><p>Correct! Well Done</p></div>`);
