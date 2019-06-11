@@ -1,4 +1,4 @@
-﻿@model OnlineCourseSystem.Domain.Model.Tasks.CourseStatistic
+﻿ c@model OnlineCourseSystem.Domain.Model.Tasks.CourseStatistic
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
@@ -74,15 +74,15 @@
                                 <div class="my-courses-box-top">
                                     <div class="my-courses-box-info">
 
-                                        <div class="my-courses-box-title"><h4>@courseModel.Name</h4></div>
+                                        <div class="my-courses-box-title courses-box-statistic"><h4>@courseModel.Name</h4></div>
                                         <div class="my-courses-box-date">
                                             @if (courseModel.IsComplete)
                                                     {
-                                            <div class="courses-duration">Status: Complete</div>
+                                            <div class="courses-right">Status: Complete</div>
                                                     }
                                                     else
                                                     {
-                                            <div class="courses-duration">Status: In Progress</div>
+                                            <div class="courses-in-progress">Status: In Progress</div>
                                                     }
                                         </div>
                                     </div>
@@ -108,15 +108,15 @@
                                 <div class="my-courses-box-top">
                                     <div class="my-courses-box-info">
 
-                                        <div class="my-courses-box-title"><h4>@courseModel.Name</h4></div>
+                                        <div class="my-courses-box-title courses-box-statistic"><h4>@courseModel.Name</h4></div>
                                         <div class="my-courses-box-date">
                                             @if (courseModel.IsComplete)
                                                     {
-                                            <div class="courses-duration">Status: Complete</div>
+                                            <div class="courses-right">Status: Complete</div>
                                                     }
                                                     else
                                                     {
-                                            <div class="courses-duration">Status: In Progress</div>
+                                            <div class="courses-in-progress">Status: In Progress</div>
                                                     }
                                         </div>
                                     </div>
@@ -139,33 +139,41 @@
                             <div class="my-courses-box">
                                 <div class="my-courses-box-top">
                                     <div class="my-courses-box-info">
-
-                                        <div class="my-courses-box-title"><h4>@courseModel.Name</h4></div>
-                                        <div class="my-courses-box-date">
+                                        
+                                        <div class="my-courses-box-title courses-box-statistic"><h4>@courseModel.Name</h4></div>
+                                        <div class="my-courses-box-date flex-wrap">
                                             @if (courseModel.IsComplete)
-                                        {
-                                            <div class="courses-duration">Status: Complete</div>
-                                            <div class="my-courses-box-date">
-                                                @if (courseModel.IsCorrect)
-                                                        {
-                                                <div class="courses-duration">Result: Success</div>
-                                                        }
-                                                        else
-                                                        {
-                                                <div class="courses-duration">Result: Wrong</div>
-                                                        }
-                                                <div class="my-courses-box-title"><h4>Your variant: @courseModel.UserVariant</h4></div>
-                                                <div class="my-courses-box-title"><h4>Answer: @courseModel.CorrectAnswer</h4></div>
-                                            </div>
+                                            {
+
+                                            
+
+                                                <div class="my-courses-box-title"><h5>Your variant: @courseModel.UserVariant</h5></div>
+                                                <div class="my-courses-box-title"><h5>Answer: @courseModel.CorrectAnswer</h5></div>
+                                                <div class="my-answer-results">
+                                                    <div class="courses-right">Status: Complete</div>
+
+
+                                                    @if (courseModel.IsCorrect)
+                                                    {
+                                                        <div class="courses-right">Result: Success</div>
                                                     }
                                                     else
                                                     {
-                                            <div class="courses-duration">Status: In Progress</div>
-                                            <div class="my-courses-box-date">
-                                                <div class="courses-duration">Result: Not done yet</div>
-                                            </div>
+                                                        <div class="courses-wrong">Result: Wrong</div>
                                                     }
+                                                </div>
+                                                    
+                                            
+                                            }
+                                            else
+                                            {
+                                                <div class="courses-duration">Status: In Progress</div>
+                                                <div class="my-courses-box-date">
+                                                    <div class="courses-duration">Result: Not done yet</div>
+                                                </div>
+                                            }
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -182,39 +190,47 @@
                     <div class="container">
                         @foreach (var courseModel in Model.QuestionTaskStatistics)
                             {
-                        <d0iv class="my-courses-box">
-                            <div class="my-courses-box-top">
-                                <div class="my-courses-box-info">
+                        <div class="my-courses-box">
+                                <div class="my-courses-box-top">
+                                    <div class="my-courses-box-info">
+                                        
+                                        <div class="my-courses-box-title courses-box-statistic"><h4>@courseModel.Name</h4></div>
+                                        <div class="my-courses-box-date flex-wrap">
+                                            @if (courseModel.IsComplete)
+                                            {
 
-                                    <div class="my-courses-box-title"><h4>@courseModel.Name</h4></div>
-                                    <div class="my-courses-box-date">
-                                        @if (courseModel.IsComplete)
-                                        {
-                                        <div class="courses-duration">Status: Complete</div>
-                                        <div class="my-courses-box-date">
-                                            @if (courseModel.IsCorrect)
-                                                        {
-                                            <div class="courses-duration">Result: Success</div>
-                                                        }
-                                                        else
-                                                        {
-                                            <div class="courses-duration">Result: Wrong</div>
-                                                        }
-                                            <div class="my-courses-box-title"><h4>Your variant: @courseModel.UserAnswer</h4></div>
-                                            <div class="my-courses-box-title"><h4>Answer: @courseModel.CorrectAnswer</h4></div>
-                                        </div>
+                                            
+
+                                                <div class="my-courses-box-title"><h5>Your variant: @courseModel.UserAnswer</h5></div>
+                                                <div class="my-courses-box-title"><h5>Answer: @courseModel.CorrectAnswer</h5></div>
+                                                <div class="my-answer-results">
+                                                    <div class="courses-right">Status: Complete</div>
+
+
+                                                    @if (courseModel.IsCorrect)
+                                                    {
+                                                        <div class="courses-right">Result: Success</div>
                                                     }
                                                     else
                                                     {
-                                        <div class="courses-duration">Status: In Progress</div>
-                                        <div class="my-courses-box-date">
-                                            <div class="courses-duration">Result: Not done yet</div>
-                                        </div>
+                                                        <div class="courses-wrong">Result: Wrong</div>
                                                     }
+                                                </div>
+                                                    
+                                            
+                                            }
+                                            else
+                                            {
+                                                <div class="courses-duration">Status: In Progress</div>
+                                                <div class="my-courses-box-date">
+                                                    <div class="courses-duration">Result: Not done yet</div>
+                                                </div>
+                                            }
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
-                        </d0iv>
                             }
                     </div>
                 </section>
@@ -227,7 +243,7 @@
 
             </div>
         </div>
-
+        <button class="counter_form_button">Back to profile</button>
     </div>
 
 </section>

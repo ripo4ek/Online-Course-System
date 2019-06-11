@@ -8,8 +8,11 @@
         <div class="row">
             <div class="table-title">
                 List of news
-                <a asp-action="Create" asp-controller="News">Button</a>
             </div>
+                <div class="create-news-button"><form asp-action="Create" asp-controller="News" method="get">
+    <button class="button-add-news">Add news</button>
+</form></div>
+            
             
             <table id="customers" class="table table-bordered table-hover table-custom">
                 <thead>

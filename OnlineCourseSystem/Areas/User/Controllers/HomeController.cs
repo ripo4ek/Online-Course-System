@@ -101,7 +101,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                         firstElement.Author.UserName : $"{firstElement.Author.Name} {firstElement.Author.Surname}",
                     ImageUrl = firstElement.ImageUrl,
                     ReleaseTime = firstElement.ReleaseTime,
-                    TextPreview = StringFormatter.FormatForPreview(firstElement.Text),
+                    TextPreview = StringFormatter.FormatForBigNews(firstElement.Text),
                     Title = firstElement.Name,
                 };
             }

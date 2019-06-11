@@ -51,7 +51,7 @@ namespace OnlineCourseSystem
             {
                 // Password settings
                 options.Password.RequiredLength = 6;
-
+                options.Password.RequireNonAlphanumeric = false;
                 // Lockout settings
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
                 options.Lockout.MaxFailedAccessAttempts = 10;
@@ -65,7 +65,7 @@ namespace OnlineCourseSystem
             {
                 // Cookie settings
                
-               options.Cookie.HttpOnly = true;
+                options.Cookie.HttpOnly = true;
                 options.Cookie.Expiration = TimeSpan.FromDays(150);
                 options.LoginPath = "/User/Account/Login"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
                 options.LogoutPath = "/User/Account/Logout"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout

@@ -10,9 +10,13 @@
             </div>
             <div class="question-form">
                 <input name="taskId" id="taskId-@Model.Id" type="hidden" value="@Model.Id" />
-                <div id="result-@Model.Id"></div>
+
                 <textarea id="user-input-@Model.Id" class="question-area" placeholder="Enter your answer"></textarea>
-                <button id="send-answer-@Model.Id" class="counter_form_button question-button question-button-send">Send answer</button>
+                <div class="nav-buttons">
+                    <div id="result-@Model.Id"></div>
+                    <button id="send-answer-@Model.Id" class="counter_form_button question-button question-button-send button-disabled">Send answer</button>
+                </div>
+                
             </div>
 
             
@@ -38,7 +42,8 @@
                 
                 if (res.isCompleted === true) {
                     $("#send-answer-@Model.Id").prop("disabled", true); 
-                    $("#result-@Model.Id").html(`<div class="question-paragraph"><p>Correct! Well Done</p></div>`);
+                    $("#send-answer-@Model.Id").addClass("disabled");
+                    $("#result-@Model.Id").html(`<div class="courses-right"><p>Correct! Well Done</p></div>`);
                 }
             });
     });
@@ -53,10 +58,11 @@
             }).
             done(function (res) {
                 $("#send-answer-@Model.Id").prop("disabled", true); 
+                $("#send-answer-@Model.Id").addClass("disabled");
                 if (res.rezult === true) {
-                    $("#result-@Model.Id").html(`<div class="question-paragraph"><p>Correct! Well Done</p></div>`);
+                    $("#result-@Model.Id").html(`<div class="courses-right"><p>Correct! Well Done</p></div>`);
                 } else {
-                    $("#result-@Model.Id").html(`<div class="question-paragraph"><p>Unfortunately, You are wrong</p></div>`);
+                    $("#result-@Model.Id").html(`<div class="courses-wrong"><p>Unfortunately, You are wrong</p></div>`);
                 }
             });
     });

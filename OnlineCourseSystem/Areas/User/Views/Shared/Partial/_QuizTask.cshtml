@@ -3,23 +3,28 @@
 
 
 <div class="question-wrap">
-    <div>
-        <h2 class="quiz-title">@Model.Name</h2>
+
+    <div class="text-task">
+        <h2 class="question-title quiz-title">@Model.Name</h2>
     </div>
     
     <div class="form-quiz" name="quiz">
         <input id="taskId-quiz-@Model.Id" type="hidden" value="@Model.Id" />
-        <div id="result-quiz-@Model.Id"></div>
+
         <div class="question-paragraph">
             <p>@Model.Question</p>
         </div>
         @foreach (var variant in Model.VariantOfAnswers)
         {
-        <div class="quiz-option">
-            <input type="radio" name="variant" value="@variant.Text" />@variant.Text<br />
-        </div>
+            <div class="quiz-option quiz-option-correct quiz-option-disabled">
+                <input type="radio" name="variant" value="@variant.Text" />@variant.Text<br />
+            </div>
         }
-        <button id="send-answer-quiz-@Model.Id" class="counter_form_button question-button question-button-send">Send answer</button>
+    <div class="nav-buttons">
+        <div id="result-quiz-@Model.Id"></div>
+        <button id="send-answer-quiz-@Model.Id" class="counter_form_button question-button question-button-send button-disabled">Send answer</button>
+    </div>
+        
     </div>
 
     <div class="nav-buttons">
@@ -41,7 +46,8 @@
                 
                 if (res.isCompleted === true) {
                     $("#send-answer-quiz-@Model.Id").prop("disabled", true); 
-                    $("#result-quiz-@Model.Id").html(`<div class="question-paragraph"><p>Correct! Well Done</p></div>`);
+                    $("#send-answer-quiz-@Model.Id").addClass("disabled");
+                    $("#result-quiz-@Model.Id").html(`<div class="courses-right"><p>Correct! Well Done</p></div>`);
                 }
                 console.log($("#send-answer-quiz"));
             });
@@ -59,10 +65,11 @@
             }).
             done(function (res) {
                 $("#send-answer-@Model.Id").prop("disabled", true); 
+                $("#send-answer-quiz-@Model.Id").addClass("disabled");
                 if (res.rezult === true) {
-                    $("#result-quiz-@Model.Id").html(`<div class="question-paragraph"><p>Correct! Well Done</p></div>`);
+                    $("#result-quiz-@Model.Id").html(`<div class="courses-right"><p>Correct! Well Done</p></div>`);
                 } else {
-                    $("#result-quiz-@Model.Id").html(`<div class="question-paragraph"><p>Unfortunately, You are wrong</p></div>`);
+                    $("#result-quiz-@Model.Id").html(`<div class="courses-wrong"><p>Unfortunately, You are wrong</p></div>`);
                 }
             });
     });

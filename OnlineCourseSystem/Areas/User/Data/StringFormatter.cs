@@ -16,5 +16,14 @@ namespace OnlineCourseSystem.Areas.User.Data
 
             return str + "...";
         }
+        public static string FormatForBigNews(string str)
+        {
+            if (str.Length >= 150)
+            {
+                return str.Substring(0, 150) + "...";
+            }
+
+            return str + "...";
+        }
     }
 }
