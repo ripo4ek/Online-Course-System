@@ -714,10 +714,12 @@
     padding: 10px;
 }
 .my-courses-box-image {
+    display: flex;
     flex-basis: 25%;
     margin-right: 50px;
     height: 135px;
     overflow: hidden;
+    align-items: center;
 }
 .my-courses-box-image> img {
     width: 100%
@@ -768,7 +770,7 @@
     padding-left: 20px;
     padding-top: 19px;
     word-break: break-word;
-    width: 50%;
+    width: 45%;
 }
 
 .courses-duration:before {
@@ -1000,4 +1002,11 @@ input[type=submit] {
 }
 .enrolled-button:focus {
     outline: none;
+}
+.warning-text {
+    display: block;
+    font-size: 11px;
+}
+.upload-content {
+    display: block;
 }
