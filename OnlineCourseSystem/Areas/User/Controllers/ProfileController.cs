@@ -22,13 +22,15 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         private readonly UserManager<Domain.Model.ApplicationUser> _userManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly IUserData _userData;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ICourseData _data;
 
-        public ProfileController(UserManager<Domain.Model.ApplicationUser> userManager, RoleManager<Role> roleManager, ICourseData courseData ,IUserData userData)
+        public ProfileController(UserManager<Domain.Model.ApplicationUser> userManager, RoleManager<Role> roleManager, ICourseData courseData ,IUserData userData, SignInManager<Domain.Model.ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _userData = userData;
+            _signInManager = signInManager;
             _data = courseData;
         }
 
@@ -102,8 +104,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 });
             }
             var userWithRoles = _userData.GetUser(HttpContext.User.GetUserId());
-            var role = _roleManager.Roles.First(r => r.Name == Roles.CourseCreator);
-            var isCourseCreator = userWithRoles.UserRoles.Select(ur => ur.Role).Contains(role);
+
             var model = new ProfileViewModel
             {
                 Name = user.Name,
@@ -116,7 +117,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                 CoursesInTotal = user.CourseStatistics.Count,
                 HaveBlogs = user.Blogs.Count > 0,
                 HaveEvents = user.Events.Count > 0,
-                IsCourseCreator = isCourseCreator,
+                IsCourseCreator =  await _userManager.IsInRoleAsync(_userData.GetUser(HttpContext.User.GetUserId()),Roles.CourseCreator),
                 Blogs = blogEvents,
                 Events = ownEvents,
                 MyCourses = ownCourses,
@@ -146,19 +147,10 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         public async Task<IActionResult> BecomeCourseCreator()
         {
 
-            var user =  _userData.GetUser(HttpContext.User.GetUserId());
-            var role = _roleManager.Roles.First(r => r.Name == Roles.CourseCreator);
-            
+            var user = _userData.GetUser(HttpContext.User.GetUserId());
+            var rezult = await _userManager.AddToRoleAsync(user, Roles.CourseCreator);
 
-
-            user.UserRoles.Add(new ApplicationUserRole()
-            {
-                ApplicationUser = user,
-                Role = role
-            });
-            _userData.UpdateUser(user);
-
-
+            await _signInManager.SignInAsync(user, false);
             return RedirectToAction("Index", "Profile");
         }
 

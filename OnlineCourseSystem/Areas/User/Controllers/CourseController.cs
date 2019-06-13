@@ -50,6 +50,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             };
             return View(model);
         }
+        [Authorize(Roles = "CourseCreator")]
         public IActionResult Create()
         {
             var categories = _courseData.GetCategories();

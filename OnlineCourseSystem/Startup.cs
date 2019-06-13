@@ -43,6 +43,7 @@ namespace OnlineCourseSystem
             services.AddAutoMapper();
             services.AddIdentity<ApplicationUser, Role>(options => options.Stores.MaxLengthForKeys = 128)
                 .AddEntityFrameworkStores<OnlineCourseSystemContext>()
+                .AddRoles<Role>()
                 .AddDefaultTokenProviders();
 
 
