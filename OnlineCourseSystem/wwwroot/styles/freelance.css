@@ -344,14 +344,14 @@
 }
 .content-uploading {
     height: 30vh;
-    display: block;
-    background: url(/images/picture-download-icon.svg) center no-repeat;
+    display: flex;
     background-size: contain;
     width: 45vh;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
     border-radius: 5px;
     background-color: #384158;
     overflow: hidden;
+    align-items: center;
 }
 .content-uploading>img {
     width: 100%;
@@ -757,7 +757,14 @@
     padding: 0px 11px;
     font-size: 12px;
     height: 28px;
-    width: 70%;
+    width: 100%;
+}
+.courses-buttons-block {
+    display: flex;
+    flex-wrap: wrap;
+}
+.courses-buttons-block>form {
+    flex-basis: 100%;
 }
 .my-courses-manager {
     margin-bottom: 60px;
@@ -765,12 +772,14 @@
 }
 .courses-duration {
     padding-left: 30px;
+    flex-basis: 14%;
 }
 .courses-status {
+    margin-right: 40px;
     padding-left: 20px;
     padding-top: 19px;
     word-break: break-word;
-    width: 45%;
+    width: 52%;
 }
 
 .courses-duration:before {
