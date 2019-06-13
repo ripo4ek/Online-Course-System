@@ -1,0 +1,18 @@
+.menu-turbo-button {
+    transform: translate(25px,94px);
+    background-color: transparent;
+    color: #000;
+    border: none;
+    width: 70px;
+    height: 70px;
+    font-size: 20px;
+}
+
+    .menu-turbo-button:focus {
+        outline: none;
+    }
+
+    .menu-turbo-button:hover {
+        cursor: pointer;
+        color: #14bdee;
+    }

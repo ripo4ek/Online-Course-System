@@ -1,0 +1,173 @@
+.upload-content {
+    display: block;
+}
+.upload-video {
+    margin-top: 130px;
+    margin-bottom: 35px;
+    padding: 20px;
+}
+
+.content-uploading {
+    height: 30vh;
+    display: flex;
+    background-size: contain;
+    width: 45vh;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    background-color: #384158;
+    overflow: hidden;
+    align-items: center;
+}
+
+    .content-uploading > img {
+        width: 100%;
+    }
+
+.uploading-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 100px 0px 100px;
+    border: 1px solid #fff;
+    border-radius: .25rem;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+}
+
+.form-group-upload {
+    text-align: center;
+    width: 100%;
+}
+
+    .form-group-upload > label {
+        margin-bottom: 30px;
+    }
+
+.add-course-picture {
+    display: flex;
+}
+
+.input-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-group-video {
+    margin-top: 60px;
+    margin-bottom: 27px;
+}
+
+.add-video > form {
+    margin-bottom: 10px;
+}
+
+.file-input {
+    width: 200px;
+    height: 40px;
+    overflow: hidden;
+    position: relative;
+}
+
+.file-input-wrapper > input[type="file"] {
+    font-size: 45px;
+    position: absolute;
+    top: 0;
+    width: 200px;
+    height: 40px;
+    right: 0;
+    opacity: 0;
+}
+
+
+.file-input-wrapper > .btn-file-input {
+    display: inline-block;
+    width: 200px;
+    height: 40px;
+    border-radius: 4px;
+    margin-top: 0px;
+}
+
+.file-input-wrapper:hover > .btn-file-input {
+    background-color: #aaa;
+}
+
+.add-video > form {
+    display: flex;
+}
+
+.add-video-box {
+    width: 100%;
+    padding: 14px;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    margin-bottom: 30px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+    justify-content: space-between;
+}
+
+.counter_form_button-video {
+    margin-top: 0;
+}
+
+.add-video-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 35%;
+    margin-right: 20px;
+}
+
+.add-video {
+    width: 100%;
+    align-items: center;
+}
+
+.upload-button {
+    margin-top: 20px;
+    color: #fff
+}
+
+.file-upload-box {
+    display: flex;
+    align-items: center;
+}
+
+.progress-style {
+    width: 200px;
+    padding-left: 13px;
+    margin-right: 5px;
+}
+
+.delete-video {
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.delete-video {
+    margin-right: 30px;
+}
+
+.upload-bar-plate {
+    position: relative;
+    width: 33%;
+    background: #f0f0f0;
+    margin-right: 10px;
+}
+
+.upload-bar {
+    background: blue;
+    height: 20px;
+    width: 0;
+}
+
+.upload {
+    width: 97px;
+    margin-top: 0px;
+    height: 20px;
+    border-radius: 3px;
+    margin-right: 20px;
+    font-size: 12px;
+}

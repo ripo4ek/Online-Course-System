@@ -1,0 +1,24 @@
+.text-body {
+    margin: auto;
+    min-height: 507px;
+}
+
+.task-container-video {
+    width: 100%;
+}
+
+.text-task>p {
+    margin: auto;
+    text-align: justify;
+    width: 75%;
+    text-indent: 5%;
+    word-break: break-word;
+}
+
+.question-title {
+    text-indent: 0;
+}
+
+.question-subtitle {
+    margin-bottom: 15px;
+}

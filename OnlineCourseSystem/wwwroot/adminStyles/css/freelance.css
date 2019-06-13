@@ -110,27 +110,6 @@
 }
 
 /*text task*/
-.text-body {
-    margin: auto;
-    min-height: 507px;
-}
-.task-container-video {
-    width: 100%;
-}
-.text-task {
-    margin: auto;
-    text-align: justify;
-    width: 75%;
-    text-indent: 5%;
-}
-
-.question-title {
-    text-indent: 0;
-}
-
-.question-subtitle {
-    margin-bottom: 15px;
-}
 
 
 /*стили для create*/
@@ -494,95 +473,6 @@
 }
 
 /*create-event*/
-.create-section {
-    margin: auto;
-    margin-top: 135px;
-    margin-bottom: 50px;
-    width: 100%;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
-    border-radius: .25rem;
-    padding: 50px;
-}
-.create-name-title {
-    text-align: center;
-    margin-bottom: 30px;
-}
-.create-box {
-    margin-bottom: 25px;
-    font-size: 16px;
-}
-.create-name-subtitle {
-    color: #384158;
-    margin-bottom: 15px;
-}
-.create-box > form > input {
-    border: solid 1px #e5e5e5;
-    border-radius: 3px;
-    padding-left: 10px;
-    outline: none;
-}
-.create-date-text {
-    font-size: 16px;
-    font-weight: 400;
-    color: #384158;
-    margin-bottom: 15px;
-}
-.create-address-title {
-    color: #384158;
-}
-.create-text-input {
-    width: 100%;
-    height: 200px;
-    border: solid 1px #e5e5e5;
-    border-radius: 3px;
-    padding-left: 20px;
-    outline: none;
-    margin-left: auto;
-    padding-top: 15px;
-}
-.create-section-input {
-    width: 45%;
-}
-.create-text {
-    
-}
-.create-box > input {
-    border: solid 1px #e5e5e5;
-    border-radius: 3px;
-    padding-left: 10px;
-    outline: none;
-    width: 30%;
-}
-.create-button {
-    display: block;
-    margin-top: 30px;
-    margin-left: auto;
-}
-.file-input-wrapper {
-    width: 200px;
-}
-.file-input-wrapper > input[type="file"] {
-    font-size: 45px;
-    position: absolute;
-    left: 0;
-    width: 200px;
-    height: 40px;
-    opacity: 0;
-    text-indent: -999px;
-}
-.file-input-wrapper > input[type=file]:hover {
-    cursor: pointer;
-}
-.file-input-wrapper:hover > .upload {
-    box-shadow: 0px 5px 40px rgba(29,34,47,0.45);
-}
-.rdy-bar {
-    background: green;
-    width: 100%;
-}
-.upload-hided {
-    display: none;
-}
 /*Profile styles*/
 .my-info {
     color: white;

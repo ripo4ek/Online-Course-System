@@ -2071,3 +2071,17 @@ section
     font-weight: 800;
     font-size: 13px;
 }
+.counter_form_sent {
+    background: rgba(0, 0, 0, .6);
+}
+
+.counter_form_title_sent {
+    color: white;
+    font-weight: 700;
+    font-size: 36px;
+}
+
+.counter_form_content_sent > h4 {
+    color: white;
+    font-size: 14px;
+}

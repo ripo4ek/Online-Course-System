@@ -1,56 +1,6 @@
-.table-custom {
-    border: 2px solid white;
-    border-radius: 5px;
-    border-collapse: separate;
-}
-th {
-    background-color: rgba(78, 115, 223, .95);
-    color: #fff;
-}
-td {
-    background-color: rgba(78, 115, 223, .60);
-    color: #fff;
-}
-.table-title {
-    margin: auto;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    font-weight: 400;
-    font-size: 25px;
-    width: 100%;
-    text-align: center;
-}
-.button-add-news {
-    margin-top: 20px;
-    margin-bottom: 35px;
-    width: 169px;
-    height: 46px;
-    color: #FFFFFF;
-    font-size: 14px;
-    font-weight: 500;
-    text-transform: uppercase;
-    border: none;
-    outline: none;
-    background: #4aad0e;
-    border-radius: 4px;
-}
-.create-news-button {
-    display: block;
-    margin-left: auto;
-    margin-right: 63px;
-}
-.upload-done > img {
-    width: 25px;
-    height: 25px;
-    margin-left: 30px;
-}
-.upload-done {
-    display: flex;
-    align-items: center;
-}
 .create-section {
     margin: auto;
-    margin-top: 135px;
+    margin-top: 180px;
     margin-bottom: 50px;
     width: 100%;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
@@ -125,6 +75,7 @@ td {
 
 .file-input-wrapper {
     width: 200px;
+    height: 40px;
 }
 
     .file-input-wrapper > input[type="file"] {
@@ -143,6 +94,17 @@ td {
 
     .file-input-wrapper:hover > .upload {
         box-shadow: 0px 5px 40px rgba(29,34,47,0.45);
+    }
+
+.input-mini {
+    height: 22px;
+    width: 97px;
+    margin-right: 20px;
+}
+
+    .input-mini > input[type="file"] {
+        height: 20px;
+        width: 97px;
     }
 
 .rdy-bar {

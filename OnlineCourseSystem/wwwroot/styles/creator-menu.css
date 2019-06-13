@@ -1,0 +1,166 @@
+.creator-menu {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+}
+
+.creator-menu-title {
+    background-color: #14bdee;
+    color: #FFFFFF;
+    padding-top: 0.75rem;
+    padding-right: 1.25rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1.25rem;
+    border-top: 1px solid transparent;
+    border-radius: 1px;
+}
+
+.drop-menu {
+    flex-basis: 44%;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-shadow: 0px 1px 10px rgba(29,34,47,0.1);
+}
+
+.menu-input {
+    min-height: 70px;
+}
+
+.input-duration {
+    width: 35px;
+    margin-top: 1px;
+}
+
+.course-info-column {
+    flex-basis: 55%;
+    box-shadow: 0px 1px 10px rgba(29,34,47,0.1);
+}
+
+.course-info-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.menu-options {
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+}
+
+    .menu-options > label {
+        flex-basis: 100%;
+    }
+
+.menu-options-categories {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    flex-basis: 100%;
+    vertical-align: middle;
+}
+
+    .menu-options-categories > span {
+        padding-top: 7px;
+    }
+
+.menu-options-category {
+    flex-basis: 47%;
+}
+
+.menu-options-full-raw {
+    width: 100%;
+}
+
+.creator-menu-title-buttons {
+    padding: 0;
+}
+
+.courses-menu-button {
+    background-color: #14bdee;
+    width: 20%;
+    margin-top: 0;
+    color: white;
+    border: none;
+    height: 45px;
+    box-shadow: 1px;
+}
+
+    .courses-menu-button:hover {
+        cursor: pointer;
+        background-color: #1a9ec4;
+    }
+
+    .courses-menu-button:focus {
+        outline: none;
+    }
+
+.courses-menu-button-chosen {
+    background-color: #1a9ec4;
+}
+
+.course-info-o {
+    margin-top: 0;
+}
+
+.button-add-var {
+    margin-left: 15px;
+}
+
+.quiz-add-var {
+    display: flex;
+}
+
+.delete-var {
+    display: inline;
+    font-size: 16px;
+    font-weight: 800;
+    color: red;
+}
+
+    .delete-var:hover {
+        cursor: pointer;
+    }
+
+.quiz-variants {
+    list-style-type: disc;
+}
+
+.additional-var {
+    margin-left: 25px;
+    background-color: rgba(226, 8, 8, 0.30);
+    border-radius: 5px;
+    margin-bottom: 1px;
+}
+
+.wrong-var {
+    background-color: rgba(75, 172, 0, 0.30);
+}
+
+.home-create {
+    height: 200px;
+}
+
+.form_name {
+    margin: auto;
+}
+
+.title-create {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.title-create > span {
+    color: #14bdee;
+}
+
+.quiz_options {
+    list-style-type: none;
+}
+
+.quiz_options > li {
+    margin-left: 0;
+    padding-left: 0;
+    }

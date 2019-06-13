@@ -1,0 +1,39 @@
+.courses-right {
+    color: #61cf1e;
+    font-size: 15px;
+    font-weight: 400;
+    margin-right: 30px;
+}
+
+    .courses-right > p {
+        color: #61cf1e;
+        font-size: 15px;
+        font-weight: 400;
+        margin-right: 30px;
+    }
+
+.courses-in-progress {
+    color: #e67617;
+    font-size: 15px;
+    font-weight: 400;
+    margin-right: 30px;
+}
+
+.courses-wrong {
+    color: #e53131;
+    font-size: 15px;
+    font-weight: 400;
+    margin-right: 30px;
+}
+
+    .courses-wrong > p {
+        color: #e53131;
+        font-size: 15px;
+        font-weight: 400;
+        margin-right: 30px;
+    }
+.my-answer-results {
+    display: flex;
+    flex-basis: 100%;
+    margin-top: 15px;
+}

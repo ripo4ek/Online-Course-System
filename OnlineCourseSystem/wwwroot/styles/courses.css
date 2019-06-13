@@ -1708,4 +1708,11 @@ section
     flex-direction: column;
     align-items: center;
 }
+.fa-row {
+    padding-left: 30px;
+}
+
+.course_image > img {
+    width: 100%;
+}
 

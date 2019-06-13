@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
 /******************************
@@ -1618,4 +1618,7 @@ section
 .cr_list li a:hover
 {
 	color: #14bdee;
+}
+.elements_accordions_about {
+    margin-top: 0px;
 }

@@ -1,0 +1,26 @@
+.warning-text {
+    display: block;
+    font-size: 11px;
+}
+.access-denied {
+    margin-top: 175px;
+    text-align: center;
+    padding-bottom: 200px;
+}
+
+.access-warning > img {
+    width: 40%;
+}
+
+.access-warning > h2 {
+    margin-bottom: 30px;
+}
+
+.access-warning > a {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 700;
+    text-shadow: rgba(0,0,0,.01) 0 0 1px;
+    color: #384158;
+    text-decoration: none;
+    font-size: 24px;
+}
