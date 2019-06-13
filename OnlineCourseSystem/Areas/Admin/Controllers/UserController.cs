@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
@@ -11,6 +12,7 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
+    [Authorize(Roles = "Administrator")]
     public class UserController : Controller
     {
         private readonly IUserData _userData;

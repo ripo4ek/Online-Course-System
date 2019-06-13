@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineCourseSystem.Areas.User.Data;
@@ -15,6 +16,7 @@ using OnlineCourseSystem.Domain.Model.Tasks;
 namespace OnlineCourseSystem.Areas.User.Controllers
 {
     [Area("User")]
+    [Authorize]
     public class ProfileController : Controller
     {
         private readonly UserManager<Domain.Model.ApplicationUser> _userManager;
@@ -29,6 +31,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             _userData = userData;
             _data = courseData;
         }
+
         public async Task<IActionResult> Index()
         {
             var userId = User.GetUserId();

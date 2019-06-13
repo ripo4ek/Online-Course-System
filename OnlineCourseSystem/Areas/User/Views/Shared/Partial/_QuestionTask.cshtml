@@ -42,14 +42,15 @@
                 
                 if (res.isCompleted === true) {
                     $("#send-answer-@Model.Id").prop("disabled", true); 
+                    $("#user-input-@Model.Id").prop("disabled", true); 
                     $("#send-answer-@Model.Id").addClass("button-disabled");
                     $("#user-input-@Model.Id").val(res.userVar);
                     if (res.isCorrect) {
                         $("#result-@Model.Id").html(`<div class="courses-right"><p>Correct! Well Done</p></div>`);
-                        //$("#user-input-@Model.Id").addClass("...");
+                        $("#user-input-@Model.Id").addClass("question-area-correct");
                     } else {
-                        $("#result-@Model.Id").html(`<div class="courses-wrong"><p>Unfortunatly, You are wrong Correct anser:${res.answer}</p></div>`);
-                        //$("#user-input-@Model.Id").addClass("...");
+                        $("#result-@Model.Id").html(`<div class="courses-wrong"><p>Unfortunatly, You are wrong. Correct anser: ${res.answer}</p></div>`);
+                        $("#user-input-@Model.Id").addClass("question-area-wrong");
 
                     }
 
@@ -67,12 +68,15 @@
                 }
             }).
             done(function (res) {
+                $("#user-input-@Model.Id").prop("disabled", true); 
                 $("#send-answer-@Model.Id").prop("disabled", true); 
                 $("#send-answer-@Model.Id").addClass("button-disabled");
                 if (res.rezult === true) {
                     $("#result-@Model.Id").html(`<div class="courses-right"><p>Correct! Well Done</p></div>`);
+                    $("#user-input-@Model.Id").addClass("question-area-correct");
                 } else {
-                    $("#result-@Model.Id").html(`<div class="courses-wrong"><p>Unfortunately, You are wrong</p></div>`);
+                    $("#result-@Model.Id").html(`<div class="courses-wrong"><p>Unfortunately, You are wrong. Correct anser: ${res.answer}</p></div>`);
+                    $("#user-input-@Model.Id").addClass("question-area-wrong");
                 }
             });
     });
