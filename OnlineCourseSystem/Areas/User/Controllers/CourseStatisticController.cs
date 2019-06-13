@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineCourseSystem.Areas.User.Data;
 using OnlineCourseSystem.Areas.User.Infrastucture.Interfaces;
@@ -11,6 +12,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 {
 
     [Area("User")]
+    [Authorize]
     public class CourseStatisticController : Controller
     {
         private readonly ICourseStatisticData _statisticData;

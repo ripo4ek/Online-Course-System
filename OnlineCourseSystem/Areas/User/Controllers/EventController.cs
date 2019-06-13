@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +50,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             }
             return View(model);
         }
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -83,6 +85,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             }
             return View();
         }
+        [Authorize]
         public IActionResult Delete(int id)
         {
             var eventModel = _eventData.GetEvent(id);

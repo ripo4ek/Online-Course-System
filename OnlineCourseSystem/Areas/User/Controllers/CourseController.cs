@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -16,6 +17,7 @@ using OnlineCourseSystem.Domain.Model.Tasks;
 namespace OnlineCourseSystem.Areas.User.Controllers
 {
     [Area("User")]
+    [Authorize]
     public class CourseController : Controller
     {
 
@@ -30,7 +32,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
             _userManager = userManager;
         }
 
-
+        [AllowAnonymous]
         public IActionResult Index(string category, string inputString)
         {
             //var courses = _courseData.GetFullCourse(new CourseFilter()
@@ -56,6 +58,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "CourseCreator")]
         public async Task<IActionResult> Create([FromBody] CoursePostViewModel course)
         {
 
