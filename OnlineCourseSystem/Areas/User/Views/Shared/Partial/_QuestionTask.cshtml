@@ -14,7 +14,7 @@
                 <textarea id="user-input-@Model.Id" class="question-area" placeholder="Enter your answer"></textarea>
                 <div class="nav-buttons">
                     <div id="result-@Model.Id"></div>
-                    <button id="send-answer-@Model.Id" class="counter_form_button question-button question-button-send button-disabled">Send answer</button>
+                    <button id="send-answer-@Model.Id" class="counter_form_button question-button question-button-send ">Send answer</button>
                 </div>
                 
             </div>
@@ -42,8 +42,18 @@
                 
                 if (res.isCompleted === true) {
                     $("#send-answer-@Model.Id").prop("disabled", true); 
-                    $("#send-answer-@Model.Id").addClass("disabled");
-                    $("#result-@Model.Id").html(`<div class="courses-right"><p>Correct! Well Done</p></div>`);
+                    $("#send-answer-@Model.Id").addClass("button-disabled");
+                    $("#user-input-@Model.Id").val(res.userVar);
+                    if (res.isCorrect) {
+                        $("#result-@Model.Id").html(`<div class="courses-right"><p>Correct! Well Done</p></div>`);
+                        //$("#user-input-@Model.Id").addClass("...");
+                    } else {
+                        $("#result-@Model.Id").html(`<div class="courses-wrong"><p>Unfortunatly, You are wrong Correct anser:${res.answer}</p></div>`);
+                        //$("#user-input-@Model.Id").addClass("...");
+
+                    }
+
+
                 }
             });
     });
@@ -58,7 +68,7 @@
             }).
             done(function (res) {
                 $("#send-answer-@Model.Id").prop("disabled", true); 
-                $("#send-answer-@Model.Id").addClass("disabled");
+                $("#send-answer-@Model.Id").addClass("button-disabled");
                 if (res.rezult === true) {
                     $("#result-@Model.Id").html(`<div class="courses-right"><p>Correct! Well Done</p></div>`);
                 } else {

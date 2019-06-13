@@ -60,7 +60,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 
         public Domain.Model.ApplicationUser GetUser(string id)
         {
-            return _context.Users.First(c => c.Id == id);
+            return _context.Users.Include(u=>u.UserRoles).First(c => c.Id == id);
         }
 
         public IEnumerable<Domain.Model.ApplicationUser> GetUsersByRole(string role)

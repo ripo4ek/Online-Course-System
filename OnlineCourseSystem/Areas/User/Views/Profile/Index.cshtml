@@ -122,6 +122,8 @@
                                             <div class="courses-status">Status: @courseModel. hours</div>
                                             <form asp-action="Course" asp-controller="Study" asp-route-id="@courseModel.Id">
                                                 <button class="home_search_button my-courses-box-button my-courses-box-button-materials">Go to course materials</button>
+                                            </form>
+                                            <form asp-action="Details" asp-controller="CourseStatistic" asp-route-courseId="@courseModel.Id">
                                                 <button class="home_search_button my-courses-box-button my-courses-box-button-materials">View statistic</button>
                                             </form>
                                         </div>

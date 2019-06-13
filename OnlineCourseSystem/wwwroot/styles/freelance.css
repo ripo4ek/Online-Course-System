@@ -983,6 +983,9 @@ input[type=submit] {
 .quiz-option-correct {
     background-color: rgba(97, 207, 30, .4);
 }
+.quiz-option-wrong {
+    background-color: rgba(255, 0, 30, .4);
+}
 .quiz-option-disabled {
     background-color: rgba(165, 165, 165, .4);
 }

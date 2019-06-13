@@ -57,7 +57,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                     currentStat.IsCorrect = false;
                 }
                 _statisticData.UpdateQuizTaskStatistic(currentStat);
-                return Ok(new { rezult = currentStat.IsCorrect });
+                return Ok(new { isCompleted = currentStat.IsComplete, rezult = currentStat.IsCorrect, answer = currentStat.CorrectAnswer, userAnswer = currentStat.UserVariant });
             }
 
             return NotFound();
@@ -92,7 +92,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
                     currentStat.IsCorrect = true;
                 }
                 _statisticData.UpdateQuestionTaskStatistic(currentStat);
-                return Ok(new { rezult = currentStat.IsCorrect });
+                return Ok(new { rezult = currentStat.IsCorrect, isCorrect = currentStat.IsCorrect, answer = currentStat.CorrectAnswer, userVar =currentStat.UserAnswer });
             }
 
             return NotFound();
@@ -226,7 +226,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
             if (currentStat != null)
             {
-                return Ok(new { isCompleted = currentStat.IsComplete});
+                return Ok(new { isCompleted = currentStat.IsComplete , isCorrect = currentStat.IsCorrect, answer = currentStat.CorrectAnswer, userVar = currentStat.UserAnswer });
             }
 
             return NotFound();
@@ -278,7 +278,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
 
             if (currentStat != null)
             {
-                return Ok(new { isCompleted = currentStat.IsComplete });
+                return Ok(new { isCompleted = currentStat.IsComplete, isCorect = currentStat.CorrectAnswer==currentStat.UserVariant, answer = currentStat.CorrectAnswer, userAnswer = currentStat.UserVariant });
             }
 
             return NotFound();
