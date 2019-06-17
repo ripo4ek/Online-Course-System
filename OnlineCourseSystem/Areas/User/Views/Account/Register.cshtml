@@ -5,6 +5,11 @@
     Layout = "_LayoutMain";
 }
 
+@section Links {
+    <link rel="stylesheet" type="text/css" href="~/styles/login-form.css">
+}
+
+
 <section id="form">
     <!--form-->
     <div class="row">
@@ -15,7 +20,7 @@
                 <form asp-action="Register" asp-antiforgery="true">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <label for="UserName">
-                      Username
+                        Username
                     </label>
                     <input id="UserName" class="login-form-input" asp-for="UserName" placeholder="@nameof(Model.UserName)" />
                     <label for="Password">

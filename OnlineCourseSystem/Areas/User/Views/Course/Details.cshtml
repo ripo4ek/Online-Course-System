@@ -5,28 +5,15 @@
     Layout = "_LayoutMain";
 }
 
+@section Links{
+    <link href="~/plugins/colorbox/colorbox.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/styles/courses.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/course.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/course_responsive.css">
+}
 
 
 <!-- Home -->
-
-<div class="home">
-    <div class="breadcrumbs_container">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="breadcrumbs">
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="courses.html">Courses</a></li>
-                            <li>Course Details</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Course -->
 
 <div class="course">
@@ -62,8 +49,9 @@
                         <!-- Course Info Item -->
                         <div class="course_info_item">
                             <div class="course_info_title">Main Category:</div>
-                            <div class="course_info_text"> <a href="#">@Model.Course.Categories.Take(1).First().Category.Name</a>
-                        </div>
+                            <div class="course_info_text">
+                                <a href="#">@Model.Course.Categories.Take(1).First().Category.Name</a>
+                            </div>
                         </div>
 
                     </div>
@@ -89,14 +77,14 @@
                                     </div>
                                     <div class="tab_panel_section">
                                         <div class="tab_panel_subtitle">Requirements</div>
-                                        
-                                            <div class="tab_panel_text">
-                                                <p>
-                                                    @Model.Course.RequirementKnowledge
-                                                </p>
-                                                
-                                            </div> 
-                                        
+
+                                        <div class="tab_panel_text">
+                                            <p>
+                                                @Model.Course.RequirementKnowledge
+                                            </p>
+
+                                        </div>
+
                                     </div>
                                     <div class="tab_panel_section">
                                         <div class="tab_panel_subtitle">What is the target audience?</div>
@@ -161,7 +149,7 @@
                                         <ul class="dropdowns">
                                             @foreach (var sec in Model.Course.Sections)
                                             {
-                                                
+
                                                 <li class="has_children">
                                                     <div class="dropdown_item">
                                                         <div class="dropdown_item_title">@sec.Name</div>
@@ -220,79 +208,79 @@
                         }
 
                     </div>
-                        <!-- Feature -->
-                        <div class="sidebar_section">
-                            <div class="sidebar_section_title">Course Feature</div>
-                            <div class="sidebar_feature">
-                                <!-- Features -->
-                                <div class="feature_list">
-                                    <!-- Feature -->
-                                    <div class="d-flex flex-row align-items-center justify-content-start">
-                                        <div class="feature_title"><i class="fa fa-clock-o" aria-hidden="true"></i><span class="fa-row">Duration:</span></div>
-                                        <div class="feature_text position-value-fixer ml-auto">@(Model.Course.DurationInHours)</div>
-                                    </div>
-
-                                    <!-- Feature -->
-                                    <div class="d-flex flex-row align-items-center justify-content-start">
-                                        <div class="feature_title"><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="fa-row">Lectures:</span></div>
-                                        <div class="feature_text position-value-fixer ml-auto">@Model.Course.TextTaskCount</div>
-                                    </div>
-
-                                    <!-- Feature -->
-                                    <div class="d-flex flex-row align-items-center justify-content-start">
-                                        <div class="feature_title"><i class="fa fa-question-circle-o" aria-hidden="true"></i><span class="fa-row">Questions:</span></div>
-                                        <div class="feature_text position-value-fixer ml-auto">@Model.Course.QuizTaskCount</div>
-                                    </div>
-
-                                    <!-- Feature -->
-                                    <div class="d-flex flex-row align-items-center justify-content-start">
-                                        <div class="feature_title"><i class="fa fa-list-alt" aria-hidden="true"></i><span class="fa-row">Videos:</span></div>
-                                        <div class="feature_text position-value-fixer ml-auto">@Model.Course.VideoTaskCount</div>
-                                    </div>
-                                    <!-- Feature -->
+                    <!-- Feature -->
+                    <div class="sidebar_section">
+                        <div class="sidebar_section_title">Course Feature</div>
+                        <div class="sidebar_feature">
+                            <!-- Features -->
+                            <div class="feature_list">
+                                <!-- Feature -->
+                                <div class="d-flex flex-row align-items-center justify-content-start">
+                                    <div class="feature_title"><i class="fa fa-clock-o" aria-hidden="true"></i><span class="fa-row">Duration:</span></div>
+                                    <div class="feature_text position-value-fixer ml-auto">@(Model.Course.DurationInHours)</div>
                                 </div>
+
+                                <!-- Feature -->
+                                <div class="d-flex flex-row align-items-center justify-content-start">
+                                    <div class="feature_title"><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="fa-row">Lectures:</span></div>
+                                    <div class="feature_text position-value-fixer ml-auto">@Model.Course.TextTaskCount</div>
+                                </div>
+
+                                <!-- Feature -->
+                                <div class="d-flex flex-row align-items-center justify-content-start">
+                                    <div class="feature_title"><i class="fa fa-question-circle-o" aria-hidden="true"></i><span class="fa-row">Questions:</span></div>
+                                    <div class="feature_text position-value-fixer ml-auto">@Model.Course.QuizTaskCount</div>
+                                </div>
+
+                                <!-- Feature -->
+                                <div class="d-flex flex-row align-items-center justify-content-start">
+                                    <div class="feature_title"><i class="fa fa-list-alt" aria-hidden="true"></i><span class="fa-row">Videos:</span></div>
+                                    <div class="feature_text position-value-fixer ml-auto">@Model.Course.VideoTaskCount</div>
+                                </div>
+                                <!-- Feature -->
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Feature -->
-                        <div class="sidebar_section">
-                            <div class="sidebar_section_title">Teacher</div>
-                            <div class="sidebar_teacher">
-                                <div class="teacher_title_container d-flex flex-row align-items-top justify-content-start">
-                                    <div class="teacher_image"><img src="@Model.Course.Author.PhotoUrl" alt=""></div>
-                                    <div class="teacher_title">
-                                        @if (Model.Course.Author.Name == null || Model.Course.Author.Surname == null)
-                                        {
-                                            <div class="teacher_name"><h5>@Model.Course.Author.UserName</h5></div>
-                                        }
-                                        else
-                                        {
-                                            <div class="teacher_name">@Model.Course.Author.Name @Model.Course.Author.Surname</div>
-                                        }
-                                        <div class="teacher_position">@Model.Course.Author.Status</div>
-                                        <div class="teacher_meta_container">
-                                            <!-- Teacher Rating -->
-                                            <div class="teacher_meta d-flex flex-row align-items-center justify-content-start">
-                                                <div class="teacher_meta_title">Avg Rating:</div>
-                                                <div class="teacher_meta_text ml-auto"><span>5</span><i class="fa fa-star" aria-hidden="true"></i></div>
-                                            </div>
+                    <!-- Feature -->
+                    <div class="sidebar_section">
+                        <div class="sidebar_section_title">Teacher</div>
+                        <div class="sidebar_teacher">
+                            <div class="teacher_title_container d-flex flex-row align-items-top justify-content-start">
+                                <div class="teacher_image"><img src="@Model.Course.Author.PhotoUrl" alt=""></div>
+                                <div class="teacher_title">
+                                    @if (Model.Course.Author.Name == null || Model.Course.Author.Surname == null)
+                                    {
+                                        <div class="teacher_name"><h5>@Model.Course.Author.UserName</h5></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="teacher_name">@Model.Course.Author.Name @Model.Course.Author.Surname</div>
+                                    }
+                                    <div class="teacher_position">@Model.Course.Author.Status</div>
+                                    <div class="teacher_meta_container">
+                                        <!-- Teacher Rating -->
+                                        <div class="teacher_meta d-flex flex-row align-items-center justify-content-start">
+                                            <div class="teacher_meta_title">Avg Rating:</div>
+                                            <div class="teacher_meta_text ml-auto"><span>5</span><i class="fa fa-star" aria-hidden="true"></i></div>
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div class="teacher_info">
-                                    <p>@Model.Course.Author.Description</p>
-                                </div>
+                            </div>
+
+                            <div class="teacher_info">
+                                <p>@Model.Course.Author.Description</p>
                             </div>
                         </div>
-
-                        <!-- Latest Course -->
-                        <div class="sidebar_section">
-                            @await Component.InvokeAsync("LastCourses")
-                        </div>
-
                     </div>
+
+                    <!-- Latest Course -->
+                    <div class="sidebar_section">
+                        @await Component.InvokeAsync("LastCourses")
+                    </div>
+
                 </div>
+            </div>
         </div>
     </div>
 </div>
@@ -301,33 +289,37 @@
 
 
 
-<script>
 
-    /**
+
+
+
+@section Scripts{
+    <script>
+
+        /**
 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-/*
-var disqus_config = function () {
-this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-};
-*/
-    (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://wkila.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        /*
+        var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        */
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://wkila.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
 
-
-
-<script src="~/js/jquery-3.2.1.min.js"></script>
-<script src="~/styles/bootstrap4/popper.js"></script>
-<script src="~/styles/bootstrap4/bootstrap.min.js"></script>
-<script src="~/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-<script src="~/plugins/easing/easing.js"></script>
-<script src="~/plugins/parallax-js-master/parallax.min.js"></script>
-<script src="~/plugins/colorbox/jquery.colorbox-min.js"></script>
-<script src="~/js/course.js"></script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/styles/bootstrap4/popper.js"></script>
+    <script src="~/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="~/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="~/plugins/easing/easing.js"></script>
+    <script src="~/plugins/parallax-js-master/parallax.min.js"></script>
+    <script src="~/plugins/colorbox/jquery.colorbox-min.js"></script>
+    <script src="~/js/course.js"></script>
+}

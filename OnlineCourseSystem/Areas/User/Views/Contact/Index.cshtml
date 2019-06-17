@@ -3,26 +3,13 @@
     ViewData["Title"] = "Index";
     Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
 }
-<link rel="stylesheet" type="text/css" href="~/styles/contact.css">
-<link rel="stylesheet" type="text/css" href="~/styles/contact_responsive.css">
+@section Links {
+    <link rel="stylesheet" type="text/css" href="~/styles/contact.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/contact_responsive.css">
+}
+
 <!-- Home -->
 
-<div class="home">
-    <div class="breadcrumbs_container">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="breadcrumbs">
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li>Contact</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Contact -->
 
@@ -95,3 +82,15 @@
         </div>
     </div>
 </div>
+
+
+
+@section Scripts{
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/styles/bootstrap4/popper.js"></script>
+    <script src="/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="/plugins/easing/easing.js"></script>
+    <script src="/plugins/parallax-js-master/parallax.min.js"></script>
+    <script src="~/js/contact.js"></script>
+
+}

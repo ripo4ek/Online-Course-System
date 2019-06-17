@@ -1,3 +1,8 @@
+.course {
+    padding-top: 160px;
+    padding-bottom: 50px;
+}
+
 .creator-menu {
     width: 100%;
     background-color: white;
@@ -164,3 +169,23 @@
     margin-left: 0;
     padding-left: 0;
     }
+
+.counter_form_button {
+    width: 100%;
+    height: 46px;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    border: none;
+    outline: none;
+    background: #14bdee;
+    cursor: pointer;
+    margin-top: 30px;
+    box-shadow: 0px 5px 40px rgba(29,34,47,0.15);
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}

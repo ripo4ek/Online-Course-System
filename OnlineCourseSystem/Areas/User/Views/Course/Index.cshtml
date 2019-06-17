@@ -4,28 +4,14 @@
 }
 @model CourseViewModel
 
-
+@section Links{
+    <link href="~/plugins/colorbox/colorbox.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/styles/courses.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/courses_responsive.css">
+}
 
 
 <!-- Home -->
-
-<div class="home">
-    <div class="breadcrumbs_container">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="breadcrumbs">
-                        <ul>
-                            <li><a asp-action="Index" asp-controller="Home">Home</a></li>
-                            <li>Courses</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Courses -->
 
 <div class="courses">
@@ -37,7 +23,7 @@
                 <div class="courses_search_container">
                     <form id="courses_search_form" class="courses_search_form d-flex flex-row align-items-center justify-content-start">
                         <input type="search" id="user-input" class="courses_search_input" placeholder="Search Courses" required="required">
-                        <select id="courses_search_select" class="courses_search_select courses_search_input">                          
+                        <select id="courses_search_select" class="courses_search_select courses_search_input">
                             @foreach (var category in Model.Categories)
                             {
                                 <option>@category</option>
@@ -94,7 +80,7 @@
                     @await Component.InvokeAsync("Categories");
                     <!-- Latest Course -->
                     @await Component.InvokeAsync("LastCourses");
-                    
+
 
                     <!-- Banner -->
                     <div class="sidebar_section">
@@ -113,155 +99,168 @@
     </div>
 </div>
 
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="~/js/pagination.js"></script>
-<script type="text/javascript">
-    let container = $('#example');
+@section Scripts{
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/styles/bootstrap4/popper.js"></script>
+    <script src="/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="/plugins/easing/easing.js"></script>
+    <script src="/plugins/parallax-js-master/parallax.min.js"></script>
+    <script src="/plugins/colorbox/jquery.colorbox-min.js"></script>
+    <script src="/js/courses.js"></script>
+    
+    <script src="~/js/pagination.js"></script>
 
-    let paginationStartup = {
-        current: 1,
-        length: 6,
-        ajax: function (options, refresh, $target) {
+    <script type="text/javascript">
+        let container = $('#example');
 
-            $.ajax({
-                url: "/test/",
-                type: "GET",
-                data: {
-                    requestPage: options.current,
-                    Category: $("#categoryName").val(),
-                    UserSearchInput: $("#userInput").val(),
-                    pageLimit: $("#courses_show_select").val()
+        let paginationStartup = {
+            current: 1,
+            length: 6,
+            ajax: function (options, refresh, $target) {
 
-                }
-            }).done(function (res) {
-                console.log(res.data);
-                var html = informationHandler(res.data);
-                console.log(html);
+                $.ajax({
+                    url: "/test/",
+                    type: "GET",
+                    data: {
+                        requestPage: options.current,
+                        Category: $("#categoryName").val(),
+                        UserSearchInput: $("#userInput").val(),
+                        pageLimit: $("#courses_show_select").val()
 
-                $("#scrolList").html(html);
-                $("#pag-info").show();
-                $("#showing-courses").empty();
-                $("#showing-courses").html(`1-${res.pageLimit}`);
-                $("#courses-total-num").empty();
-                $("#courses-total-num").html(res.totalRecord);
+                    }
+                }).done(function (res) {
+                    console.log(res.data);
+                    var html = informationHandler(res.data);
+                    console.log(html);
 
-                refresh({
-                    total: res.totalRecord,
-                    length: res.pageLimit
+                    $("#scrolList").html(html);
+                    $("#pag-info").show();
+                    $("#showing-courses").empty();
+                    $("#showing-courses").html(`1-${res.pageLimit}`);
+                    $("#courses-total-num").empty();
+                    $("#courses-total-num").html(res.totalRecord);
+
+                    refresh({
+                        total: res.totalRecord,
+                        length: res.pageLimit
+                    });
+                }).fail(function () {
+                    $("#pag-info").hide();
+                    $("#scrolList").html(`<div class="sidebar_section_title">По вашему запросу ничего не найдено</div>`);
                 });
-            }).fail(function () {
-                $("#pag-info").hide();
-                $("#scrolList").html(`<div class="sidebar_section_title">По вашему запросу ничего не найдено</div>`);
-            });
-        }
-    };
+            }
+        };
 
-    let paginationConf = {
-        current: 1,
-        length: 6,
-        ajax: function (options, refresh, $target) {
+        let paginationConf = {
+            current: 1,
+            length: 6,
+            ajax: function (options, refresh, $target) {
 
-            $.ajax({
-                url: "/test/",
-                type: "GET",
-                data: {
-                    requestPage: options.current,
-                    Category: GetCategory(),
-                    UserSearchInput: GetInput(),
-                    pageLimit: $("#courses_show_select").val()
+                $.ajax({
+                    url: "/test/",
+                    type: "GET",
+                    data: {
+                        requestPage: options.current,
+                        Category: GetCategory(),
+                        UserSearchInput: GetInput(),
+                        pageLimit: $("#courses_show_select").val()
 
-                }
-            }).done(function (res) {
-                console.log(res.data);
-                var html = informationHandler(res.data);
-                console.log(html);
+                    }
+                }).done(function (res) {
+                    console.log(res.data);
+                    var html = informationHandler(res.data);
+                    console.log(html);
 
-                $("#scrolList").html(html);
-                $("#pag-info").show();
-                $("#showing-courses").empty();
-                $("#showing-courses").html(`1-${res.pageLimit}`);
-                $("#courses-total-num").empty();
-                $("#courses-total-num").html(res.totalRecord);
+                    $("#scrolList").html(html);
+                    $("#pag-info").show();
+                    $("#showing-courses").empty();
+                    $("#showing-courses").html(`1-${res.pageLimit}`);
+                    $("#courses-total-num").empty();
+                    $("#courses-total-num").html(res.totalRecord);
 
-                refresh({
-                    total: res.totalRecord,
-                    length: res.pageLimit
+                    refresh({
+                        total: res.totalRecord,
+                        length: res.pageLimit
+                    });
+                }).fail(function () {
+                    $("#pag-info").hide();
+                    $("#scrolList").html(`<div class="sidebar_section_title">По вашему запросу ничего не найдено</div>`);
                 });
-            }).fail(function () {
-                $("#pag-info").hide();
-                $("#scrolList").html(`<div class="sidebar_section_title">По вашему запросу ничего не найдено</div>`);
-            });
+            }
+        };
+
+        container.pagination(paginationStartup);
+
+        $('#search-button').bind('click', function () {
+            $("#scrolList").empty();
+            container.pagination(paginationConf);
+        });
+
+        $(document).ready(function () {
+
+        });
+
+        $("#courses_show_select").change(function () {
+            $("#scrolList").empty();
+            container.pagination(paginationConf);
+        });
+
+
+
+
+
+
+
+        function GetCategory() {
+            return $("#courses_search_select").val();
         }
-    };
-
-    container.pagination(paginationStartup);
-
-    $('#search-button').bind('click', function () {
-        $("#scrolList").empty();
-        container.pagination(paginationConf);
-    });
-
-    $(document).ready(function () {
-
-    });
-
-    $("#courses_show_select").change(function () {
-        $("#scrolList").empty();
-        container.pagination(paginationConf);
-    });
-
-
-
-
-
-
-
-    function GetCategory() {
-        return $("#courses_search_select").val();
-    }
-    function GetInput() {
-        return $("#user-input").val();
-    }
-
-    function LengthUserSelect() {
-        return $("#courses_show_select").text();
-    }
-
-
-    function informationHandler(data) {
-        let html = '';
-        for (let obj in data) {
-            html += setterTagsForInfo(data[obj]);
+        function GetInput() {
+            return $("#user-input").val();
         }
-        return html;
-    }
-    function setterTagsForInfo(object) {
-        return `
-                            <div class="col-lg-6 course_col">
-                                <div class="course">
-                                    <div class="course_image"><img src="${object.imageUrl}" alt=""></div>
-                                    <div class="course_body">
-                                        <h3 class="course_title"><a href="/User/Course/Details?id=${object.id}">${object.name}</a></h3>
-                                            <div class="course_teacher">${object.author}</div>
-                                            <div class="course_text">
-                                                <p>${object.description}</p>
+
+        function LengthUserSelect() {
+            return $("#courses_show_select").text();
+        }
+
+
+        function informationHandler(data) {
+            let html = '';
+            for (let obj in data) {
+                html += setterTagsForInfo(data[obj]);
+            }
+            return html;
+        }
+        function setterTagsForInfo(object) {
+            return `
+                                <div class="col-lg-6 course_col">
+                                    <div class="course">
+                                        <div class="course_image"><img src="${object.imageUrl}" alt=""></div>
+                                        <div class="course_body">
+                                            <h3 class="course_title"><a href="/User/Course/Details?id=${object.id}">${object.name}</a></h3>
+                                                <div class="course_teacher">${object.author}</div>
+                                                <div class="course_text">
+                                                    <p>${object.description}</p>
+                                                </div>
+                                            </div>
+                                            <div class="course_footer">
+                                                <div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
+                                                    <div class="course_info">
+                                                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                                        <span>${object.studentCount} Student</span>
+                                                    </div>
+                                                    <div class="course_info">
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <span>${object.userRaiting} Ratings</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="course_footer">
-                                            <div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
-                                                <div class="course_info">
-                                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                                                    <span>${object.studentCount} Student</span>
-                                                </div>
-                                                <div class="course_info">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <span>${object.userRaiting} Ratings</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>`
+                                    </div>`
         }
-</script>
+    </script>
+}
+
 
 

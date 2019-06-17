@@ -4,34 +4,37 @@
     Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
 }
 
-    <div class="container">
-        <div class="create-wrap">
-            <form asp-action="Create"  asp-controller="Blog" enctype="multipart/form-data" method="post">
-                <div class="create-section">
-                    <h3 class="create-name-title">Create your blog</h3>
-                    <div class="create-box">
-                        <div class="create-name-subtitle">Your blog title:</div>
-                        <input class="create-section-input" type="text" id="Name" name="Name" value="" />
-                    </div>
-                    <div class="create-box">
-                        <div class="create-name-subtitle">Upload main image:</div>
-                        <div class="file-input-wrapper">
-                            <button class="btn-file-input counter_form_button upload-button">Choose a picture</button>
-                            <input type="file" id="Wallpaper" class="create-section-input" name="Wallpaper" />
-                        </div>
-                        <small class="warning-text">Recommended size of picture is 16:9</small>
-
-                    </div>
-                    <div class="create-text">
-                        <textarea id="Text" name="Text" class="create-text-input" placeholder="Enter your thoughts here"></textarea>
-                    </div>
-                    <button class="home_search_button create-button">Create</button>
+@section Links {
+    <link rel="stylesheet" type="text/css" href="~/styles/create-event.css">
+}
+<div class="container">
+    <div class="create-wrap">
+        <form asp-action="Create" asp-controller="Blog" enctype="multipart/form-data" method="post">
+            <div class="create-section">
+                <h3 class="create-name-title">Create your blog</h3>
+                <div class="create-box">
+                    <div class="create-name-subtitle">Your blog title:</div>
+                    <input class="create-section-input" type="text" id="Name" name="Name" value="" />
                 </div>
-            </form>
-        </div>
+                <div class="create-box">
+                    <div class="create-name-subtitle">Upload main image:</div>
+                    <div class="file-input-wrapper">
+                        <button class="btn-file-input counter_form_button upload-button">Choose a picture</button>
+                        <input type="file" id="Wallpaper" class="create-section-input" name="Wallpaper" />
+                    </div>
+                    <small class="warning-text">Recommended size of picture is 16:9</small>
 
-
-
-
+                </div>
+                <div class="create-text">
+                    <textarea id="Text" name="Text" class="create-text-input" placeholder="Enter your thoughts here"></textarea>
+                </div>
+                <button class="home_search_button create-button">Create</button>
+            </div>
+        </form>
     </div>
+
+
+
+
+</div>
 

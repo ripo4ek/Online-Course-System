@@ -3,16 +3,20 @@
     ViewData["Title"] = "AccessDenied";
     Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
 }
-    <section class="access-denied">
-        <div class="container">
-            <div class="access-warning">
-                <img src="~/images/warning.svg" alt="Alternate Text" />
-                <h2>Access Denied!</h2>
-                <a href="#"><< BACK</a>
-            </div>
-            
+@section Links {
+    <link rel="stylesheet" type="text/css" href="~/styles/access-warning.css">
+
+}
+<section class="access-denied">
+    <div class="container">
+        <div class="access-warning">
+            <img src="~/images/warning.svg" alt="Alternate Text" />
+            <h2>Access Denied!</h2>
+            <a href="#"><< BACK</a>
         </div>
-    </section>
-    
+
+    </div>
+</section>
+
 
 

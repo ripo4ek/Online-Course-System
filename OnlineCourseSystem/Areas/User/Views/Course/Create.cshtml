@@ -3,27 +3,13 @@
     ViewData["Title"] = "Create";
     Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
 }
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
-<link rel="stylesheet" href="~/styles/bootstrap-iconpicker.min.css">
 
+@section Links {
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
+    <link rel="stylesheet" href="~/styles/bootstrap-iconpicker.min.css">
+    <link rel="stylesheet" href="~/styles/creator-menu.css">
+}
 
-<div class="home home-create">
-    <div class="breadcrumbs_container">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="breadcrumbs">
-                        <ul>
-                            <li><a asp-action="Index" asp-controller="Home">Home</a></li>
-                            <li><a asp-action="Index" asp-controller="Profile">Profile</a></li>
-                            <li>Course Create</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
@@ -126,23 +112,23 @@
                 </div>
             </div>
         </div>
-            <button id="save-course" class="counter_form_button">Next step</button>
+        <button id="save-course" class="counter_form_button">Next step</button>
     </div>
 
 </div>
 
 
 
+@section Scripts{
+
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="~/js/fontawesome5-3-1.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-iconpicker.min.js"></script>
+    <script type="text/javascript" src="~/js/jquery-menu-editor.js"></script>
 
 
-<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
-<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="~/js/fontawesome5-3-1.min.js"></script>
-<script type="text/javascript" src="~/js/bootstrap-iconpicker.min.js"></script>
-<script type="text/javascript" src="~/js/jquery-menu-editor.js"></script>
-
-
-<script>
+    <script>
 
 
 
@@ -204,17 +190,17 @@
                 });
                 if (sec.hasOwnProperty("children") && sec.children.length > 0) {
                     let topics = sec.children;
-                    
+
                     for (var topic in topics) {
                         let lastIndexOfSection = course.Sections.length - 1;
                         let t = topics[topic];
                         if (course.Sections[lastIndexOfSection].Topics === undefined)
-                            course.Sections[lastIndexOfSection].Topics = [];                   
+                            course.Sections[lastIndexOfSection].Topics = [];
                         course.Sections[lastIndexOfSection].Topics.push({
                             //Id: topic,
                             //SectionId: section,
                             Name: t.title,
-                            Description: t.desc                      
+                            Description: t.desc
                         });
                         //НЕ УБИВАЙТЕ Я JS ПЛОХО ЗНАЛ К ЭТОМУ МОМЕНТУ
                         if (t.hasOwnProperty("children") && t.children.length > 0) {
@@ -227,7 +213,7 @@
                                 if (tk.type === 'questionTask') {
                                     if (course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuestionTasks === undefined)
                                         course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuestionTasks = [];
-                                    
+
                                     course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuestionTasks.push({
                                         //Id: task,
                                         //TopicId: topic,
@@ -416,9 +402,9 @@
 
             if (selector === "question") {
                 $('#task-container').addClass('task-question');
-                $('#task-container').html(getQuestionTask);           
+                $('#task-container').html(getQuestionTask);
             }
-                
+
             if (selector === "quiz") {
                 $('#task-container').addClass('task-quiz');
                 $('#task-container').html(getQuizTask);
@@ -430,17 +416,17 @@
                     for (var variant of clArr)
                         $('#quiz-var').append(`<li class="additional-var">${variant} <div class="delete-var">&times;</div></li>`);
             }
-                
+
             if (selector === "text") {
                 $('#task-container').addClass('task-text');
                 $('#task-container').html(getTextTask);
             }
-                
+
             if (selector === "video") {
                 $('#task-container').addClass('task-video');
                 $('#task-container').html(getVideoTask);
             }
-                
+
         });
     });
 
@@ -542,7 +528,7 @@
 
                                             <input type="hidden" name="type" value="course" class="item-menu">
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Text">                                               
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Text">
                                             </div>
                                         </div>
                                         <div class="form-group menu-options">
@@ -577,7 +563,7 @@
                                         <div class="form-group menu-options-full-raw">
                                             <label for="title">Target audience</label>
                                             <textarea name="target" class="item-menu form-control menu-input" placeholder="Enter target audience of your course"></textarea>
-                                        </div>                                    
+                                        </div>
 
                         `);
         }
@@ -701,7 +687,7 @@
         $('#frmEdit').addClass("active-task");
         editor.setForm($('#frmEdit'));
     });
-    
+
 
 
     function clearClasses() {
@@ -717,7 +703,12 @@
         $('#task-container').removeClass("task-text");
     }
 
-</script>
+    </script>
+
+
+}
+
+
 
 
 

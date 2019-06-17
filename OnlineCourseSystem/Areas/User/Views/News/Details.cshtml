@@ -1,11 +1,12 @@
-﻿@model  OnlineCourseSystem.Domain.Model.News
+﻿@model OnlineCourseSystem.Domain.Model.News
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
 }
-
-<link rel="stylesheet" type="text/css" href="~/styles/blog_single.css">
-<link rel="stylesheet" type="text/css" href="~/styles/blog_single_responsive.css">
+@section Links {
+    <link rel="stylesheet" type="text/css" href="~/styles/blog_single.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/blog_single_responsive.css">
+}
 <div class="home">
     <div class="breadcrumbs_container">
         <div class="container">
@@ -37,19 +38,19 @@
                     <div class="blog_meta">
                         <ul>
                             <li>News on @Model.ReleaseTime</li>
-                            @if (Model.Author.Name == null || Model.Author.Surname == null )
+                            @if (Model.Author.Name == null || Model.Author.Surname == null)
                             {
-                            <li>By @Model.Author.UserName</li>
+                                <li>By @Model.Author.UserName</li>
                             }
                             else
                             {
-                            <li>By @Model.Author.Name @Model.Author.Surname</li>
+                                <li>By @Model.Author.Name @Model.Author.Surname</li>
                             }
                         </ul>
                     </div>
                     @if (Model.ImageUrl != null)
                     {
-                    <div class="blog_image"><img src="@Model.ImageUrl" alt=""></div>
+                        <div class="blog_image"><img src="@Model.ImageUrl" alt=""></div>
                     }
                     <p>@Model.Text</p>
                 </div>

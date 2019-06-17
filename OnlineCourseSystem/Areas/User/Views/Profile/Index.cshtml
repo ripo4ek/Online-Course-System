@@ -3,7 +3,9 @@
     ViewData["Title"] = "Profile";
     Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
 }
-
+@section Links {
+    <link rel="stylesheet" type="text/css" href="/styles/profile-menu.css">
+}
 <section class="my-info">
     <div class="container">
         <div class="my-info-content">
@@ -24,7 +26,7 @@
                         </h1>
                     }
                 </div>
-                
+
                 <div class="my-info-courses">
                     <div class="my-info-course">
                         @Model.CoursesComplete courses <br />
@@ -36,7 +38,7 @@
                     </div>
                 </div>
                 <div class="my-courses-create-buttons">
-                    
+
                     @if (Model.IsCourseCreator)
                     {
                         <form asp-action="Create" asp-controller="Course" method="get">
@@ -45,12 +47,12 @@
                     }
                     else
                     {
-                        
-                        
-                            <form asp-action="BecomeCourseCreator" asp-controller="Profile">
-                                <button class="home_search_button creator-button creator-button-xl">Become course creator</button>|
-                            </form>
-                        
+
+
+                        <form asp-action="BecomeCourseCreator" asp-controller="Profile">
+                            <button class="home_search_button creator-button creator-button-xl">Become course creator</button>|
+                        </form>
+
                     }
                     <form asp-action="Create" asp-controller="Event" method="get">
                         <button class="home_search_button creator-button">Plan event</button>|
@@ -79,8 +81,8 @@
                 <div class="tab active">Course subscriptions</div>
                 @if (Model.IsCourseCreator)
                 {
-                   <div class="tab">My courses</div>
-                } 
+                    <div class="tab">My courses</div>
+                }
                 @if (Model.HaveEvents)
                 {
                     <div class="tab">My events</div>
@@ -89,7 +91,7 @@
                 {
                     <div class="tab">My Blogs</div>
                 }
-                
+
             </div>
             <div class="tab_panels">
 
@@ -109,37 +111,37 @@
                                 </div>
                             </div>
                             @foreach (var courseModel in Model.Courses)
-        {
-                            <div class="my-courses-box">
-                                <div class="my-courses-box-top">
-                                    <div class="my-courses-box-image">
-                                        <img src="@courseModel.ImageUrl" alt="Alternate Text" />
-                                    </div>
-                                    <div class="my-courses-box-info">
-                                        <div class="my-courses-box-title"><h4>@courseModel.Name</h4></div>
-                                        <div class="my-courses-box-date">
-                                            <div class="courses-duration">@courseModel.DurationInHours hours</div>
-                                            <div class="courses-status">Status: @courseModel. hours</div>
-                                            <div class="courses-buttons-block">
-                                                <form asp-action="Course" asp-controller="Study" asp-route-id="@courseModel.Id">
-                                                    <button class="home_search_button my-courses-box-button my-courses-box-button-materials">Go to course materials</button>
-                                                </form>
-                                                <form asp-action="Details" asp-controller="CourseStatistic" asp-route-courseId="@courseModel.Id">
-                                                    <button class="home_search_button my-courses-box-button my-courses-box-button-materials">View statistic</button>
-                                                </form>
+                            {
+                                <div class="my-courses-box">
+                                    <div class="my-courses-box-top">
+                                        <div class="my-courses-box-image">
+                                            <img src="@courseModel.ImageUrl" alt="Alternate Text" />
+                                        </div>
+                                        <div class="my-courses-box-info">
+                                            <div class="my-courses-box-title"><h4>@courseModel.Name</h4></div>
+                                            <div class="my-courses-box-date">
+                                                <div class="courses-duration">@courseModel.DurationInHours hours</div>
+                                                <div class="courses-status">Status: @courseModel. hours</div>
+                                                <div class="courses-buttons-block">
+                                                    <form asp-action="Course" asp-controller="Study" asp-route-id="@courseModel.Id">
+                                                        <button class="home_search_button my-courses-box-button my-courses-box-button-materials">Go to course materials</button>
+                                                    </form>
+                                                    <form asp-action="Details" asp-controller="CourseStatistic" asp-route-courseId="@courseModel.Id">
+                                                        <button class="home_search_button my-courses-box-button my-courses-box-button-materials">View statistic</button>
+                                                    </form>
+                                                </div>
+
                                             </div>
-                                            
                                         </div>
                                     </div>
-                                </div>
-                                <div class="my-courses-box-bottom">
-                                    <div class="professor-avatar">
-                                        <img src="@courseModel.AuthorImageUrl" alt="Alternate Text" />
+                                    <div class="my-courses-box-bottom">
+                                        <div class="professor-avatar">
+                                            <img src="@courseModel.AuthorImageUrl" alt="Alternate Text" />
+                                        </div>
+                                        <div class="professor-name"><h5>@courseModel.Author</h5></div>
                                     </div>
-                                    <div class="professor-name"><h5>@courseModel.Author</h5></div>
                                 </div>
-                            </div>
-        }
+                            }
 
                         </div>
                     </section>
@@ -161,38 +163,38 @@
                                 </div>
                                 @foreach (var courseModel in Model.MyCourses)
                                 {
-                            <div class="my-courses-box">
-                                <div class="my-courses-box-top flex-wrap">
-                                    <div class="my-courses-box-second my-courses-box-second-title">
-                                        <div><h3>@courseModel.Name</h3></div>
-                                    </div>
-                                    <div class="my-courses-box-second">
-                                        <div><h4> Raiting: @courseModel.Raiting of 5 </h4></div>
-                                    </div>
-                                    <div class="my-courses-box-second">
-                                        <div><h4> Subscribers : @courseModel.Subscribers </h4></div>
-                                    </div>
+                                    <div class="my-courses-box">
+                                        <div class="my-courses-box-top flex-wrap">
+                                            <div class="my-courses-box-second my-courses-box-second-title">
+                                                <div><h3>@courseModel.Name</h3></div>
+                                            </div>
+                                            <div class="my-courses-box-second">
+                                                <div><h4> Raiting: @courseModel.Raiting of 5 </h4></div>
+                                            </div>
+                                            <div class="my-courses-box-second">
+                                                <div><h4> Subscribers : @courseModel.Subscribers </h4></div>
+                                            </div>
 
 
-                                </div>
-                                <div class="my-courses-box-bottom">
-                                    <div class="my-courses-box-second">
-                                        <div><h4><a asp-action="Details" asp-controller="Course" asp-route-id="@courseModel.Id">Details</a></h4></div>
-                                    </div>
-                                    <div class="my-courses-box-second">
-                                        <div><h4><a asp-action="Delete" asp-controller="Course" asp-route-id="@courseModel.Id">Delete</a></h4></div>
-                                    </div>
-                                </div>
+                                        </div>
+                                        <div class="my-courses-box-bottom">
+                                            <div class="my-courses-box-second">
+                                                <div><h4><a asp-action="Details" asp-controller="Course" asp-route-id="@courseModel.Id">Details</a></h4></div>
+                                            </div>
+                                            <div class="my-courses-box-second">
+                                                <div><h4><a asp-action="Delete" asp-controller="Course" asp-route-id="@courseModel.Id">Delete</a></h4></div>
+                                            </div>
+                                        </div>
 
-                            </div>
+                                    </div>
                                 }
 
                             </div>
                         </section>
                     </div>
-                } 
+                }
                 <!-- Curriculum -->
-                
+
                 @if (Model.HaveEvents)
                 {
                     <div class="tab_panel tab_panel_2">
@@ -209,28 +211,28 @@
                                 </div>
                                 @foreach (var eventModel in Model.Events)
                                 {
-                            <div class="my-courses-box">
-                                <div class="my-courses-box-top">
-                                    <div class="my-courses-box-info">
-                                        <div><h3>@eventModel.Title</h3></div>
+                                    <div class="my-courses-box">
+                                        <div class="my-courses-box-top">
+                                            <div class="my-courses-box-info">
+                                                <div><h3>@eventModel.Title</h3></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="my-courses-box-bottom">
+                                            <div class="my-courses-box-info">
+                                                <div><h4><a asp-action="Details" asp-controller="Event" asp-route-id="@eventModel.Id">Details</a></h4></div>
+                                            </div>
+                                            <div class="my-courses-box-info">
+                                                <div><h4><a asp-action="Delete" asp-controller="Event" asp-route-id="@eventModel.Id">Delete</a></h4></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    
-                                </div>
-                                <div class="my-courses-box-bottom">
-                                    <div class="my-courses-box-info">
-                                        <div><h4><a asp-action="Details" asp-controller="Event" asp-route-id="@eventModel.Id">Details</a></h4></div>
-                                    </div>
-                                    <div class="my-courses-box-info">
-                                        <div><h4><a asp-action="Delete" asp-controller="Event" asp-route-id="@eventModel.Id">Delete</a></h4></div>
-                                    </div>
-                                </div>
-                            </div>
                                 }
 
                             </div>
                         </section>
                     </div>
-                                }
+                }
                 @if (Model.HaveBlogs)
                 {
                     <div class="tab_panel tab_panel_2">
@@ -247,22 +249,22 @@
                                 </div>
                                 @foreach (var eventModel in Model.Blogs)
                                 {
-                            <div class="my-courses-box">
-                                <div class="my-courses-box-top">
-                                    <div class="my-courses-box-info">
-                                        <div><h3>@eventModel.Title</h3></div>
+                                    <div class="my-courses-box">
+                                        <div class="my-courses-box-top">
+                                            <div class="my-courses-box-info">
+                                                <div><h3>@eventModel.Title</h3></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="my-courses-box-bottom">
+                                            <div class="my-courses-box-info">
+                                                <div><h4><a asp-action="Details" asp-controller="Blog" asp-route-id="@eventModel.Id">Details</a></h4></div>
+                                            </div>
+                                            <div class="my-courses-box-info">
+                                                <div><h4><a asp-action="Delete" asp-controller="Blog" asp-route-id="@eventModel.Id">Delete</a></h4></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    
-                                </div>
-                                <div class="my-courses-box-bottom">
-                                    <div class="my-courses-box-info">
-                                        <div><h4><a asp-action="Details" asp-controller="Blog" asp-route-id="@eventModel.Id">Details</a></h4></div>
-                                    </div>
-                                    <div class="my-courses-box-info">
-                                        <div><h4><a asp-action="Delete" asp-controller="Blog" asp-route-id="@eventModel.Id">Delete</a></h4></div>
-                                    </div>
-                                </div>
-                            </div>
                                 }
 
                             </div>
@@ -283,6 +285,10 @@
 
 
 
+@section Scripts{
 
-<script src="~/js/jquery-3.2.1.min.js"></script>
-<script src="~/js/course.js"></script>
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/js/course.js"></script>
+
+
+}

@@ -3,36 +3,40 @@
     ViewData["Title"] = "UploadContent";
     Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
 }
+@section Links {
+    <link rel="stylesheet" href="~/styles/upload-content.css">
+    <link rel="stylesheet" href="~/styles/creator-menu.css">
 
-    <div class="container">
-        <div class="upload-video">
+}
+<div class="container">
+    <div class="upload-video">
 
-            <h3 class="section_title title-create">Step <span>2</span> of <span>2</span></h3>
+        <h3 class="section_title title-create">Step <span>2</span> of <span>2</span></h3>
 
-            <div class="uploading-box">
-                <h4>Choose a picture of your course</h4>
-                <div class="form-group form-group-upload">
+        <div class="uploading-box">
+            <h4>Choose a picture of your course</h4>
+            <div class="form-group form-group-upload">
 
-                    <div class="input-group input-group-video">
-                        <div class="add-course-picture upload-content">
-                            <div class="file-input-wrapper">
-                                <button id="course-wallpaper-button" class="btn-file-input counter_form_button upload-button">Choose a picture</button>
-                                <input id="course-wallpaper" type="file" name="CoursePicture" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image">
-                                <button id="upload-wallpaper" class=" upload-hided">upload</button>
-                                
-                            </div>
-                            <small class="warning-text">Recommended size of picture is 16:9</small>
+                <div class="input-group input-group-video">
+                    <div class="upload-content">
+                        <div class="file-input-wrapper">
+                            <button id="course-wallpaper-button" class="btn-file-input counter_form_button upload-button">Choose a picture</button>
+                            <input id="course-wallpaper" type="file" name="CoursePicture" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image">
+                            <button id="upload-wallpaper" class="upload-hided">upload</button>
+
                         </div>
-
-                        <div class="content-uploading">
-
-                            <img id="view-wallpaper" src="~/images/Annotation_2019-03-15_231516.png" alt="AddPicture" />
-                        </div>
-
-
-
+                        <small class="warning-text">Recommended size of picture is 16:9</small>
                     </div>
+
+                    <div class="content-uploading">
+
+                        <img id="view-wallpaper" src="~/images/Annotation_2019-03-15_231516.png" alt="AddPicture" />
+                    </div>
+
+
+
                 </div>
+            </div>
             @if (Model.Models.Count > 0)
             {
                 <h4>Upload your video</h4>
@@ -40,7 +44,7 @@
 
                     <div class="input-group input-group-video">
 
-                        @foreach (var courseTaskViewModel  in Model.Models)
+                        @foreach (var courseTaskViewModel in Model.Models)
                         {
                             if (courseTaskViewModel.VideoExist)
                             {
@@ -51,11 +55,11 @@
                                         <div class="file-input-wrapper">
 
                                             <button class="counter_form_button  upload upload-hided">Choose file</button>
-                                            <input type="file" accept=".mp4" class="input-upload course-upload-button"/>
+                                            <input type="file" accept=".mp4" class="input-upload course-upload-button" />
                                         </div>
 
                                         <button class="counter_form_button  upload upload-hided">upload</button>
-                                        <input type="hidden" class="task-id" value="@courseTaskViewModel.VideoTaskId"/>
+                                        <input type="hidden" class="task-id" value="@courseTaskViewModel.VideoTaskId" />
                                         <div class="upload-bar-plate">
                                             <div class="upload-bar rdy-bar"></div>
                                         </div>
@@ -73,11 +77,11 @@
                                         <div class="file-input-wrapper input-mini">
 
                                             <button class="counter_form_button  upload">Choose file</button>
-                                            <input type="file" accept=".mp4" class="input-upload course-upload-button"/>
+                                            <input type="file" accept=".mp4" class="input-upload course-upload-button" />
                                         </div>
 
                                         <button class="counter_form_button  upload upload-hided">upload</button>
-                                        <input type="hidden" class="task-id" value="@courseTaskViewModel.VideoTaskId"/>
+                                        <input type="hidden" class="task-id" value="@courseTaskViewModel.VideoTaskId" />
                                         <div class="upload-bar-plate">
                                             <div class="upload-bar"></div>
                                         </div>
@@ -87,7 +91,7 @@
                                 </div>
                             }
                         }
-                        
+
 
 
 
@@ -95,17 +99,20 @@
                     </div>
                 </div>
             }
-            </div>
-
-            <form asp-action="Details" asp-controller="Course" asp-route-id="@Model.CourseId">
-                <button id="finish" class="counter_form_button">Finish</button>
-            </form>
         </div>
 
+        <form asp-action="Details" asp-controller="Course" asp-route-id="@Model.CourseId">
+            <button id="finish" class="counter_form_button">Finish</button>
+        </form>
     </div>
 
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>   
-<script>
+</div>
+
+
+
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
 
 
     $(".course-upload-button").change(function() {
@@ -114,7 +121,7 @@
     $("#course-wallpaper").change(function() {
         $("#upload-wallpaper").click();
     });
-    
+
     $("#upload-wallpaper").click(function() {
         var input = $("#course-wallpaper");
         var files = input[0].files;
@@ -204,6 +211,8 @@
             }
         });
     });
-</script>
-  
+    </script>
+
 }
+
+

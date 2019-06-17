@@ -1,22 +1,30 @@
 ﻿@model IEnumerable<LastCoursesViewModel>
 
-        <div class="sidebar_section">
-            <div class="sidebar_section_title">Latest Courses</div>
-            <div class="sidebar_latest">
-            @foreach (var course in Model)
-            {
-                <!-- Latest Course -->
-                <div class="latest d-flex flex-row align-items-start justify-content-start">
-                    <div class="latest_image">
-                        <div><img src="@course.ImageUrl" alt="Course image"></div></div>
-                    <div class="latest_content">
-                        <div class="latest_title"><a asp-action="Details" asp-controller="Course" asp-all-route-id="@course.Id">@course.Title</a></div>
-                        <div class="latest_price">@course.Description</div>
-                    </div>
+@section Links{
+    <link href="~/plugins/colorbox/colorbox.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/styles/courses.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/courses_responsive.css">
+}
+
+
+<div class="sidebar_section">
+    <div class="sidebar_section_title">Latest Courses</div>
+    <div class="sidebar_latest">
+        @foreach (var course in Model)
+        {
+            <!-- Latest Course -->
+            <div class="latest d-flex flex-row align-items-start justify-content-start">
+                <div class="latest_image">
+                    <div><img src="@course.ImageUrl" alt="Course image"></div>
                 </div>
-            }
+                <div class="latest_content">
+                    <div class="latest_title"><a asp-action="Details" asp-controller="Course" asp-all-route-id="@course.Id">@course.Title</a></div>
+                    <div class="latest_price">@course.Description</div>
+                </div>
             </div>
-        </div>
+        }
+    </div>
+</div>
 
 
 

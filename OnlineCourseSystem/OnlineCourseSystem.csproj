@@ -24,6 +24,7 @@
     <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\coursesMainImages\" />
+    <Folder Include="wwwroot\styles\NewFolder\" />
     <Folder Include="wwwroot\videos\" />
   </ItemGroup>
 
