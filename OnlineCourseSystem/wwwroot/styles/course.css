@@ -71,13 +71,12 @@
     width: 100%;
     padding-top: 40px;
 }
-.course_title
-{
-	font-family: 'Roboto Slab', serif;
-	font-size: 36px;
-	font-weight: 700;
-	color: #384158;
-    line-height: 25px;
+.course_title {
+    font-family: 'Roboto Slab', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #384158;
+    line-height: 40px;
 }
 .course_info
 {
@@ -230,6 +229,7 @@
 }
 .tab_panel_title
 {
+    word-break: break-word;
 	font-family: 'Roboto Slab', serif;
 	font-size: 20px;
 	font-weight: 700;
@@ -238,6 +238,7 @@
 .tab_panel_text
 {
 	margin-top: 10px;
+    word-break: break-word;
 }
 .tab_panel_text p
 {
@@ -409,13 +410,13 @@
 {
 	border-bottom: solid 1px #e5e5e5;
 }
-.dropdown_item_title
-{
-	font-family: 'Roboto Slab', serif;
-	font-size: 16px;
-	font-weight: 700;
-	color: #384158;
-	padding-left: 24px;
+.dropdown_item_title {
+    word-break: break-word;
+    font-family: 'Roboto Slab', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #384158;
+    padding-left: 24px;
 }
 .dropdown_item_title span
 {
@@ -453,6 +454,7 @@
 }
 .dropdown_item_text p
 {
+    word-break: break-word;
 	font-size: 16px;
 	font-weight: 400;
 	color: #76777a;
@@ -855,4 +857,7 @@
 }
 .enrolled-button:focus {
     outline: none;
+}
+.feature-line {
+    margin-bottom: 10px;
 }

@@ -240,6 +240,7 @@
 .course_text
 {
 	margin-top: 13px;
+    word-break: break-word;
 }
 .course_footer
 {

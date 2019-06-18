@@ -172,9 +172,9 @@
                                                     }
                                                     else
                                                     {
-                                                        <div class="courses-duration">Status: In Progress</div>
+                                                        <div class="courses-in-progress">Status: In progress</div>
                                                         <div class="my-courses-box-date">
-                                                            <div class="courses-duration">Result: Not done yet</div>
+                                                            <div class="courses-in-progress">Result: Not done yet</div>
                                                         </div>
                                                     }
                                                 </div>
@@ -226,9 +226,9 @@
                                                     }
                                                     else
                                                     {
-                                                        <div class="courses-duration">Status: In Progress</div>
+                                                        <div class="courses-in-progress">Status: In Progress</div>
                                                         <div class="my-courses-box-date">
-                                                            <div class="courses-duration">Result: Not done yet</div>
+                                                            <div class="courses-in-progress">Result: Not done yet</div>
                                                         </div>
                                                     }
                                                 </div>
@@ -248,7 +248,10 @@
 
             </div>
         </div>
-        <button class="counter_form_button">Back to profile</button>
+        <form asp-action="Index" asp-controller="Profile" >
+            <button class="counter_form_button">Back to profile</button>
+        </form>
+        
     </div>
 
 </section>
