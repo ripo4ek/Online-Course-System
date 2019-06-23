@@ -4,10 +4,10 @@
     Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
 }
 
-@section Links {
+
     <link rel="stylesheet" type="text/css" href="~/styles/blog_single.css">
     <link rel="stylesheet" type="text/css" href="~/styles/blog_single_responsive.css">
-}
+
 
 
 <div class="home">
@@ -40,7 +40,7 @@
                     <div class="blog_title">@Model.Name</div>
                     <div class="blog_meta">
                         <ul>
-                            <li>News on@Model.Time</li>
+                            <li>Event on @Model.Time</li>
                             @if (Model.Organizer.Name == null || Model.Organizer.Surname == null)
                             {
                                 <li>By @Model.Organizer.UserName</li>
@@ -77,7 +77,7 @@
     </div>
 </div>
 
-@section Scripts{
+
 
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/styles/bootstrap4/popper.js"></script>
@@ -87,5 +87,3 @@
     <script src="/plugins/colorbox/jquery.colorbox-min.js"></script>
     <script src="/js/blog_single.js"></script>
 
-
-}

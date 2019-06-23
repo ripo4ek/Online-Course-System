@@ -125,12 +125,14 @@ td {
 
 .file-input-wrapper {
     width: 200px;
+    position: relative;
 }
 
     .file-input-wrapper > input[type="file"] {
         font-size: 45px;
         position: absolute;
         left: 0;
+        top: 0px;
         width: 200px;
         height: 40px;
         opacity: 0;
@@ -167,15 +169,7 @@ td {
     letter-spacing: 0.1em;
     cursor: pointer;
 }
-.file-input-wrapper > input[type="file"] {
-    font-size: 45px;
-    position: absolute;
-    top: 0;
-    width: 200px;
-    height: 40px;
-    right: 0;
-    opacity: 0;
-}
+
 
 .file-input-wrapper > .btn-file-input {
     display: inline-block;
@@ -203,3 +197,12 @@ td {
     -o-transition: all 200ms ease;
     transition: all 200ms ease;
 }
+.log-out-button {
+    color: black !important;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 40px;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    border: none;

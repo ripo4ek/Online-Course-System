@@ -7,8 +7,8 @@
 }
 
 .content-course {
+    width: 100%;
     border-radius: 6px;
-    padding-top: 45px;
 }
 
 .question-wrap {

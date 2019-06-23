@@ -4,6 +4,16 @@
     Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
 }
 
+@section Links{
+    <link rel="stylesheet" type="text/css" href="~/styles/turbo-button.css">
+    <link rel="stylesheet" type="text/css" href="~/css/pushy.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/video-task.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/text-task.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/quiz-task.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/question-task.css">
+
+}
+
 <div class="home">
     <div class="breadcrumbs_container">
         <div class="container">
@@ -54,15 +64,18 @@
     </div>
 </div>
 
-<link href="~/styles/video-js.css" rel="stylesheet">
-<script src='~/js/video.js'></script>
+@section Scripts{
 
-<script src="~/js/jquery-3.2.1.min.js"></script>
-<script src="~/js/pushy.min.js"></script>
-<script src="~/styles/bootstrap4/popper.js"></script>
-<script src="~/styles/bootstrap4/bootstrap.min.js"></script>
-<script src="~/js/course.js"></script>
-<script>
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/js/pushy.min.js"></script>
+    <script src="~/styles/bootstrap4/popper.js"></script>
+    <script src="~/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="~/js/course.js"></script>
+    <link href="~/styles/video-js.css" rel="stylesheet">
+    <script src='~/js/video.js'></script>
+
+
+    <script>
 
 
     $('.dropdownmenu > li >a').click(function() {
@@ -101,4 +114,8 @@
         $.get(`/User/Study/Task/?courseId=@Model.Id&topicId=${topicId}`, function (data) { container.html(data); });
 
     }
-</script>
+    </script>
+
+
+}
+

@@ -1,31 +1,31 @@
 ﻿@model OnlineCourseSystem.Domain.Model.Tasks.TextTask
 
-    <div class="question-wrap">
+<div class="question-wrap">
 
-        
-        <div class="text-body">
-            <div class="text-task">
-                <input name="taskId" id="taskId-text-@Model.Id" type="hidden" value="@Model.Id" />
-                <h2 class="question-title">@Model.Name</h2>
-            </div>
-            <div class="question-subtitle">
-                <h3>Know your audience</h3>
-            </div>
-            <div class="text-task">
-                <p>
-                    @Model.Data
-                </p>
-            </div>
-        </div>
-        
-            
-            <div class="nav-buttons">
-                <button class="counter_form_button question-button move-back-btn">Back</button>
-                <button class="counter_form_button question-button move-next-btn">Next</button>
-            </div>
-        </div>
 
-           
+    <div class="text-body">
+        <div class="text-task">
+            <input name="taskId" id="taskId-text-@Model.Id" type="hidden" value="@Model.Id" />
+            <h2 class="question-title">@Model.Name</h2>
+        </div>
+        <div class="question-subtitle">
+            <h3>Know your audience</h3>
+        </div>
+        <div class="text-task">
+            <p>
+                @Model.Data
+            </p>
+        </div>
+    </div>
+
+
+    <div class="nav-buttons">
+        <button class="counter_form_button question-button move-back-btn">Back</button>
+        <button class="counter_form_button question-button move-next-btn">Next</button>
+    </div>
+</div>
+
+
     <script>
     $(document).ready(function() {
         $.ajax({
@@ -38,5 +38,10 @@
     });
     </script>
 
-         
+
+
+
+
+
+
 
