@@ -20,10 +20,12 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
     public class AuthorController : Controller
     {
         private readonly IUserData _userData;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AuthorController(IUserData userData)
+        public AuthorController(IUserData userData, UserManager<ApplicationUser> userManager)
         {
             _userData = userData;
+            _userManager = userManager;
         }
         public IActionResult Index()
         {
@@ -36,9 +38,10 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
             var author = _userData.GetAuthorAsUser(id);
             return View(author);
         }
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            _userData.DeleteUser(id); ;
+            var user = _userData.GetUser(id);
+            var rez = await _userManager.DeleteAsync(user);
             return RedirectToAction("Index");
         }
     }
