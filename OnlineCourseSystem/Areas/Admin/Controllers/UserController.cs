@@ -36,7 +36,7 @@ namespace OnlineCourseSystem.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteAsync(string id)
         {
             var user = _userData.GetUser(id);
-            await _userManager.DeleteAsync(user);            
+            var rez = await _userManager.DeleteAsync(user);            
             return RedirectToAction("Index");
         }
     }
