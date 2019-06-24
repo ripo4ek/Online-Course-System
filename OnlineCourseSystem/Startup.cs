@@ -92,19 +92,6 @@ namespace OnlineCourseSystem
             {
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
-                app.UseExceptionHandler("/User/error/500");
-                app.Use(async (ctx, next) =>
-                {
-                    await next();
-
-                    if (ctx.Response.StatusCode == 404 && !ctx.Response.HasStarted)
-                    {
-                        string originalPath = ctx.Request.Path.Value;
-                        ctx.Items["originalPath"] = originalPath;
-                        ctx.Request.Path = "/User/error/404";
-                        await next();
-                    }
-                });
             }
             else
             {
