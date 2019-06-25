@@ -18,7 +18,7 @@
                     <div><img src="@course.ImageUrl" alt="Course image"></div>
                 </div>
                 <div class="latest_content">
-                    <div class="latest_title"><a asp-action="Details" asp-controller="Course" asp-all-route-id="@course.Id">@course.Title</a></div>
+                    <div class="latest_title"><a asp-action="Details" asp-controller="Course" asp-route-id="@course.Id">@course.Title</a></div>
                     <div class="latest_price">@course.Description</div>
                 </div>
             </div>

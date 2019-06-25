@@ -108,9 +108,11 @@
 	font-weight: 700;
 	color: #384158;
 }
-.course_info_text
-{
-	margin-top: 8px;
+.course_info_text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 8px;
 }
 .course_info_text a
 {
@@ -793,10 +795,12 @@
 {
 	max-width: 100%;
 }
-.latest_content
-{
-	padding-left: 21px;
-	margin-top: -4px;
+.latest_content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 21px;
+    margin-top: -4px;
 }
 .latest_title a
 {
@@ -816,6 +820,9 @@
 	color: #14bdee;
 }
 .latest_price {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-family: 'Roboto Slab', serif;
     font-size: 14px;
     font-weight: 700;

@@ -3,14 +3,43 @@
     ViewData["Title"] = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-    <div class="container-fluid">
-        <div class="row">
-            <h2>@Model.Name (Id:@Model.Id)</h2>
-            <p>@Model.ReleaseTime</p>
-            <p>@Model.Text</p>
-            <img src="@Model.ImageUrl">
 
-            <p>Back</p>
+    <div class="container">
+
+
+        <div class="details">
+            <div class="details-header">
+                News Details
+            </div>
+
+
+            <div class="details-content">
+                
+                <div class="details-content-row">
+                    Name: <span class="details-info">@Model.Name</span>
+                </div>
+
+                <div class="details-content-row">
+                    Id: <span class="details-info">@Model.Id</span>
+                </div>
+
+                <div class="details-content-row">
+                    Release Date: <span class="details-info">@Model.ReleaseTime</span>
+                </div>
+
+                <div class="details-content-row">
+                    Description: <span class="details-info">@Model.Text</span>
+                </div>
+
+                <button class="home_search_button details-button">BACK</button>
+            </div>
+
+
         </div>
+
+
+
+
+
     </div>
 

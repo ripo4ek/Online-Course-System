@@ -563,6 +563,9 @@
 	-ms-transition: all 200ms ease;
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .sidebar_categories ul li:hover a,
 .sidebar_categories ul li:hover a::before
@@ -592,10 +595,18 @@
 {
 	max-width: 100%;
 }
-.latest_content
+.latest_content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 21px;
+    margin-top: -4px;
+}
+.latest_price
 {
-	padding-left: 21px;
-	margin-top: -4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .latest_title a
 {
@@ -785,4 +796,10 @@
 }
 .blog_content > p {
     word-break: break-all;
+}
+.latest_title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
 }

@@ -3,15 +3,47 @@
     ViewData["Title"] = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-    <div class="container-fluid">
-        <div class="row">
-            <h2>@Model.UserName (Id:@Model.Id)</h2>
-            <p>@Model.Email</p>
-            <p>@Model.PhoneNumber</p>
+    <div class="container">
+        <div class="details">
+            <div class="details-header">
+                User Details
+            </div>
+
+            
+
+            <div class="details-content">
+
+                <div class="details-content-box">
+                    <div class="details-content-box-info">
+                        <div class="details-content-row">
+                            User Name: <span class="details-info">@Model.UserName</span>
+                        </div>
+
+                        <div class="details-content-row">
+                            User Last Name: <span class="details-info">@Model.UserName</span>
+                        </div>
+
+                        <div class="details-content-row">
+                            Id: <span class="details-info">@Model.Id</span>
+                        </div>
+
+                        <div class="details-content-row">
+                            E-mail: <span class="details-info">@Model.Email</span>
+                        </div>
+
+                        <div class="details-content-row">
+                            Phone Number: <span class="details-info">@Model.PhoneNumber</span>
+                        </div>
+                    </div>
+                    <div class="details-avatar">
+                        <img src="@Model.PhotoUrl"></img>
+                    </div>
+                </div>
+
+                <button class="home_search_button details-button">BACK</button>
+            </div>
 
 
-
-            <p>Назад</p>
         </div>
     </div>
 

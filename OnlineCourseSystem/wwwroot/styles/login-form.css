@@ -49,3 +49,7 @@
     color: #384158;
     margin-bottom: 25px;
 }
+.required-field {
+    color: red;
+    line-height: 2;
+}
