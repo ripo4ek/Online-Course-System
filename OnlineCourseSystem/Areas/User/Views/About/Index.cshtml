@@ -227,12 +227,12 @@
         <div class="counter_form">
             <div class="row fill_height">
                 <div class="col fill_height">
-                    <form class="counter_form_content d-flex flex-column align-items-center justify-content-center" action="#">
+                    <form class="counter_form_content d-flex flex-column align-items-center justify-content-center">
                         <div class="counter_form_title">CONTACT US</div>
                         <input type="text" class="counter_input" placeholder="Your Name:" required="required">
                         <input type="tel" class="counter_input" placeholder="Phone:" required="required">
                         <textarea class="counter_input counter_text_input" placeholder="Message:" required="required"></textarea>
-                        <button type="submit" class="counter_form_button">submit now</button>
+                        <button id="submit-call" type="submit" class="counter_form_button">submit now</button>
                     </form>
                 </div>
             </div>
@@ -302,5 +302,10 @@
     <script src="/plugins/colorbox/jquery.colorbox-min.js"></script>
     <script src="/js/about.js"></script>
 
-
+    <script>
+        $("#call-sent").hide();
+        $( "#submit-call").click(function() {
+            $("#call-sent").show();
+        });
+    </script>
 }
