@@ -75,7 +75,7 @@
                     $("#result-@Model.Id").html(`<div class="courses-right"><p>Correct! Well Done</p></div>`);
                     $("#user-input-@Model.Id").addClass("question-area-correct");
                 } else {
-                    $("#result-@Model.Id").html(`<div class="courses-wrong"><p>Unfortunately, You are wrong. Correct anser: ${res.answer}</p></div>`);
+                    $("#result-@Model.Id").html(`<div class="courses-wrong"><p>Unfortunately, You are wrong. Correct answer: ${res.answer}</p></div>`);
                     $("#user-input-@Model.Id").addClass("question-area-wrong");
                 }
             });

@@ -448,6 +448,9 @@
 }
 .sidebar_categories ul li a
 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 	display: block;
 	position: relative;
 	font-size: 14px;
@@ -496,10 +499,12 @@
 {
 	max-width: 100%;
 }
-.latest_content
-{
-	padding-left: 21px;
-	margin-top: -4px;
+.latest_content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 21px;
+    margin-top: -4px;
 }
 .latest_title a
 {
@@ -518,14 +523,16 @@
 {
 	color: #14bdee;
 }
-.latest_price
-{
-	font-family: 'Roboto Slab', serif;
-	font-size: 14px;
-	font-weight: 700;
-	color: #14bdee;
-	line-height: 0.75;
-	margin-top: 16px;
+.latest_price {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5;
+    font-family: 'Roboto Slab', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #14bdee;
+    margin-top: 16px;
 }
 .sidebar_gallery
 {
@@ -705,3 +712,9 @@
     width: 100%;
 }
 
+.latest_title {
+    word-break: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

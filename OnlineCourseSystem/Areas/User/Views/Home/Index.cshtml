@@ -368,11 +368,11 @@
                         <div class="team_body">
                             @if (author.Name == null || author.Subname == null)
                             {
-                                <div class="team_title"><a>@author.UserName</a></div>
+                                <div class="team_title"><h4>@author.UserName</h4></div>
                             }
                             else
                             {
-                                <div class="team_title"><a>@(author.Name + " " + author.Subname)</a></div>
+                                <div class="team_title"><h4>@(author.Name + " " + author.Subname)</h4></div>
                             }
                             <div class="team_subtitle">@(author.Position ?? "Good Guy")</div>
                         </div>
