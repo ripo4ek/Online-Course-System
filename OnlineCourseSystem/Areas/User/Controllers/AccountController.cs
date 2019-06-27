@@ -72,7 +72,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         {
              if (!ModelState.IsValid) return View(model);
           
-            var user = new Domain.Model.ApplicationUser { UserName = model.UserName, Email = model.Email };   
+            var user = new Domain.Model.ApplicationUser { UserName = model.UserName, Name = model.Name, Email = model.Email };   
             var createResult = await _userManager.CreateAsync(user, model.Password);  
             if (createResult.Succeeded)
             {

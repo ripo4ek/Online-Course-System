@@ -25,10 +25,10 @@
                         Username <span class="required-field">*</span>
                     </label>
                     <input id="UserName" class="login-form-input" asp-for="UserName" placeholder="@nameof(Model.UserName)" />
-                    <label for="UserLastname">
-                        Username
+                    <label for="Name">
+                        Name
                     </label>
-                    <input id="UserLastname" class="login-form-input" placeholder="UserLastName" />
+                    <input asp-for="Name" id="UserLastname" class="login-form-input" placeholder="UserLastName" />
                     <label for="Email">
                         E-mail
                     </label>
