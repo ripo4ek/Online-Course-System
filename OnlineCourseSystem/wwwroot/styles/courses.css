@@ -237,10 +237,17 @@
 	color: #384158;
 	margin-top: 6px;
 }
-.course_text
-{
-	margin-top: 13px;
+.course_text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 13px;
     word-break: break-word;
+}
+.course_text>p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .course_footer
 {
