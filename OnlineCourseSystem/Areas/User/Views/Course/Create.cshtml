@@ -1,0 +1,717 @@
+﻿@model IEnumerable<OnlineCourseSystem.Domain.Model.Category>
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
+}
+
+@section Links {
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
+    <link rel="stylesheet" href="~/styles/bootstrap-iconpicker.min.css">
+    <link rel="stylesheet" href="~/styles/creator-menu.css">
+}
+
+
+
+
+<!-- Course -->
+<div class="site-overlay"></div>
+<div class="course">
+    <div class="container">
+        <div class="row">
+
+            <!-- Course -->
+            <div class="col-lg-12">
+
+                <div class="course_container">
+                    <h3 class="section_title title-create">Step <span>1</span> of <span>2</span></h3>
+                    <div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start course-info-o">
+
+
+                        <div class="creator-menu">
+
+
+                            <div class="card mb-3 course-info-column course-border">
+                                <div class="creator-menu-title creator-menu-title-buttons">
+                                    <button id="course-info-btn" class="courses-menu-button">Course info</button>
+                                    <button id="add-section-btn" class="courses-menu-button">Add Section</button>
+                                    <button id="add-topic-btn" class="courses-menu-button">AddTopic</button>
+                                    <button id="add-task-btn" class="courses-menu-button">AddTask</button>
+                                </div>
+                                <div class="card-body">
+                                    <form id="frmEdit" class="form-horizontal course-info-content active-course">
+                                        <div class="form-group menu-options-full-raw form_name">
+                                            <label for="text">Name</label>
+                                            <input type="hidden" name="type" value="course" class="item-menu">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group menu-options">
+                                            <label for="title">Select category</label>
+                                            <div class=" menu-options-categories">
+                                                <select name="category" id="target" class="form-control item-menu menu-options-category">
+                                                    @foreach (var category in Model)
+                                                    {
+                                                        <option value="@category.Name">@category.Name</option>
+                                                    }
+                                                </select>
+                                                <span>or</span>
+                                                <input class="form-control item-menu menu-options-category" type="text" name="categoryCustom" value="" placeholder="Your option" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="target">Duration</label> <br />
+                                            <input name="duration" class="item-menu input-duration " type="text" required> h
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea name="desc" class="item-menu form-control menu-input" placeholder="Enter description of your course"></textarea>
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Curriculum description</label>
+                                            <textarea name="descCurr" class="item-menu form-control menu-input" placeholder="Enter curriculum description of your course"></textarea>
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Requirements for course</label>
+                                            <textarea name="req" class="item-menu form-control menu-input" placeholder="Enter requirements of your course"></textarea>
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Target audience</label>
+                                            <textarea name="target" class="item-menu form-control menu-input" placeholder="Enter target audience of your course"></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" id="btnUpdate" class="btn btn-primary" disabled><i class="fas fa-sync-alt"></i> Update</button>
+                                    <button type="button" id="btnAdd" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            <div class="drop-menu card">
+
+                                <div class="creator-menu-title">Menu</div>
+                                <div class="creator-menu-list">
+                                    <ul id="myEditor" class="sortableLists list-group"></ul>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="save-course" class="counter_form_button">Next step</button>
+    </div>
+
+</div>
+
+
+
+@section Scripts{
+
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="~/js/fontawesome5-3-1.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap-iconpicker.min.js"></script>
+    <script type="text/javascript" src="~/js/jquery-menu-editor.js"></script>
+
+
+    <script>
+
+
+
+    // icon picker options
+    var iconPickerOptions = {searchText: "Buscar...", labelHeader: "{0}/{1}"};
+// sortable list options
+    var sortableListOptions = {
+        placeholderCss: {'background-color': "#cccccc"}
+    };
+    var editor = new MenuEditor('myEditor', {listOptions: sortableListOptions, iconPicker: iconPickerOptions});
+    editor.setForm($('#frmEdit'));
+    editor.setUpdateButton($('#btnUpdate'));
+//Calling the update method
+    $("#btnUpdate").click(function(){
+        editor.update();
+    });
+// Calling the add method
+    $('#btnAdd').click(function(){
+        editor.add();
+    });
+
+    function Course() {
+        this.Name = '';
+        this.DurationInHours = '';
+        this.CurriculumDescription = '';
+        this.Description = '';
+        this.Category = '';
+        this.TargetAuditory = '';
+        this.RequirementKnowledge = '';
+        this.Sections = [];
+    }
+
+
+    function dataToObject(data) {
+        let newCourse = new Course();
+
+        let coursesArray = JSON.parse(data);
+
+        for (let course in coursesArray) {
+
+            let courseFromForm = coursesArray[course];
+            fillCourseInfo(courseFromForm, newCourse);
+            fillCourseUnderSections(courseFromForm, newCourse);
+
+            console.log(courseFromForm);
+            console.log(newCourse);
+            return newCourse;
+        }
+    }
+    function fillCourseUnderSections(courseFromForm, course) {
+        if (courseFromForm.hasOwnProperty("children") && courseFromForm.children.length > 0) {
+            let sections = courseFromForm.children;
+            for (var section in sections) {
+                let sec = sections[section];
+                course.Sections.push({
+                    //Id: section,
+                    Name: sec.title,
+                    Description: sec.desc,
+                });
+                if (sec.hasOwnProperty("children") && sec.children.length > 0) {
+                    let topics = sec.children;
+
+                    for (var topic in topics) {
+                        let lastIndexOfSection = course.Sections.length - 1;
+                        let t = topics[topic];
+                        if (course.Sections[lastIndexOfSection].Topics === undefined)
+                            course.Sections[lastIndexOfSection].Topics = [];
+                        course.Sections[lastIndexOfSection].Topics.push({
+                            //Id: topic,
+                            //SectionId: section,
+                            Name: t.title,
+                            Description: t.desc
+                        });
+                        if (t.hasOwnProperty("children") && t.children.length > 0) {
+                            let tasks = t.children;
+                            let orderOfTasks = 0;
+                            for (var task in tasks) {
+                                let tk = tasks[task];
+                                let lastIndexOfTopic = course.Sections[lastIndexOfSection].Topics.length - 1;
+                                orderOfTasks++;
+                                if (tk.type === 'questionTask') {
+                                    if (course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuestionTasks === undefined)
+                                        course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuestionTasks = [];
+
+                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuestionTasks.push({
+                                        //Id: task,
+                                        //TopicId: topic,
+                                        Name: tk.title,
+                                        Order: orderOfTasks,
+                                        Question: tk.desc,
+                                        CorrectAnswer: tk.answer
+                                });
+                                }
+                                if (tk.type === 'textTask') {
+
+                                    if (course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].TextTasks === undefined)
+                                        course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].TextTasks = [];
+                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].TextTasks.push({
+                                        //Id: task,
+                                        //TopicId: topic,
+                                        Name: tk.title,
+                                        Description: tk.desc,
+                                        Order: orderOfTasks,
+                                        Data: tk.desc
+                                    });
+                                }
+                                if (tk.type === 'videoTask') {
+                                    if (course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].VideoTasks === undefined)
+                                        course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].VideoTasks = [];
+
+                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].VideoTasks.push({
+                                        //Id: task,
+                                        //TopicId: topic,
+                                        Name: tk.title,
+                                        Description: tk.desc,
+                                        Order: orderOfTasks
+                                    });
+                                }
+                                if (tk.type === 'quizTask') {
+
+                                    let variants = tk.icon.replace("answer=", "").split(';');
+                                    let objVariants = [];
+                                    for (let o of variants) {
+                                        if (o === "" || o === undefined || o === null)
+                                            continue;
+                                        objVariants.push({
+                                            Text: o,
+                                        });
+                                    }
+                                        
+                                    let splitedStr = tk.icon.split(";");
+                                    let answer = '';
+
+                                    for (var str of splitedStr)
+                                        if (str.includes("answer=")) {
+                                            answer = str.replace("answer=", "");
+                                            break;
+                                        }
+
+                                    if (course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuizTasks === undefined)
+                                        course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuizTasks = [];
+
+                                    course.Sections[lastIndexOfSection].Topics[lastIndexOfTopic].QuizTasks.push({
+                                        //Id: task,
+                                        //TopicId: topic,
+                                        Name: tk.title,
+                                        Description: tk.desc,
+                                        Order: orderOfTasks,
+                                        VariantOfAnswers: objVariants,
+                                        CorrectAnswer: {Text: answer}
+                                    });
+                                }
+
+
+                            }
+
+                        }
+                    }
+
+                }
+            }
+
+        }
+    }
+    function fillCourseInfo(courseFromForm, course) {
+        course.Name = courseFromForm.title;
+        course.DurationInHours = courseFromForm.duration;
+        course.CurriculumDescription = courseFromForm.descCurr;
+        course.Description = courseFromForm.desc;
+        course.RepresentForConstructor = editor.getString();
+        course.TargetAuditory = courseFromForm.target;
+        course.RequirementKnowledge = courseFromForm.req;
+        course.Category = courseFromForm.categoryCustom === null ||
+            courseFromForm.categoryCustom === undefined || courseFromForm.categoryCustom === ""
+            ?
+            courseFromForm.category : courseFromForm.categoryCustom;
+    }
+
+    $('#save-course').click(function (e) {
+        e.preventDefault();
+
+        var data = editor.getString();
+
+        let course = dataToObject(data);
+
+
+        $.ajax({
+            url: "/User/Course/Create",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(course),
+            success: function(response) {
+                response ? window.location = response.url : alert("It didn't work.");
+            }
+        });
+    });
+    $(document).on('click', '.delete-var', function () {
+
+        var liElement = $(this).parent(".additional-var");
+
+        let prevInfo = $('#variant-save').val();
+
+
+        let elementForDelete = liElement.text().replace("×", '').trim() + ";";
+
+        $('#variant-save').val(prevInfo.replace(elementForDelete,""));
+
+        console.log($('#variant-save').val());
+
+        liElement.remove();
+    });
+
+
+    $(document).on('click', '.additional-var', function () {
+
+
+        let data = $('#variant-save').val().replace('answer=', '');
+
+        let elementData = $(this).text().replace(" ×","");
+
+        let rezultData = data.replace(elementData,`answer=${elementData}`);
+
+
+        $('#variant-save').val(rezultData);
+
+        $('.wrong-var').removeClass('wrong-var');
+
+
+        $(this).addClass('wrong-var');
+
+    });
+
+
+
+
+
+
+
+    $(document).on('click', '#addVariant', function(){
+        let imput = $('#data-quiz').val();
+
+        let prevInfo = $('#variant-save').val();
+
+        $('#variant-save').val(`${prevInfo+imput};`);
+
+
+        $('#quiz-var').append(`<li class="additional-var">${imput} <div class="delete-var">&times;</div></li>`);
+
+        console.log($('#variant-save').val());
+
+        $('#data-quiz').val("");
+    });
+
+    function clearVariants(variantsArray) {
+        let rezultArray = [];
+        for (var element of variantsArray) {
+            if (element === "") {
+                continue;
+            }
+            rezultArray.add(element);
+        }
+        return rezultArray;
+
+    }
+
+
+    $(function() {
+        $('#frmEdit').on('change', '#target1', function () {
+
+
+            $('#task-container').empty();
+            clearTasks();
+            let selector = this.value;
+
+            if (selector === "question") {
+                $('#task-container').addClass('task-question');
+                $('#task-container').html(getQuestionTask);
+            }
+
+            if (selector === "quiz") {
+                $('#task-container').addClass('task-quiz');
+                $('#task-container').html(getQuizTask);
+
+                let quizVar = $('#variant-save').val().split(";");
+
+                let clArr = clearVariants(quizVar);
+                if(clArr.length !== 0)
+                    for (var variant of clArr)
+                        $('#quiz-var').append(`<li class="additional-var">${variant} <div class="delete-var">&times;</div></li>`);
+            }
+
+            if (selector === "text") {
+                $('#task-container').addClass('task-text');
+                $('#task-container').html(getTextTask);
+            }
+
+            if (selector === "video") {
+                $('#task-container').addClass('task-video');
+                $('#task-container').html(getVideoTask);
+            }
+
+        });
+    });
+
+
+    function getQuestionTask() {
+        return `                         <div class="form-group">
+                                            <label for="text">Name</label>
+                                            <input type="hidden" name="type" value="questionTask" class="item-menu">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Text">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Question</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter the question"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text">Correct answer</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="answer" id="text" placeholder="Text">
+                                            </div>
+                                        </div>`;
+    }
+    function getQuizTask() {
+        return                         `<div class="form-group">
+                                            <label for="text">Title</label>
+                                            <input type="hidden" name="type" value="quizTask" class="item-menu">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Title">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Task</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter the text of task"></textarea>
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Quiz variants</label>
+                                            <ul class="quiz_options" id="quiz-var" class="quiz-variants">
+                                            </ul>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text">Add variant</label>
+                                            <div class="quiz-add-var">
+                                                    <input type="text" class="form-control item-menu"  id="data-quiz" placeholder="Text">
+                                                <input type="hidden" id="variant-save" name="icon" class="item-menu">
+                                                <button type="button" id="addVariant" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
+                                            </div>
+                                        </div>`;
+    }
+    function getTextTask() {
+        return ` <div class="form-group">
+                                            <label for="text">Title</label>
+                                            <input type="hidden" name="type" value="textTask" class="item-menu">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Title">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Text</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter the text"></textarea>
+                                        </div>`;
+    }
+    function getVideoTask() {
+        return`                      <div class="form-group">
+                                            <label for="text">Title</label>
+                                            <input type="hidden" name="type" value="videoTask" class="item-menu">
+                                            <div class="input-group ">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Title">
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter description for video"></textarea>
+                                        </div>
+
+
+                                    </form>
+                                </div>`;
+    }
+
+    $('#course-info-btn').click(function(){
+        if (!($('#frmEdit').hasClass("active-course"))) {
+            clearClasses();
+            $('.courses-menu-button-chosen').removeClass('courses-menu-button-chosen');
+            $(this).addClass('courses-menu-button-chosen');
+            $('#frmEdit').empty();
+            $('#frmEdit').html(`
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="text">Name</label>
+
+                                            <input type="hidden" name="type" value="course" class="item-menu">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group menu-options">
+                                            <label for="title">Select category</label>
+                                            <div class=" menu-options-categories">
+                                                <select name="category" id="target" class="form-control item-menu menu-options-category">
+                                                     @foreach (var category in Model)
+                                                    {
+                                                        <option value="@category.Name">@category.Name</option>
+                                                    }
+                                                </select>
+                                                <span>or</span>
+                                                <input class="form-control item-menu menu-options-category" type="text" name="categoryCustom" value="" placeholder="Your option" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="target">Duration</label> <br />
+                                            <input name="duration" class="item-menu input-duration " type="text" required> h
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea name="desc" class="item-menu form-control menu-input" placeholder="Enter description of your course"></textarea>
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Curriculum description</label>
+                                            <textarea name="descCurr" class="item-menu form-control menu-input" placeholder="Enter curriculum description of your course"></textarea>
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Requirements for course</label>
+                                            <textarea name="req" class="item-menu form-control menu-input" placeholder="Enter requirements of your course"></textarea>
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Target audience</label>
+                                            <textarea name="target" class="item-menu form-control menu-input" placeholder="Enter target audience of your course"></textarea>
+                                        </div>
+
+                        `);
+        }
+
+
+        $('#frmEdit').addClass("active-course");
+        editor.setForm($('#frmEdit'));
+    });
+
+
+    $('#add-section-btn').click(function () {
+
+        if (!($('#frmEdit').hasClass("active-section"))) {
+            clearClasses();
+            $('.courses-menu-button-chosen').removeClass('courses-menu-button-chosen');
+            $(this).addClass('courses-menu-button-chosen');
+            $('#frmEdit').empty();
+            $('#frmEdit').html(`
+                                       <div class="form-group menu-options-full-raw">
+                                            <label for="text">Title</label>
+                                            <input type="hidden" name="type" value="section" class="item-menu">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Text">
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter description of section"></textarea>
+                                        </div>
+
+
+                        `);
+        }
+
+
+        $('#frmEdit').addClass("active-section");
+        editor.setForm($('#frmEdit'));
+    });
+
+
+    $('#add-topic-btn').click(function(){
+        if (!($('#frmEdit').hasClass("active-topic"))) {
+            clearClasses();
+            $('.courses-menu-button-chosen').removeClass('courses-menu-button-chosen');
+            $(this).addClass('courses-menu-button-chosen');
+            $('#frmEdit').empty();
+            $('#frmEdit').html(`
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="text">Title</label>
+                                            <input type="hidden" name="type" value="topic" class="item-menu">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Text">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter description of your course"></textarea>
+                                        </div>
+
+
+                        `);
+        }
+
+
+
+
+        $('#frmEdit').addClass("active-topic");
+        editor.setForm($('#frmEdit'));
+    });
+    $('#add-task-btn').click(function () {
+        if (!($('#frmEdit').hasClass("active-task"))) {
+            clearClasses();
+            $('.courses-menu-button-chosen').removeClass('courses-menu-button-chosen');
+            $(this).addClass('courses-menu-button-chosen');
+            $('#frmEdit').empty();
+            $('#frmEdit').html(`
+                                          <div class="form-group menu-options">
+                                            <label for="title">Select category</label>
+                                            <input type="hidden" name="type" value="task" class="item-menu">
+                                            <div class=" menu-options-categories">
+                                                <select name="task" id="target1" class="form-control item-menu menu-task-selector">
+                                                    <option value="question">Question</option>
+                                                    <option value="text">Text</option>
+                                                    <option value="video">Video</option>
+                                                    <option value="quiz">Quiz</option>
+                                                </select>
+
+                                            </div>
+
+
+                                        </div>
+                                        <div id="task-container" class="task-question task-container-video">
+                                            <div class="form-group">
+                                                <label for="text">Name</label>
+                                                <input type="hidden" name="type" value="questionTask" class="item-menu">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Text">
+                                                </div>
+                                            </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Question</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter the question"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text">Correct answer</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="answer" id="text" placeholder="Text">
+                                            </div>
+                                        </div>
+                        `);
+        }
+
+
+        $('#frmEdit').addClass("active-task");
+        editor.setForm($('#frmEdit'));
+    });
+
+
+
+    function clearClasses() {
+        $('#frmEdit').removeClass("active-task");
+        $('#frmEdit').removeClass("active-topic");
+        $('#frmEdit').removeClass("active-section");
+        $('#frmEdit').removeClass("active-course");
+    }
+    function clearTasks() {
+        $('#task-container').removeClass("task-question");
+        $('#task-container').removeClass("task-quiz");
+        $('#task-container').removeClass("task-video");
+        $('#task-container').removeClass("task-text");
+    }
+
+    </script>
+
+
+}
+
+
+
+
+

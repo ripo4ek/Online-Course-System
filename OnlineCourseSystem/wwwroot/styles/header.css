@@ -1,0 +1,420 @@
+
+
+
+/*********************************
+3. Header
+*********************************/
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.05);
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+    .header.scrolled {
+        top: -40px;
+    }
+
+/*********************************
+3.1 Top Bar
+*********************************/
+
+.top_bar {
+    width: 100%;
+    background: #14bdee;
+}
+
+.header.scrolled .top_bar {
+}
+
+.top_bar_container {
+    width: 100%;
+    height: 100%;
+}
+
+.top_bar_content {
+    width: 100%;
+    height: 40px;
+}
+
+.top_bar_contact_list li {
+    display: inline-block;
+}
+
+.question {
+    font-family: 'Roboto Slab', serif;
+    font-size: 14px;
+    color: #FFFFFF;
+    margin-left: 0px;
+}
+
+.top_bar_contact_list li i,
+.top_bar_contact_list li > div {
+    display: inline-block;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+.top_bar_contact_list li > div {
+    margin-left: 1px;
+}
+
+.top_bar_contact_list li:not(:last-child) {
+    margin-right: 21px;
+}
+
+.top_bar_login {
+    height: 100%;
+}
+
+.login_button {
+    width: 200px;
+    height: 100%;
+    background: #f3f3f3;
+    text-align: center;
+}
+
+    .login_button a {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 40px;
+        color: #384158;
+    }
+
+/*********************************
+3.2 Header Content
+*********************************/
+
+.header_container {
+    width: 100%;
+    background: #FFFFFF;
+}
+
+.header_content {
+    height: 90px;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.header.scrolled .header_content {
+    height: 80px;
+}
+
+/*********************************
+3.3 Logo
+*********************************/
+
+.logo,
+.logo_text {
+    display: inline-block;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+    .logo img {
+        max-width: 100%;
+    }
+
+.logo_text {
+    font-family: 'Roboto Slab', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 0.75;
+    color: #384158;
+    vertical-align: middle;
+    margin-left: 7px;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+    .logo_text span {
+        color: #14bdee;
+    }
+
+.header.scrolled .logo {
+    width: 40px;
+    height: 40px;
+}
+
+.header.scrolled .logo_text {
+    font-size: 24px;
+}
+
+/*********************************
+3.4 Main Nav
+*********************************/
+
+.main_nav_contaner {
+}
+
+.main_nav,
+.search_button,
+.shopping_cart {
+    display: inline-block;
+}
+
+    .main_nav li {
+        display: inline-block;
+        position: relative;
+    }
+
+        .main_nav li:not(:last-child) {
+            margin-right: 44px;
+        }
+
+        .main_nav li a {
+            font-size: 18px;
+            font-weight: 500;
+            color: #384158;
+            -webkit-transition: all 200ms ease;
+            -moz-transition: all 200ms ease;
+            -ms-transition: all 200ms ease;
+            -o-transition: all 200ms ease;
+            transition: all 200ms ease;
+        }
+
+            .main_nav li a:hover,
+            .main_nav li.active a {
+                color: #14bdee;
+            }
+
+        .main_nav li.active::after {
+            display: block;
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #14bdee;
+            content: '';
+        }
+
+.search_button {
+    margin-left: 46px;
+    cursor: pointer;
+}
+
+.shopping_cart {
+    margin-left: 23px;
+    cursor: pointer;
+}
+
+    .search_button i,
+    .shopping_cart i {
+        font-size: 18px;
+        color: #181818;
+        -webkit-transition: all 200ms ease;
+        -moz-transition: all 200ms ease;
+        -ms-transition: all 200ms ease;
+        -o-transition: all 200ms ease;
+        transition: all 200ms ease;
+    }
+
+    .search_button:hover i,
+    .shopping_cart:hover i {
+        color: #14bdee;
+    }
+
+.header_search_form {
+    display: block;
+    position: relative;
+    width: 40%;
+}
+
+.header_search_container {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    background: #14bdee;
+    z-index: -1;
+    opacity: 0;
+    -webkit-transition: all 400ms ease;
+    -moz-transition: all 400ms ease;
+    -ms-transition: all 400ms ease;
+    -o-transition: all 400ms ease;
+    transition: all 400ms ease;
+}
+
+    .header_search_container.active {
+        bottom: -73px;
+        opacity: 1;
+    }
+
+.header_search_content {
+    width: 100%;
+    height: 73px;
+}
+
+.search_input {
+    width: 100%;
+    height: 40px;
+    border: none;
+    outline: none;
+    padding-left: 20px;
+}
+
+.header_search_button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+/*********************************
+3.5 Hamburger
+*********************************/
+
+.hamburger_container {
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+    .hamburger i {
+        font-size: 20px;
+        color: #353535;
+        -webkit-transition: all 200ms ease;
+        -moz-transition: all 200ms ease;
+        -ms-transition: all 200ms ease;
+        -o-transition: all 200ms ease;
+        transition: all 200ms ease;
+    }
+
+    .hamburger:hover i {
+        color: #14bdee;
+    }
+/*Dropdown menu*/
+.dropbtn {
+    background-color: #14bdee;
+    color: white;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    width: 200px;
+}
+
+    .dropbtn:focus {
+        outline: none;
+    }
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0px 8px 14px 0px rgba(0,0,0,0.1);
+    z-index: 1;
+}
+
+    /* Links inside the dropdown */
+    .dropdown-content a {
+        color: black;
+        padding: 5px 16px;
+        text-decoration: none;
+        display: block;
+        border-radius: 4px;
+    }
+
+        /* Change color of dropdown links on hover */
+        .dropdown-content a:hover {
+            background-color: #f1f1f1
+        }
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+    box-shadow: 0px 8px 14px 0px rgba(0,0,0,0.1);
+    border-radius: 4px;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: white;
+    color: black;
+}
+/*Log Out*/
+.log-out-button {
+    color: black !important;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 40px;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    border: none;
+}
+
+.login-registration_button {
+    color: #fff;
+    width: 100px;
+    height: 100%;
+    margin-top: 10px;
+    background: transparent;
+    text-align: center;
+    border-radius: 4px;
+}
+
+    .login-registration_button a {
+        color: inherit;
+    }
+
+.login-button-mobile {
+    text-transform: uppercase;
+    display: inline-block;
+    background: white;
+    box-shadow: none;
+    letter-spacing: 0.1em;
+    color: inherit;
+    font-weight: 600;
+    outline: none;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+    .login-button-mobile:hover {
+        color: #14bdee
+    }
+
+.reg-menu {
+    display: flex;
+}

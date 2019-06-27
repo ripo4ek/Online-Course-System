@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Text;
 using OnlineCourseSystem.Domain.Model.Base;
 using OnlineCourseSystem.Domain.Model.Tasks;
@@ -8,30 +9,32 @@ using OnlineCourseSystem.Domain.Model.Tasks;
 namespace OnlineCourseSystem.Domain.Model
 {
     [Table("Courses")]
-    public class Course: INamedEntity, IOrderedEntity
+    public class Course: INamedEntity
     {
         /// <summary>
         /// Ссылка на картинку
         /// </summary>
-        public string ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = "/images/coursesMainImages/no-image-icon.svg";
+
+        public string LocalImageUrl { get; set; } = $"{Path.DirectorySeparatorChar}images{Path.DirectorySeparatorChar}coursesMainImages{Path.DirectorySeparatorChar}no-image-icon.svg";
 
         /// <summary>
         /// Бренд товара
         /// </summary>
-        public int? UniversityId { get; set; }
 
-        [ForeignKey("UniversityId")]
-        public virtual University University { get; set; }
+        public virtual ApplicationUser Author { get; set; }
 
-        public int? AuthorId { get; set; }
+        public string DurationInHours { get; set; }
 
-        [ForeignKey("AuthorId")]
-        public virtual Author Author { get; set; }
+        public int TextTaskCount => GetCountOfTextTasks();
 
-        public DateTime Duration { get; set; }
+        public int VideoTaskCount => GetCountOfVideoasks();
 
-        public string Target { get; set; }
-        public string CurriculumDesctiption { get; set; }
+        public int QuizTaskCount => GetCountOfQuizTasks();
+
+        public int QuestionTaskCount => GetCountOfQuestionTasks();
+
+        public string CurriculumDescription { get; set; }
         /// <summary>
         /// Описание курса
         /// </summary>
@@ -40,25 +43,65 @@ namespace OnlineCourseSystem.Domain.Model
         public IEnumerable<CoursesToCategories> Categories { get; set; }
 
         public IEnumerable<CoursesToUsers> Users { get; set; }
-        public  ICollection<Section> Sections { get; set; }
+        public ICollection<Section> Sections { get; set; }
 
-        public  ICollection<Theme> Topics { get; set; }
-
-        public  ICollection<QuizTask> QuizTasks { get; set; }
-
-        public  ICollection<QuestionTask> QuestionTasks { get; set; }
-
-        public virtual ICollection<TextTask> TextTasks { get; set; }
-        public ICollection<VideoTask> VideoTasks { get; set; }
-
-        public IEnumerable<Requierment> Requirements { get; set; }
-        public int Order { get; set; }
-
-        public  int? DirectionId { get; set; }
-
-        [ForeignKey("DirectionId")]
-        public  Direction Direction { get; set; }
         public string Name { get; set; }
         public int Id { get; set; }
+
+        public string TargetAuditory { get; set; }
+
+        public string RequirementKnowledge { get; set; }
+        private int GetCountOfTextTasks()
+        {
+            int count = 0;
+            foreach (var section in Sections)
+            {
+                foreach (var sectionTopic in section.Topics)
+                {
+                    count += sectionTopic.TextTasks.Count;
+                }
+            }
+
+            return count;
+        }
+        private int GetCountOfQuizTasks()
+        {
+            int count = 0;
+            foreach (var section in Sections)
+            {
+                foreach (var sectionTopic in section.Topics)
+                {
+                    count += sectionTopic.QuizTasks.Count;
+                }
+            }
+
+            return count;
+        }
+        private int GetCountOfQuestionTasks()
+        {
+            int count = 0;
+            foreach (var section in Sections)
+            {
+                foreach (var sectionTopic in section.Topics)
+                {
+                    count += sectionTopic.QuestionTasks.Count;
+                }
+            }
+
+            return count;
+        }
+        private int GetCountOfVideoasks()
+        {
+            int count = 0;
+            foreach (var section in Sections)
+            {
+                foreach (var sectionTopic in section.Topics)
+                {
+                    count += sectionTopic.VideoTasks.Count;
+                }
+            }
+
+            return count;
+        }
     }
 }

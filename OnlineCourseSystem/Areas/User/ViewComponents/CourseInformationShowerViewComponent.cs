@@ -10,19 +10,19 @@ namespace OnlineCourseSystem.Areas.User.ViewComponents
 {
     public class CourseInformationShower : ViewComponent
     {
-        private readonly ICourseData _courseData;
+        private readonly ITaskData _taskData;
 
-        public CourseInformationShower(ICourseData courseData)
+        public CourseInformationShower(ITaskData taskData)
         {
-            _courseData = courseData;
+            _taskData = taskData;
         }
-        public async Task<IViewComponentResult> InvokeAsync(int courseId, int topicId)
+        public async   Task<IViewComponentResult> InvokeAsync(int courseId, int topicId)
         {
-            var tasks = _courseData.GetTasksOfCourse(new TaskFilter()
+            var tasks = _taskData.GetTasksOfCourse(new TaskFilter()
             {
                 CourseId = courseId,
                 TopicId = topicId
-            });
+            }).OrderBy(t=>t.Order).ToList();
             return View(tasks);
         }
     }

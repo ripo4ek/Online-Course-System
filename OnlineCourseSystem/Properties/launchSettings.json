@@ -29,6 +29,14 @@
     },
     "newProfile1": {
       "commandName": "Executable"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}"
+    },
+    "IIS": {
+      "commandName": "IIS"
     }
   }
 }

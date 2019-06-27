@@ -1,26 +1,86 @@
-﻿
-@model OnlineCourseSystem.Domain.Model.Tasks.QuestionTask
+﻿@model OnlineCourseSystem.Domain.Model.Tasks.QuestionTask
 
 
-    <div class="question-wrap">
-        <div class="question-body">
-            <div class="question-title">
-                <h2>What are the responsibilities of a web developer?</h2>
-            </div>
-            <div class="question-paragraph">
-                <p>A web developer should fully understand their role and how they contribute to web design and development. This question will help you find out how a candidate plans to support the team and what tasks they will take ownership of.</p>
-            </div>
-            <div class="question-form">
-                <form>
-                    <textarea class="question-area" placeholder="Enter your answer"></textarea>
-                    <button class="counter_form_button question-button">Send answer</button>
-                </form>
-            </div>
-
-            <div class="nav-buttons">
-                <button class="counter_form_button question-button">Back</button>
-                <button class="counter_form_button question-button">Next</button>
-            </div>
+<div class="question-wrap">
+    <div class="question-body">
+        <div>
+            <h2 class="question-title">@Model.Question</h2>
         </div>
-        
+        <div class="question-paragraph">
+            <p>@Model.Description</p>
+        </div>
+        <div class="question-form">
+            <input name="taskId" id="taskId-@Model.Id" type="hidden" value="@Model.Id" />
+
+            <textarea id="user-input-@Model.Id" class="question-area" placeholder="Enter your answer"></textarea>
+            <div class="nav-buttons">
+                <div id="result-@Model.Id"></div>
+                <button id="send-answer-@Model.Id" class="counter_form_button question-button question-button-send ">Send answer</button>
+            </div>
+
+        </div>
+
+
     </div>
+    <div class="nav-buttons">
+        <button class="counter_form_button question-button move-back-btn">Back</button>
+        <button class="counter_form_button question-button move-next-btn">Next</button>
+    </div>
+</div>
+
+
+    <script>
+    $(document).ready(function() {
+        $.ajax({
+                url: "/User/CourseStatistic/CheckCompleteQuestion",
+                type: "GET",
+                data: {
+                    taskId: $("#taskId-@Model.Id").val(),
+                }
+            }).
+            done(function (res) {
+
+                if (res.isCompleted === true) {
+                    $("#send-answer-@Model.Id").prop("disabled", true);
+                    $("#user-input-@Model.Id").prop("disabled", true);
+                    $("#send-answer-@Model.Id").addClass("button-disabled");
+                    $("#user-input-@Model.Id").val(res.userVar);
+                    if (res.isCorrect) {
+                        $("#result-@Model.Id").html(`<div class="courses-right"><p>Correct! Well Done</p></div>`);
+                        $("#user-input-@Model.Id").addClass("question-area-correct");
+                    } else {
+                        $("#result-@Model.Id").html(`<div class="courses-wrong"><p>Unfortunatly, You are wrong. Correct anser: ${res.answer}</p></div>`);
+                        $("#user-input-@Model.Id").addClass("question-area-wrong");
+
+                    }
+
+
+                }
+            });
+    });
+    $("#send-answer-@Model.Id").click(function() {
+        $.ajax({
+                url: "/User/CourseStatistic/Question",
+                type: "GET",
+                data: {
+                    answer:$("#user-input-@Model.Id").val() ,
+                    taskId: $("#taskId-@Model.Id").val(),
+                }
+            }).
+            done(function (res) {
+                $("#user-input-@Model.Id").prop("disabled", true);
+                $("#send-answer-@Model.Id").prop("disabled", true);
+                $("#send-answer-@Model.Id").addClass("button-disabled");
+                if (res.rezult === true) {
+                    $("#result-@Model.Id").html(`<div class="courses-right"><p>Correct! Well Done</p></div>`);
+                    $("#user-input-@Model.Id").addClass("question-area-correct");
+                } else {
+                    $("#result-@Model.Id").html(`<div class="courses-wrong"><p>Unfortunately, You are wrong. Correct answer: ${res.answer}</p></div>`);
+                    $("#user-input-@Model.Id").addClass("question-area-wrong");
+                }
+            });
+    });
+    </script>
+
+
+

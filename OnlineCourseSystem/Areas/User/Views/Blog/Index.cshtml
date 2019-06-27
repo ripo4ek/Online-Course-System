@@ -1,0 +1,59 @@
+﻿@model IEnumerable<BlogShortViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
+}
+@section Links {
+
+    <link rel="stylesheet" type="text/css" href="~/plugins/video-js/video-js.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/blog.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/blog_responsive.css">
+}
+
+<div class="blog">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="blog_post_container">
+                    @foreach (var e in Model)
+                    {
+                        <div class="blog_post trans_200">
+                            @if (e.ImageUrl != null)
+                            {
+                                <div class="blog_post_image"><img src="@e.ImageUrl" alt=""></div>
+                            }
+                            <div class="blog_post_body">
+                                <div class="blog_post_title"><a asp-action="Details" asp-controller="Blog" asp-route-id="@e.Id">@e.Title</a></div>
+                                <div class="blog_post_meta">
+                                    <ul>
+                                        <li>@e.Author</li>
+                                        <li>@e.ReleaseTime</li>
+                                    </ul>
+                                </div>
+                                <div class="blog_post_text">
+                                    <p>@e.TextPreview</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <!-- Blog News -->
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/styles/bootstrap4/popper.js"></script>
+    <script src="/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="/plugins/easing/easing.js"></script>
+    <script src="/plugins/masonry/masonry.js"></script>
+    <script src="/plugins/video-js/video.min.js"></script>
+    <script src="/plugins/parallax-js-master/parallax.min.js"></script>
+    <script src="/js/blog.js"></script>
+
+}

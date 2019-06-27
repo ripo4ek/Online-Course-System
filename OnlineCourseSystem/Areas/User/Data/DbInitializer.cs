@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using OnlineCourseSystem.Areas.User.Models;
 using OnlineCourseSystem.DAL.Context;
 using  OnlineCourseSystem.Domain.Model;
 using OnlineCourseSystem.Domain.Model.Base;
@@ -19,127 +24,284 @@ namespace OnlineCourseSystem.Areas.User.Data
                 return;
             }
 
-            var universities = new List<University>()
+
+            var categories = new List<Category>()
             {
-                new University()
+                new Category()
                 {
                     Id = 1,
-                    Name = "ITMO",
-                    Order = 0
-
+                    Name = "Programming"
                 },
-                new University()
+                new Category()
                 {
                     Id = 2,
-                    Name = "Pomoika",
-                    Order = 1
-
-                },
-
+                    Name = "Art"
+                }
             };
             using (var trans = context.Database.BeginTransaction())
             {
-                foreach (var university in universities)
+                foreach (var category in categories)
                 {
-                    context.Universities.Add(university);
+                    context.Categories.Add(category);
                 }
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Universities] ON");
+
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Categories] ON");
                 context.SaveChanges();
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Universities] OFF");
-                trans.Commit();
-            }
-            var authors = new List<Author>()
-            {
-                new Author()
-                {
-                    Id = 1,
-                    Name = "Admin",
-                    Order = 0
-
-                },
-                new Author()
-                {
-                    Id = 2,
-                    Name = "RandomGuy",
-                    Order = 1
-
-                },
-
-            };
-            using (var trans = context.Database.BeginTransaction())
-            {
-                foreach (var author in authors)
-                {
-                    context.Authors.Add(author);
-                }
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Authors] ON");
-                context.SaveChanges();
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Authors] OFF");
-                trans.Commit();
-            }
-            var directions = new List<Direction>()
-            {
-                new Direction()
-                {
-                    Id = 1,
-                    Name = "Informatics and Math",
-                    Order = 0
-                },
-
-            };
-            using (var trans = context.Database.BeginTransaction())
-            {
-                foreach (var direction in directions)
-                {
-                    context.Directions.Add(direction);
-                }
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Directions] ON");
-                context.SaveChanges();
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Directions] OFF");
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Categories] OFF");
                 trans.Commit();
             }
 
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore, new OptionsManager<IdentityOptions>(new OptionsFactory<IdentityOptions>(new IConfigureOptions<IdentityOptions>[] { },
+                    new IPostConfigureOptions<IdentityOptions>[] { })),
+                new PasswordHasher<ApplicationUser>(), new IUserValidator<ApplicationUser>[] { }, new IPasswordValidator<ApplicationUser>[] { },
+                new UpperInvariantLookupNormalizer(), new IdentityErrorDescriber(), null, null);
+            var firstAuthor = new ApplicationUser() { UserName = "FirstAuthor", Email = "FirstAuthor@mail.com" };
+            var result = userManager.CreateAsync(firstAuthor, "firstAuthor").Result;
+            if (result == IdentityResult.Success)
+            {
+                var roleResult = userManager.AddToRoleAsync(firstAuthor, Roles.CourseCreator).Result;
+            }
+            var secondAuthor = new ApplicationUser() { UserName = "SecondAuthor", Email = "SecondAuthor@mail.com" };
+            var resultTwo = userManager.CreateAsync(secondAuthor, "secondAuthor").Result;
+            if (resultTwo == IdentityResult.Success)
+            {
+                var roleResult = userManager.AddToRoleAsync(secondAuthor, Roles.CourseCreator).Result;
+            }
+            var thirdAuthor = new ApplicationUser() { UserName = "ThirdAuthor", Email = "ThirdAuthor@mail.com" };
+            var resultThree = userManager.CreateAsync(thirdAuthor, "thirdAuthor").Result;
+            if (resultThree == IdentityResult.Success)
+            {
+                var roleResult = userManager.AddToRoleAsync(thirdAuthor, Roles.CourseCreator).Result;
+            }
 
             var courses = new List<Course>()
             {
                 new Course()
                 {
                     Id = 1,
+                    Author = firstAuthor,
                     Name = "C# Start",
-                    Order = 0,
                     Description = "C# For Newbee",
-                    DirectionId = 1,
-                    ImageUrl = "Course1.png",
-                    
-                    UniversityId = 1,
-                    AuthorId = 1
-                    
+                    CurriculumDescription = "We will learn some basic things. Cycles, Arrays, Objects, OOP etc.",
+                    DurationInHours = "12",
+                    RequirementKnowledge = "None",
+                    TargetAuditory = "Anyone",
+                    Sections = new List<Section>()
+                    {
+                        new Section()
+                        {
+                            Name = "Beginning",
+                            Description = "Let's get acquainted",
+                            Topics = new List<Topic>()
+                            {
+                                new Topic()
+                                {
+                                    VideoTasks= new List<VideoTask>()
+                                    {
+                                        new VideoTask()
+                                        {
+                                            Name = "Variables",
+                                            Description = "About Variables",
+                                            Order = 0,                                           
+                                        }
+                                    },
+                                    Name = "Variables",
+                                    Description= "The root of Knowlage",
+                                    QuestionTasks = new List<QuestionTask>()
+                                    {
+                                        new QuestionTask()
+                                        {
+                                            Name = "First Question",
+                                            Description = "Let's begin",
+                                            Question = "In what style should we call variables?",
+                                            CorrectAnswer = "pascalCase",
+                                            Order = 1,
+                                        },
+                                    },
+                                    QuizTasks = new List<QuizTask>()
+                                    {
+                                        new QuizTask()
+                                        {
+                                            Name = "Keyword",
+                                            Description = "Let's test what u learned",
+                                            CorrectAnswer = new QuizVariant(){Text = "var"},
+                                            Question = "What word is using for encapsulation?",
+                                            VariantOfAnswers = new List<QuizVariant>()
+                                            {
+                                                new QuizVariant(){Text = "dynamic"},
+                                                new QuizVariant(){Text = "var"},
+                                                new QuizVariant(){Text = "int"}
+                                            },
+                                            Order = 2,
+                                        }
+                                    },
+                                    
+                                },
+                                new Topic()
+                                {
+                                    Name = "Cycles",
+                                    Description= "About cycles",
+                                    VideoTasks= new List<VideoTask>()
+                                    {
+                                        new VideoTask()
+                                        {
+                                            Name = "Cycles Beginning",
+                                            Description = "About cycles",
+                                            Order = 0,
+                                        }
+                                    },
+
+                                    QuestionTasks = new List<QuestionTask>()
+                                    {
+                                        new QuestionTask()
+                                        {
+                                            Name = "First Question",
+                                            Description = "Let's begin",
+                                            Question = "How many types of cycles we have in c#?",
+                                            CorrectAnswer = "3",
+                                            Order = 1,
+                                        },
+                                    },
+                                    QuizTasks = new List<QuizTask>()
+                                    {
+                                        new QuizTask()
+                                        {
+                                            Name = "Type of Cycles",
+                                            Description = "Let's test what u learned",
+                                            CorrectAnswer = new QuizVariant(){Text = "do-while"},
+                                            Question = "Cycle with pre-condition?",
+                                            VariantOfAnswers = new List<QuizVariant>()
+                                            {
+                                                new QuizVariant(){Text = "do-while"},
+                                                new QuizVariant(){Text = "while-do"},
+                                                new QuizVariant(){Text = "for"}
+                                            },
+                                            Order = 2,
+                                        }
+                                    },
+                                    TextTasks = new List<TextTask>()
+                                    {
+                                        new TextTask()
+                                        {
+                                            Name = "Fun facts",
+                                            Description = "Some information form meditations",
+                                            Order = 3,
+                                            Data = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut auctor fermentum mollis. Integer ac neque ut lacus dictum tincidunt quis sit amet dolor. Nullam dictum leo non ornare ullamcorper. Integer varius magna ac hendrerit bibendum. Mauris dictum enim ut sagittis lobortis. Cras ultrices ipsum in odio eleifend mattis. Fusce mattis maximus mi, nec dictum dolor condimentum at. Etiam ornare vestibulum leo a consectetur. Nullam a nunc pharetra, facilisis eros at, faucibus mi. Pellentesque suscipit sem molestie metus molestie, vitae scelerisque lectus cursus. Aliquam lobortis risus at felis mollis, eget cursus dolor rhoncus. Donec ac porta tortor. Curabitur finibus eros ac mauris aliquet ultricies. Quisque vitae laoreet orci. Mauris orci tortor, aliquet at sapien id, dignissim sodales mauris."
+                                        }
+                                    }
+
+                                }
+                            }
+                        },
+                        new Section()
+                        {
+                            Name = "Middle",
+                            Description = "In the middle of way",
+                            Topics = new List<Topic>()
+                            {
+                                new Topic()
+                                {
+                                    VideoTasks= new List<VideoTask>()
+                                    {
+                                        new VideoTask()
+                                        {
+                                            Name = "Variables",
+                                            Description = "About Variables",
+                                            Order = 0,
+                                        }
+                                    },
+                                    Name = "Variables",
+                                    Description= "The root of Knowlage",
+                                    QuestionTasks = new List<QuestionTask>()
+                                    {
+                                        new QuestionTask()
+                                        {
+                                            Name = "First Question",
+                                            Description = "Let's begin",
+                                            Question = "In what style should we call variables?",
+                                            CorrectAnswer = "pascalCase",
+                                            Order = 1,
+                                        },
+                                    },
+                                    QuizTasks = new List<QuizTask>()
+                                    {
+                                        new QuizTask()
+                                        {
+                                            Name = "Keyword",
+                                            Description = "Let's test what u learned",
+                                            CorrectAnswer = new QuizVariant(){Text = "var"},
+                                            Question = "What word is using for encapsulation?",
+                                            VariantOfAnswers = new List<QuizVariant>()
+                                            {
+                                                new QuizVariant(){Text = "dynamic"},
+                                                new QuizVariant(){Text = "var"},
+                                                new QuizVariant(){Text = "int"}
+                                            },
+                                            Order = 2,
+                                        }
+                                    },
+
+                                },
+                                new Topic()
+                                {
+                                    Name = "Cycles",
+                                    Description= "About cycles",
+                                    VideoTasks= new List<VideoTask>()
+                                    {
+                                        new VideoTask()
+                                        {
+                                            Name = "Cycles Beginning",
+                                            Description = "About cycles",
+                                            Order = 0,
+                                        }
+                                    },
+
+                                    QuestionTasks = new List<QuestionTask>()
+                                    {
+                                        new QuestionTask()
+                                        {
+                                            Name = "First Question",
+                                            Description = "Let's begin",
+                                            Question = "How many types of cycles we have in c#?",
+                                            CorrectAnswer = "3",
+                                            Order = 1,
+                                        },
+                                    },
+                                    QuizTasks = new List<QuizTask>()
+                                    {
+                                        new QuizTask()
+                                        {
+                                            Name = "Type of Cycles",
+                                            Description = "Let's test what u learned",
+                                            CorrectAnswer = new QuizVariant(){Text = "do-while"},
+                                            Question = "Cycle with pre-condition?",
+                                            VariantOfAnswers = new List<QuizVariant>()
+                                            {
+                                                new QuizVariant(){Text = "do-while"},
+                                                new QuizVariant(){Text = "while-do"},
+                                                new QuizVariant(){Text = "for"}
+                                            },
+                                            Order = 2,
+                                        }
+                                    },
+                                    TextTasks = new List<TextTask>()
+                                    {
+                                        new TextTask()
+                                        {
+                                            Name = "Fun facts",
+                                            Description = "Some information form meditations",
+                                            Order = 3,
+                                            Data = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut auctor fermentum mollis. Integer ac neque ut lacus dictum tincidunt quis sit amet dolor. Nullam dictum leo non ornare ullamcorper. Integer varius magna ac hendrerit bibendum. Mauris dictum enim ut sagittis lobortis. Cras ultrices ipsum in odio eleifend mattis. Fusce mattis maximus mi, nec dictum dolor condimentum at. Etiam ornare vestibulum leo a consectetur. Nullam a nunc pharetra, facilisis eros at, faucibus mi. Pellentesque suscipit sem molestie metus molestie, vitae scelerisque lectus cursus. Aliquam lobortis risus at felis mollis, eget cursus dolor rhoncus. Donec ac porta tortor. Curabitur finibus eros ac mauris aliquet ultricies. Quisque vitae laoreet orci. Mauris orci tortor, aliquet at sapien id, dignissim sodales mauris."
+                                        }
+                                    }
+
+                                }
+                            }
+                        },
+                    }
+
                 },
-                new Course()
-                {
-                    Id = 2,
-                    Name = "C# Essential",
-                    Order = 1,
-                    Description = "C# for pepole who's know something",
-                    DirectionId = 1,
-                    ImageUrl = "Course2.png",
-                    
-                    UniversityId = 1,
-                    AuthorId = 1
-                },
-                new Course()
-                {
-                    Id = 3,
-                    Name = "Java Starter",
-                    Order = 2,
-                    Description = "For Gays",
-                    DirectionId = 1,
-                    ImageUrl = "Course3.png",
-                    
-                    UniversityId = 2,
-                    AuthorId = 2
-                },
-                
             };
             using (var trans = context.Database.BeginTransaction())
             {
@@ -155,183 +317,100 @@ namespace OnlineCourseSystem.Areas.User.Data
             }
 
 
-            var sections = new List<Section>()
+            var coursesTocategories = new List<CoursesToCategories>()
             {
-                new Section()
+                new CoursesToCategories()
                 {
-                    Id = 1,
-                    Name = "Introducing C#",
-                    
-                    CourseId = 1
+                    CategoryId = 1,
+                    CourseId = 1,
                 },
-                new Section()
+                new CoursesToCategories()
                 {
-                    Id = 2,
-                    Name = "In the middle of C#",
-                    
-                    CourseId = 1
-                },
-                new Section()
-                {
-                    Id = 3,
-                    Name = "In the end of C#",
-                    
-                    CourseId = 1
-                },
-                new Section()
-                {
-                    Id = 4,
-                    Name = "Java Gay's Starter",
-                   
-                    CourseId = 3
-                },
-                new Section()
-                {
-                    Id = 5,
-                    Name = " C# Essential Start",
-                   
-                    CourseId = 2
+                    CategoryId = 2,
+                    CourseId = 2,
                 },
             };
             using (var trans = context.Database.BeginTransaction())
             {
-                foreach (var section in sections)
+                foreach (var coursesTocategory in coursesTocategories)
                 {
-                    context.Sections.Add(section);
+                    context.CoursesToCategories.Add(coursesTocategory);
                 }
 
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Sections] ON");
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[CoursesToCategories] ON");
                 context.SaveChanges();
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Sections] OFF");
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[CoursesToCategories] OFF");
                 trans.Commit();
             }
 
-            var topics = new List<Theme>()
+            var news = new List<News>()
             {
-                new Theme()
+                new News()
                 {
-                    Id = 1,
-                    Name = "Hello, World",
-                    SectionId = 1,
-                   
-                },
-                new Theme()
-                {
-                    Id = 2,
-                    Name = "Types of Data C#",
-                    SectionId = 1,
-                    
-                },
-                new Theme()
-                {
-                    Id = 3,
-                    Name = "Cycles and logic",
-                    SectionId = 1,
-                   
-                },
-                new Theme()
-                {
-                    Id = 4,
-                    Name = "Methods",
-                    SectionId = 2,
-                    
-                },
-                new Theme()
-                {
-                    Id = 5,
-                    Name = "OOP",
-                    SectionId = 3,
-                   
-                },
-                new Theme()
-                {
-                    Id = 6,
-                    Name = "How to put your dick into the man ass",
-                    SectionId = 4,
-                    
+                    Author = firstAuthor,
+                    Name = "Welcome",
+                    ReleaseTime = DateTime.Now,
+                    Text = "We glad to introduce out platform. The future is here",
                 },
             };
             using (var trans = context.Database.BeginTransaction())
             {
-                foreach (var topic in topics)
+                foreach (var n in news)
                 {
-                    context.Topics.Add(topic);
+                    context.News.Add(n);
                 }
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Topics] ON");
+
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[News] ON");
                 context.SaveChanges();
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Topics] OFF");
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[News] OFF");
                 trans.Commit();
             }
-
-
-
-
-
-            var videoTasks = new List<VideoTask>()
+            var blogs = new List<Blog>()
             {
-                new VideoTask()
+                new Blog()
                 {
-                    Id = 1,
-                    Name = "Hello World Video",
-                    TopicId = 1,
-                    VideoUrl = "video1"
+                    Author = firstAuthor,
+                    Name = "About C# Datetime",
+                    ReleaseTime = DateTime.Now,
+                    Text = "The DateTime data type is used to work with date and times in C#. The DateTime class in C# provides properties and methods to format dates in different datetime formats. This article explains how to work with date and time format in C#. The following table describes various date time formats and their results. Here we see all the patterns of the DateTime Class.",
                 },
             };
             using (var trans = context.Database.BeginTransaction())
             {
-                foreach (var video in videoTasks)
+                foreach (var blog in blogs)
                 {
-                    context.VideoTasks.Add(video);
+                    context.Blogs.Add(blog);
                 }
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[VideoTasks] ON");
+
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Blogs] ON");
                 context.SaveChanges();
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[VideoTasks] OFF");
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Blogs] OFF");
                 trans.Commit();
             }
-            var QuizTasks = new List<QuizTask>()
+            var events = new List<Event>()
             {
-
-                new QuizTask()
+                new Event()
                 {
-                    Id = 2,
-                    Name = "Hello World Test",
-                    TopicId = 1,
-                    CorrectAnswer = "Hello World",
-                    Question = "Как правильно?",
-                    VariantOfAnswers =
-                    {
-                        "Hi world",
-                        "Хай кста",
-                        "HW"
-                    }
-                },
-                new QuizTask()
-                {
-                    Id = 3,
-                    Name = "Types of Var Test",
-                    TopicId = 2,
-                    CorrectAnswer = "var",
-                    Question = "Ключевое слово для анонимной переменной?",
-                    VariantOfAnswers =
-                    {
-                        "Int32",
-                        "bool",
-                        "WO"
-                    }
+                    Organizer = firstAuthor,
+                    Name = "Meetup about future of our platform",
+                    Address = "Baker St. 12",
+                    Time = DateTime.Now,                 
+                    Text = "The DateTime data type is used to work with date and times in C#. The DateTime class in C# provides properties and methods to format dates in different datetime formats. This article explains how to work with date and time format in C#. The following table describes various date time formats and their results. Here we see all the patterns of the DateTime Class.",
                 },
             };
             using (var trans = context.Database.BeginTransaction())
             {
-                foreach (var quizTasks in QuizTasks)
+                foreach (var ev in events)
                 {
-                    context.QuizTasks.Add(quizTasks);
+                    context.Events.Add(ev);
                 }
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[QuizTasks] ON");
+
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Events] ON");
                 context.SaveChanges();
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[QuizTasks] OFF");
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Events] OFF");
                 trans.Commit();
             }
-            
+
 
 
         }

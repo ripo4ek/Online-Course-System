@@ -1,0 +1,219 @@
+﻿@model UploadContentViewModel
+@{
+    ViewData["Title"] = "UploadContent";
+    Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
+}
+@section Links {
+    
+    <link rel="stylesheet" href="~/styles/creator-menu.css">
+    <link rel="stylesheet" href="~/styles/upload-content.css">
+
+}
+<div class="container">
+    <div class="upload-video">
+
+        <h3 class="section_title title-create">Step <span>2</span> of <span>2</span></h3>
+
+        <div class="uploading-box">
+            <h4>Choose a picture of your course</h4>
+            <div class="form-group form-group-upload">
+
+                <div class="input-group input-group-video">
+                    <div class="upload-content">
+                        <div class="file-input-wrapper">
+                            <button id="course-wallpaper-button" class="btn-file-input counter_form_button upload-button">Choose a picture</button>
+                            <input id="course-wallpaper" type="file" name="CoursePicture" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image">
+                            <button id="upload-wallpaper" class="upload-hided">upload</button>
+
+                        </div>
+                        <small class="warning-text">Recommended size of picture is 16:9</small>
+                    </div>
+
+                    <div class="content-uploading">
+
+                        <img id="view-wallpaper" src="~/images/Annotation_2019-03-15_231516.png" alt="AddPicture" />
+                    </div>
+
+
+
+                </div>
+            </div>
+            @if (Model.Models.Count > 0)
+            {
+                <h4>Upload your video</h4>
+                <div class="form-group form-group-upload">
+
+                    <div class="input-group input-group-video">
+
+                        @foreach (var courseTaskViewModel in Model.Models)
+                        {
+                            if (courseTaskViewModel.VideoExist)
+                            {
+                                <div class="add-video">
+                                    <div class="add-video-box justify-content-start">
+                                        <div class="add-video-text">@courseTaskViewModel.TopicName → @courseTaskViewModel.TaskName</div>
+                                        <div class="add-video-text status-bar">Status: Uploaded</div>
+                                        <div class="file-input-wrapper">
+
+                                            <button class="counter_form_button  upload upload-hided">Choose file</button>
+                                            <input type="file" accept=".mp4" class="input-upload course-upload-button" />
+                                        </div>
+
+                                        <button class="counter_form_button  upload upload-hided">upload</button>
+                                        <input type="hidden" class="task-id" value="@courseTaskViewModel.VideoTaskId" />
+                                        <div class="upload-bar-plate">
+                                            <div class="upload-bar rdy-bar"></div>
+                                        </div>
+                                        <div class="delete-var">×</div>
+                                    </div>
+
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="add-video">
+                                    <div class="add-video-box justify-content-start">
+                                        <div class="add-video-text">@courseTaskViewModel.TopicName → @courseTaskViewModel.TaskName</div>
+                                        <div class="add-video-text status-bar">Status: Waiting For Upload</div>
+                                        <div class="file-input-wrapper input-mini">
+
+                                            <button class="counter_form_button  upload">Choose file</button>
+                                            <input type="file" accept=".mp4" class="input-upload course-upload-button" />
+                                        </div>
+
+                                        <button class="counter_form_button  upload upload-hided">upload</button>
+                                        <input type="hidden" class="task-id" value="@courseTaskViewModel.VideoTaskId" />
+                                        <div class="upload-bar-plate">
+                                            <div class="upload-bar"></div>
+                                        </div>
+                                        <div class="delete-var"></div>
+                                    </div>
+
+                                </div>
+                            }
+                        }
+
+
+
+
+
+                    </div>
+                </div>
+            }
+        </div>
+
+        <form asp-action="Details" asp-controller="Course" asp-route-id="@Model.CourseId">
+            <button id="finish" class="counter_form_button">Finish</button>
+        </form>
+    </div>
+
+</div>
+
+
+
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+
+
+    $(".course-upload-button").change(function() {
+        $(this).parent().siblings(".counter_form_button").click();
+    });
+    $("#course-wallpaper").change(function() {
+        $("#upload-wallpaper").click();
+    });
+
+    $("#upload-wallpaper").click(function() {
+        var input = $("#course-wallpaper");
+        var files = input[0].files;
+        console.log(files);
+        var formData = new FormData();
+        var taskId = $(this).siblings(".task-id").val();
+        for (var i = 0; i != files.length; i++) {
+            formData.append("File", files[i]);
+        }
+        formData.append("CourseId",@Model.CourseId);
+        $.ajax({
+            url: "@Url.Action("UploadCourseImage","Uploader")",
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: "POST",
+            success: function (data) {
+                $("#view-wallpaper").attr("src",data.imageUrl);
+            }
+        });
+    });
+    $(".upload").click(function() {
+        var progressEle = $(this).siblings(".upload-bar-plate").find(".upload-bar");
+        progressEle.css("background", "#14bdee");
+        var uploadButton = $(this).siblings(".file-input-wrapper").find(".upload");
+        var status = $(this).siblings(".status-bar");
+        var chooseFileButton = $(this).siblings(".counter_form_button");
+        var input = $(this).siblings(".file-input-wrapper").find(".input-upload");
+        var files = input[0].files;
+        var formData = new FormData();
+        var taskId = $(this).siblings(".task-id").val();
+        for (var i = 0; i != files.length; i++) {
+            formData.append("files", files[i]);
+        }
+        formData.append("TaskId",taskId);
+        console.log(formData);
+        $.ajax({
+            url: "@Url.Action("Upload","Uploader")",
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: "POST",
+            xhr: function() {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress",
+                    function(evt) {
+                        if (evt.lengthComputable) {
+                            var progress = Math.round((evt.loaded / evt.total) * 100);
+                            progressEle.width(progress + "%");
+                        }
+                    },
+                    false);
+                return xhr;
+            },
+            success: function(data) {
+                progressEle.css("background", "green");
+                $(".delete-var").html("×");
+                $(this).addClass("upload-hided");
+                status.html("Status: Uploaded");
+            }
+        });
+    });
+
+
+
+
+    $(".delete-var").click(function() {
+
+        var taskId = $(this).siblings(".task-id").val();
+        var progressEle = $(this).siblings(".upload-bar-plate").find(".upload-bar");
+        var input = $(this).siblings(".file-input-wrapper").find(".input-upload");
+        var status = $(this).siblings(".status-bar");
+        var uploadButton = $(this).siblings(".file-input-wrapper").find(".upload");
+        var chooseFileButton = $(this).siblings(".counter_form_button");
+
+
+        $.ajax({
+            url: "@Url.Action("Remove","Uploader")",
+            data: {taskId: taskId},
+            type: "POST",
+            success: function(data) {
+                progressEle.css("background", "#f0f0f0");
+                $(".delete-var").html("");
+                input.val("");
+                uploadButton.removeClass("upload-hided");
+                status.html("Status: Waiting For Upload");
+            }
+        });
+    });
+    </script>
+
+}
+
+

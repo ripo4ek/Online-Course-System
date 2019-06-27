@@ -2,14 +2,74 @@
 
 
 
-    <div class="question-wrap video-wrap">
-        <h2 class="quiz-title">ARRO.ARRA WORK</h2>
-        <div class="video">
-            <iframe width="560" height="315" src="https://www.youtube.com/watch?v=2PNT1X32kBo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-            
-        <div class="nav-buttons">
-            <button class="counter_form_button question-button">Back</button>
-            <button class="counter_form_button question-button">Next</button>
-        </div>
+<div class="question-wrap video-wrap">
+    <h2 class="quiz-title">@Model.Name</h2>
+    <input name="taskId" id="taskId-video-@Model.Id" type="hidden" value="@Model.Id" />
+    <div class="video">
+        <video id='my-video' class='video-js' controls preload='auto' width='800' height='450'
+               poster='MY_VIDEO_POSTER.jpg' data-setup='{}'>
+            <source src='@Model.VideoUrl' type='video/mp4'>
+            <source src='MY_VIDEO.webm' type='video/webm'>
+            <p class='vjs-no-js'>
+                To view this video please enable JavaScript, and consider upgrading to a web browser that
+                <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+            </p>
+        </video>
     </div>
+    <div class="nav-buttons">
+        <button class="counter_form_button question-button move-back-btn">Back</button>
+        <button class="counter_form_button question-button move-next-btn">Next</button>
+    </div>
+</div>
+
+
+
+    <script>
+    var player = videojs('my-video', {
+        width: '800',
+        height: '450'
+    });
+
+    $(document).ready(function () {
+        $.ajax({
+                url: "/User/CourseStatistic/CheckCompleteVideo",
+                type: "GET",
+                data: {
+                    taskId: $("#taskId-video-@Model.Id").val(),
+                }
+            }).
+            done(function (res) {
+
+                if (res.isCompleted !== true) {
+                    player.currentTime(res.currentTime);
+                }
+            });
+    });
+
+
+
+
+    $(window).on('beforeunload', function() {
+        $.ajax({
+            url: "/User/CourseStatistic/SaveCurrentTime",
+            type: "GET",
+            data: {
+                taskId: $("#taskId-video-@Model.Id").val(),
+                time: player.currentTime()
+                }
+            });
+    });
+    player.on('ended', function() {
+        $.ajax({
+                url: "/User/CourseStatistic/Video",
+                type: "GET",
+                data: {
+                    taskId: $("#taskId-video-@Model.Id").val(),
+                }
+            });
+    });
+
+    </script>
+
+
+

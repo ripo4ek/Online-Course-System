@@ -96,6 +96,67 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("PhotoUrl");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("Surname");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
+
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.ApplicationUserRole", b =>
                 {
                     b.Property<string>("UserId");
@@ -109,25 +170,29 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
-            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Author", b =>
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Blog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description");
+                    b.Property<string>("AuthorId");
+
+                    b.Property<string>("ImageLocalUrl");
+
+                    b.Property<string>("ImageUrl");
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("Order");
+                    b.Property<DateTime>("ReleaseTime");
 
-                    b.Property<string>("PhotoUrl");
-
-                    b.Property<string>("Position");
+                    b.Property<string>("Text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors");
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Blogs");
                 });
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Category", b =>
@@ -149,33 +214,27 @@ namespace OnlineCourseSystem.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AuthorId");
+                    b.Property<string>("AuthorId");
 
-                    b.Property<string>("CurriculumDesctiption");
+                    b.Property<string>("CurriculumDescription");
 
                     b.Property<string>("Description");
 
-                    b.Property<int?>("DirectionId");
-
-                    b.Property<DateTime>("Duration");
+                    b.Property<string>("DurationInHours");
 
                     b.Property<string>("ImageUrl");
 
+                    b.Property<string>("LocalImageUrl");
+
                     b.Property<string>("Name");
 
-                    b.Property<int>("Order");
+                    b.Property<string>("RequirementKnowledge");
 
-                    b.Property<string>("Target");
-
-                    b.Property<int?>("UniversityId");
+                    b.Property<string>("TargetAuditory");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
-
-                    b.HasIndex("DirectionId");
-
-                    b.HasIndex("UniversityId");
 
                     b.ToTable("Courses");
                 });
@@ -221,21 +280,140 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.ToTable("Directions");
                 });
 
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Event", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("ImageLocalUrl");
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("OrganizerId");
+
+                    b.Property<string>("Text");
+
+                    b.Property<DateTime>("Time");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizerId");
+
+                    b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.News", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuthorId");
+
+                    b.Property<string>("ImageLocalUrl");
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTime>("ReleaseTime");
+
+                    b.Property<string>("Text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("News");
+                });
+
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.QuestionTaskStatistic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CorrectAnswer");
+
+                    b.Property<int?>("CourseStatisticId");
+
+                    b.Property<bool>("IsComplete");
+
+                    b.Property<bool>("IsCorrect");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("TaskId");
+
+                    b.Property<string>("UserAnswer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseStatisticId");
+
+                    b.ToTable("QuestionTaskStatistics");
+                });
+
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.QuizTaskStatistic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CorrectAnswer");
+
+                    b.Property<int?>("CourseStatisticId");
+
+                    b.Property<bool>("IsComplete");
+
+                    b.Property<bool>("IsCorrect");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("TaskId");
+
+                    b.Property<string>("UserVariant");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseStatisticId");
+
+                    b.ToTable("QuizTaskStatistics");
+                });
+
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.QuizVariant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("QuizTaskId");
+
+                    b.Property<string>("Text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuizTaskId");
+
+                    b.ToTable("QuizVariants");
+                });
+
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Requierment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CourseId");
-
                     b.Property<string>("Name");
 
                     b.Property<string>("Text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
 
                     b.ToTable("Requierments");
                 });
@@ -272,6 +450,8 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.Property<int>("CourseId");
 
+                    b.Property<string>("Description");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
@@ -279,6 +459,27 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("Sections");
+                });
+
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.CourseStatistic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<int>("CourseId");
+
+                    b.Property<bool>("IsCompleted");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("CourseStatistics");
                 });
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.QuestionTask", b =>
@@ -289,7 +490,7 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.Property<string>("CorrectAnswer");
 
-                    b.Property<int?>("CourseId");
+                    b.Property<string>("Description");
 
                     b.Property<string>("Name");
 
@@ -301,7 +502,7 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
+                    b.HasIndex("TopicId");
 
                     b.ToTable("QuestionTasks");
                 });
@@ -312,7 +513,9 @@ namespace OnlineCourseSystem.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CourseId");
+                    b.Property<int?>("CorrectAnswerId");
+
+                    b.Property<string>("Description");
 
                     b.Property<string>("Name");
 
@@ -324,7 +527,9 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
+                    b.HasIndex("CorrectAnswerId");
+
+                    b.HasIndex("TopicId");
 
                     b.ToTable("QuizTasks");
                 });
@@ -335,9 +540,9 @@ namespace OnlineCourseSystem.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CourseId");
-
                     b.Property<string>("Data");
+
+                    b.Property<string>("Description");
 
                     b.Property<string>("Name");
 
@@ -347,7 +552,7 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
+                    b.HasIndex("TopicId");
 
                     b.ToTable("TextTasks");
                 });
@@ -358,7 +563,9 @@ namespace OnlineCourseSystem.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CourseId");
+                    b.Property<string>("Description");
+
+                    b.Property<string>("LocalVideoUrl");
 
                     b.Property<string>("Name");
 
@@ -370,18 +577,39 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
+                    b.HasIndex("TopicId");
 
                     b.ToTable("VideoTasks");
                 });
 
-            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Theme", b =>
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.TextTaskStatistics", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CourseId");
+                    b.Property<int?>("CourseStatisticId");
+
+                    b.Property<bool>("IsComplete");
+
+                    b.Property<bool>("IsCorrect");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("TaskId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseStatisticId");
+
+                    b.ToTable("TextTaskStatistics");
+                });
+
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Topic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description");
 
@@ -391,7 +619,7 @@ namespace OnlineCourseSystem.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
+                    b.HasIndex("SectionId");
 
                     b.ToTable("Topics");
                 });
@@ -411,55 +639,31 @@ namespace OnlineCourseSystem.DAL.Migrations
                     b.ToTable("Universities");
                 });
 
-            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.User", b =>
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.VideoTaskStatistic", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AccessFailedCount");
+                    b.Property<int?>("CourseStatisticId");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
+                    b.Property<double>("CurrentTime");
 
-                    b.Property<string>("Email")
-                        .HasMaxLength(256);
+                    b.Property<bool>("InProgress");
 
-                    b.Property<bool>("EmailConfirmed");
+                    b.Property<bool>("IsComplete");
 
-                    b.Property<bool>("LockoutEnabled");
+                    b.Property<bool>("IsCorrect");
 
-                    b.Property<DateTimeOffset?>("LockoutEnd");
+                    b.Property<string>("Name");
 
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PasswordHash");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256);
+                    b.Property<int>("TaskId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                    b.HasIndex("CourseStatisticId");
 
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("VideoTaskStatistic");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -472,7 +676,7 @@ namespace OnlineCourseSystem.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.User")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -480,7 +684,7 @@ namespace OnlineCourseSystem.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.User")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -488,7 +692,7 @@ namespace OnlineCourseSystem.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.User")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -501,25 +705,24 @@ namespace OnlineCourseSystem.DAL.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("OnlineCourseSystem.Domain.Model.User", "User")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser", "ApplicationUser")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Blog", b =>
+                {
+                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser", "Author")
+                        .WithMany("Blogs")
+                        .HasForeignKey("AuthorId");
+                });
+
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Course", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.Author", "Author")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId");
-
-                    b.HasOne("OnlineCourseSystem.Domain.Model.Direction", "Direction")
-                        .WithMany()
-                        .HasForeignKey("DirectionId");
-
-                    b.HasOne("OnlineCourseSystem.Domain.Model.University", "University")
-                        .WithMany()
-                        .HasForeignKey("UniversityId");
                 });
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.CoursesToCategories", b =>
@@ -542,17 +745,45 @@ namespace OnlineCourseSystem.DAL.Migrations
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("OnlineCourseSystem.Domain.Model.User", "User")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser", "ApplicationUser")
                         .WithMany("Courses")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Requierment", b =>
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Event", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.Course")
-                        .WithMany("Requirements")
-                        .HasForeignKey("CourseId");
+                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser", "Organizer")
+                        .WithMany("Events")
+                        .HasForeignKey("OrganizerId");
+                });
+
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.News", b =>
+                {
+                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser", "Author")
+                        .WithMany("News")
+                        .HasForeignKey("AuthorId");
+                });
+
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.QuestionTaskStatistic", b =>
+                {
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Tasks.CourseStatistic")
+                        .WithMany("QuestionTaskStatistics")
+                        .HasForeignKey("CourseStatisticId");
+                });
+
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.QuizTaskStatistic", b =>
+                {
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Tasks.CourseStatistic")
+                        .WithMany("QuizTaskStatistics")
+                        .HasForeignKey("CourseStatisticId");
+                });
+
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.QuizVariant", b =>
+                {
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Tasks.QuizTask")
+                        .WithMany("VariantOfAnswers")
+                        .HasForeignKey("QuizTaskId");
                 });
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Section", b =>
@@ -563,39 +794,69 @@ namespace OnlineCourseSystem.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.CourseStatistic", b =>
+                {
+                    b.HasOne("OnlineCourseSystem.Domain.Model.ApplicationUser")
+                        .WithMany("CourseStatistics")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.QuestionTask", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.Course")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Topic")
                         .WithMany("QuestionTasks")
-                        .HasForeignKey("CourseId");
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.QuizTask", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.Course")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.QuizVariant", "CorrectAnswer")
+                        .WithMany()
+                        .HasForeignKey("CorrectAnswerId");
+
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Topic")
                         .WithMany("QuizTasks")
-                        .HasForeignKey("CourseId");
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.TextTask", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.Course")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Topic")
                         .WithMany("TextTasks")
-                        .HasForeignKey("CourseId");
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Tasks.VideoTask", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.Course")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Topic")
                         .WithMany("VideoTasks")
-                        .HasForeignKey("CourseId");
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Theme", b =>
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.TextTaskStatistics", b =>
                 {
-                    b.HasOne("OnlineCourseSystem.Domain.Model.Course")
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Tasks.CourseStatistic")
+                        .WithMany("TextTaskStatistics")
+                        .HasForeignKey("CourseStatisticId");
+                });
+
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.Topic", b =>
+                {
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Section")
                         .WithMany("Topics")
-                        .HasForeignKey("CourseId");
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("OnlineCourseSystem.Domain.Model.VideoTaskStatistic", b =>
+                {
+                    b.HasOne("OnlineCourseSystem.Domain.Model.Tasks.CourseStatistic")
+                        .WithMany("VideoTaskStatistics")
+                        .HasForeignKey("CourseStatisticId");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,14 +2,14 @@
 @model System.Collections.Generic.IEnumerable<OnlineCourseSystem.Domain.Model.Tasks.Task>
 
 
-<nav class="dropdownmenu">
-    <ul>
-        @foreach (var name in Model)
-        {
-            <li class="topic-menu"><a class="searchitem" data-id="@name.Order" href="javascript:void(0)">@name.Name</a></li>
-        }
-    </ul>
-</nav>
+<div class="tabs d-flex flex-row align-items-center justify-content-start">
+
+    @foreach (var name in Model)
+    {
+        <div class="tab tab-course"><a class="searchitem" data-id="@name.Order" href="javascript:void(0)">@name.Name</a></div>
+    }
+
+</div>
 
 @foreach (var task in Model)
 {
@@ -38,19 +38,32 @@
 <script>
 
     $( document ).ready(function() {
-    $(".task").hide();
+        $(".task").hide();
+        $('a[data-id="1"]').click();
+        $('a[data-id="1"]').parent().addClass("active");
     });
 
 
-    $(".topic-menu").on("click", function (event) {
+    $(".tab").on("click", function (event) {
         var taskId = $(this).find("a").data("id");
-
+        $('.active').removeClass("active");
+        $(this).addClass("active");
         $(".task").hide();
         $(".task[data-orderId='" + taskId + "']").show();
     });
 
+    $(".move-next-btn").on("click", function (event) {
 
+        var taskId = ($(".active").find("a").data("id")) + 1;
+        $("a[data-id='" + taskId + "']").click();
 
+    });
+    $(".move-back-btn").on("click", function (event) {
+
+        var taskId = ($(".active").find("a").data("id")) - 1;
+        $("a[data-id='" + taskId + "']").click();       
+    });
+    
 
 
 

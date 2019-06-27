@@ -1,0 +1,556 @@
+.my-info {
+    color: white;
+    padding-top: 65px;
+    padding-bottom: 75px;
+    margin-top: 109px;
+    min-height: 200px;
+    background-color: #393939;
+    background: url(/images/newsletter.jpg) center no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+    .my-info::before {
+        content: '';
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.04);
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 0
+    }
+
+.my-info-content {
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.my-info-avatar {
+    display: flex;
+    align-items: flex-start;
+    border-radius: 50%;
+    height: 190px;
+    width: 190px;
+    overflow: hidden;
+}
+
+    .my-info-avatar > img {
+        width: 100%;
+    }
+
+.my-info-name {
+    margin-bottom: 40px;
+    color: white;
+}
+
+    .my-info-name > h1 {
+        color: white;
+        word-break: break-word;
+    }
+
+.my-info-courses {
+    display: flex;
+}
+
+.my-info-course {
+    font-size: 24px;
+    margin-right: 35px;
+}
+
+.info-course-small {
+    font-size: 16px;
+}
+
+.my-courses-title {
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(159, 159, 159, .2);
+    margin-bottom: 40px;
+}
+
+.my-courses-counter {
+    margin-bottom: 20px;
+}
+
+.my-courses-done {
+    font-size: 16px;
+}
+
+.my-courses-create-buttons {
+    margin-top: 30px;
+    display: flex;
+}
+
+
+
+.my-courses-box {
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    margin-bottom: 25px;
+}
+
+.my-courses-box-top {
+    display: flex;
+    padding: 10px;
+}
+
+.my-courses-box-image {
+    display: flex;
+    flex-basis: 25%;
+    margin-right: 50px;
+    height: 135px;
+    overflow: hidden;
+    align-items: center;
+}
+
+    .my-courses-box-image > img {
+        width: 100%
+    }
+
+.my-courses-box-info {
+    padding: 10px;
+    width: 100%;
+}
+
+.my-courses-box-date {
+    width: 100%;
+    display: flex;
+    justify-content: space-between
+}
+
+    .my-courses-box-date > form {
+        text-align: center;
+    }
+
+.my-courses-box-title {
+    margin-bottom: 10px;
+    width: 62%;
+    word-break: break-all;
+}
+
+.courses-box-statistic {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+    .courses-box-statistic > h3 {
+        line-height: 1.5;
+    }
+
+.my-courses-box-button {
+    width: 100%;
+    padding: 0px 30px;
+}
+
+.home_search_button {
+    width: 120px;
+    height: 46px;
+    background: #14bdee;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+}
+
+.creator-button {
+    background-color: transparent;
+    width: 150px;
+}
+
+.creator-button-big {
+    width: 126px;
+    margin-right: 30px;
+}
+
+.creator-button-xl {
+    width: 207px;
+    margin-right: 30px;
+}
+.my-courses-box-button-materials {
+    margin-bottom: 5px;
+    padding: 0px 11px;
+    font-size: 12px;
+    height: 28px;
+    width: 100%;
+}
+
+.courses-buttons-block {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+    .courses-buttons-block > form {
+        flex-basis: 100%;
+    }
+
+.my-courses-manager {
+    margin-bottom: 60px;
+    margin-top: 60px;
+}
+
+.courses-duration {
+    padding-left: 30px;
+    flex-basis: 14%;
+}
+
+.courses-status {
+    margin-right: 40px;
+    padding-left: 20px;
+    padding-top: 19px;
+    word-break: break-word;
+    width: 52%;
+}
+
+.courses-duration:before {
+    content: '';
+    display: block;
+    background: url(/images/calendar-icon.svg) center no-repeat;
+    background-size: cover;
+    height: 20px;
+    width: 20px;
+    position: relative;
+    top: 20px;
+    left: -30px;
+}
+
+.my-courses-box-bottom {
+    background-color: #f8f8f8;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.professor-avatar {
+    margin-right: 15px;
+    display: flex;
+    align-items: flex-start;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    overflow: hidden;
+}
+
+    .professor-avatar > img {
+        width: 100%;
+    }
+.my-courses-box-second {
+    padding: 10px;
+    flex-basis: 33%
+}
+
+.my-courses-box-second-title {
+    word-break: break-word;
+    line-height: 1.5;
+    flex-basis: 100%;
+    margin-bottom: 10px;
+}
+.course_tabs_container {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.tab {
+    height: 40px;
+    background: #f2f4f5;
+    font-size: 16px;
+    color: #384158;
+    font-weight: 500;
+    line-height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-right: 10px;
+    padding-left: 21px;
+    padding-right: 20px;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+    .tab.active,
+    .tab:hover {
+        background: #14bdee;
+    }
+
+.tab_panels {
+}
+
+.tab_panel {
+    display: none !important;
+    width: 100%;
+    height: 100%;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s;
+    border: solid 1px #ebebeb;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 30px;
+    padding-bottom: 25px;
+}
+/* Fade in tabs */
+@-webkit-keyframes fadeEffect {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeEffect {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.tab_panel.active {
+    display: block !important;
+}
+
+.tab_panel_title {
+    font-family: 'Roboto Slab', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #384158;
+}
+
+.tab_panel_text {
+    margin-top: 10px;
+}
+
+    .tab_panel_text p {
+        font-size: 16px;
+        font-weight: 400;
+        color: #76777a;
+        line-height: 1.75;
+    }
+
+.tab_panel_section {
+    margin-top: 17px;
+}
+
+.tab_panel_subtitle {
+    font-size: 18px;
+    font-weight: 400;
+    color: #384158;
+}
+
+.tab_panel_bullets {
+    margin-top: 9px;
+}
+
+    .tab_panel_bullets li {
+        position: relative;
+        padding-left: 27px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.75;
+        color: #76777a;
+    }
+
+        .tab_panel_bullets li:not(:last-child) {
+            margin-bottom: 2px;
+        }
+
+        .tab_panel_bullets li::before {
+            display: block;
+            position: absolute;
+            top: 9px;
+            left: 1px;
+            width: 7px;
+            height: 7px;
+            background: #76777a;
+            content: '';
+            border-radius: 50%;
+        }
+
+.tab_panel_faq {
+    margin-top: 51px;
+}
+
+.elements_accordions {
+    margin-top: 34px;
+}
+
+.accordion_container:not(:last-child) {
+    margin-bottom: 12px;
+}
+
+.accordion {
+    width: 100%;
+    padding-left: 38px;
+    cursor: pointer;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 500;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+    .accordion div {
+        max-width: 90%;
+        overflow: hidden;
+        white-space: nowrap;
+        font-size: 18px;
+        font-weight: 400;
+        color: #384158;
+    }
+
+    .accordion::before {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: -1px;
+        left: 0;
+        height: 100%;
+        font-family: 'FontAwesome';
+        content: '\f105';
+        font-size: 30px;
+        color: #384158;
+        font-weight: 400;
+        -webkit-transition: all 200ms ease;
+        -moz-transition: all 200ms ease;
+        -ms-transition: all 200ms ease;
+        -o-transition: all 200ms ease;
+        transition: all 200ms ease;
+    }
+
+    .accordion.active::before {
+        content: '\f107';
+    }
+
+.accordion_panel {
+    padding-right: 8px;
+    padding-left: 38px;
+    padding-top: 9px;
+    max-height: 0px;
+    overflow: hidden;
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -ms-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+}
+
+.accordion.active + .accordion_panel {
+    margin-bottom: 20px;
+}
+
+.accordion_panel p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #76777a;
+    line-height: 1.75;
+}
+
+.tab_panel_2 {
+    padding-bottom: 10px;
+}
+
+.dropdowns {
+    margin-top: 17px;
+}
+
+    .dropdowns li ul {
+        max-height: 0;
+        padding-left: 30px;
+        overflow: hidden;
+        -webkit-transition: all 500ms ease;
+        -moz-transition: all 500ms ease;
+        -ms-transition: all 500ms ease;
+        -o-transition: all 500ms ease;
+        transition: all 500ms ease;
+    }
+
+    .dropdowns li {
+        position: relative;
+    }
+
+        .dropdowns li.has_children > .dropdown_item {
+            cursor: pointer;
+        }
+
+.dropdown_item {
+    padding-top: 26px;
+    padding-bottom: 25px;
+}
+
+.dropdowns li:not(:last-child) .dropdown_item {
+    border-bottom: solid 1px #e5e5e5;
+}
+
+.dropdown_item_title {
+    font-family: 'Roboto Slab', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #384158;
+    padding-left: 24px;
+}
+
+    .dropdown_item_title span {
+        font-size: 18px;
+    }
+
+    .dropdown_item_title::before {
+        position: absolute;
+        top: 1px;
+        left: 0;
+        font-family: 'FontAwesome';
+        content: '\f0f6';
+        font-size: 18px;
+        color: #384158;
+        opacity: 0.65;
+    }
+
+.has_children > .dropdown_item > .dropdown_item_title::after {
+    position: absolute;
+    top: -10px;
+    right: 0;
+    font-family: 'FontAwesome';
+    content: '\f105';
+    font-size: 30px;
+    font-weight: 400;
+    color: #384158;
+}
+
+.has_children.active > .dropdown_item > .dropdown_item_title::after {
+    content: '\f107';
+}
+
+.dropdown_item_text {
+    margin-top: 10px;
+}
+
+    .dropdown_item_text p {
+        font-size: 16px;
+        font-weight: 400;
+        color: #76777a;
+        line-height: 1.75;
+    }
+
+.tab_panel_3 {
+    padding-bottom: 42px;
+}

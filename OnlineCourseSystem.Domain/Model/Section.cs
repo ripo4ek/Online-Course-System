@@ -8,7 +8,9 @@ namespace OnlineCourseSystem.Domain.Model
     public class Section: NamedEntity
     {
         public int CourseId { get; set; }
+
+        public string Description { get; set; }
  
-        
+        public IEnumerable<Topic> Topics { get; set; }
     }
 }

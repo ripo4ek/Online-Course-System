@@ -1,0 +1,268 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
+}
+@model CourseViewModel
+
+@section Links{
+    <link href="~/plugins/colorbox/colorbox.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/styles/courses.css">
+    <link rel="stylesheet" href="~/styles/bs-pagination.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/courses_responsive.css">
+
+}
+
+
+<!-- Home -->
+<!-- Courses -->
+
+<div class="courses">
+    <div class="container">
+        <div class="row">
+
+            <!-- Courses Main Content -->
+            <div class="col-lg-8">
+                <div class="courses_search_container">
+                    <form id="courses_search_form" class="courses_search_form d-flex flex-row align-items-center justify-content-start">
+                        <input type="search" id="user-input" class="courses_search_input" placeholder="Search Courses" required="required">
+                        <select id="courses_search_select" class="courses_search_select courses_search_input">
+                            @foreach (var category in Model.Categories)
+                            {
+                                <option>@category</option>
+                            }
+                        </select>
+                        <button id="search-button" action="submit" class="courses_search_button ml-auto">search now</button>
+                    </form>
+                </div>
+                <div class="courses_container">
+                    @if (Model.CategoryName != null)
+                    {
+                        <input type="hidden" id="categoryName" value="@Model.CategoryName" />
+                    }
+                    else
+                    {
+                        <input type="hidden" id="categoryName" value="" />
+                    }
+                    @if (Model.UserInput != null)
+                    {
+                        <input type="hidden" id="userInput" value="@Model.UserInput" />
+                    }
+                    else
+                    {
+                        <input type="hidden" id="userInput" value="" />
+                    }
+                    <div id="scrolList" class="row courses_row">
+                        <!-- Тут курсы-->
+                    </div>
+                    <div class="row pagination_row">
+                        <div class="col">
+                            <div class="pagination_container d-flex flex-row align-items-center justify-content-start">
+                                <ul id="example" class="pagination"></ul>
+                                <div id="pag-info" class="courses_show_container ml-auto clearfix">
+                                    <div class="courses_show_text">Showing <span id="showing-courses" class="courses_showing">1-6</span> of <span id="courses-total-num" class="courses_total">26</span> results:</div>
+                                    <div class="courses_show_content">
+                                        <span>Show: </span>
+                                        <select id="courses_show_select" class="courses_show_select">
+                                            <option>06</option>
+                                            <option>12</option>
+                                            <option>24</option>
+                                            <option>36</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Courses Sidebar -->
+            <div class="col-lg-4">
+                <div class="sidebar">
+                    <!-- Categories -->
+                    @await Component.InvokeAsync("Categories");
+                    <!-- Latest Course -->
+                    @await Component.InvokeAsync("LastCourses");
+
+
+                    <!-- Banner -->
+                    <div class="sidebar_section">
+                        <div class="sidebar_banner d-flex flex-column align-items-center justify-content-center text-center">
+                            <div class="sidebar_banner_background" style="background-image:url(images/banner_1.jpg)"></div>
+                            <div class="sidebar_banner_overlay"></div>
+                            <div class="sidebar_banner_content">
+                                <div class="banner_title">Advertising</div>
+                                <div class="banner_button"><a>order now</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @*<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>*@
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/styles/bootstrap4/popper.js"></script>
+    <script src="/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="/plugins/easing/easing.js"></script>
+    <script src="/plugins/parallax-js-master/parallax.min.js"></script>
+    <script src="/plugins/colorbox/jquery.colorbox-min.js"></script>
+    <script src="/js/courses.js"></script>
+    
+    <script src="/js/pagination.js"></script>
+
+    <script type="text/javascript">
+        let container = $('#example');
+
+        let paginationStartup = {
+            current: 1,
+            length: 6,
+            ajax: function (options, refresh, $target) {
+
+                $.ajax({
+                    url: "/test/",
+                    type: "GET",
+                    data: {
+                        requestPage: options.current,
+                        Category: $("#categoryName").val(),
+                        UserSearchInput: $("#userInput").val(),
+                        pageLimit: $("#courses_show_select").val()
+
+                    }
+                }).done(function (res) {
+                    console.log(res.data);
+                    var html = informationHandler(res.data);
+                    console.log(html);
+
+                    $("#scrolList").html(html);
+                    $("#pag-info").show();
+                    $("#showing-courses").empty();
+                    $("#showing-courses").html(`1-${res.pageLimit}`);
+                    $("#courses-total-num").empty();
+                    $("#courses-total-num").html(res.totalRecord);
+
+                    refresh({
+                        total: res.totalRecord,
+                        length: res.pageLimit
+                    });
+                }).fail(function () {
+                    $("#pag-info").hide();
+                    $("#scrolList").html(`<div class="sidebar_section_title">No results found for your request</div>`);
+                });
+            }
+        };
+
+        let paginationConf = {
+            current: 1,
+            length: 6,
+            ajax: function (options, refresh, $target) {
+
+                $.ajax({
+                    url: "/test/",
+                    type: "GET",
+                    data: {
+                        requestPage: options.current,
+                        Category: GetCategory(),
+                        UserSearchInput: GetInput(),
+                        pageLimit: $("#courses_show_select").val()
+
+                    }
+                }).done(function (res) {
+                    console.log(res.data);
+                    var html = informationHandler(res.data);
+                    console.log(html);
+
+                    $("#scrolList").html(html);
+                    $("#pag-info").show();
+                    $("#showing-courses").empty();
+                    $("#showing-courses").html(`1-${res.pageLimit}`);
+                    $("#courses-total-num").empty();
+                    $("#courses-total-num").html(res.totalRecord);
+
+                    refresh({
+                        total: res.totalRecord,
+                        length: res.pageLimit
+                    });
+                }).fail(function () {
+                    $("#pag-info").hide();
+                    $("#scrolList").html(`<div class="sidebar_section_title">No results found for your request</div>`);
+                });
+            }
+        };
+
+        container.pagination(paginationStartup);
+
+        $('#search-button').bind('click', function () {
+            $("#scrolList").empty();
+            container.pagination(paginationConf);
+        });
+
+        $(document).ready(function () {
+
+        });
+
+        $("#courses_show_select").change(function () {
+            $("#scrolList").empty();
+            container.pagination(paginationConf);
+        });
+
+
+
+
+
+
+
+        function GetCategory() {
+            return $("#courses_search_select").val();
+        }
+        function GetInput() {
+            return $("#user-input").val();
+        }
+
+        function LengthUserSelect() {
+            return $("#courses_show_select").text();
+        }
+
+
+        function informationHandler(data) {
+            let html = '';
+            for (let obj in data) {
+                html += setterTagsForInfo(data[obj]);
+            }
+            return html;
+        }
+        function setterTagsForInfo(object) {
+            return `
+                                <div class="col-lg-6 course_col">
+                                    <div class="course">
+                                        <div class="course_image"><img src="${object.imageUrl}" alt=""></div>
+                                        <div class="course_body">
+                                            <h3 class="course_title"><a href="/User/Course/Details?id=${object.id}">${object.name}</a></h3>
+                                                <div class="course_teacher">${object.author}</div>
+                                                <div class="course_text">
+                                                    <p>${object.description}</p>
+                                                </div>
+                                            </div>
+                                            <div class="course_footer">
+                                                <div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
+                                                    <div class="course_info">
+                                                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                                        <span>${object.studentCount} Student</span>
+                                                    </div>
+                                                    <div class="course_info">
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <span>${object.userRaiting} Ratings</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`
+        }
+    </script>
+}
+
+
+

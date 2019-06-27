@@ -1,0 +1,14 @@
+﻿@model CategoriesViewModel
+
+
+<div class="sidebar_section">
+    <div class="sidebar_section_title">Check out our categories</div>
+    <div class="sidebar_categories">
+        <ul>
+            @foreach (var category in Model.Categories)
+            {
+                <li><a asp-action="Index"  asp-controller="Course" asp-route-category="@category.Category">@category.FullString</a></li>
+            }
+        </ul>
+    </div>
+</div>

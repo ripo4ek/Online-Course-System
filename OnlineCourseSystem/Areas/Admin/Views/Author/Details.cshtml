@@ -1,17 +1,72 @@
-﻿@model  OnlineCourseSystem.Domain.Model.User
+﻿@model  OnlineCourseSystem.Domain.Model.ApplicationUser
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-    <div class="container-fluid">
-        <div class="row">
-            <h2>@Model.UserName (Id:@Model.Id)</h2>
-            <p>@Model.Email</p>
-            <p>@Model.PhoneNumber</p>
+    <div class="container">
+        <div class="details">
+            <div class="details-header">
+                Author Details
+            </div>
+
+            
+
+            <div class="details-content">
+
+                
+                <div class="details-content-box">
+                    <div class="details-content-box-info">
+                        <div class="details-content-row">
+                            User Name: <span class="details-info">@Model.UserName</span>
+                        </div>
+
+                        <div class="details-content-row">
+                            User Last Name: <span class="details-info">@Model.UserName</span>
+                        </div>
+
+                        <div class="details-content-row">
+                            Id: <span class="details-info">@Model.Id</span>
+                        </div>
+
+                        <div class="details-content-row">
+                            E-mail: <span class="details-info">@Model.Email</span>
+                        </div>
+
+                        <div class="details-content-row">
+                            Phone Number: <span class="details-info">@Model.PhoneNumber</span>
+                        </div>
+                    </div>
+                    <div class="details-avatar">
+                        <img src="@Model.PhotoUrl"></img>
+                    </div>
+                </div>
+                
+
+                <table id="customers" class="table table-bordered table-hover table-custom">
+                    <thead>
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Course Subscribers</th>
+                        <th>Details</th>
+                    </tr>
+                    </thead>
+                    @foreach (var course in Model.Courses.Select(c => c.Course))
+                    {
+                        <tr>
+                            <td>@course.Name</td>
+                            <td>@course.Users.Count()</td>
+                            <td><a asp-action="Details" asp-controller="Course" asp-route-id="@course.Id">Details</a></td>
+                        </tr>
+                    }
+
+                </table>
+
+                <form asp-action="Index" asp-controller="Author">
+                    <button class="home_search_button details-button">BACK</button>
+                </form>
+            </div>
 
 
-
-            <p>Назад</p>
         </div>
     </div>
 

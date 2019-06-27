@@ -2,28 +2,39 @@
 @{
     ViewData["Title"] = "Login";
 }
+
+@section Links {
+    <link rel="stylesheet" type="text/css" href="~/styles/login-form.css">
+}
 <section id="form">
     <!--form-->
     <div class="row">
-        <div class="col-sm-4 col-sm-offset-1">
+        <div class="col-sm-3 col-sm-offset-1 login-form-center">
             <div class="login-form">
                 <!--login form-->
-                <h2>Login to your session</h2>
+                <div class="login-title">Login to your session</div>
                 <form method="post" asp-antiforgery="true" asp-action="Login">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <input type="hidden" asp-for="ReturnUrl" />
-                    <input asp-for="UserName" placeholder="@nameof(@Model.UserName)" />
+                    <label for="login_field">
+                        Username or email address
+                    </label>
+                    <input id="login_field" class="login-form-input" asp-for="UserName" placeholder="@nameof(@Model.UserName)" />
                     <span asp-validation-for="UserName" class="text-danger"></span>
+                    <label for="password">
 
-                    <input asp-for="Password" placeholder="@nameof(Model.Password)" />
+                        Password
+
+                    </label>
+                    <input id="password" class="login-form-input" asp-for="Password" placeholder="@nameof(Model.Password)" />
                     <span asp-validation-for="Password" class="text-danger"></span>
 
                     <span>
                         <input asp-for="RememberMe" class="checkbox">
                         Remember me
                     </span>
-                    <button type="submit" class="btn btn-default">Enter</button>
+                    <button type="submit" class="btn btn-default btn-custom">Sign in</button>
                 </form>
             </div><!--/login form-->
         </div>

@@ -52,14 +52,14 @@ namespace OnlineCourseSystem
                     }
 
 
-                    var userStore = new UserStore<User>(context);
-                    var userManager = new UserManager<User>(userStore, new OptionsManager<IdentityOptions>(new OptionsFactory<IdentityOptions>(new IConfigureOptions<IdentityOptions>[] { },
+                    var userStore = new UserStore<ApplicationUser>(context);
+                    var userManager = new UserManager<ApplicationUser>(userStore, new OptionsManager<IdentityOptions>(new OptionsFactory<IdentityOptions>(new IConfigureOptions<IdentityOptions>[] { },
                             new IPostConfigureOptions<IdentityOptions>[] { })),
-                        new PasswordHasher<User>(), new IUserValidator<User>[] { }, new IPasswordValidator<User>[] { },
+                        new PasswordHasher<ApplicationUser>(), new IUserValidator<ApplicationUser>[] { }, new IPasswordValidator<ApplicationUser>[] { },
                         new UpperInvariantLookupNormalizer(), new IdentityErrorDescriber(), null, null);
                     if (userStore.FindByEmailAsync("admin@mail.com", CancellationToken.None).Result == null)
                     {
-                        var user = new User() { UserName = "Admin", Email = "admin@mail.com" };
+                        var user = new ApplicationUser() { UserName = "Admin", Email = "admin@mail.com" };
                         var result = userManager.CreateAsync(user, "admin").Result;
                         if (result == IdentityResult.Success)
                         {
@@ -80,7 +80,13 @@ namespace OnlineCourseSystem
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseKestrel(options =>
+                {
+                    options.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(120);
+                    options.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(120);
+                })
                 .Build();
+
     }
 
 }

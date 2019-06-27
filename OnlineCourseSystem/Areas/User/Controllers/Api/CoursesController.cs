@@ -65,7 +65,7 @@ namespace OnlineCourseSystem.Areas.User.Controllers.Api
             }
             var courseFromDb = _data.GetFullCourse(id);
             var courseForSave = _mapper.Map(course, courseFromDb);
-            _data.UpdateCourse(id , courseForSave);
+            _data.UpdateCourse(courseForSave);
             return Ok();
 
         }
@@ -96,7 +96,21 @@ namespace OnlineCourseSystem.Areas.User.Controllers.Api
             var courses = _data.GetCourses(filter).OrderBy(t => t.Id).Skip(itemsToSkip).Take(_pageSize);
             if (!courses.Any())
                 return NotFound();
-            container.Data = courses.Select(c => _mapper.Map<Course, CourseDto>(c));
+
+            var dataRez = new List<CourseDto>();
+            var model = courses.Select(c => _mapper.Map<Course, CourseDto>(c));
+            foreach (var course in courses)
+            {
+                var dtoModel = _mapper.Map<Course, CourseDto>(course);
+                dtoModel.StudentCount = course.Users.Count();
+                dtoModel.UserRaiting = 5;
+                dtoModel.Author =
+                    string.IsNullOrEmpty(course.Author.Name) || string.IsNullOrEmpty(course.Author.Surname)
+                        ? course.Author.UserName
+                        : $"{course.Author.Name} {course.Author.Surname}";
+                dataRez.Add(dtoModel);
+            }
+            container.Data = dataRez;
             container.CurrentPage = page;
             container.TotalRecord = _data.GetCourses(filter).Count();
             container.PageLimit = _pageSize;
@@ -107,7 +121,8 @@ namespace OnlineCourseSystem.Areas.User.Controllers.Api
         [HttpDelete]
         public IActionResult DeleteCourse(int id)
         {
-            _data.DeleteCourse(id);
+            var course = _data.GetFullCourse(id);
+            _data.DeleteCourse(course);
             return Ok();
         }
     }

@@ -3,26 +3,125 @@
 
 
 <div class="question-wrap">
-    <div>
-        <h2 class="quiz-title">Are CSS property names case-sensitive?</h2>
-    </div>
-    <form class="form-quiz" name="quiz" action="" method="post">
-        <div class="quiz-option">
-            <input type="radio" name="quiz_var" value="Yes" checked="checked" /> Yes<br />
-        </div>
-        <div class="quiz-option">
-            <input type="radio" name="quiz_var" value="No" /> No<br />
-        </div>
-        <div class="quiz-option">
-            <input type="radio" name="quiz_var" value="Skip question" /> Skip question<br />
-        </div>
-        
-        
-        <button class="counter_form_button question-button">Send answer</button>
-    </form>
 
-<div class="nav-buttons">
-    <button class="counter_form_button question-button">Back</button>
-    <button class="counter_form_button question-button">Next</button>
+    <div class="text-task">
+        <h2 class="question-title quiz-title">@Model.Name</h2>
+    </div>
+
+    <div class="form-quiz" name="quiz">
+        <input id="taskId-quiz-@Model.Id" type="hidden" value="@Model.Id" />
+
+        <div class="question-paragraph">
+            <p>@Model.Question</p>
+        </div>
+        @foreach (var variant in Model.VariantOfAnswers)
+        {
+           
+            <div class="quiz-option ">
+                <input type="radio" name="variant-@Model.Id" value="@variant.Text" />@variant.Text<br />
+            </div>
+        }
+        <div class="nav-buttons">
+            <div id="result-quiz-@Model.Id"></div>
+            <button id="send-answer-quiz-@Model.Id" class="counter_form_button question-button question-button-send">Send answer</button>
+        </div>
+
+    </div>
+
+    <div class="nav-buttons">
+        <button class="counter_form_button question-button move-back-btn">Back</button>
+        <button class="counter_form_button question-button move-next-btn">Next</button>
+    </div>
 </div>
-</div>
+
+
+    <script>
+    $(document).ready(function() {
+        $.ajax({
+                url: "/User/CourseStatistic/CheckCompleteQuiz",
+                type: "GET",
+                data: {
+                    taskId: $("#taskId-quiz-@Model.Id").val(),
+                }
+            }).
+            done(function (res) {
+
+                if (res.isCompleted === true) {
+                    $("#send-answer-quiz-@Model.Id").prop("disabled", true);
+                    $("#send-answer-quiz-@Model.Id").addClass("button-disabled");
+
+                    $(".quiz-option").addClass("quiz-option-disabled");
+
+                    let options = $("input[type='radio'][name='variant-@Model.Id']");
+                    options.prop("disabled", true);
+                    options.each( function() {
+                        if ($(this).val() === res.answer) {
+                            $(this).parent().removeClass("quiz-option-disabled ");
+                            $(this).parent().addClass("quiz-option-correct");
+                        }
+
+                    });
+
+                    if (res.isCorect) {
+                        $("#result-quiz-@Model.Id").html(`<div class="courses-right"><p>Correct! Well Done</p></div>`);
+
+
+                    } else {
+                        $("#result-quiz-@Model.Id").html(`<div class="courses-wrong"><p>Unfortunately, You are wrong</p></div>`);
+                        console.log();
+                        options.each(function () {
+                            console.log($(this).val());
+                            console.log(res.userAnswer);
+                            if ($(this).val() === res.userAnswer) {
+                                $(this).parent().removeClass("quiz-option-disabled ");
+                                $(this).parent().addClass("quiz-option-wrong");
+
+                            }
+
+                        });
+
+                    }
+                }
+                console.log($("#send-answer-quiz"));
+            });
+    });
+
+
+    $("#send-answer-quiz-@Model.Id").click(function() {
+        $.ajax({
+                url: "/User/CourseStatistic/Quiz",
+                type: "GET",
+                data: {
+                    answer:$("input[type='radio'][name='variant-@Model.Id']:checked").val(),
+                    taskId: $("#taskId-quiz-@Model.Id").val(),
+                }
+            }).
+            done(function (res) {
+                $("#send-answer-@Model.Id").prop("disabled", true);
+                $("#send-answer-quiz-@Model.Id").addClass("button-disabled");
+
+                let options = $("input[type='radio'][name='variant-@Model.Id']");
+                options.prop("disabled", true);
+                options.each( function() {
+                    if ($(this).val() === res.answer) {
+                        $(this).parent().removeClass("quiz-option-disabled ");
+                        $(this).parent().addClass("quiz-option-correct");
+                    }
+
+                });
+                $("input[type='radio'][name='variant-@Model.Id']").prop("disabled", true);
+
+                if (res.rezult === true) {
+                    $("#result-quiz-@Model.Id").html(`<div class="courses-right"><p>Correct! Well Done</p></div>`);
+                } else {
+                    $("#result-quiz-@Model.Id").html(`<div class="courses-wrong"><p>Unfortunately, You are wrong</p></div>`);
+                    options.each( function() {
+                        if ($(this).val() === res.userAnswer) {
+                            $(this).parent().addClass("quiz-option-wrong");
+                        }
+
+                    });
+                }
+            });
+    });
+    </script>

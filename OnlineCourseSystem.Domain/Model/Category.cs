@@ -9,6 +9,8 @@ namespace OnlineCourseSystem.Domain.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public string NormalizeName => Name.ToLower();
         public IEnumerable<CoursesToCategories> Courses { get; set; }
 
 

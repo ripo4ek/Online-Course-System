@@ -9,11 +9,11 @@ namespace OnlineCourseSystem.Areas.User.Controllers
     public class AccountController : Controller
     {
 
-        private readonly UserManager<Domain.Model.User> _userManager;
+        private readonly UserManager<Domain.Model.ApplicationUser> _userManager;
 
-        private readonly SignInManager<Domain.Model.User> _signInManager;
+        private readonly SignInManager<Domain.Model.ApplicationUser> _signInManager;
 
-        public AccountController(UserManager<Domain.Model.User> userManager, SignInManager<Domain.Model.User> signInManager)
+        public AccountController(UserManager<Domain.Model.ApplicationUser> userManager, SignInManager<Domain.Model.ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -60,13 +60,19 @@ namespace OnlineCourseSystem.Areas.User.Controllers
         {
             return View(new RegisterUserViewModel());
         }
+        public async Task<IActionResult> Profile()
+        {
 
+            var user = await _userManager.GetUserAsync(User);
+
+            return View(user);
+        }
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterUserViewModel model)
         {
              if (!ModelState.IsValid) return View(model);
           
-            var user = new Domain.Model.User { UserName = model.UserName, Email = model.Email };   
+            var user = new Domain.Model.ApplicationUser { UserName = model.UserName, Name = model.Name, Email = model.Email };   
             var createResult = await _userManager.CreateAsync(user, model.Password);  
             if (createResult.Succeeded)
             {

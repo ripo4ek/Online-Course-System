@@ -1,6 +1,5 @@
 /**
  * jQuery Menu Editor
- * @author David Ticona Saravia https://github.com/davicotico
  * @version 1.0.0
  * */
 (function ($){
@@ -8,7 +7,6 @@
     /**
      * @desc jQuery plugin to sort html list also the tree structures
      * @version 1.4.0
-     * @author Vladimír Čamaj
      * @license MIT
      * @desc jQuery plugin
      * @param options
@@ -1003,9 +1001,15 @@
      */
     $.fn.sortableListsToJson = function (){
         var arr = [];
+
+
+
+        let itemEditing = $('.btnEdit')/*.closest('li')*/;
+
+
         $(this).children('li').each(function () {
             var li = $(this);
-            var object = li.data();
+            let object = li.data();
             arr.push(object);
             var ch = li.children('ul,ol').sortableListsToJson();
             if (ch.length > 0) {
@@ -1117,8 +1121,141 @@ function MenuEditor(idSelector, options) {
     $(document).on('click', '.btnEdit', function (e) {
         e.preventDefault();
         itemEditing = $(this).closest('li');
+        
+        var coursePointer = itemEditing.find('div').find("#pointer").attr('target');
+
+        if (coursePointer === "active-course")
+            $('#course-info-btn').click();
+
+        if (coursePointer === "active-topic")
+            $('#add-topic-btn').click();
+
+        if (coursePointer === "active-section")
+            $('#add-section-btn').click();
+
+        if (coursePointer === "active-task") {
+	        clearTasks();
+            $('#add-task-btn').click();
+            var taskpointer = itemEditing.find('div').find("#pointer").attr('task-target');
+
+            if (taskpointer === "task-question") {
+                $('#task-container').addClass('task-question');
+                $('#task-container').html(getQuestionTask);   
+            }
+                
+				
+
+            if (taskpointer === "task-quiz") {
+	            $('#task-container').addClass('task-quiz');
+                $('#task-container').html(getQuizTask);
+            }
+
+
+            if (taskpointer === "task-text") {
+	            $('#task-container').addClass('task-text');
+	            $('#task-container').html(getTextTask);
+            }
+
+
+            if (taskpointer === "task-video") {
+	            $('#task-container').addClass('task-video');
+	            $('#task-container').html(getVideoTask);
+            }
+
+
+        }
         editItem(itemEditing);
     });
+    function getQuestionTask() {
+	    return `                         <div class="form-group">
+                                            <label for="text">Name</label>
+                                            <input type="hidden" name="type" value="questionTask" class="item-menu">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Text">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Question</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter the question"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text">Correct answer</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="answer" id="text" placeholder="Text">
+                                            </div>
+                                        </div>`;
+    }
+    function getQuizTask() {
+        return `<div class="form-group">
+                                            <label for="text">Title</label>
+                                            <input type="hidden" name="type" value="quizTask" class="item-menu">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Title">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Task</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter the text of task"></textarea>
+                                        </div>
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Quiz variants</label>
+                                            <ul class="quiz_options" id="quiz-var" class="quiz-variants">
+                                            </ul>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text">Add variant</label>
+                                            <div class="quiz-add-var">
+                                                    <input type="text" class="form-control item-menu"  id="data-quiz" placeholder="Text">
+                                                <input type="hidden" id="variant-save" name="icon" class="item-menu">
+                                                <button type="button" id="addVariant" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
+                                            </div>
+                                        </div>`;
+    }
+    function getTextTask() {
+	    return ` <div class="form-group">
+                                            <label for="text">Title</label>
+                                            <input type="hidden" name="type" value="textTask" class="item-menu">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Title">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Text</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter the text"></textarea>
+                                        </div>`;
+    }
+    function getVideoTask() {
+        return `                      <div class="form-group">
+                                            <label for="text">Title</label>
+                                            <input type="hidden" name="type" value="videoTask" class="item-menu">
+                                            <div class="input-group ">
+                                                <input type="text" class="form-control item-menu" name="title" id="text" placeholder="Title">
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group menu-options-full-raw">
+                                            <label for="title">Description</label>
+                                            <textarea name="desc" class="form-control item-menu" placeholder="Enter description for video"></textarea>
+                                        </div>
+
+
+                                    </form>
+                                </div>`;
+    }
+    function clearTasks() {
+        $('#task-container').removeClass("task-question");
+        $('#task-container').removeClass("task-quiz");
+        $('#task-container').removeClass("task-video");
+        $('#task-container').removeClass("task-text");
+    }
 
     $main.on('click', '.btnUp', function (e) {
         e.preventDefault();
@@ -1163,12 +1300,44 @@ function MenuEditor(idSelector, options) {
         MenuEditor.updateButtons($main);
     });
 
+    function clearVariants(variantsArray) {
+	    let rezultArray = [];
+	    for (var element of variantsArray) {
+		    if (element === "") {
+			    continue;
+		    }
+		rezultArray.push(element);
+	    }
+	    return rezultArray;
+    }
+
     /* PRIVATE METHODS */
     function editItem($item) {
         var data = $item.data();
         $.each(data, function (p, v) {
             $form.find("[name=" + p + "]").val(v);
         });
+
+        let varData = $('.quiz-add-var').find('[name=icon]').val();
+        let quizVar = [];
+        if (varData !== undefined) {
+	        quizVar = varData.split(";");
+	        let clArr = clearVariants(quizVar);
+	        if (clArr.length !== 0)
+		        for (var variant of clArr) {
+			        if (variant.includes("answer=")) {
+                        $('#quiz-var').append(`<li class="additional-var wrong-var">${variant.replace("answer=", "")} <div class="delete-var">&times;</div></li>`);
+				        continue;
+			        }
+                    $('#quiz-var').append(`<li class="additional-var">${variant} <div class="delete-var">&times;</div></li>`);
+		        }
+        }
+            
+                
+
+
+
+
         $form.find(".item-menu").first().focus();
         if (data.hasOwnProperty('icon')) {
             iconPicker.iconpicker('setIcon', data.icon);
@@ -1232,6 +1401,7 @@ function MenuEditor(idSelector, options) {
             $li.data(itemObject);
             var $div = $('<div>').css('overflow', 'auto');
             var $i = $('<i>').addClass(v.icon);
+
             var $span = $('<span>').addClass('txt').append(v.text).css('margin-right', '5px');
             var $divbtn =  TButtonGroup();
             $div.append($i).append("&nbsp;").append($span).append($divbtn);
@@ -1304,6 +1474,7 @@ function MenuEditor(idSelector, options) {
         });
         $cEl.children().children('i').removeClass(oldIcon).addClass($cEl.data('icon'));
         $cEl.find('span.txt').first().text($cEl.data('text'));
+        $('#task-container').html(getQuestionTask); 
         resetForm();
     };
    
@@ -1313,9 +1484,43 @@ function MenuEditor(idSelector, options) {
             data[$(this).attr('name')] = $(this).val();
         });
         var btnGroup = TButtonGroup();
-        var textItem = $('<span>').addClass('txt').text(data.text);
+
+        
+
+        var textItem = $('<span>').addClass('txt').text(data.title);//
+
+        var pointer = "";
+
+        if ($('#frmEdit').hasClass("active-task")) {
+
+	        let taskPointer = '';
+	        if ($('#task-container').hasClass('task-question'))
+                taskPointer = 'task-target=task-question';
+
+            if ($('#task-container').hasClass('task-quiz'))
+                taskPointer = 'task-target=task-quiz';
+            if ($('#task-container').hasClass('task-text'))
+                taskPointer = 'task-target=task-text';
+            if ($('#task-container').hasClass('task-video'))
+                taskPointer = 'task-target=task-video';
+
+	        pointer = `<input id="pointer" type="hidden" target=active-task ${taskPointer}>`;
+
+        }
+            
+
+        if ($('#frmEdit').hasClass("active-topic"))
+            pointer = `<input id="pointer" type="hidden" target=active-topic>`;
+        if ($('#frmEdit').hasClass("active-section"))
+            pointer = `<input id="pointer" type="hidden" target=active-section>`;
+        if ($('#frmEdit').hasClass("active-course"))
+            pointer =`<input id="pointer" type="hidden" target=active-course>`;
+
+        $('#task-container').html(getQuestionTask); 
+
+
         var iconItem = $('<i>').addClass(data.icon);
-        var div = $('<div>').css({"overflow": "auto"}).append(iconItem).append("&nbsp;").append(textItem).append(btnGroup);
+        var div = $('<div>').css({"overflow": "auto"}).append(iconItem).append("&nbsp;").append(textItem).append(pointer).append(btnGroup);
         var $li = $("<li>").data(data);
         $li.addClass('list-group-item pr-0').append(div);
         $main.append($li);
@@ -1327,7 +1532,9 @@ function MenuEditor(idSelector, options) {
      * @return String JSON menu scheme
      */
     this.getString = function () {
-        var obj = $main.sortableListsToJson();
+
+
+     let obj = sortableListsToJson($("#myEditor"));
         return JSON.stringify(obj);
     };
     /**
@@ -1349,6 +1556,25 @@ function MenuEditor(idSelector, options) {
         }
     };
 };
+
+
+function sortableListsToJson(form) {
+	var arr = [];
+	form.children('li').each(function () {
+		var li = $(this);
+		let object = li.data();
+		arr.push(object);
+        var ch = sortableListsToJson(li.children('ul,ol'));
+		if (ch.length > 0) {
+			object.children = ch;
+		} else {
+			delete object.children;
+		}
+	});
+	return arr;
+};
+
+
 /* STATIC METHOD */
 /**
  * Update the buttons on the list. Only the buttons 'Up', 'Down', 'In', 'Out'

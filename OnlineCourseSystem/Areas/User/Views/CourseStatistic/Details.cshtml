@@ -1,0 +1,271 @@
+﻿ c@model OnlineCourseSystem.Domain.Model.Tasks.CourseStatistic
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
+}
+@section Links {
+    <link rel="stylesheet" href="~/styles/profile-menu.css">
+    <link rel="stylesheet" href="~/styles/course-statistic.css">
+    
+
+}
+<section class="my-info">
+    <div class="container">
+        <div class="my-info-content">
+
+            <div class="my-info-box">
+                <div class="my-info-name">
+                    <h1>
+                        @Model.Name
+                    </h1>
+                </div>
+
+                <div class="my-info-courses">
+                    <div class="my-info-course">
+                        @if (Model.TasksCount == Model.TasksCompetedCount)
+                        {
+                            <span class="info-course-small">Status: Completed</span>
+                        }
+                        else
+                        {
+                            <span class="info-course-small">Status: In Progress</span>
+                        }
+                    </div>
+                    <div class="my-info-course">
+                        <span class="info-course-small">Complete: @Model.TasksCompetedCount of @Model.TasksCount</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<section class="my-courses-manager">
+    <div class="container">
+        <div class="course_tabs_container">
+            <div class="tabs d-flex flex-row align-items-center justify-content-start">
+                @if (Model.TextTaskCount > 0)
+                {
+                    <div class="tab active">Text Tasks @Model.TextTaskCompleteCount/@Model.TextTaskCount</div>
+                }
+                @if (Model.VideoTaskTaskCount > 0)
+                {
+                    <div class="tab">Video Tasks @Model.VideoTaskCompleteTaskCount/@Model.VideoTaskTaskCount</div>
+                }
+                @if (Model.QuizTaskCount > 0)
+                {
+                    <div class="tab">Quiz Tasks @Model.QuizTaskCompleteCount/@Model.QuizTaskCount</div>
+                }
+                @if (Model.QuestionTaskCount > 0)
+                {
+                    <div class="tab">Question Tasks @Model.QuestionTaskCompleteCount/@Model.QuestionTaskCount</div>
+                }
+
+            </div>
+            <div class="tab_panels">
+                @if (Model.TextTaskCount > 0)
+                {
+                    <!-- Description -->
+                    <div class="tab_panel tab_panel_2 active">
+
+                        <section class="my-courses">
+
+                            <div class="container">
+                                @foreach (var courseModel in Model.TextTaskStatistics)
+                                {
+                                    <div class="my-courses-box">
+                                        <div class="my-courses-box-top">
+                                            <div class="my-courses-box-info">
+
+                                                <div class="my-courses-box-title courses-box-statistic"><h4>@courseModel.Name</h4></div>
+                                                <div class="my-courses-box-date">
+                                                    @if (courseModel.IsComplete)
+                                                    {
+                                                        <div class="courses-right">Status: Complete</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="courses-in-progress">Status: In Progress</div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </section>
+
+                    </div>
+                }
+
+                @if (Model.VideoTaskTaskCount > 0)
+                {
+
+                    <div class="tab_panel tab_panel_2">
+                        <section class="my-courses">
+
+                            <div class="container">
+                                @foreach (var courseModel in Model.VideoTaskStatistics)
+                                {
+                                    <div class="my-courses-box">
+                                        <div class="my-courses-box-top">
+                                            <div class="my-courses-box-info">
+
+                                                <div class="my-courses-box-title courses-box-statistic"><h4>@courseModel.Name</h4></div>
+                                                <div class="my-courses-box-date">
+                                                    @if (courseModel.IsComplete)
+                                                    {
+                                                        <div class="courses-right">Status: Complete</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="courses-in-progress">Status: In Progress</div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </section>
+                    </div>
+                }
+                <!-- Curriculum -->
+                @if (Model.QuizTaskCount > 0)
+                {
+                    <div class="tab_panel tab_panel_2">
+                        <section class="my-courses">
+
+                            <div class="container">
+                                @foreach (var courseModel in Model.QuizTaskStatistics)
+                                {
+                                    <div class="my-courses-box">
+                                        <div class="my-courses-box-top">
+                                            <div class="my-courses-box-info">
+
+                                                <div class="my-courses-box-title courses-box-statistic"><h4>@courseModel.Name</h4></div>
+                                                <div class="my-courses-box-date flex-wrap">
+                                                    @if (courseModel.IsComplete)
+                                                    {
+
+
+
+                                                        <div class="my-courses-box-title"><h5>Your variant: @courseModel.UserVariant</h5></div>
+                                                        <div class="my-courses-box-title"><h5>Answer: @courseModel.CorrectAnswer</h5></div>
+                                                        <div class="my-answer-results">
+                                                            <div class="courses-right">Status: Complete</div>
+
+
+                                                            @if (courseModel.IsCorrect)
+                                                            {
+                                                                <div class="courses-right">Result: Success</div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="courses-wrong">Result: Wrong</div>
+                                                            }
+                                                        </div>
+
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="courses-in-progress">Status: In progress</div>
+                                                        <div class="my-courses-box-date">
+                                                            <div class="courses-in-progress">Result: Not done yet</div>
+                                                        </div>
+                                                    }
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </section>
+                    </div>
+                }
+
+                @if (Model.QuestionTaskCount > 0)
+                {
+                    <div class="tab_panel tab_panel_2">
+                        <section class="my-courses">
+
+                            <div class="container">
+                                @foreach (var courseModel in Model.QuestionTaskStatistics)
+                                {
+                                    <div class="my-courses-box">
+                                        <div class="my-courses-box-top">
+                                            <div class="my-courses-box-info">
+
+                                                <div class="my-courses-box-title courses-box-statistic"><h4>@courseModel.Name</h4></div>
+                                                <div class="my-courses-box-date flex-wrap">
+                                                    @if (courseModel.IsComplete)
+                                                    {
+
+
+
+                                                        <div class="my-courses-box-title"><h5>Your variant: @courseModel.UserAnswer</h5></div>
+                                                        <div class="my-courses-box-title"><h5>Answer: @courseModel.CorrectAnswer</h5></div>
+                                                        <div class="my-answer-results">
+                                                            <div class="courses-right">Status: Complete</div>
+
+
+                                                            @if (courseModel.IsCorrect)
+                                                            {
+                                                                <div class="courses-right">Result: Success</div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="courses-wrong">Result: Wrong</div>
+                                                            }
+                                                        </div>
+
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="courses-in-progress">Status: In Progress</div>
+                                                        <div class="my-courses-box-date">
+                                                            <div class="courses-in-progress">Result: Not done yet</div>
+                                                        </div>
+                                                    }
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </section>
+                    </div>
+                }
+
+
+
+
+
+            </div>
+        </div>
+        <form asp-action="Index" asp-controller="Profile" >
+            <button class="counter_form_button">Back to profile</button>
+        </form>
+        
+    </div>
+
+</section>
+
+
+
+
+@section Scripts{
+
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/js/course.js"></script>
+
+
+}
+
+

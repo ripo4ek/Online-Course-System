@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <div class="create-wrap">
+        <div class="create-section">
+            <form asp-action="Create" asp-controller="News" enctype="multipart/form-data" method="post">
+                <h3 class="create-name-title">Create your news</h3>
+                <div class="create-box">
+                    <div class="create-name-subtitle">News title:</div>
+                    <input class="create-section-input" type="text" id="Name" name="Name" value="" />
+                </div>
+                <div class="create-box">
+                    <div class="create-name-subtitle">Upload main image:</div>
+                    <div class="upload-done">
+                        <div class="file-input-wrapper">
+                            <button class="btn-file-input counter_form_button upload-button">Choose a picture</button>
+                            <input class="create-section-input" type="file" id="Wallpaper" name="Wallpaper" value="" />
+
+                        </div>
+                        
+                    </div>
+                    <small class="warning-text">Recommended size of picture is 16:9</small>
+
+
+                </div>
+                <div class="create-text">
+                    <textarea id="Text" name="Text" class="create-text-input" placeholder="Enter your text here"></textarea>
+                </div>
+                <button class="home_search_button create-button">Create</button>
+            </form>
+        </div>
+    </div>
+
+
+
+
+</div>
+

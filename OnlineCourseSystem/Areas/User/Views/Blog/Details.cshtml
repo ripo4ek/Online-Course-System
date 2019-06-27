@@ -1,0 +1,92 @@
+﻿@model OnlineCourseSystem.Domain.Model.Blog
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
+}
+
+@section Links {
+    <link rel="stylesheet" type="text/css" href="~/styles/blog_single.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/blog_single_responsive.css">
+}
+
+
+<div class="home">
+    <div class="breadcrumbs_container">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                            <li><a asp-action="Index" asp-controller="Blog">Blog</a></li>
+                            <li>@Model.Name</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Blog -->
+
+<div class="blog">
+    <div class="container">
+        <div class="row">
+
+            <!-- Blog Content -->
+            <div class="col-lg-8">
+                <div class="blog_content">
+                    <div class="blog_title">@Model.Name</div>
+                    <div class="blog_meta">
+                        <ul>
+                            <li>News on @Model.ReleaseTime</li>
+                            @if (Model.Author.Name == null || Model.Author.Surname == null)
+                            {
+                                <li>By @Model.Author.UserName</li>
+                            }
+                            else
+                            {
+                                <li>By @Model.Author.Name @Model.Author.Surname</li>
+                            }
+                        </ul>
+                    </div>
+                    @if (Model.ImageUrl != null)
+                    {
+                        <div class="blog_image"><img src="@Model.ImageUrl" alt=""></div>
+                    }
+                    <p>@Model.Text</p>
+                </div>
+                <div class="blog_extra d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
+                </div>
+            </div>
+
+            <!-- Blog Sidebar -->
+            <div class="col-lg-4">
+                <div class="sidebar">
+
+                    <!-- Categories -->
+                    @await Component.InvokeAsync("Categories")
+
+                    <!-- Latest News -->
+                    @await Component.InvokeAsync("LastCourses")
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/styles/bootstrap4/popper.js"></script>
+    <script src="/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="/plugins/easing/easing.js"></script>
+    <script src="/plugins/parallax-js-master/parallax.min.js"></script>
+    <script src="/plugins/colorbox/jquery.colorbox-min.js"></script>
+    <script src="/js/blog_single.js"></script>
+
+
+}

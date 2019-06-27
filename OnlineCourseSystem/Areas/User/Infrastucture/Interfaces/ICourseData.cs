@@ -7,43 +7,28 @@ using OnlineCourseSystem.Domain.Model.Tasks;
 namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
 {
     public interface ICourseData
-    {
-        IEnumerable<Theme> GetTopic();
+    {   
+        int GetCoursesCountOfCategory(int categoryId);  
+        int GetCourseCount();
+        int GetCategoryCount();
 
-        IEnumerable<Section> GetSections();
-
-        IEnumerable<Domain.Model.User> GetUsers();
-        Domain.Model.User GetUser(string id);
-        IEnumerable<Task> GetTasksOfCourse(TaskFilter filter);
+        IEnumerable<CoursesToCategories> GetCoursesToCategorieses();
+        IEnumerable<Section> GetSections();    
         IEnumerable<Course> GetFullCourse();
         IEnumerable<Category> GetCategories();
-
+        Course GetCourseByName(string name);
         IEnumerable<Course> GetCourses(CourseFilter filter);
-
+        IEnumerable<Course> GetCoursesOfUser(ApplicationUser user);
+        IEnumerable<Course> GetCoursesByAuthor(ApplicationUser author);
         IEnumerable<Course> GetCoursesWithAuthor(CourseFilter filter);
-        IEnumerable<Theme> GetThemes();
-
+        IEnumerable<Topic> GetThemes();
+        void AddCategory(Category category);
+        void AddCategoryToCourse(Category category, Course course);
         Course GetFullCourse(int id);
-
         IEnumerable<Course> GetThreeRandomCourses();
-
-        //IEnumerable<Task> GetTasksOfCourse();
-
-        IEnumerable<University> GetUniversities();
-
-        IEnumerable<Direction> GetDirections();
-
-        void DeleteUser(string id);
-
-        void AddCourse(Course course);
-
-        void UpdateCourse(int id , Course course);
-
-        void DeleteCourse(int id);
-
-        IEnumerable<Domain.Model.User> GetUsersByRole(string role);
-
-        Domain.Model.User GetAuthorAsUser(string id);
-
+        void AddCourse(Course course);  
+        void UpdateCourse(Course course);
+        void DeleteCourse(Course course);
+     
     }
 }

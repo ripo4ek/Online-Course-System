@@ -1,0 +1,210 @@
+/*********************************
+9. Footer
+*********************************/
+
+.footer {
+    display: block;
+    position: relative;
+    width: 100%;
+    background: #1e2434;
+    padding-top: 94px;
+}
+
+.footer_background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.footer_content {
+    padding-bottom: 53px;
+}
+
+.footer_logo_text {
+    font-family: 'Roboto Slab', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 0.75;
+    color: #FFFFFF;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+    .footer_logo_text span {
+        color: #14bdee;
+    }
+
+.footer_title {
+    font-family: 'Roboto Slab', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 0.75;
+}
+
+.footer_logo_container {
+    margin-top: -14px;
+}
+
+.footer_about_text {
+    margin-top: 31px;
+}
+
+    .footer_about_text p {
+        color: #FFFFFF;
+    }
+
+.footer_social {
+    margin-top: 23px;
+}
+
+    .footer_social ul li {
+        display: inline-block;
+        width: 45px;
+        height: 45px;
+        background: #4b505d;
+        border-radius: 50%;
+        -webkit-transition: all 200ms ease;
+        -moz-transition: all 200ms ease;
+        -ms-transition: all 200ms ease;
+        -o-transition: all 200ms ease;
+        transition: all 200ms ease;
+    }
+
+        .footer_social ul li:not(:last-child) {
+            margin-right: 6px;
+        }
+
+        .footer_social ul li a {
+            display: block;
+            position: relative;
+            text-align: center;
+        }
+
+            .footer_social ul li a i {
+                color: #FFFFFF;
+                line-height: 45px;
+            }
+
+        .footer_social ul li:hover {
+            background: #14bdee;
+        }
+
+.footer_contact {
+    padding-left: 36px;
+}
+
+.footer_contact_info {
+    margin-top: 33px;
+}
+
+    .footer_contact_info ul li {
+        font-size: 14px;
+        font-weight: 400;
+        color: #b5b8be;
+    }
+
+        .footer_contact_info ul li:not(:last-child) {
+            margin-bottom: 15px;
+        }
+
+.footer_links {
+    padding-left: 80px;
+}
+
+.footer_links_container ul {
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+}
+
+.footer_links_container {
+    margin-top: 33px;
+}
+
+    .footer_links_container ul li a {
+        font-size: 14px;
+        color: #b5b8be;
+        -webkit-transition: all 200ms ease;
+        -moz-transition: all 200ms ease;
+        -ms-transition: all 200ms ease;
+        -o-transition: all 200ms ease;
+        transition: all 200ms ease;
+    }
+
+    .footer_links_container ul li:not(:last-child) {
+        margin-bottom: 15px;
+    }
+
+    .footer_links_container ul li a:hover {
+        color: #14bdee;
+    }
+
+.footer_mobile {
+    display: inline-block;
+    float: right;
+}
+
+.footer_mobile_content {
+    padding-top: 35px;
+}
+
+.footer_image:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.copyright {
+    height: 54px;
+    border-top: solid 1px #353a49;
+}
+
+.cr_list li {
+    display: inline-block;
+}
+
+.copyright div {
+    font-size: 14px;
+    color: #b5b8be;
+}
+
+.cr_text a {
+    color: #FFFFFF;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+    .cr_text a:hover {
+        color: #14bdee;
+    }
+
+.cr_list li:not(:last-child) {
+    margin-right: 50px;
+}
+
+.cr_list li a {
+    font-size: 14px;
+    color: #b5b8be;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+    .cr_list li a:hover {
+        color: #14bdee;
+    }
+
+
+

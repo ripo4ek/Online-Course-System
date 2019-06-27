@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/User/Views/Shared/_LayoutMain.cshtml";
+}
+@section Links {
+    <link rel="stylesheet" type="text/css" href="~/styles/create-event.css">
+}
+<div class="container">
+    <div class="create-wrap">
+        <div class="create-section">
+            <form asp-controller="Event" enctype="multipart/form-data" asp-action="Create" method="post">
+                <h3 class="create-name-title">Create your event</h3>
+                <div class="create-box">
+                    <div class="create-name-subtitle">Wallpaper</div>
+                    <div class="file-input-wrapper">
+                        <button class="btn-file-input counter_form_button upload-button">Choose a picture</button>
+                        <input class="create-section-input" type="file" id="Wallpaper" name="Wallpaper" />
+
+                    </div>
+                    <small class="warning-text">Recommended size of picture is 16:9</small>
+                </div>
+                <div class="create-box">
+                    <div class="create-name-subtitle">Event Name:</div>
+                    <input class="create-section-input" type="text" name="Name" id="Name" />
+                </div>
+                <div class="create-box">
+                    <div class="create-name-subtitle">Choose time:</div><input type="datetime-local" name="Time" id="Time">
+                </div>
+                <div class="create-box">
+                    <div class="create-name-subtitle">Event address:</div>
+                    <input class="create-section-input" type="text" name="Address" id="Address" />
+                </div>
+                <div class="create-text">
+                    <textarea class="create-text-input" name="Text" id="Text" placeholder="Enter comment here"></textarea>
+                </div>
+                <button class="home_search_button create-button">Create</button>
+            </form>
+
+
+        </div>
+    </div>
+
+
+
+
+</div>
+
+

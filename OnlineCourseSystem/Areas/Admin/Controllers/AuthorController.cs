@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
@@ -15,28 +16,32 @@ using OnlineCourseSystem.Domain.Model;
 namespace OnlineCourseSystem.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Administrator")]
     public class AuthorController : Controller
     {
-        private readonly ICourseData _courseData;
+        private readonly IUserData _userData;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AuthorController(ICourseData courseData)
+        public AuthorController(IUserData userData, UserManager<ApplicationUser> userManager)
         {
-            _courseData = courseData;
+            _userData = userData;
+            _userManager = userManager;
         }
         public IActionResult Index()
         {
 
-            var courses = _courseData.GetUsersByRole(Roles.CourseCreator);
-            return View(courses);
+            var authors = _userData.GetUsersByRole(Roles.CourseCreator);
+            return View(authors);
         }
         public IActionResult Details(string id)
         {
-            var author = _courseData.GetAuthorAsUser(id);
+            var author = _userData.GetAuthorAsUser(id);
             return View(author);
         }
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            _courseData.DeleteUser(id); ;
+            var user = _userData.GetUser(id);
+            var rez = await _userManager.DeleteAsync(user);
             return RedirectToAction("Index");
         }
     }
