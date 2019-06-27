@@ -28,8 +28,9 @@
                 <div class="details-content-row">
                     Description: <span class="details-info">@Model.Text</span>
                 </div>
-
-                <button class="home_search_button details-button">BACK</button>
+                <form asp-action="Index" asp-controller="Event">
+                    <button class="home_search_button details-button">BACK</button>
+                </form>
             </div>
 
 

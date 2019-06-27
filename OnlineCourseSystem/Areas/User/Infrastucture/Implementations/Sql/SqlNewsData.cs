@@ -61,6 +61,11 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             return _context.News.Include(n => n.Author);
         }
 
+        public int NewsCount()
+        {
+            return _context.News.Count();
+        }
+
         public void UpdateNews(News news)
         {
             _context.News.Update(news);

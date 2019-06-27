@@ -39,8 +39,9 @@
                         <img src="@Model.PhotoUrl"></img>
                     </div>
                 </div>
-
-                <button class="home_search_button details-button">BACK</button>
+                <form asp-action="Index" asp-controller="User">
+                    <button class="home_search_button details-button">BACK</button>
+                </form>
             </div>
 
 

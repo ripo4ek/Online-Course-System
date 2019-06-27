@@ -30,6 +30,11 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             _context.SaveChanges();
         }
 
+        public int EventsCount()
+        {
+           return _context.Events.Count();
+        }
+
         public Event GetEvent(int id)
         {
             return _context.Events.Include(e => e.Organizer).First(e => e.Id == id);

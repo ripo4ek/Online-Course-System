@@ -5,6 +5,7 @@ using OnlineCourseSystem.Domain;
 using OnlineCourseSystem.Domain.Model;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
 {
@@ -158,8 +159,14 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Implementations.Sql
             return _context.CoursesToCategories.Count(c => c.CategoryId == categoryId);
         }
 
-      
+        public int GetCategoryCount()
+        {
+            return _context.Categories.Count();
+        }
 
-     
+        public IEnumerable<CoursesToCategories> GetCoursesToCategorieses()
+        {
+            return _context.CoursesToCategories.Include(c=>c.Course).Include(c=>c.Category);
+        }
     }
 }

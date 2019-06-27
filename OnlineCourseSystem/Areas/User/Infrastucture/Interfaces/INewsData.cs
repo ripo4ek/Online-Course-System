@@ -18,5 +18,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
         News GetNews(int id);
         void DeleteNews(News news);
 
+        int NewsCount();
+
     }
 }

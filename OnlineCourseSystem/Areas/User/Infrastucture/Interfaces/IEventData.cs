@@ -9,6 +9,7 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
     public interface IEventData
     {
         IEnumerable<Event> GetEvents();
+        int EventsCount();
         Event AddEvent(Event eventModel);
         IEnumerable<Event> GetEventsWithOrganizer();
         Event GetEvent(int id);

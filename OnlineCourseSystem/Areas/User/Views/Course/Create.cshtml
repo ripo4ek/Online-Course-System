@@ -202,7 +202,6 @@
                             Name: t.title,
                             Description: t.desc
                         });
-                        //НЕ УБИВАЙТЕ Я JS ПЛОХО ЗНАЛ К ЭТОМУ МОМЕНТУ
                         if (t.hasOwnProperty("children") && t.children.length > 0) {
                             let tasks = t.children;
                             let orderOfTasks = 0;
@@ -252,10 +251,14 @@
 
                                     let variants = tk.icon.replace("answer=", "").split(';');
                                     let objVariants = [];
-                                    for (let o of variants)
+                                    for (let o of variants) {
+                                        if (o === "" || o === undefined || o === null)
+                                            continue;
                                         objVariants.push({
                                             Text: o,
                                         });
+                                    }
+                                        
                                     let splitedStr = tk.icon.split(";");
                                     let answer = '';
 

@@ -9,7 +9,10 @@ namespace OnlineCourseSystem.Areas.User.Infrastucture.Interfaces
     public interface ICourseData
     {   
         int GetCoursesCountOfCategory(int categoryId);  
-        int GetCourseCount();      
+        int GetCourseCount();
+        int GetCategoryCount();
+
+        IEnumerable<CoursesToCategories> GetCoursesToCategorieses();
         IEnumerable<Section> GetSections();    
         IEnumerable<Course> GetFullCourse();
         IEnumerable<Category> GetCategories();

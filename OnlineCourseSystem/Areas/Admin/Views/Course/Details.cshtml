@@ -28,7 +28,9 @@
                 <div class="details-content-row">
                     Curriculum Description: <span class="details-info">@Model.CurriculumDescription</span>
                 </div>
-                <button class="home_search_button details-button">BACK</button>
+                <form asp-action="Index" asp-controller="Course">
+                    <button class="home_search_button details-button">BACK</button>
+                </form>
             </div>
 
 

@@ -44,22 +44,26 @@
 
                 <table id="customers" class="table table-bordered table-hover table-custom">
                     <thead>
-                        <tr>
-                            <th>Course Name</th>
-                            <th>Course Subscribers</th>
-                            <th>Details</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td><a>Details</a></td>
-                        <td><a>Delete</a></td>
+                        <th>Course Name</th>
+                        <th>Course Subscribers</th>
+                        <th>Details</th>
                     </tr>
+                    </thead>
+                    @foreach (var course in Model.Courses.Select(c => c.Course))
+                    {
+                        <tr>
+                            <td>@course.Name</td>
+                            <td>@course.Users.Count()</td>
+                            <td><a asp-action="Details" asp-controller="Course" asp-route-id="@course.Id">Details</a></td>
+                        </tr>
+                    }
+
                 </table>
-                <button class="home_search_button details-button">BACK</button>
+
+                <form asp-action="Index" asp-controller="Author">
+                    <button class="home_search_button details-button">BACK</button>
+                </form>
             </div>
 
 
